@@ -1,13 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { 
-  Shield, Zap, Activity, ChevronRight, ChevronLeft, 
-  Code2, Database, Globe, Server, Cpu, Box, 
-  Sparkles, Layout, TerminalSquare, Clock, BookOpen
-} from 'lucide-react';
+import { ChevronRight, Code2, Globe, Server, Cpu, Box, Sparkles, TerminalSquare } from 'lucide-react';
 import { DOMAINS } from './data/domains';
 import { MODULES } from './data/modules';
 import { CONTENT_DB } from './data/content';
-import type { Domain, Module, NoteContent } from './data/types';
+import type { Domain, Module } from './data/types';
 import './index.css';
 import './components.css';
 

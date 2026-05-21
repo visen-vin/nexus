@@ -251,30 +251,50 @@ function App() {
         )}
 
         {view === 'topics' && activeModule && activeDomain && (
-          <div className="fade-in">
-            <h1 style={{ fontSize: '2.5rem' }}>{activeModule.label}</h1>
-            <p className="subtitle">Architectural mastery sequence.</p>
-            <div className="timeline-list" style={{ '--theme-color': activeDomain.theme.primary, '--theme-dim': activeDomain.theme.dim } as any}>
-              {moduleNotes.length > 0 ? moduleNotes.map((note, idx) => (
-                <button key={note.id} onClick={() => navigate('reader', undefined, undefined, note.id)} className="timeline-item" style={{ '--delay': `${idx * 0.1}s` } as any}>
-                  <div className="step-indicator">{String(note.order).padStart(2, '0')}</div>
-                  <div className="topic-meta">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-muted">Segment Protocol</span>
-                      <div className="w-1 h-1 rounded-full bg-zinc-700" />
-                      <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: activeDomain.theme.primary }}>Active</span>
+          <div className="page-enter" style={{ '--domain-accent': activeDomain.theme.primary } as React.CSSProperties}>
+            <p className="text-[11px] font-bold uppercase tracking-widest mb-3" style={{ color: activeDomain.theme.primary }}>
+              {activeDomain.label} › {activeModule.label}
+            </p>
+            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
+              {activeModule.label}
+            </h1>
+            <p className="text-[#888] text-base mb-10">Architectural mastery sequence — {moduleNotes.length} segment{moduleNotes.length !== 1 ? 's' : ''}.</p>
+
+            {moduleNotes.length > 0 ? (
+              <div className="relative flex flex-col">
+                {/* Vertical connector line */}
+                <div className="absolute left-[23px] top-12 bottom-12 w-px bg-white/5" />
+
+                {moduleNotes.map((note, idx) => (
+                  <button
+                    key={note.id}
+                    onClick={() => navigate('reader', undefined, undefined, note.id)}
+                    className="timeline-enter group relative flex items-start gap-4 px-2 py-4 rounded-xl hover:bg-white/[0.03] transition-colors text-left"
+                    style={{ animationDelay: `${idx * 55}ms` }}
+                  >
+                    {/* Step number */}
+                    <div
+                      className="relative z-10 flex items-center justify-center w-12 h-12 rounded-xl border text-[11px] font-black font-mono shrink-0 bg-[#111113]"
+                      style={{ color: activeDomain.theme.primary, borderColor: `${activeDomain.theme.primary}33` }}
+                    >
+                      {String(note.order).padStart(2, '0')}
                     </div>
-                    <h3>{note.title}</h3>
-                    <p>{note.description}</p>
-                  </div>
-                  <ChevronRight size={18} className="text-zinc-800" />
-                </button>
-              )) : (
-                <div className="py-20 text-center bg-white/5 rounded-3xl border border-white/5">
-                  <p className="text-muted italic">Asset sequence loading...</p>
-                </div>
-              )}
-            </div>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0 pt-1.5">
+                      <h3 className="font-semibold text-[#f1f1f1] text-base mb-1 leading-snug">{note.title}</h3>
+                      <p className="text-[#888] text-sm leading-relaxed">{note.description}</p>
+                    </div>
+
+                    <ChevronRight size={15} className="text-white/15 group-hover:text-white/40 transition-colors shrink-0 mt-2" />
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="py-20 text-center rounded-xl border border-white/5">
+                <p className="text-[#888] italic text-sm">No segments found for this module.</p>
+              </div>
+            )}
           </div>
         )}
 

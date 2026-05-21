@@ -350,7 +350,7 @@ function App() {
                   return (
                     <Callout
                       key={idx}
-                      type={section.metadata?.type as 'architecture' | 'runtime' | 'warning' || 'architecture'}
+                      type={(section.metadata?.type || 'architecture') as 'architecture' | 'runtime' | 'warning'}
                       title={section.metadata?.title || 'Note'}
                       themeColor={activeDomain.theme.primary}
                     >

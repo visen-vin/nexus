@@ -205,29 +205,47 @@ function App() {
         )}
 
         {view === 'modules' && activeDomain && (
-          <div className="fade-in">
-            <h1>{activeDomain.label} Tracks</h1>
-            <p className="subtitle">Select a module to review documentation.</p>
-            <div className="bento-grid">
-              {domainModules.map(mod => (
-                <button 
-                  key={mod.id} 
-                  onClick={() => navigate('topics', undefined, mod)} 
-                  className="domain-card"
-                  style={{ '--card-accent': activeDomain.theme.primary, '--card-accent-dim': activeDomain.theme.dim } as any}
-                >
-                  <div className="p-2.5 bg-white/10 rounded-lg w-fit">
-                    <Code2 size={18} color="white" />
-                  </div>
-                  <div className="card-content">
-                    <h3 style={{ fontSize: '1.25rem' }}>{mod.label}</h3>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-zinc-400">Protocol {mod.version}</span>
+          <div className="page-enter" style={{ '--domain-accent': activeDomain.theme.primary } as React.CSSProperties}>
+            <p className="text-[11px] font-bold uppercase tracking-widest mb-3" style={{ color: activeDomain.theme.primary }}>
+              {activeDomain.label}
+            </p>
+            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
+              Tech Tracks
+            </h1>
+            <p className="text-[#888] text-base mb-10">Select a module to begin the revision sequence.</p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {domainModules.map(mod => {
+                const noteCount = CONTENT_DB.filter(n => n.moduleId === mod.id).length;
+                return (
+                  <button
+                    key={mod.id}
+                    onClick={() => navigate('topics', undefined, mod)}
+                    className="group relative flex flex-col gap-4 p-5 rounded-xl border bg-[#111113] text-left overflow-hidden transition-all duration-150 hover:-translate-y-0.5"
+                    style={{ borderColor: 'var(--border)' }}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = `${activeDomain.theme.primary}55`)}
+                    onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
+                  >
+                    <div className="absolute inset-y-0 left-0 w-[3px] rounded-l-xl opacity-70" style={{ backgroundColor: activeDomain.theme.primary }} />
+
+                    <div className="ml-2 flex items-center justify-between">
+                      <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${activeDomain.theme.primary}18` }}>
+                        <Code2 size={16} color={activeDomain.theme.primary} />
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-[#888] bg-white/5 px-2 py-0.5 rounded">
+                        {mod.version}
+                      </span>
                     </div>
-                  </div>
-                  <CardPalette colors={activeDomain.theme.palette} />
-                </button>
-              ))}
+
+                    <div className="ml-2">
+                      <h3 className="font-bold text-base text-[#f1f1f1] mb-1">{mod.label}</h3>
+                      <p className="text-[#888] text-[13px]">{noteCount} segment{noteCount !== 1 ? 's' : ''}</p>
+                    </div>
+
+                    <ChevronRight size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 group-hover:text-white/50 transition-colors" />
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}

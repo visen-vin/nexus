@@ -263,7 +263,7 @@ function App() {
             {moduleNotes.length > 0 ? (
               <div className="relative flex flex-col">
                 {/* Vertical connector line */}
-                <div className="absolute left-[23px] top-12 bottom-12 w-px bg-white/5" />
+                <div className="absolute left-[24px] top-12 bottom-12 w-px bg-white/5" />
 
                 {moduleNotes.map((note, idx) => (
                   <button

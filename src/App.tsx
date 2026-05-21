@@ -150,27 +150,53 @@ function App() {
 
       <main className="main-view">
         {view === 'domains' && (
-          <div className="fade-in">
-            <h1>Core Domains</h1>
-            <p className="subtitle">High-fidelity engineering protocols.</p>
-            <div className="bento-grid">
+          <div className="page-enter">
+            <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-3">Core Domains</p>
+            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
+              Engineering Protocols
+            </h1>
+            <p className="text-[#888] text-base mb-10">High-fidelity revision tracks for senior engineers.</p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {DOMAINS.map(domain => {
                 const count = MODULES.filter(m => m.domainId === domain.id).length;
                 return (
-                  <button 
-                    key={domain.id} 
-                    onClick={() => navigate('modules', domain)} 
-                    className="domain-card"
-                    style={{ '--card-accent': domain.theme.primary, '--card-accent-dim': domain.theme.dim } as any}
+                  <button
+                    key={domain.id}
+                    onClick={() => navigate('modules', domain)}
+                    className="group relative flex flex-col gap-5 p-5 rounded-xl border bg-[#111113] text-left overflow-hidden transition-all duration-150 hover:-translate-y-0.5"
+                    style={{
+                      '--domain-accent': domain.theme.primary,
+                      borderColor: 'var(--border)',
+                    } as React.CSSProperties}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = `${domain.theme.primary}55`)}
+                    onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
                   >
-                    <div className="card-icon-box">
-                      {getDomainIcon(domain.id, 'white', 22)}
+                    {/* Left accent bar */}
+                    <div
+                      className="absolute inset-y-0 left-0 w-[3px] rounded-l-xl opacity-70"
+                      style={{ backgroundColor: domain.theme.primary }}
+                    />
+
+                    {/* Icon */}
+                    <div
+                      className="ml-2 w-10 h-10 rounded-lg flex items-center justify-center"
+                      style={{ backgroundColor: `${domain.theme.primary}18` }}
+                    >
+                      {getDomainIcon(domain.id, domain.theme.primary, 20)}
                     </div>
-                    <div className="card-content">
-                      <h3>{domain.label}</h3>
-                      <p>{count} specialised tracks</p>
+
+                    {/* Text */}
+                    <div className="ml-2 flex-1">
+                      <h3 className="font-bold text-lg text-[#f1f1f1] mb-1">{domain.label}</h3>
+                      <p className="text-[#888] text-sm">{count} specialised track{count !== 1 ? 's' : ''}</p>
                     </div>
-                    <CardPalette colors={domain.theme.palette} />
+
+                    {/* Arrow */}
+                    <ChevronRight
+                      size={16}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 group-hover:text-white/50 transition-colors"
+                    />
                   </button>
                 );
               })}

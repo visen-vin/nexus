@@ -90,15 +90,15 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0b]">
-      <nav className="fixed top-0 inset-x-0 z-50 h-14 bg-[#0a0a0b]/80 backdrop-blur-xl border-b border-white/[0.06]">
-        <div className="max-w-3xl mx-auto h-full flex items-center justify-between px-4">
+      <nav className="sticky top-0 z-50 h-14 bg-[#0a0a0b] backdrop-blur-xl border-b border-white/[0.06]">
+        <div className="max-w-3xl mx-auto h-full flex items-center justify-between px-6 sm:px-8">
           {/* Logo */}
           <button
             onClick={() => navigate('domains')}
             className="flex items-center gap-2 text-[#f1f1f1] font-bold text-sm tracking-tight hover:opacity-70 transition-opacity"
           >
             <TerminalSquare size={16} />
-            <span>ENG HUB</span>
+            <span>NEXUS</span>
           </button>
 
           {/* Breadcrumb */}
@@ -145,54 +145,54 @@ function App() {
         )}
       </nav>
 
-      <main className="max-w-3xl mx-auto px-4 pt-24 pb-20">
+      <main className="max-w-3xl mx-auto px-6 sm:px-8 pt-10 pb-20">
         {view === 'domains' && (
           <div className="page-enter">
             <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-3">Core Domains</p>
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
               Engineering Protocols
             </h1>
             <p className="text-[#888] text-base mb-10">High-fidelity revision tracks for senior engineers.</p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="flex flex-col gap-2">
               {DOMAINS.map(domain => {
                 const count = MODULES.filter(m => m.domainId === domain.id).length;
                 return (
                   <button
                     key={domain.id}
                     onClick={() => navigate('modules', domain)}
-                    className="group relative flex flex-col gap-5 p-5 rounded-xl border bg-[#111113] text-left overflow-hidden transition-all duration-150 hover:-translate-y-0.5"
+                    className="group relative flex items-center gap-4 px-4 py-4 rounded-xl border bg-[#111113] text-left overflow-hidden transition-all duration-150 hover:bg-[#161618] active:scale-[0.99]"
                     style={{
                       '--domain-accent': domain.theme.primary,
                       borderColor: 'var(--border)',
                     } as React.CSSProperties}
-                    onMouseEnter={e => (e.currentTarget.style.borderColor = `${domain.theme.primary}55`)}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = `${domain.theme.primary}44`)}
                     onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
                   >
                     {/* Left accent bar */}
                     <div
-                      className="absolute inset-y-0 left-0 w-[3px] rounded-l-xl opacity-70"
+                      className="absolute inset-y-0 left-0 w-[3px] rounded-l-xl"
                       style={{ backgroundColor: domain.theme.primary }}
                     />
 
                     {/* Icon */}
                     <div
-                      className="ml-2 w-10 h-10 rounded-lg flex items-center justify-center"
-                      style={{ backgroundColor: `${domain.theme.primary}18` }}
+                      className="ml-1 w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: `${domain.theme.primary}15` }}
                     >
-                      {getDomainIcon(domain.id, domain.theme.primary, 20)}
+                      {getDomainIcon(domain.id, domain.theme.primary, 18)}
                     </div>
 
                     {/* Text */}
-                    <div className="ml-2 flex-1">
-                      <h3 className="font-bold text-lg text-[#f1f1f1] mb-1">{domain.label}</h3>
-                      <p className="text-[#888] text-sm">{count} specialised track{count !== 1 ? 's' : ''}</p>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-[15px] text-[#f1f1f1] mb-0.5">{domain.label}</h3>
+                      <p className="text-[#888] text-[13px]">{count} track{count !== 1 ? 's' : ''}</p>
                     </div>
 
                     {/* Arrow */}
                     <ChevronRight
-                      size={16}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 group-hover:text-white/50 transition-colors"
+                      size={15}
+                      className="text-white/20 group-hover:text-white/50 transition-colors shrink-0"
                     />
                   </button>
                 );
@@ -206,40 +206,39 @@ function App() {
             <p className="text-[11px] font-bold uppercase tracking-widest mb-3" style={{ color: activeDomain.theme.primary }}>
               {activeDomain.label}
             </p>
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
               Tech Tracks
             </h1>
             <p className="text-[#888] text-base mb-10">Select a module to begin the revision sequence.</p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="flex flex-col gap-2">
               {domainModules.map(mod => {
                 const noteCount = CONTENT_DB.filter(n => n.moduleId === mod.id).length;
                 return (
                   <button
                     key={mod.id}
                     onClick={() => navigate('topics', undefined, mod)}
-                    className="group relative flex flex-col gap-4 p-5 rounded-xl border bg-[#111113] text-left overflow-hidden transition-all duration-150 hover:-translate-y-0.5"
+                    className="group relative flex items-center gap-4 px-4 py-4 rounded-xl border bg-[#111113] text-left overflow-hidden transition-all duration-150 hover:bg-[#161618] active:scale-[0.99]"
                     style={{ borderColor: 'var(--border)' }}
-                    onMouseEnter={e => (e.currentTarget.style.borderColor = `${activeDomain.theme.primary}55`)}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = `${activeDomain.theme.primary}44`)}
                     onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
                   >
-                    <div className="absolute inset-y-0 left-0 w-[3px] rounded-l-xl opacity-70" style={{ backgroundColor: activeDomain.theme.primary }} />
+                    <div className="absolute inset-y-0 left-0 w-[3px] rounded-l-xl" style={{ backgroundColor: activeDomain.theme.primary }} />
 
-                    <div className="ml-2 flex items-center justify-between">
-                      <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${activeDomain.theme.primary}18` }}>
-                        <Code2 size={16} color={activeDomain.theme.primary} />
-                      </div>
-                      <span className="text-[10px] font-mono font-bold text-[#888] bg-white/5 px-2 py-0.5 rounded">
-                        {mod.version}
-                      </span>
+                    <div className="ml-1 w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: `${activeDomain.theme.primary}15` }}>
+                      <Code2 size={16} color={activeDomain.theme.primary} />
                     </div>
 
-                    <div className="ml-2">
-                      <h3 className="font-bold text-base text-[#f1f1f1] mb-1">{mod.label}</h3>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-[15px] text-[#f1f1f1] mb-0.5">{mod.label}</h3>
                       <p className="text-[#888] text-[13px]">{noteCount} segment{noteCount !== 1 ? 's' : ''}</p>
                     </div>
 
-                    <ChevronRight size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 group-hover:text-white/50 transition-colors" />
+                    <span className="text-[10px] font-mono font-bold text-[#888] bg-white/5 px-2 py-1 rounded shrink-0">
+                      {mod.version}
+                    </span>
+
+                    <ChevronRight size={15} className="text-white/20 group-hover:text-white/50 transition-colors shrink-0" />
                   </button>
                 );
               })}
@@ -252,7 +251,7 @@ function App() {
             <p className="text-[11px] font-bold uppercase tracking-widest mb-3" style={{ color: activeDomain.theme.primary }}>
               {activeDomain.label} › {activeModule.label}
             </p>
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
               {activeModule.label}
             </h1>
             <p className="text-[#888] text-base mb-10">Architectural mastery sequence — {moduleNotes.length} segment{moduleNotes.length !== 1 ? 's' : ''}.</p>
@@ -318,7 +317,7 @@ function App() {
                 </span>
               </div>
 
-              <h1 className="text-4xl sm:text-[3.25rem] font-black tracking-tight text-[#f1f1f1] leading-[1.05] mb-4">
+              <h1 className="text-3xl sm:text-[3.25rem] font-black tracking-tight text-[#f1f1f1] leading-[1.05] mb-4">
                 {activeNote.title}
               </h1>
               <p className="text-[#888] text-base leading-relaxed">{activeNote.description}</p>
@@ -387,7 +386,7 @@ function App() {
 
         <footer className="mt-20 pt-8 border-t border-white/5 text-center">
           <p className="text-[11px] text-[#888] font-mono tracking-widest uppercase">
-            © 2026 Engineering Hub // Core Intel Platform
+            © 2026 Nexus // Core Intel Platform
           </p>
         </footer>
       </main>

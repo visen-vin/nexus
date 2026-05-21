@@ -11,14 +11,6 @@ import type { Domain, Module, NoteContent } from './data/types';
 import './index.css';
 import './components.css';
 
-const CardPalette = ({ colors }: { colors: string[] }) => (
-  <div className="card-palette">
-    {colors.map((c, i) => (
-      <div key={i} className="palette-dot" style={{ '--dot-color': c } as any} />
-    ))}
-  </div>
-);
-
 const Callout = ({ type, title, children, themeColor }: {
   type: 'architecture' | 'runtime' | 'warning';
   title: string;
@@ -101,7 +93,7 @@ function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className="min-h-screen bg-[#0a0a0b]">
       <nav className="fixed top-0 inset-x-0 z-50 h-14 bg-[#0a0a0b]/80 backdrop-blur-xl border-b border-white/[0.06]">
         <div className="max-w-3xl mx-auto h-full flex items-center justify-between px-4">
           {/* Logo */}
@@ -157,7 +149,7 @@ function App() {
         )}
       </nav>
 
-      <main className="main-view">
+      <main className="max-w-3xl mx-auto px-4 pt-24 pb-20">
         {view === 'domains' && (
           <div className="page-enter">
             <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-3">Core Domains</p>
@@ -397,8 +389,10 @@ function App() {
           </div>
         )}
 
-        <footer className="footer">
-          <p>© 2026 Core Intel Platform // Node-42</p>
+        <footer className="mt-20 pt-8 border-t border-white/5 text-center">
+          <p className="text-[11px] text-[#888] font-mono tracking-widest uppercase">
+            © 2026 Engineering Hub // Core Intel Platform
+          </p>
         </footer>
       </main>
     </div>

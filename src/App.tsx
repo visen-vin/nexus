@@ -19,32 +19,41 @@ const CardPalette = ({ colors }: { colors: string[] }) => (
   </div>
 );
 
-const Callout = ({ type, title, children, themeColor }: { type: 'architecture' | 'runtime' | 'warning', title: string, children: React.ReactNode, themeColor: string }) => {
-  const colors = { architecture: '#4285f4', runtime: '#f9ab00', warning: '#d96570' };
-  const calloutColor = type === 'architecture' ? themeColor : colors[type];
-  
+const Callout = ({ type, title, children, themeColor }: {
+  type: 'architecture' | 'runtime' | 'warning';
+  title: string;
+  children: React.ReactNode;
+  themeColor: string;
+}) => {
+  const colors = { architecture: themeColor, runtime: '#f9ab00', warning: '#d96570' };
+  const color = colors[type];
   return (
-    <div className="callout fade-in" style={{ '--callout-color': calloutColor } as any}>
-      <div className="callout-header">
-        <Sparkles size={16} color={calloutColor} />
-        <span style={{ color: calloutColor }}>{title}</span>
+    <div
+      className="rounded-xl border p-5 my-6"
+      style={{ borderColor: `${color}30`, backgroundColor: `${color}08` }}
+    >
+      <div className="flex items-center gap-2 mb-3">
+        <Sparkles size={13} color={color} />
+        <span className="text-[11px] font-bold uppercase tracking-widest" style={{ color }}>{title}</span>
       </div>
-      <div style={{ color: '#c4c7c5', fontSize: '1.05rem', lineHeight: '1.8' }}>{children}</div>
+      <div className="text-[#c4c7c5] text-[15px] leading-relaxed">{children}</div>
     </div>
   );
 };
 
-const CodeBlock = ({ code, language = 'javascript' }: { code: string, language?: string }) => (
-  <div className="code-wrapper fade-in">
-    <div className="code-header">
-      <div className="window-controls">
-        <div className="dot" />
-        <div className="dot" />
-        <div className="dot" />
+const CodeBlock = ({ code, language = 'javascript' }: { code: string; language?: string }) => (
+  <div className="rounded-xl border border-white/7 overflow-hidden my-6 bg-[#0d0d0f]">
+    <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5">
+      <div className="flex items-center gap-1.5">
+        <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+        <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+        <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
       </div>
-      <span>{language}</span>
+      <span className="text-[11px] font-mono font-bold text-[#888]">{language}</span>
     </div>
-    <pre><code>{code}</code></pre>
+    <pre className="p-5 overflow-x-auto text-[13px] leading-relaxed text-[#c4c7c5] font-mono">
+      <code>{code}</code>
+    </pre>
   </div>
 );
 
@@ -299,39 +308,90 @@ function App() {
         )}
 
         {view === 'reader' && activeNote && activeModule && activeDomain && (
-          <div className="reader-view fade-in" style={{ '--theme-color': activeDomain.theme.primary } as any}>
-            <header className="reader-header">
-              <div className="flex items-center justify-between mb-6">
-                <button className="index-badge" onClick={() => setView('topics')}>Index</button>
-                <div className="flex items-center gap-1.5 text-zinc-500 font-bold text-[10px] tracking-widest uppercase">
-                  <Clock size={12} /> <span>12 min read</span>
-                </div>
+          <div
+            className="page-enter max-w-[680px] mx-auto"
+            style={{ '--domain-accent': activeDomain.theme.primary } as React.CSSProperties}
+          >
+            {/* Reader header */}
+            <header className="mb-12">
+              <div className="flex items-center gap-3 mb-6">
+                <button
+                  onClick={() => setView('topics')}
+                  className="text-[11px] font-bold uppercase tracking-widest text-[#888] hover:text-[#f1f1f1] transition-colors"
+                >
+                  ← Index
+                </button>
+                <span className="text-white/10">|</span>
+                <span
+                  className="text-[11px] font-bold uppercase tracking-widest"
+                  style={{ color: activeDomain.theme.primary }}
+                >
+                  Segment {activeNoteIndex + 1} / {moduleNotes.length}
+                </span>
               </div>
-              <h1>{activeNote.title}</h1>
-              <div className="flex items-center gap-4 text-zinc-500 font-medium text-sm">
-                <div className="flex items-center gap-1.5"><Database size={14} /> <span>Module: {activeModule.label}</span></div>
-                <div className="w-1 h-1 rounded-full bg-zinc-800" />
-                <div className="flex items-center gap-1.5"><BookOpen size={14} /> <span>Segment {activeNoteIndex + 1} of {moduleNotes.length}</span></div>
-              </div>
+
+              <h1 className="text-4xl sm:text-[3.25rem] font-black tracking-tight text-[#f1f1f1] leading-[1.05] mb-4">
+                {activeNote.title}
+              </h1>
+              <p className="text-[#888] text-base leading-relaxed">{activeNote.description}</p>
             </header>
 
-            <article>
+            {/* Article body */}
+            <article className="space-y-6">
               {activeNote.sections.map((section, idx) => {
-                if (section.type === 'text') return <p key={idx} className="text-body">{section.content}</p>;
-                if (section.type === 'callout') return <Callout key={idx} type={section.metadata?.type as any || 'architecture'} title={section.metadata?.title || 'Note'} themeColor={activeDomain.theme.primary}>{section.content}</Callout>;
-                if (section.type === 'code') return <CodeBlock key={idx} code={section.content} language={section.metadata?.language} />;
+                if (section.type === 'text') {
+                  return (
+                    <p key={idx} className="text-[#c4c7c5] text-[15px] leading-[1.85] tracking-[-0.01em]">
+                      {section.content}
+                    </p>
+                  );
+                }
+                if (section.type === 'callout') {
+                  return (
+                    <Callout
+                      key={idx}
+                      type={section.metadata?.type as 'architecture' | 'runtime' | 'warning' || 'architecture'}
+                      title={section.metadata?.title || 'Note'}
+                      themeColor={activeDomain.theme.primary}
+                    >
+                      {section.content}
+                    </Callout>
+                  );
+                }
+                if (section.type === 'code') {
+                  return <CodeBlock key={idx} code={section.content} language={section.metadata?.language} />;
+                }
                 return null;
               })}
             </article>
 
-            <div className="seq-nav">
-              <button disabled={activeNoteIndex === 0} onClick={() => navigate('reader', undefined, undefined, moduleNotes[activeNoteIndex - 1].id)} className="nav-card">
-                <div className="text-[10px] font-black text-muted uppercase tracking-widest mb-2">Previous Protocol</div>
-                <div className="font-bold text-lg truncate">{activeNoteIndex > 0 ? moduleNotes[activeNoteIndex - 1].title : 'Origin'}</div>
+            {/* Sequential navigation */}
+            <div className="grid grid-cols-2 gap-3 mt-16 pt-8 border-t border-white/5">
+              <button
+                disabled={activeNoteIndex === 0}
+                onClick={() => navigate('reader', undefined, undefined, moduleNotes[activeNoteIndex - 1].id)}
+                className="flex flex-col gap-1 p-4 rounded-xl border border-white/7 bg-[#111113] text-left transition-all duration-150 hover:-translate-y-0.5 hover:border-white/15 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:border-white/7"
+              >
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#888]">← Previous</span>
+                <span className="font-semibold text-[#f1f1f1] text-sm truncate">
+                  {activeNoteIndex > 0 ? moduleNotes[activeNoteIndex - 1].title : '—'}
+                </span>
               </button>
-              <button disabled={activeNoteIndex === moduleNotes.length - 1} onClick={() => navigate('reader', undefined, undefined, moduleNotes[activeNoteIndex + 1].id)} className="nav-card next" style={{ borderColor: activeDomain.theme.primary + '33' }}>
-                <div className="text-[10px] font-black text-muted uppercase tracking-widest mb-2" style={{ color: activeDomain.theme.primary }}>Next Protocol</div>
-                <div className="font-bold text-lg truncate" style={{ color: '#fff' }}>{activeNoteIndex < moduleNotes.length - 1 ? moduleNotes[activeNoteIndex + 1].title : 'Terminal'}</div>
+
+              <button
+                disabled={activeNoteIndex === moduleNotes.length - 1}
+                onClick={() => navigate('reader', undefined, undefined, moduleNotes[activeNoteIndex + 1].id)}
+                className="flex flex-col gap-1 p-4 rounded-xl border bg-[#111113] text-left transition-all duration-150 hover:-translate-y-0.5 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                style={{
+                  borderColor: activeNoteIndex < moduleNotes.length - 1 ? `${activeDomain.theme.primary}44` : 'var(--border)'
+                }}
+                onMouseEnter={e => { if (activeNoteIndex < moduleNotes.length - 1) e.currentTarget.style.borderColor = `${activeDomain.theme.primary}88`; }}
+                onMouseLeave={e => { if (activeNoteIndex < moduleNotes.length - 1) e.currentTarget.style.borderColor = `${activeDomain.theme.primary}44`; }}
+              >
+                <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: activeDomain.theme.primary }}>Next →</span>
+                <span className="font-semibold text-[#f1f1f1] text-sm truncate">
+                  {activeNoteIndex < moduleNotes.length - 1 ? moduleNotes[activeNoteIndex + 1].title : '—'}
+                </span>
               </button>
             </div>
           </div>

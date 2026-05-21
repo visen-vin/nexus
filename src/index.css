@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --base: #0a0a0b;
+  --surface: #111113;
+  --border: rgba(255, 255, 255, 0.07);
+  --text-1: #f1f1f1;
+  --text-2: #888;
+  --domain-accent: #4285f4;
+  --font: -apple-system, 'Inter', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--base);
+  color: var(--text-1);
+  font-family: var(--font);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter {
+  animation: pageEnter 280ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes timelineItem {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.timeline-enter {
+  animation: timelineItem 240ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}

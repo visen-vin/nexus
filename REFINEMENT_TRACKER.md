@@ -12,18 +12,18 @@ A topic is considered **REFINED** when it has:
 
 ## Cluster 1: Core Foundations
 - [x] **js-1: How JS Works & GEC** (✅ REFINED - Visualizer Integrated)
-- [ ] **js-2: Hoisting**
+- [x] **js-2: Hoisting** (✅ REFINED - Diagram Integrated)
 - [x] **js-3: The Call Stack** (✅ REFINED - Simulator Integrated)
-- [ ] **js-7: Lexical Scope & Scope Chain**
-- [ ] **js-8: let, const & TDZ**
+- [x] **js-7: Lexical Scope & Scope Chain** (✅ REFINED - Diagram Integrated)
+- [x] **js-8: let, const & TDZ** (✅ REFINED - Diagram Integrated)
 
 ---
 
 ## ACTIVE ISSUES / BACKLOG
-- [ ] **Visualizer Polish:** Add "Stack Trace" generator to `CallStackVisualizer`.
-- [ ] **Visualizer Polish:** Implement "Recursion Speed" slider in `CallStackVisualizer`.
-- [ ] **Content Deep-Dive:** Refine `js-2: Hoisting` with advanced code scenarios.
-- [ ] **SVG Assets:** Create high-fi vertical SVGs for Cluster 1 placeholders.
+- [x] **Visualizer Polish:** Add "Stack Trace" generator to `CallStackVisualizer`.
+- [x] **Visualizer Polish:** Implement "Recursion Speed" slider in `CallStackVisualizer`.
+- [x] **Content Deep-Dive:** Refine `js-2: Hoisting` with advanced code scenarios.
+- [x] **SVG Assets:** Create high-fi vertical SVGs for Cluster 1 placeholders.
 
 ## Cluster 2: Function Mastery & Objects
 - [ ] **js-4: Closures**

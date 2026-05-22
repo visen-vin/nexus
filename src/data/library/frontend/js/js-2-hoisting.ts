@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import hoistingSvg from '../../../../assets/diagrams/frontend/js/hoisting.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-2',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     { 
       type: 'text', 
       content: 'Hoisting is often incorrectly defined as "moving declarations to the top of the code." Physically, your code stays exactly where it is. Technically, **Hoisting** is the process where the JS Engine allocates memory for variables and functions during the **Memory Creation Phase**, before any code execution begins.' 
+    },
+    {
+      type: 'diagram',
+      content: hoistingSvg
     },
     { 
       type: 'callout', 
@@ -30,6 +35,15 @@ export const content: NoteContent = {
       type: 'code', 
       content: 'console.log(typeof myName); // Output: "function" (Hoisted First)\n\nvar myName = "Vin";\nfunction myName() {\n  console.log("I am a function");\n}\n\nconsole.log(typeof myName); // Output: "string" (Overwritten in Execution Phase)', 
       metadata: { language: 'javascript' } 
+    },
+    {
+      type: 'heading',
+      content: 'Execution vs Creation Phase',
+      metadata: { level: 2 }
+    },
+    {
+      type: 'text',
+      content: 'In the **Creation Phase**, the engine looks for `var` and `function` keywords. In the **Execution Phase**, it starts executing code line by line. This distinction is critical for understanding why functions can be called before they are declared, but variables return `undefined`.'
     },
     {
       type: 'heading',

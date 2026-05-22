@@ -1,0 +1,15 @@
+<svg width="100%" height="100%" viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tdzGrad3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#d96570" stop-opacity="0.2"/><stop offset="100%" stop-color="#d96570" stop-opacity="0.05"/></linearGradient>
+  </defs>
+  <rect width="400" height="480" rx="24" fill="#0d0d0f"/>
+  <g transform="translate(30, 60)">
+    <rect width="340" height="180" rx="16" fill="#1A1A1D" stroke="var(--domain-accent)" stroke-opacity="0.3"/>
+    <rect x="20" y="20" width="300" height="60" rx="8" fill="url(#tdzGrad3)" stroke="#d96570" stroke-opacity="0.3"/>
+    <text x="170" y="55" text-anchor="middle" fill="#d96570" font-family="system-ui" font-size="11" font-weight="900">TEMPORAL DEAD ZONE</text>
+  </g>
+  <g transform="translate(30, 280)">
+    <rect width="340" height="140" rx="16" fill="#1A1A1D" stroke="#555" stroke-opacity="0.3"/>
+    <text x="170" y="80" text-anchor="middle" fill="#888" font-family="monospace" font-size="12">Global Scope (window)</text>
+  </g>
+</svg>

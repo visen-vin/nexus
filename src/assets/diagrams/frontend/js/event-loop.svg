@@ -1,0 +1,12 @@
+<svg width="100%" height="100%" viewBox="0 0 400 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow-loop3"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+  </defs>
+  <rect width="400" height="560" rx="24" fill="#0d0d0f"/>
+  <g transform="translate(200, 260)">
+    <circle r="45" stroke="var(--domain-accent)" stroke-width="3" stroke-dasharray="30 150" filter="url(#glow-loop3)">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="3s" repeatCount="indefinite" />
+    </circle>
+    <text text-anchor="middle" y="5" fill="var(--domain-accent)" font-family="system-ui" font-size="10" font-weight="900">EVENT LOOP</text>
+  </g>
+</svg>

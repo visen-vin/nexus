@@ -19,9 +19,10 @@ export interface Module {
 }
 
 export interface Section {
-  type: 'text' | 'callout' | 'code';
+  type: 'text' | 'callout' | 'code' | 'diagram' | 'faq' | 'heading' | 'interactive';
   content: string;
   metadata?: {
+    level?: number;
     type?: 'architecture' | 'runtime' | 'warning';
     title?: string;
     language?: string;
@@ -34,5 +35,6 @@ export interface NoteContent {
   title: string;
   description: string;
   order: number;
+  group?: string; // Optional group for clubbing topics
   sections: Section[];
 }

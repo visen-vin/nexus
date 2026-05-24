@@ -1,0 +1,60 @@
+<svg width="100%" height="100%" viewBox="0 0 400 650" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="memGradGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--domain-accent)" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="var(--domain-accent)" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="codeGradGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f9ab00" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#f9ab00" stop-opacity="0.05" />
+    </linearGradient>
+    <filter id="glowGold"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+  </defs>
+
+  <rect width="400" height="650" rx="32" fill="#0d0d0f"/>
+  <text x="200" y="40" text-anchor="middle" fill="#f1f1f1" font-family="system-ui" font-size="16" font-weight="900" style="letter-spacing:0.15em">GLOBAL EXECUTION CONTEXT</text>
+
+  <!-- Phase 1: Memory (The Blueprint) -->
+  <g transform="translate(30, 80)">
+    <rect width="340" height="240" rx="20" fill="url(#memGradGold)" stroke="var(--domain-accent)" stroke-opacity="0.3" stroke-width="2"/>
+    <rect x="20" y="20" width="12" height="12" rx="3" fill="var(--domain-accent)" filter="url(#glowGold)"/>
+    <text x="40" y="31" fill="#f1f1f1" font-family="system-ui" font-size="12" font-weight="800">PHASE 1: MEMORY CREATION</text>
+    <text x="40" y="48" fill="#555" font-family="system-ui" font-size="10">Scanning & Allocation (Variable Environment)</text>
+    
+    <g transform="translate(30, 80)">
+      <text y="10" fill="#888" font-family="monospace" font-size="13">window <tspan fill="#444">:</tspan> <tspan fill="var(--domain-accent)">{ Global Object }</tspan></text>
+      <text y="40" fill="#888" font-family="monospace" font-size="13">this <tspan fill="#444">:</tspan> <tspan fill="var(--domain-accent)">window</tspan></text>
+      <text y="70" fill="#888" font-family="monospace" font-size="13">x <tspan fill="#444">:</tspan> <tspan fill="#f9ab00">undefined</tspan></text>
+      <text y="100" fill="#888" font-family="monospace" font-size="13">calculate <tspan fill="#444">:</tspan> <tspan fill="#f9ab00">{ f code }</tspan></text>
+      
+      <!-- Pulsing Allocation Indicator -->
+      <circle cx="-10" cy="95" r="4" fill="#f9ab00">
+        <animate attributeName="r" values="3;5;3" dur="1.5s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.2;1;0.2" dur="1.5s" repeatCount="indefinite" />
+      </circle>
+    </g>
+  </g>
+
+  <!-- Flow Arrow -->
+  <path d="M200 320 L200 360" stroke="#333" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+
+  <!-- Phase 2: Execution (The Thread) -->
+  <g transform="translate(30, 370)">
+    <rect width="340" height="220" rx="20" fill="url(#codeGradGold)" stroke="#f9ab00" stroke-opacity="0.3" stroke-width="2"/>
+    <rect x="20" y="20" width="12" height="12" rx="3" fill="#f9ab00" filter="url(#glowGold)"/>
+    <text x="40" y="31" fill="#f1f1f1" font-family="system-ui" font-size="12" font-weight="800">PHASE 2: CODE EXECUTION</text>
+    <text x="40" y="48" fill="#555" font-family="system-ui" font-size="10">Line-by-line Processing (Thread of Execution)</text>
+    
+    <g transform="translate(30, 85)">
+      <style>
+        @keyframes activeLine { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+        .active-line { animation: activeLine 2s infinite; }
+      </style>
+      <text y="0" fill="#f1f1f1" font-family="monospace" font-size="13" class="active-line"><tspan fill="#f9ab00">> </tspan>var x = 10;</text>
+      <text y="30" fill="#888" font-family="monospace" font-size="13">  calculate(x);</text>
+      <text y="60" fill="#888" font-family="monospace" font-size="13">  console.log(x);</text>
+    </g>
+  </g>
+
+  <text x="200" y="625" text-anchor="middle" fill="#444" font-family="system-ui" font-size="10" font-weight="bold" style="text-transform:uppercase">Synchronous Single-Threaded Architecture</text>
+</svg>

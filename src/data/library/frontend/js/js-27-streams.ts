@@ -1,5 +1,6 @@
 // --- FILE: js-27-streams.ts ---
 import type { NoteContent } from '../../../types';
+import streamsSvg from '../../../../assets/diagrams/frontend/js/streams.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-27',
@@ -12,6 +13,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'Handling large resources—like multi-gigabyte video files or real-time sensor data—requires a paradigm shift from "buffering" (loading everything into memory) to "streaming." The **Streams API** allows JavaScript to process data piece-by-piece, enabling low memory usage and high-performance I/O pipelines.'
+    },
+    {
+      type: 'diagram',
+      content: streamsSvg
     },
     {
       type: 'callout',

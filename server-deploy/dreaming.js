@@ -10,43 +10,60 @@ const model = new ChatOpenAI({
 });
 
 async function generateLearningInsights(userId) {
-  // 1. Fetch recent messages (last 50)
-  // We use the messages table. If it's empty, we might need to extract from checkpoints,
-  // but for now, we'll assume the messages table is the primary source of truth.
-  const messages = db.prepare(
-    'SELECT role, content FROM messages WHERE user_id = ? ORDER BY created_at DESC LIMIT 50'
-  ).all(userId).reverse();
+  const user = db.prepare('SELECT last_dreamed_at, insights FROM users WHERE id = ?').get(userId);
+  
+  // 1. Fetch new messages since last dream
+  let query = 'SELECT role, content, created_at FROM messages WHERE user_id = ?';
+  let params = [userId];
+  
+  if (user.last_dreamed_at) {
+    query += ' AND created_at > ?';
+    params.push(user.last_dreamed_at);
+  }
+  
+  query += ' ORDER BY created_at ASC LIMIT 100'; // Incremental processing
+  const newMessages = db.prepare(query).all(...params);
 
-  if (messages.length === 0) {
-    return "No recent conversations found to analyze.";
+  if (newMessages.length === 0) {
+    return user.insights || "No new conversations to dream about yet.";
   }
 
-  const conversationText = messages
+  const conversationText = newMessages
     .map(m => `${m.role.toUpperCase()}: ${m.content}`)
     .join('\n\n');
 
-  const systemPrompt = `You are Guru Ji's "Dreaming Engine". Your job is to analyze a student's recent chat history and extract deep learning insights.
+  const systemPrompt = `You are Guru Ji's "Dreaming Engine". Your job is to analyze a student's RECENT chat history and update their learning insights.
   
-Identify:
-1. **Conceptual Gaps**: What specific things did they not understand?
-2. **Strengths**: What are they good at?
-3. **Revision Needed**: Which topics should they revisit immediately?
-4. **Learning Style**: Do they prefer analogies? Code examples? Short or long explanations?
+Existing Insights for context:
+"""
+${user.insights || 'None'}
+"""
 
-Output a concise summary in standard Markdown with headers. Be honest and constructive.
-IMPORTANT: Do NOT make things up. Only base your analysis on the provided text.`;
+New Data to process:
+"""
+${conversationText}
+"""
+
+Identify and UPDATE:
+1. **Conceptual Gaps**: What new misunderstandings emerged?
+2. **Progress**: What did they master since the last analysis?
+3. **Revision Strategy**: Refine which topics they should revisit.
+
+Output a comprehensive, updated summary in standard Markdown with headers.
+IMPORTANT: Integrate the new findings into the existing context. Do NOT lose old important insights.`;
 
   const response = await model.invoke([
     new SystemMessage(systemPrompt),
-    new HumanMessage(`Analyze this conversation for student ${userId}:\n\n${conversationText}`)
+    new HumanMessage(`Dream about these new messages for student ${userId}.`)
   ]);
 
-  const insights = response.content;
+  const updatedInsights = response.content;
+  const now = new Date().toISOString().replace('T', ' ').split('.')[0]; // SQLite format
 
   // Save to DB
-  db.prepare('UPDATE users SET insights = ? WHERE id = ?').run(insights, userId);
+  db.prepare('UPDATE users SET insights = ?, last_dreamed_at = ? WHERE id = ?').run(updatedInsights, now, userId);
 
-  return insights;
+  return updatedInsights;
 }
 
 module.exports = { generateLearningInsights };

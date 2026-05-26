@@ -4,9 +4,30 @@ const { randomUUID } = require('crypto');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const db = require('./db');
+const cron = require('node-cron');
 const { getDetailedReport } = require('./reporting');
 const { generateLearningInsights } = require('./dreaming');
 const { app: agent } = require('./agent');
+
+// ── CRON JOBS ────────────────────────────────────────────────────────
+// Automated Dreaming: Processes new messages for all users every 4 hours
+cron.schedule('0 */4 * * *', async () => {
+  console.log('[Cron] Starting automated dreaming session...');
+  try {
+    const users = db.prepare('SELECT id FROM users').all();
+    for (const user of users) {
+      try {
+        await generateLearningInsights(user.id);
+        console.log(`[Cron] Dream completed for user: ${user.id}`);
+      } catch (e) {
+        console.error(`[Cron] Dream failed for user: ${user.id}:`, e.message);
+      }
+    }
+    console.log('[Cron] Dreaming session finished.');
+  } catch (e) {
+    console.error('[Cron] Critical error in dreaming scheduler:', e.message);
+  }
+});
 const { HumanMessage, AIMessage, SystemMessage } = require('@langchain/core/messages');
 
 const app = express();

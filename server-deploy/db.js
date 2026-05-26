@@ -18,6 +18,7 @@ db.exec(`
     monthly_goal TEXT DEFAULT '',
     learning_style TEXT DEFAULT '',
     insights TEXT,
+    last_dreamed_at TEXT,
     created_at TEXT DEFAULT (datetime('now'))
   );
 

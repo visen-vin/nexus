@@ -1,0 +1,252 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="rootGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+    <linearGradient id="reachableGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    <linearGradient id="unreachableGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DC2626" />
+      <stop offset="100%" stop-color="#EF4444" />
+    </linearGradient>
+
+    <!-- Glowing effects -->
+    <filter id="glowRoot" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowReachable" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowUnreachable" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowRoot" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#6366F1" />
+    </marker>
+    <marker id="arrowReachable" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowUnreachable" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#EF4444" />
+    </marker>
+    <marker id="arrowMuted" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .section-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 11px; fill: #94A3B8; letter-spacing: 1.5px; }
+    
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #FFFFFF; }
+    .node-meta { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #94A3B8; font-weight: 600; }
+    .node-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #E2E8F0; opacity: 0.85; }
+    
+    .label-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 9px; font-weight: 600; }
+    .label-bg { rx: 3px; }
+    
+    .badge-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 9px; fill: #FFFFFF; letter-spacing: 0.5px; }
+    .legend-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; fill: #94A3B8; }
+  </style>
+
+  <!-- Outer container with rounded corners -->
+  <rect width="900" height="500" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.03">
+    <line x1="50" y1="0" x2="50" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="250" y1="0" x2="250" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="350" y1="0" x2="350" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="550" y1="0" x2="550" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="650" y1="0" x2="650" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="750" y1="0" x2="750" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="850" y1="0" x2="850" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="900" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="200" x2="900" y2="200" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="300" x2="900" y2="300" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="400" x2="900" y2="400" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title Section -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">GARBAGE COLLECTION &amp; MEMORY GRAPH</text>
+    <text class="subtitle" x="0" y="18">REACHABILITY FLOW &amp; THE GENERATIONAL MARK-AND-SWEEP MODEL</text>
+  </g>
+
+  <!-- STACK AREA BOUNDS -->
+  <g transform="translate(40, 95)">
+    <rect width="230" height="345" rx="12" fill="#0A0E17" stroke="#1E293B" stroke-dasharray="3,3" stroke-width="1.5" />
+    <text class="section-title" x="15" y="25">GC ROOTS (STACK &amp; GLOBAL)</text>
+    <text class="legend-text" x="15" y="42" font-size="10">Inherently reachable start points</text>
+  </g>
+
+  <!-- Root 1: Global Object -->
+  <g transform="translate(55, 160)" filter="url(#glowRoot)">
+    <rect width="200" height="80" rx="10" fill="#0B132B" stroke="#3B82F6" stroke-width="2" />
+    <rect width="200" height="6" rx="0" fill="url(#rootGrad)" clip-path="inset(0 0 74 0)" />
+    <!-- Root Badge -->
+    <rect x="145" y="15" width="40" height="16" rx="4" fill="#3B82F6" />
+    <text class="badge-text" x="151" y="26">ROOT</text>
+    
+    <text class="node-title" x="15" y="32">Global Context</text>
+    <text class="node-meta" x="15" y="50">[[Scope]] -> global</text>
+    <text class="node-text" x="15" y="65">window.activeSession</text>
+  </g>
+
+  <!-- Root 2: Execution Stack Frame -->
+  <g transform="translate(55, 280)" filter="url(#glowRoot)">
+    <rect width="200" height="80" rx="10" fill="#0B132B" stroke="#3B82F6" stroke-width="2" />
+    <rect width="200" height="6" rx="0" fill="url(#rootGrad)" clip-path="inset(0 0 74 0)" />
+    <!-- Root Badge -->
+    <rect x="145" y="15" width="40" height="16" rx="4" fill="#3B82F6" />
+    <text class="badge-text" x="151" y="26">ROOT</text>
+    
+    <text class="node-title" x="15" y="32">Call Stack Frame</text>
+    <text class="node-meta" x="15" y="50">Context: runSync()</text>
+    <text class="node-text" x="15" y="65">Local variable: user</text>
+  </g>
+
+  <!-- HEAP AREA BOUNDS -->
+  <g transform="translate(300, 95)">
+    <rect width="560" height="345" rx="12" fill="#070A12" stroke="#1E293B" stroke-width="1.5" />
+    <text class="section-title" x="20" y="25">HEAP MEMORY (ALLOCATED OBJECTS)</text>
+    <text class="legend-text" x="20" y="42" font-size="10">Dynamic reference graph analyzed by garbage collector</text>
+  </g>
+
+  <!-- Heap Object A: Reachable -->
+  <g transform="translate(320, 160)" filter="url(#glowReachable)">
+    <rect width="180" height="80" rx="10" fill="#051C15" stroke="#10B981" stroke-width="2" />
+    <rect width="180" height="6" rx="0" fill="url(#reachableGrad)" clip-path="inset(0 0 74 0)" />
+    <!-- Marked Badge -->
+    <rect x="105" y="15" width="60" height="16" rx="4" fill="#059669" />
+    <text class="badge-text" x="111" y="26">MARKED: 1</text>
+
+    <text class="node-title" x="15" y="32">Session Object</text>
+    <text class="node-meta" x="15" y="50">Type: Object (New Gen)</text>
+    <text class="node-text" x="15" y="65">{ id: 1084, user: "admin" }</text>
+  </g>
+
+  <!-- Heap Object B: Reachable (Chained) -->
+  <g transform="translate(560, 160)" filter="url(#glowReachable)">
+    <rect width="180" height="80" rx="10" fill="#051C15" stroke="#10B981" stroke-width="2" />
+    <rect width="180" height="6" rx="0" fill="url(#reachableGrad)" clip-path="inset(0 0 74 0)" />
+    <!-- Marked Badge -->
+    <rect x="105" y="15" width="60" height="16" rx="4" fill="#059669" />
+    <text class="badge-text" x="111" y="26">MARKED: 1</text>
+
+    <text class="node-title" x="15" y="32">Session Metadata</text>
+    <text class="node-meta" x="15" y="50">Type: Map (Old Gen)</text>
+    <text class="node-text" x="15" y="65">ip: "10.0.0.1", ttl: 3600</text>
+  </g>
+
+  <!-- Heap Object C: Reachable -->
+  <g transform="translate(320, 280)" filter="url(#glowReachable)">
+    <rect width="180" height="80" rx="10" fill="#051C15" stroke="#10B981" stroke-width="2" />
+    <rect width="180" height="6" rx="0" fill="url(#reachableGrad)" clip-path="inset(0 0 74 0)" />
+    <!-- Marked Badge -->
+    <rect x="105" y="15" width="60" height="16" rx="4" fill="#059669" />
+    <text class="badge-text" x="111" y="26">MARKED: 1</text>
+
+    <text class="node-title" x="15" y="32">User Object</text>
+    <text class="node-meta" x="15" y="50">Type: Object (New Gen)</text>
+    <text class="node-text" x="15" y="65">{ name: "Alice", age: 28 }</text>
+  </g>
+
+  <!-- Heap Object D: Unreachable (Swept) -->
+  <g transform="translate(560, 280)" filter="url(#glowUnreachable)">
+    <rect width="180" height="80" rx="10" fill="#2D0B0E" stroke="#EF4444" stroke-width="2" stroke-dasharray="3,3" />
+    <rect width="180" height="6" rx="0" fill="url(#unreachableGrad)" clip-path="inset(0 0 74 0)" />
+    <!-- Unmarked Badge -->
+    <rect x="105" y="15" width="60" height="16" rx="4" fill="#DC2626" />
+    <text class="badge-text" x="111" y="26">MARKED: 0</text>
+
+    <!-- Sweep Line Overlay -->
+    <line x1="0" y1="0" x2="180" y2="80" stroke="#EF4444" stroke-width="1.5" opacity="0.3" />
+    
+    <text class="node-title" x="15" y="32">TempCache (D)</text>
+    <text class="node-meta" x="15" y="50">Type: Object (Expired)</text>
+    <text class="node-text" x="15" y="65">{ expired: true, keys: [...] }</text>
+  </g>
+
+  <!-- Heap Object E: Unreachable (Swept, Circularly connected to D) -->
+  <g transform="translate(730, 340)" filter="url(#glowUnreachable)">
+    <rect width="110" height="80" rx="10" fill="#2D0B0E" stroke="#EF4444" stroke-width="2" stroke-dasharray="3,3" />
+    <rect width="110" height="6" rx="0" fill="url(#unreachableGrad)" clip-path="inset(0 0 74 0)" />
+    
+    <!-- Sweep Line Overlay -->
+    <line x1="0" y1="0" x2="110" y2="80" stroke="#EF4444" stroke-width="1.5" opacity="0.3" />
+
+    <text class="node-title" x="10" y="32">Buffer (E)</text>
+    <text class="node-meta" x="10" y="50">Type: Array</text>
+    <text class="node-text" x="10" y="65">[ circular ref ]</text>
+  </g>
+
+  <!-- REFERENCE CONNECTORS (ARROWS) -->
+  
+  <!-- Root 1 to Object A -->
+  <path d="M255,200 L310,200" fill="none" stroke="#6366F1" stroke-width="2" marker-end="url(#arrowRoot)" />
+  
+  <!-- Root 2 to Object C -->
+  <path d="M255,320 L310,320" fill="none" stroke="#6366F1" stroke-width="2" marker-end="url(#arrowRoot)" />
+
+  <!-- Object A to Object B -->
+  <path d="M500,200 L550,200" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrowReachable)" />
+
+  <!-- Island of Isolation Circular reference (D to E & E to D) -->
+  <!-- D (right side) to E (left side) -->
+  <path d="M715,360 C715,335 725,320 745,340" fill="none" stroke="#EF4444" stroke-width="1.5" marker-end="url(#arrowUnreachable)" opacity="0.7" />
+  
+  <!-- E to D -->
+  <path d="M740,320 C690,320 700,325 700,340" fill="none" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arrowUnreachable)" opacity="0.7" />
+
+  <!-- Transition Labels/Badges in Diagram -->
+  <g transform="translate(680, 230)">
+    <rect class="label-bg" x="0" y="0" width="130" height="26" fill="#450A0A" stroke="#EF4444" stroke-width="1.2" />
+    <text class="label-text" x="8" y="16" fill="#FCA5A5">ISLAND OF ISOLATION</text>
+  </g>
+
+  <g transform="translate(370, 115)">
+    <rect class="label-bg" x="0" y="0" width="160" height="24" fill="#064E3B" stroke="#059669" stroke-width="1" />
+    <text class="label-text" x="8" y="15" fill="#34D399">REACHABLE PATHWAY (RETAINED)</text>
+  </g>
+
+  <!-- Sweeping visualization brush/indicator -->
+  <g transform="translate(670, 130)">
+    <path d="M0,0 L20,-10 L30,10 Z" fill="#EF4444" opacity="0.8" />
+    <path d="M20,-10 C15,-20 -5,-15 -5,-5" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="2,2" />
+    <text font-family="'Inter', system-ui, sans-serif" font-size="10px" font-weight="700" fill="#EF4444" x="-5" y="-22">GC SWEEP CYCLE</text>
+  </g>
+
+  <!-- Footnote / Legend -->
+  <g transform="translate(40, 465)">
+    <circle cx="5" cy="0" r="5" fill="#6366F1" />
+    <text class="legend-text" x="15" y="4">Stack Pointer / Root</text>
+
+    <circle cx="160" cy="0" r="5" fill="#10B981" />
+    <text class="legend-text" x="170" y="4">Reachable Object (Marked)</text>
+
+    <circle cx="370" cy="0" r="5" fill="#EF4444" />
+    <text class="legend-text" x="380" y="4">Unreachable Object (To be Swept)</text>
+
+    <text class="legend-text" x="610" y="4" font-style="italic">Circular reference islands are swept if unreachable from any root.</text>
+  </g>
+</svg>

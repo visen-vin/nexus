@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import collectionsSvg from '../../../../assets/diagrams/frontend/js/collections.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-16',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'While plain Objects and Arrays are the workhorses of JavaScript, they have limitations when it comes to complex data structures and memory management. ES6 introduced **Map**, **Set**, **WeakMap**, and **WeakSet** to provide specialized collections that are more performant and feature-rich for specific engineering use cases.'
+    },
+    {
+      type: 'diagram',
+      content: collectionsSvg
     },
     {
       type: 'callout',

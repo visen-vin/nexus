@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import inheritanceSvg from '../../../../assets/diagrams/frontend/js/inheritance.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-11',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'Unlike class-based languages like Java or C++, JavaScript uses **Prototypal Inheritance**. Every object in JavaScript has a hidden link to another object called its **Prototype**. When you access a property that doesn\'t exist on an object, JavaScript automatically looks for it in the prototype, forming a **Prototype Chain**.'
+    },
+    {
+      type: 'diagram',
+      content: inheritanceSvg
     },
     {
       type: 'callout',

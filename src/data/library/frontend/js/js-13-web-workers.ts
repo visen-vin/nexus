@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import webWorkersSvg from '../../../../assets/diagrams/frontend/js/web-workers.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-13',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'JavaScript is single-threaded, meaning long-running tasks can block the main thread and freeze the UI. **Web Workers** provide a way to run scripts in the background, in a separate execution thread. This allows you to perform heavy calculations or data processing without compromising the user experience.'
+    },
+    {
+      type: 'diagram',
+      content: webWorkersSvg
     },
     {
       type: 'callout',

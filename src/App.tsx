@@ -1,9 +1,19 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { ChevronRight, Code2, Globe, Server, Cpu, Box, Sparkles, TerminalSquare, Copy, Check } from 'lucide-react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import { ChevronRight, Code2, Globe, Server, Cpu, Box, Sparkles, TerminalSquare, Copy, Check, BarChart2, Plus, X, MessageSquareQuote, Home, LogOut, User, Play, Map } from 'lucide-react';
 import { DOMAINS } from './data/domains';
 import { MODULES } from './data/modules';
 import { CONTENT_DB } from './data/content';
 import type { Domain, Module } from './data/types';
+import { Progress } from './lib/progress';
+import type { TopicStatus, Confidence } from './lib/progress';
+import { ReportCard } from './components/ReportCard';
+import { fetchDynamicTopics, fetchDynamicDomains, fetchDynamicModules, saveDomain, saveModule, initUser, syncProgress, pushSubjectSummary, fetchRoadmaps, updateRoadmapStep as _updateRoadmapStep } from './lib/api';
+import type { DynamicDomain, DynamicModule, Roadmap } from './lib/api';
+import { WelcomeScreen, getStoredCode, clearCode, applyCode } from './components/WelcomeScreen';
+import { AdminPanel } from './components/AdminPanel';
+import { OnboardingScreen } from './components/OnboardingScreen';
+import type { NoteContent } from './data/types';
+import { ChatAgent } from './components/ChatAgent';
 import './index.css';
 import './components.css';
 
@@ -141,14 +151,81 @@ const FormattedText = ({ content, onNavigate }: { content: string, onNavigate?: 
 };
 
 function App() {
-  const [view, setView] = useState<'domains' | 'modules' | 'topics' | 'reader'>('domains');
+  const isAdmin = window.location.pathname === '/admin';
+  const isDev = window.location.hostname === 'localhost' || window.location.hostname === '192.168.1.10';
+  if (isDev && !getStoredCode()) { applyCode('NEXUS-DEV-TEST'); }
+
+  // ALL hooks must be declared before any conditional return
+  const [authed, setAuthed] = useState(() => isDev || !!getStoredCode());
+  const [needsOnboarding, setNeedsOnboarding] = useState(false);
+  const [pendingDomain, setPendingDomain] = useState<string | null>(null);
+  const [view, setView] = useState<'domains' | 'modules' | 'topics' | 'reader' | 'report' | 'roadmaps'>('domains');
+  const [progressVersion, setProgressVersion] = useState(0);
+  const [dynamicTopics, setDynamicTopics] = useState<NoteContent[]>([]);
+  const [dynamicDomains, setDynamicDomains] = useState<DynamicDomain[]>([]);
+  const [dynamicModules, setDynamicModules] = useState<DynamicModule[]>([]);
+  const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
+  const [addingDomain, setAddingDomain] = useState(false);
+  const [addingModule, setAddingModule] = useState(false);
+  const [newItemLabel, setNewItemLabel] = useState('');
+  const [newItemColor, setNewItemColor] = useState('#4db8ff');
+  const [highlightedText, setHighlightedText] = useState<string | null>(null);
+  const [selectionRect, setSelectionRect] = useState<{ top: number; left: number } | null>(null);
   const [activeDomain, setActiveDomain] = useState<Domain | null>(null);
   const [activeModule, setActiveModule] = useState<Module | null>(null);
   const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
 
+  const handleSelection = useCallback(() => {
+    const selection = window.getSelection();
+    if (!selection || selection.isCollapsed) {
+      setHighlightedText(null);
+      setSelectionRect(null);
+      return;
+    }
+    const text = selection.toString().trim();
+    if (text.length > 3) {
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      setHighlightedText(text);
+      setSelectionRect({
+        top: rect.top + window.scrollY - 40,
+        left: rect.left + rect.width / 2
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (view === 'roadmaps') fetchRoadmaps().then(setRoadmaps);
+  }, [view]);
+
+  const allTopics = useMemo(() => {
+    const staticIds = new Set(CONTENT_DB.map(n => n.id));
+    const extras = dynamicTopics.filter(t => !staticIds.has(t.id));
+    return [...CONTENT_DB, ...extras];
+  }, [dynamicTopics]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const allDomains: any[] = useMemo(() => {
+    const staticIds = new Set(DOMAINS.map(d => d.id));
+    const extras = dynamicDomains
+      .filter(d => !staticIds.has(d.id as never))
+      .map(d => ({ id: d.id, label: d.label, theme: { primary: d.color, dim: d.color + '22', palette: [d.color] } }));
+    return [...DOMAINS, ...extras];
+  }, [dynamicDomains]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const allModules: any[] = useMemo(() => {
+    const staticIds = new Set(MODULES.map(m => m.id));
+    const extras = dynamicModules
+      .filter(m => !staticIds.has(m.id))
+      .map(m => ({ id: m.id, domainId: m.domain_id, label: m.label, version: m.version }));
+    return [...MODULES, ...extras];
+  }, [dynamicModules]);
+
   // Derived state (Dynamic Queries)
-  const domainModules = useMemo(() => activeDomain ? MODULES.filter(m => m.domainId === activeDomain.id) : [], [activeDomain]);
-  const moduleNotes = useMemo(() => activeModule ? CONTENT_DB.filter(n => n.moduleId === activeModule.id).sort((a,b) => a.order - b.order) : [], [activeModule]);
+  const allProgress = useMemo(() => Progress.getAll(), [progressVersion]);
+  const domainModules = useMemo(() => activeDomain ? allModules.filter(m => m.domainId === activeDomain.id) : [], [activeDomain, allModules]);
+  const moduleNotes = useMemo(() => activeModule ? allTopics.filter(n => n.moduleId === activeModule.id).sort((a,b) => a.order - b.order) : [], [activeModule, allTopics]);
 
   const groupedNotes = useMemo(() => {
     const groups: { name: string; notes: typeof moduleNotes }[] = [];
@@ -164,7 +241,63 @@ function App() {
     return groups;
   }, [moduleNotes]);
 
-  const activeNote = useMemo(() => CONTENT_DB.find(n => n.id === activeNoteId) || null, [activeNoteId]);
+  const activeNote = useMemo(() => allTopics.find(n => n.id === activeNoteId) || null, [activeNoteId, allTopics]);
+  const topicProgress = useMemo(() => activeNote ? allProgress[activeNote.id] ?? null : null, [activeNote, allProgress]);
+
+  const markTopic = (status: TopicStatus, confidence: Confidence) => {
+    if (!activeNote) return;
+    Progress.set(activeNote.id, status, confidence);
+    setProgressVersion(v => v + 1);
+    syncProgress(activeNote.id, status, confidence);
+    if (activeModule) {
+      // Rebuild summary for this module and push to backend
+      const moduleId = activeModule.id;
+      setTimeout(() => {
+        const allProg = Progress.getAll();
+        const modNotes = allTopics.filter(n => n.moduleId === moduleId).sort((a, b) => a.order - b.order);
+        const done = modNotes.filter(n => allProg[n.id]?.status === 'done');
+        const struggling = modNotes.filter(n => allProg[n.id]?.status === 'struggling');
+        const shaky = modNotes.filter(n => allProg[n.id]?.confidence === 'shaky');
+        const now = new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
+        const total = modNotes.length;
+        const lines = [
+          `## ${activeModule.label} Progress — ${now}`,
+          `**Completed (${done.length}/${total}):** ${done.map(n => n.title).join(', ') || 'None'}`,
+          done.length > 0 ? `**Strong:** ${done.filter(n => allProg[n.id]?.confidence === 'high').map(n => n.title).join(', ') || 'none'}` : '',
+          struggling.length > 0 ? `**Struggling:** ${struggling.map(n => n.title).join(', ')}` : '',
+          shaky.length > 0 ? `**Shaky:** ${shaky.map(n => n.title).join(', ')}` : '',
+          `**Next Up:** ${modNotes.filter(n => allProg[n.id]?.status !== 'done').slice(0, 5).map(n => n.title).join(', ') || 'All done!'}`,
+          `**Last marked:** ${activeNote.title} → ${confidence}`,
+        ].filter(Boolean).join('\n');
+        pushSubjectSummary(moduleId, lines);
+      }, 0);
+    }
+  };
+
+  const navigate = (to: typeof view, domain?: Domain, mod?: Module, noteId?: string) => {
+    if (domain) setActiveDomain(domain);
+    if (mod) setActiveModule(mod);
+    if (noteId) setActiveNoteId(noteId);
+    setReadProgress(0);
+    setView(to);
+    window.scrollTo(0, 0);
+  };
+
+  const navigateToNote = (noteId: string) => {
+    const note = allTopics.find(n => n.id === noteId);
+    if (!note) return;
+    const mod = allModules.find(m => m.id === note.moduleId);
+    const domain = mod ? allDomains.find(d => d.id === mod.domainId) : null;
+    if (mod && domain) navigate('reader', domain, mod, noteId);
+  };
+
+  const refreshDynamicTopics = () => fetchDynamicTopics().then(setDynamicTopics);
+  const refreshDynamic = () => {
+    fetchDynamicDomains().then(setDynamicDomains);
+    fetchDynamicModules().then(setDynamicModules);
+    fetchDynamicTopics().then(setDynamicTopics);
+  };
+
   const activeNoteIndex = useMemo(() => moduleNotes.findIndex(n => n.id === activeNoteId), [moduleNotes, activeNoteId]);
 
   const [readProgress, setReadProgress] = useState(0);
@@ -235,14 +368,29 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [view]);
 
-  const navigate = (to: typeof view, domain?: Domain, mod?: Module, noteId?: string) => {
-    if (domain) setActiveDomain(domain);
-    if (mod) setActiveModule(mod);
-    if (noteId) setActiveNoteId(noteId);
-    setReadProgress(0);
-    setView(to);
-    window.scrollTo(0, 0);
-  };
+  useEffect(() => {
+    if (!authed) return;
+    initUser().then(user => {
+      if (user && !user.learning_style) setNeedsOnboarding(true);
+    });
+    fetchDynamicTopics().then(setDynamicTopics);
+    fetchDynamicDomains().then(setDynamicDomains);
+    fetchDynamicModules().then(setDynamicModules);
+  }, [authed]);
+
+  useEffect(() => {
+    if (!pendingDomain) return;
+    const domain = allDomains.find(d => d.id === pendingDomain);
+    if (domain) navigate('modules', domain);
+    setTimeout(() => setPendingDomain(null), 10);
+  }, [pendingDomain]);
+
+  // Conditional renders — after all hooks
+  if (isAdmin) return <AdminPanel />;
+  if (!authed) return <WelcomeScreen onEnter={() => setAuthed(true)} />;
+  if (needsOnboarding) return (
+    <OnboardingScreen onDone={(domainId) => { setPendingDomain(domainId); setNeedsOnboarding(false); }} />
+  );
 
   const getDomainIcon = (id: string, color: string = 'white', size: number = 24) => {
     switch(id) {
@@ -256,49 +404,71 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0b]">
-      <nav className="sticky top-0 z-50 h-14 bg-[#0a0a0b] backdrop-blur-xl border-b border-white/[0.06]">
+      <nav className="sticky top-0 z-50 h-14 bg-[#0a0a0b]/80 backdrop-blur-xl border-b border-white/[0.06]">
         <div className="max-w-3xl mx-auto h-full flex items-center justify-between px-6 sm:px-8">
-          {/* Logo */}
-          <button
-            onClick={() => navigate('domains')}
-            className="flex items-center gap-2 text-[#f1f1f1] font-bold text-sm tracking-tight hover:opacity-70 transition-opacity"
-          >
-            <TerminalSquare size={16} />
-            <span>NEXUS</span>
-          </button>
+          <div className="flex items-center gap-6">
+            {/* Logo */}
+            <button
+              onClick={() => navigate('domains')}
+              className="flex items-center gap-2 text-[#f1f1f1] font-bold text-sm tracking-tight hover:opacity-70 transition-opacity"
+            >
+              <TerminalSquare size={16} />
+              <span>NEXUS</span>
+            </button>
+          </div>
 
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-1.5 text-[12px] text-[#888]">
-            {activeDomain && (
-              <>
-                <span className="text-white/15">›</span>
-                <button
-                  onClick={() => navigate('modules')}
-                  className="hover:text-[#f1f1f1] transition-colors"
-                >
-                  {activeDomain.label}
-                </button>
-              </>
-            )}
-            {activeModule && (
-              <>
-                <span className="text-white/15">›</span>
-                <button
-                  onClick={() => navigate('topics')}
-                  className="hover:text-[#f1f1f1] transition-colors"
-                >
-                  {activeModule.label}
-                </button>
-              </>
-            )}
-            {view === 'reader' && activeNote && (
-              <>
-                <span className="text-white/15">›</span>
-                <span className="text-white/50 truncate max-w-[100px] sm:max-w-[200px]">
-                  {activeNote.title}
-                </span>
-              </>
-            )}
+          {/* Right: Actions + User Avatar */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-1 mr-2 border-r border-white/5 pr-2 sm:pr-4">
+              <button
+                onClick={() => navigate('domains')}
+                className={`p-2 rounded-lg transition-colors ${view === 'domains' ? 'text-[#4db8ff] bg-[#4db8ff10]' : 'text-[#888] hover:text-[#f1f1f1] hover:bg-white/5'}`}
+                title="Home"
+              >
+                <Home size={16} />
+              </button>
+              <button
+                onClick={() => navigate('report')}
+                className={`p-2 rounded-lg transition-colors ${view === 'report' ? 'text-[#4db8ff] bg-[#4db8ff10]' : 'text-[#888] hover:text-[#f1f1f1] hover:bg-white/5'}`}
+                title="Report Card"
+              >
+                <BarChart2 size={16} />
+              </button>
+              <button
+                onClick={() => navigate('roadmaps')}
+                className={`p-2 rounded-lg transition-colors ${view === 'roadmaps' ? 'text-[#4db8ff] bg-[#4db8ff10]' : 'text-[#888] hover:text-[#f1f1f1] hover:bg-white/5'}`}
+                title="Study Roadmaps"
+              >
+                <Map size={16} />
+              </button>
+            </div>
+
+            <div className="flex flex-col items-end hidden sm:flex">
+              <span className="text-[11px] font-bold text-[#f1f1f1] leading-none uppercase tracking-widest">{getStoredCode()?.split('-')[1] ?? 'Guest'}</span>
+              <span className="text-[9px] text-[#555] font-mono mt-1">PROTOCOL ACTIVE</span>
+            </div>
+            
+            <div className="group relative">
+              <button className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#888] hover:text-[#f1f1f1] hover:border-white/20 transition-all">
+                <User size={14} />
+              </button>
+              
+              <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0 z-[60]">
+                <div className="w-48 bg-[#111113] border border-white/10 rounded-xl shadow-2xl overflow-hidden py-1">
+                  <div className="px-4 py-2 border-b border-white/5 mb-1">
+                    <p className="text-[10px] text-[#555] font-bold uppercase tracking-widest">User Session</p>
+                    <p className="text-[12px] text-[#f1f1f1] font-mono truncate">{getStoredCode()}</p>
+                  </div>
+                  <button
+                    onClick={() => { clearCode(); setAuthed(false); }}
+                    className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-[#d96570] hover:bg-[#d9657010] transition-colors"
+                  >
+                    <LogOut size={14} />
+                    <span>Logout Profile</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -311,7 +481,44 @@ function App() {
         )}
       </nav>
 
-      <main className="max-w-3xl mx-auto px-6 sm:px-8 pt-10 pb-20">
+      <main className="max-w-3xl mx-auto px-6 sm:px-8 pt-8 pb-20">
+        {/* Breadcrumb row - Moved from Navbar */}
+        {view !== 'domains' && (
+          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#555] mb-8 animate-in fade-in slide-in-from-top-1">
+            <button onClick={() => navigate('domains')} className="hover:text-[#888] transition-colors">Nexus</button>
+            {activeDomain && (
+              <>
+                <span className="text-white/5">/</span>
+                <button
+                  onClick={() => navigate('modules')}
+                  className="hover:text-[#888] transition-colors"
+                >
+                  {activeDomain.label}
+                </button>
+              </>
+            )}
+            {activeModule && (
+              <>
+                <span className="text-white/5">/</span>
+                <button
+                  onClick={() => navigate('topics')}
+                  className="hover:text-[#888] transition-colors"
+                >
+                  {activeModule.label}
+                </button>
+              </>
+            )}
+            {view === 'reader' && activeNote && (
+              <>
+                <span className="text-white/5">/</span>
+                <span className="text-[#888] truncate max-w-[150px]">
+                  {activeNote.title}
+                </span>
+              </>
+            )}
+          </div>
+        )}
+
         {view === 'domains' && (
           <div className="page-enter">
             <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-3">Core Domains</p>
@@ -321,8 +528,8 @@ function App() {
             <p className="text-[#888] text-base mb-10">High-fidelity revision tracks for senior engineers.</p>
 
             <div className="flex flex-col gap-2">
-              {DOMAINS.map(domain => {
-                const count = MODULES.filter(m => m.domainId === domain.id).length;
+              {allDomains.map(domain => {
+                const count = allModules.filter(m => m.domainId === domain.id).length;
                 return (
                   <button
                     key={domain.id}
@@ -364,6 +571,41 @@ function App() {
                 );
               })}
             </div>
+
+            {/* Add domain */}
+            {addingDomain ? (
+              <div className="mt-3 flex gap-2 items-center">
+                <input
+                  autoFocus
+                  value={newItemLabel}
+                  onChange={e => setNewItemLabel(e.target.value)}
+                  onKeyDown={async e => {
+                    if (e.key === 'Enter' && newItemLabel.trim()) {
+                      await saveDomain(newItemLabel.trim(), newItemColor);
+                      setNewItemLabel(''); setAddingDomain(false); refreshDynamic();
+                    }
+                    if (e.key === 'Escape') { setAddingDomain(false); setNewItemLabel(''); }
+                  }}
+                  placeholder="Domain name..."
+                  className="flex-1 bg-white/[0.04] border border-white/10 rounded-xl px-3 py-2.5 text-[13px] text-[#f1f1f1] placeholder-[#555] outline-none focus:border-white/20"
+                />
+                <div className="flex gap-1">
+                  {['#4db8ff','#34c98a','#f9ab00','#d96570','#a78bfa'].map(c => (
+                    <button key={c} onClick={() => setNewItemColor(c)}
+                      className="w-5 h-5 rounded-full border-2 transition-all"
+                      style={{ backgroundColor: c, borderColor: newItemColor === c ? '#fff' : 'transparent' }} />
+                  ))}
+                </div>
+                <button onClick={async () => { await saveDomain(newItemLabel.trim(), newItemColor); setNewItemLabel(''); setAddingDomain(false); refreshDynamic(); }}
+                  className="px-3 py-2 rounded-xl text-[12px] font-bold text-[#0a0a0b]" style={{ backgroundColor: newItemColor }}>Add</button>
+                <button onClick={() => { setAddingDomain(false); setNewItemLabel(''); }} className="text-[#555] hover:text-[#888]"><X size={14} /></button>
+              </div>
+            ) : (
+              <button onClick={() => setAddingDomain(true)}
+                className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-dashed border-white/10 text-[12px] text-[#555] hover:text-[#888] hover:border-white/20 transition-all">
+                <Plus size={13} /> Add Domain
+              </button>
+            )}
           </div>
         )}
 
@@ -409,6 +651,34 @@ function App() {
                 );
               })}
             </div>
+
+            {/* Add module */}
+            {addingModule ? (
+              <div className="mt-3 flex gap-2 items-center">
+                <input
+                  autoFocus
+                  value={newItemLabel}
+                  onChange={e => setNewItemLabel(e.target.value)}
+                  onKeyDown={async e => {
+                    if (e.key === 'Enter' && newItemLabel.trim()) {
+                      await saveModule(activeDomain.id, newItemLabel.trim());
+                      setNewItemLabel(''); setAddingModule(false); refreshDynamic();
+                    }
+                    if (e.key === 'Escape') { setAddingModule(false); setNewItemLabel(''); }
+                  }}
+                  placeholder="Module name..."
+                  className="flex-1 bg-white/[0.04] border border-white/10 rounded-xl px-3 py-2.5 text-[13px] text-[#f1f1f1] placeholder-[#555] outline-none focus:border-white/20"
+                />
+                <button onClick={async () => { await saveModule(activeDomain.id, newItemLabel.trim()); setNewItemLabel(''); setAddingModule(false); refreshDynamic(); }}
+                  className="px-3 py-2 rounded-xl text-[12px] font-bold text-[#0a0a0b]" style={{ backgroundColor: activeDomain.theme.primary }}>Add</button>
+                <button onClick={() => { setAddingModule(false); setNewItemLabel(''); }} className="text-[#555] hover:text-[#888]"><X size={14} /></button>
+              </div>
+            ) : (
+              <button onClick={() => setAddingModule(true)}
+                className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-dashed border-white/10 text-[12px] text-[#555] hover:text-[#888] hover:border-white/20 transition-all">
+                <Plus size={13} /> Add Module
+              </button>
+            )}
           </div>
         )}
 
@@ -461,6 +731,15 @@ function App() {
                               <p className="text-[#888] text-sm leading-relaxed">{note.description}</p>
                             </div>
 
+                            {allProgress[note.id] && (
+                              <div
+                                className="w-1.5 h-1.5 rounded-full shrink-0 mt-2.5"
+                                style={{
+                                  backgroundColor: allProgress[note.id].status === 'struggling' ? '#d96570'
+                                    : allProgress[note.id].confidence === 'high' ? '#27c93f' : '#f9ab00'
+                                }}
+                              />
+                            )}
                             <ChevronRight size={15} className="text-white/15 group-hover:text-white/40 transition-colors shrink-0 mt-2" />
                           </button>
                         );
@@ -517,7 +796,35 @@ function App() {
             </header>
 
             {/* Article body */}
-            <article className="space-y-6">
+            <article className="relative space-y-6" onMouseUp={handleSelection}>
+              {selectionRect && highlightedText && (
+                <div
+                  className="fixed z-50 animate-in fade-in zoom-in-95 duration-300"
+                  style={{
+                    top: selectionRect.top,
+                    left: selectionRect.left,
+                    transform: 'translateX(-50%)'
+                  }}
+                >
+                  <button
+                    onClick={() => {
+                      // Prop change handles opening chat
+                      setSelectionRect(null);
+                    }}
+                    className="flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-[#1a1a1f] border border-white/10 text-[12px] font-bold text-[#f1f1f1] shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:bg-[#222228] hover:border-white/20 transition-all active:scale-95 group"
+                    style={{ 
+                      background: 'linear-gradient(135deg, #1a1a1f 0%, #121215 100%)',
+                      backdropFilter: 'blur(10px)'
+                    }}
+                  >
+                    <div className="w-5 h-5 rounded-lg flex items-center justify-center bg-[#4db8ff15] group-hover:bg-[#4db8ff25] transition-colors">
+                      <MessageSquareQuote size={13} className="text-[#4db8ff]" />
+                    </div>
+                    Ask Guru Ji
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-[#4db8ff] to-[#70c9ff] rounded-2xl opacity-0 group-hover:opacity-10 blur-sm transition-opacity" />
+                  </button>
+                </div>
+              )}
               {activeNote.sections.map((section, idx) => {
                 if (section.type === 'text') {
                   return (
@@ -576,6 +883,39 @@ function App() {
               })}
             </article>
 
+            {/* Guru Ji: Rate this topic */}
+            <div className="mt-12 p-5 rounded-2xl border border-white/7 bg-white/[0.01]">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-4">How did it go?</p>
+              <div className="grid grid-cols-3 gap-2">
+                {([
+                  { label: 'Got it ✓', status: 'done' as const, confidence: 'high' as const, color: '#27c93f' },
+                  { label: 'Shaky ⚠', status: 'done' as const, confidence: 'shaky' as const, color: '#f9ab00' },
+                  { label: 'Lost me ✗', status: 'struggling' as const, confidence: 'lost' as const, color: '#d96570' },
+                ]).map(opt => {
+                  const isActive = topicProgress?.confidence === opt.confidence;
+                  return (
+                    <button
+                      key={opt.label}
+                      onClick={() => markTopic(opt.status, opt.confidence)}
+                      className="py-2.5 px-3 rounded-xl border text-[12px] font-bold transition-all active:scale-95"
+                      style={{
+                        borderColor: isActive ? `${opt.color}66` : 'rgba(255,255,255,0.07)',
+                        backgroundColor: isActive ? `${opt.color}15` : 'transparent',
+                        color: isActive ? opt.color : '#555',
+                      }}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+              {topicProgress && (
+                <p className="text-[11px] text-[#888] mt-3">
+                  Marked · {new Date(topicProgress.date).toLocaleDateString()}
+                </p>
+              )}
+            </div>
+
             {/* Sequential navigation */}
             <div className="grid grid-cols-2 gap-3 mt-16 pt-8 border-t border-white/5">
               <button
@@ -608,12 +948,97 @@ function App() {
           </div>
         )}
 
-        <footer className="mt-20 pt-8 border-t border-white/5 text-center">
+        {view === 'roadmaps' && (
+          <div className="page-enter">
+            <p className="text-[11px] font-bold uppercase tracking-widest text-[#4db8ff] mb-3">Custom Curricula</p>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[#f1f1f1] mb-2 leading-tight">
+              Study Roadmaps
+            </h1>
+            <p className="text-[#888] text-base mb-10">Personalized learning paths designed by Guru Ji.</p>
+
+            {roadmaps.length === 0 ? (
+              <div className="py-20 text-center rounded-2xl border border-white/5 bg-white/[0.01]">
+                <p className="text-[#555] italic text-sm">No active roadmaps. Ask Guru Ji to create one for you!</p>
+                <button 
+                  onClick={() => navigate('domains')}
+                  className="mt-4 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[12px] font-bold text-[#888] hover:text-[#f1f1f1] transition-all"
+                >
+                  Go to Home
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-12">
+                {roadmaps.map(rm => (
+                  <div key={rm.id} className="relative">
+                    <div className="mb-6">
+                      <h2 className="text-xl font-bold text-[#f1f1f1] mb-1">{rm.title}</h2>
+                      <p className="text-[13px] text-[#666] leading-relaxed">{rm.description}</p>
+                    </div>
+
+                    <div className="space-y-4 ml-4 border-l border-white/10 pl-8 relative">
+                      {rm.steps.map((step, idx) => (
+                        <div key={step.id} className="relative">
+                          {/* Dot */}
+                          <div className={`absolute -left-[41px] top-1.5 w-4 h-4 rounded-full border-4 border-[#0a0a0b] z-10 ${step.status === 'done' ? 'bg-[#34c98a]' : 'bg-[#222]'}`} />
+                          
+                          <div className={`p-4 rounded-xl border transition-all ${step.status === 'done' ? 'bg-[#34c98a]05 border-[#34c98a]20 opacity-60' : 'bg-[#111113] border-white/5 hover:border-white/15'}`}>
+                            <div className="flex items-start justify-between gap-4">
+                              <div>
+                                <h3 className={`text-[14px] font-bold mb-1 ${step.status === 'done' ? 'text-[#34c98a]' : 'text-[#f1f1f1]'}`}>
+                                  {idx + 1}. {step.title}
+                                </h3>
+                                <p className="text-[12px] text-[#666] leading-relaxed">{step.description}</p>
+                              </div>
+                              {step.status !== 'done' && (
+                                <button
+                                  onClick={() => {
+                                    // Trigger chat with specific prompt
+                                    const chatBtn = document.querySelector('button[title="Ask Guru Ji"]') as HTMLButtonElement;
+                                    chatBtn?.click();
+                                    // We need a way to pass this to ChatAgent. 
+                                    // For now, let's just use a window event or similar hack if needed, 
+                                    // but the PRD says "Start Step Integration".
+                                    // Let's assume the user will type it for now or we add a 'pendingPrompt' state.
+                                    alert(`Starting ${step.title}! Ask Guru Ji: "I am ready to start the roadmap step: ${step.title}. Please create the topic and teach me."`);
+                                  }}
+                                  className="shrink-0 w-8 h-8 rounded-lg bg-[#4db8ff15] text-[#4db8ff] flex items-center justify-center hover:bg-[#4db8ff25] transition-all"
+                                  title="Start Learning"
+                                >
+                                  <Play size={14} fill="currentColor" />
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {view === 'report' && (
+          <div style={{ '--domain-accent': '#4db8ff' } as React.CSSProperties}>
+            <ReportCard onNavigate={navigateToNote} progressVersion={progressVersion} />
+          </div>
+        )}
+
+        <footer className="mt-20 pb-24 sm:pb-0 pt-8 border-t border-white/5 text-center">
           <p className="text-[11px] text-[#888] font-mono tracking-widest uppercase">
             © 2026 Nexus // Core Intel Platform
           </p>
         </footer>
       </main>
+      <ChatAgent 
+        activeNote={activeNote} 
+        activeModuleId={activeModule?.id} 
+        activeModuleLabel={activeModule?.label} 
+        onTopicSaved={refreshDynamicTopics}
+        highlightedText={highlightedText || undefined}
+        onClearHighlight={() => setHighlightedText(null)}
+      />
     </div>
   );
 }

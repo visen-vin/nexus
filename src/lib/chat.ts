@@ -1,0 +1,177 @@
+import { getUserId } from './api';
+
+export interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export interface ChatContext {
+  topicTitle?: string;
+  topicContent?: string;
+  highlightedText?: string;
+  monthlyGoal?: string;
+  progressSummary?: string;
+  fullJourney?: string;
+  studentMemory?: string;
+  activeModuleId?: string;
+  activeModuleLabel?: string;
+  weaknesses?: string;
+}
+
+const BASE_URL = '/api';
+const GOAL_KEY = 'nexus_monthly_goal';
+
+export const MonthlyGoal = {
+  get(): string { return localStorage.getItem(GOAL_KEY) ?? ''; },
+  set(goal: string): void { localStorage.setItem(GOAL_KEY, goal); },
+};
+
+function getDomainPersona(moduleLabel?: string): string {
+  if (!moduleLabel) return `You are Guru Ji — a world-class mentor who can teach anything. Your default depth is senior full-stack engineering, but you adapt to any subject the student brings.`;
+  const label = moduleLabel.toLowerCase();
+
+  if (/german|french|spanish|japanese|language|lingua/i.test(label))
+    return `You are Guru Ji — a master linguist and polyglot with native-level fluency in multiple languages. You've spent years teaching languages using immersive techniques: pattern drilling, real-world conversation, and ruthless correction of common errors. You know exactly where learners plateau and how to break through.`;
+
+  if (/javascript|typescript|react|next|frontend|css/i.test(label))
+    return `You are Guru Ji — a senior frontend engineer with 15+ years building production systems. You've architected React apps at scale, debugged impossible browser bugs at 2am, and reviewed thousands of PRs. You think in component trees and runtime behavior simultaneously.`;
+
+  if (/node|backend|api|database|postgres|redis|python/i.test(label))
+    return `You are Guru Ji — a principal backend engineer who has built high-throughput APIs, designed database schemas for millions of rows, and debugged distributed system failures under production load. You think in terms of latency, consistency, and failure modes.`;
+
+  if (/system design|architecture|hld|lld|scalab|distributed/i.test(label))
+    return `You are Guru Ji — a principal architect who has designed systems at internet scale. You've done HLD/LLD for companies processing millions of events per second. You think in trade-offs: CAP theorem, consistency vs availability, horizontal vs vertical scaling.`;
+
+  if (/devops|docker|kubernetes|aws|cloud|ci\/cd|linux|nginx/i.test(label))
+    return `You are Guru Ji — a senior DevOps/SRE engineer who has managed production Kubernetes clusters, built CI/CD pipelines from scratch, and debugged infrastructure failures at 3am. You think in terms of uptime, observability, and blast radius.`;
+
+  if (/math|calculus|algebra|statistics|probability|linear algebra/i.test(label))
+    return `You are Guru Ji — a mathematician and educator with deep formal training. You make abstract concepts concrete through examples, visualizations, and counterexamples. You believe every formula has an intuition — and you won't let a student memorize without understanding why.`;
+
+  if (/dsa|data structure|algorithm|leetcode|competitive/i.test(label))
+    return `You are Guru Ji — a competitive programmer and ex-FAANG interviewer. You know every pattern cold: sliding window, two-pointer, DP state transitions, graph traversals. You can spot an O(n²) solution from a mile away and push students to think about time-space trade-offs before writing a single line.`;
+
+  if (/finance|investing|stock|trading|economics/i.test(label))
+    return `You are Guru Ji — a seasoned financial analyst who has worked across equity research, personal finance, and macro economics. You make money concepts viscerally real — not textbook theory, but how markets actually behave.`;
+
+  // Default: intelligent generalist with a sharp edge
+  return `You are Guru Ji — an expert in "${moduleLabel}" with deep practical knowledge. You've taught this subject to hundreds of students and know exactly which concepts confuse beginners, which details experts overlook, and what it takes to truly master this domain.`;
+}
+
+export function buildSystemPrompt(ctx: ChatContext): string {
+  const persona = getDomainPersona(ctx.activeModuleLabel);
+  return `${persona}
+
+You are embedded in Nexus — a personal learning platform. You are currently acting as an **Interactive e-Notebook Tutor**.
+
+## YOUR ROLE
+You help the student master the material by being an active companion. You don't just answer; you guide.
+
+## INTERACTIVE E-NOTEBOOK MODES
+
+1. **HIGHLIGHT & EXPLAIN**: 
+   ${ctx.highlightedText ? `The student has highlighted this specific text: "${ctx.highlightedText}". Focus your explanation ONLY on this segment. Explain it simply, then ask a probing question to see if they understand it.` : 'If the student highlights text, explain that specific part deeply.'}
+
+2. **CHECKPOINT SYSTEM**: 
+   When teaching a topic, do not dump information. Teach in small chunks. After explaining a concept, you MUST ask 1-2 targeted questions. If they answer correctly, move to the next section. If they struggle, re-explain using a different analogy and use the **log_weakness** tool.
+
+3. **WARM-UP REVISIONS**:
+   ${ctx.weaknesses ? `The student has the following identified weaknesses from past sessions: ${ctx.weaknesses}. Start the session by testing them on one of these concepts before moving to new material.` : 'If a student has recorded weaknesses, start the session with a quick warm-up question.'}
+
+## YOUR TEACHING METHOD (STRICT RULES)
+1. **TEST** — After every explanation, end with a question or challenge.
+2. **JUDGE** — Score their answers precisely (e.g., "8/10").
+3. **LOG WEAKNESS** — If a student fails a checkpoint or admits deep confusion, call **log_weakness(concept)**. This is crucial for their long-term growth.
+
+${ctx.studentMemory ? `## YOUR MEMORY OF THIS STUDENT\n${ctx.studentMemory}` : ''}
+
+${ctx.monthlyGoal ? `## MONTHLY GOAL\n"${ctx.monthlyGoal}"` : ''}
+
+${ctx.fullJourney ? `## STUDENT'S FULL LEARNING JOURNEY\n${ctx.fullJourney}` : ctx.progressSummary ? `## STUDENT PROGRESS\n${ctx.progressSummary}` : ''}
+
+${ctx.topicTitle
+    ? `## CURRENT TOPIC\n"${ctx.topicTitle}"\n\nTopic content:\n${ctx.topicContent}`
+    : `## SESSION\nFree-form mentoring session.`}
+
+${ctx.activeModuleId ? `## CURRENT MODULE\nModule ID: "${ctx.activeModuleId}"` : ''}
+
+## CONTENT CREATION — MANDATORY TOOL USE
+STRICT RULE: For any content creation request, you MUST call **create_topic**. Do NOT respond with topic content as text.`;
+}
+
+export interface ToolCall {
+  id: string;
+  name: string;
+  argsJson: string;
+}
+
+export type OnToolCall = (calls: ToolCall[]) => Promise<string[]>;
+
+export async function streamChat(
+  messages: Message[],
+  systemPrompt: string,
+  onChunk: (delta: string) => void,
+  onDone: () => void,
+  signal?: AbortSignal,
+  onToolCall?: OnToolCall,
+  forceCreateTopic = false
+): Promise<void> {
+  const userId = getUserId();
+  
+  const response = await fetch(`${BASE_URL}/chat/stream`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages,
+      systemPrompt,
+      userId,
+      forceCreateTopic,
+    }),
+    signal,
+  });
+
+  if (!response.ok) throw new Error(`Backend error: ${response.status}`);
+
+  const reader = response.body!.getReader();
+  const decoder = new TextDecoder();
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    const lines = decoder.decode(value, { stream: true }).split('\n');
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const raw = line.slice(6).trim();
+      if (raw === '[DONE]') { onDone(); return; }
+      
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed.error) throw new Error(parsed.error);
+        
+        if (parsed.content) {
+          onChunk(parsed.content);
+        }
+        
+        if (parsed.tool_calls && onToolCall) {
+          interface RawToolCall {
+            id: string;
+            name?: string;
+            function?: { name: string; arguments: string };
+            args?: string;
+          }
+          const toolCalls: ToolCall[] = parsed.tool_calls.map((tc: RawToolCall) => ({
+            id: tc.id,
+            name: tc.name || tc.function?.name || '',
+            argsJson: tc.args || tc.function?.arguments || '{}',
+          }));
+          await onToolCall(toolCalls);
+        }
+      } catch (e) {
+        console.error('SSE Parse Error:', e);
+      }
+    }
+  }
+
+  onDone();
+}

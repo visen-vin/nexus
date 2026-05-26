@@ -7,7 +7,7 @@ import type { Domain, Module } from './data/types';
 import { Progress } from './lib/progress';
 import type { TopicStatus, Confidence } from './lib/progress';
 import { ReportCard } from './components/ReportCard';
-import { fetchDynamicTopics, fetchDynamicDomains, fetchDynamicModules, saveDomain, saveModule, initUser, syncProgress, pushSubjectSummary, fetchRoadmaps, updateRoadmapStep as _updateRoadmapStep } from './lib/api';
+import { fetchDynamicTopics, fetchDynamicDomains, fetchDynamicModules, saveDomain, saveModule, initUser, syncProgress, pushSubjectSummary, fetchRoadmaps, updateRoadmapStep as _updateRoadmapStep, fetchProgress } from './lib/api';
 import type { DynamicDomain, DynamicModule, Roadmap } from './lib/api';
 import { WelcomeScreen, getStoredCode, clearCode, applyCode } from './components/WelcomeScreen';
 import { AdminPanel } from './components/AdminPanel';
@@ -169,6 +169,7 @@ function App() {
   const [addingModule, setAddingModule] = useState(false);
   const [newItemLabel, setNewItemLabel] = useState('');
   const [newItemColor, setNewItemColor] = useState('#4db8ff');
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [highlightedText, setHighlightedText] = useState<string | null>(null);
   const [selectionRect, setSelectionRect] = useState<{ top: number; left: number } | null>(null);
   const [activeDomain, setActiveDomain] = useState<Domain | null>(null);
@@ -373,6 +374,10 @@ function App() {
     initUser().then(user => {
       if (user && !user.learning_style) setNeedsOnboarding(true);
     });
+    fetchProgress().then(prog => {
+      Progress.hydrate(prog as any);
+      setProgressVersion(v => v + 1);
+    });
     fetchDynamicTopics().then(setDynamicTopics);
     fetchDynamicDomains().then(setDynamicDomains);
     fetchDynamicModules().then(setDynamicModules);
@@ -403,7 +408,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0b]">
+    <div className="min-h-screen bg-[#0a0a0b]" onClick={() => setUserMenuOpen(false)}>
       <nav className="sticky top-0 z-50 h-14 bg-[#0a0a0b]/80 backdrop-blur-xl border-b border-white/[0.06]">
         <div className="max-w-3xl mx-auto h-full flex items-center justify-between px-6 sm:px-8">
           <div className="flex items-center gap-6">
@@ -448,19 +453,22 @@ function App() {
               <span className="text-[9px] text-[#555] font-mono mt-1">PROTOCOL ACTIVE</span>
             </div>
             
-            <div className="group relative">
-              <button className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#888] hover:text-[#f1f1f1] hover:border-white/20 transition-all">
+            <div className="relative">
+              <button 
+                onClick={(e) => { e.stopPropagation(); setUserMenuOpen(!userMenuOpen); }}
+                className={`w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#888] hover:text-[#f1f1f1] hover:border-white/20 transition-all ${userMenuOpen ? 'border-white/30 text-white' : ''}`}
+              >
                 <User size={14} />
               </button>
               
-              <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0 z-[60]">
-                <div className="w-48 bg-[#111113] border border-white/10 rounded-xl shadow-2xl overflow-hidden py-1">
+              <div className={`absolute right-0 top-full pt-2 transition-all duration-200 z-[60] ${userMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-1'}`}>
+                <div className="w-48 bg-[#111113] border border-white/10 rounded-xl shadow-2xl overflow-hidden py-1" onClick={(e) => e.stopPropagation()}>
                   <div className="px-4 py-2 border-b border-white/5 mb-1">
                     <p className="text-[10px] text-[#555] font-bold uppercase tracking-widest">User Session</p>
                     <p className="text-[12px] text-[#f1f1f1] font-mono truncate">{getStoredCode()}</p>
                   </div>
                   <button
-                    onClick={() => { clearCode(); setAuthed(false); }}
+                    onClick={() => { clearCode(); setAuthed(false); setUserMenuOpen(false); }}
                     className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-[#d96570] hover:bg-[#d9657010] transition-colors"
                   >
                     <LogOut size={14} />

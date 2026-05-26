@@ -1,4 +1,5 @@
 import type { NoteContent } from '../data/types';
+import type { TopicStatus, Confidence } from './progress';
 
 const BASE = '/api';
 const USER_KEY = 'nexus_user_id';
@@ -94,6 +95,15 @@ export async function deleteTopic(id: string): Promise<boolean> {
     const res = await fetch(`${BASE}/topics/${id}`, { method: 'DELETE' });
     return res.ok;
   } catch { return false; }
+}
+
+export async function fetchProgress(): Promise<Record<string, { status: TopicStatus; confidence: Confidence; date: string }>> {
+  const id = getUserId();
+  if (!id) return {};
+  try {
+    const res = await fetch(`${BASE}/users/${id}/progress`);
+    return res.ok ? res.json() : {};
+  } catch { return {}; }
 }
 
 export async function syncProgress(topicId: string, status: string, confidence: string, remarks?: string): Promise<void> {

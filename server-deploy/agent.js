@@ -344,7 +344,7 @@ async function creatorNode(state) {
   return { messages: [response] };
 }
 
-const toolNode = new ToolNode([saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, createTopicTool, listCurriculumTool, getStudentContextTool]);
+const toolNode = new ToolNode([getDetailedReportTool, updateTopicProgressTool, saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, createTopicTool, listCurriculumTool, getStudentContextTool]);
 
 // 5. Graph Construction
 const workflow = new StateGraph(AgentState)

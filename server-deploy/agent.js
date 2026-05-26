@@ -6,9 +6,28 @@ const { SqliteSaver } = require('@langchain/langgraph-checkpoint-sqlite');
 const { z } = require('zod');
 const { tool } = require('@langchain/core/tools');
 const db = require('./db');
+const { getDetailedReport } = require('./reporting');
 const { NodeVM } = require('vm2');
 
 // 1. Tool Definitions
+const getDetailedReportTool = tool(
+  async (args, config) => {
+    const userId = config.configurable.thread_id;
+    try {
+      const report = await getDetailedReport(userId);
+      if (!report) return "User report not found.";
+      return JSON.stringify(report, null, 2);
+    } catch (e) {
+      return `Error fetching detailed report: ${e.message}`;
+    }
+  },
+  {
+    name: 'get_detailed_report',
+    description: 'Call this to see the student\'s full progress report, including XP, current Level, earned Badges, and a module-by-module completion breakdown. Use this to personalize your feedback, congratulate them on achievements, or adjust quiz difficulty based on their mastery level.',
+    schema: z.object({}),
+  }
+);
+
 const listCurriculumTool = tool(
   async (args, config) => {
     const userId = config.configurable.thread_id;
@@ -279,15 +298,22 @@ Respond with ONLY the name of the agent: 'tutor' or 'creator'.`;
 
 async function tutorNode(state) {
   const { messages } = state;
-  const tutorModel = model.bindTools([saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool]);
+  const tutorModel = model.bindTools([getDetailedReportTool, saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool]);
   const response = await tutorModel.invoke(messages);
   return { messages: [response] };
 }
 
 async function creatorNode(state) {
   const { messages, forceCreateTopic } = state;
-  const creatorModel = model.bindTools([createTopicTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool]);
+  const tools = [getDetailedReportTool, createTopicTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool];
+  let creatorModel = model.bindTools(tools);
   
+  if (forceCreateTopic) {
+    creatorModel = creatorModel.bind({
+      tool_choice: { type: 'function', function: { name: 'create_topic' } }
+    });
+  }
+
   const response = await creatorModel.invoke(messages);
   return { messages: [response] };
 }

@@ -143,6 +143,14 @@ export interface UserSummary {
   subjectSummaries: { module_id: string; summary_md: string }[];
 }
 
+export interface DetailedReport {
+  user: { id: string; xp: number; level: number; levelLabel: string; nextThreshold: number };
+  streak: number;
+  badges: { id: string; label: string; description: string }[];
+  modules: { id: string; total: number; done: number; percentage: number }[];
+  summary: { totalTopics: number; completedTopics: number; strugglingTopics: number };
+}
+
 export async function fetchUserMemory(): Promise<{ key: string; value: string }[]> {
   const id = getUserId();
   if (!id) return [];
@@ -178,6 +186,15 @@ export async function fetchUserSummary(): Promise<UserSummary | null> {
       totalTopics: data.stats?.total || 0,
       subjectSummaries: data.subjectSummaries || [],
     };
+  } catch { return null; }
+}
+
+export async function fetchDetailedReport(): Promise<DetailedReport | null> {
+  const id = getUserId();
+  if (!id) return null;
+  try {
+    const res = await fetch(`${BASE}/users/${id}/detailed-report`);
+    return res.ok ? res.json() : null;
   } catch { return null; }
 }
 

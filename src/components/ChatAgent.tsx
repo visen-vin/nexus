@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { X, Send, Loader2, Target, Pencil, BookPlus, Check, Sparkles, FilePlus, RefreshCcw, Quote } from 'lucide-react';
 import { streamChat, buildSystemPrompt, MonthlyGoal } from '../lib/chat';
 import type { ToolCall } from '../lib/chat';
@@ -261,7 +261,17 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
       const handleToolCall = async (calls: ToolCall[]): Promise<string[]> => {
         const results: string[] = [];
         for (const call of calls) {
-          if (call.name === 'create_topic') {
+          if (call.name === 'get_detailed_report') {
+            setMessages(prev => {
+              const updated = [...prev];
+              updated[updated.length - 1] = {
+                role: 'assistant',
+                content: updated[updated.length - 1].content + `\n\n> 📊 **Analyzing student report card...**`,
+              };
+              return updated;
+            });
+            results.push(`Detailed report analyzed.`);
+          } else if (call.name === 'create_topic') {
             try {
               const topic = JSON.parse(call.argsJson);
               setMessages(prev => {
@@ -349,9 +359,9 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
       sendMessage(trimmedInput);
     }
     setInput('');
-  };
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+    if (inputRef.current) {
+      (inputRef.current as any).style.height = 'auto';
+    }
   };
   const close = () => { 
     setOpen(false); 
@@ -609,15 +619,22 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                 }}>
                 <FilePlus size={16} />
               </button>
-              <input
-                ref={inputRef}
+              <textarea
+                ref={inputRef as any}
                 value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
+                onChange={e => {
+                  setInput(e.target.value);
+                  // Auto-expand logic: reset height to min then set to scrollHeight
+                  e.target.style.height = 'auto';
+                  const newHeight = Math.min(e.target.scrollHeight, 72); // ~3 lines (24px each)
+                  e.target.style.height = `${newHeight}px`;
+                }}
                 onFocus={() => setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: 'smooth' }), 300)}
                 placeholder={createMode ? "Topic name to create..." : highlightedText ? "Ask about highlighted text..." : "Ask Guru Ji..."}
                 disabled={streaming}
-                className="flex-1 bg-transparent text-[16px] sm:text-[13px] text-[#f1f1f1] placeholder-[#444] outline-none disabled:opacity-50"
+                rows={1}
+                className="flex-1 bg-transparent text-[16px] sm:text-[13px] text-[#f1f1f1] placeholder-[#444] outline-none disabled:opacity-50 resize-none py-1.5 max-h-[72px] overflow-y-auto"
+                style={{ scrollbarWidth: 'none' }}
               />
               <button
                 onClick={send}

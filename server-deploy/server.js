@@ -4,6 +4,7 @@ const { randomUUID } = require('crypto');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const db = require('./db');
+const { getDetailedReport } = require('./reporting');
 const { app: agent } = require('./agent');
 const { HumanMessage, AIMessage, SystemMessage } = require('@langchain/core/messages');
 
@@ -126,6 +127,12 @@ app.get('/api/users/:id/summary', (req, res) => {
     recentMessages: recentMessages.reverse(),
     subjectSummaries,
   });
+});
+
+app.get('/api/users/:id/detailed-report', async (req, res) => {
+  const report = await getDetailedReport(req.params.id);
+  if (!report) return res.status(404).json({ error: 'User not found' });
+  res.json(report);
 });
 
 // ── PROGRESS ──────────────────────────────────────────────────────────

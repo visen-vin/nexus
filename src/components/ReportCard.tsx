@@ -1,6 +1,9 @@
-import { ChevronRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ChevronRight, Award, Flame, Zap, Trophy, Check } from 'lucide-react';
 import { CONTENT_DB } from '../data/content';
 import { Progress } from '../lib/progress';
+import { fetchDetailedReport } from '../lib/api';
+import type { DetailedReport } from '../lib/api';
 import type { NoteContent } from '../data/types';
 
 interface FocusTopic { topic: NoteContent; reason: string; }
@@ -12,29 +15,6 @@ const CLUSTERS = [
   'Modern Standards',
   'Browser APIs & Security',
 ];
-
-function getLevel(done: number) {
-  if (done < 10) return { label: 'Beginner', next: 'Intermediate', threshold: 10 };
-  if (done < 20) return { label: 'Intermediate', next: 'Advanced', threshold: 20 };
-  if (done < 26) return { label: 'Advanced', next: 'Expert', threshold: 26 };
-  return { label: 'Expert', next: '', threshold: 29 };
-}
-
-function getStreak(progress: Record<string, { date: string }>): number {
-  const dates = [...new Set(
-    Object.values(progress).map(p => new Date(p.date).toDateString())
-  )].sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
-
-  let streak = 0;
-  const today = new Date();
-  for (let i = 0; i < dates.length; i++) {
-    const expected = new Date(today);
-    expected.setDate(today.getDate() - i);
-    if (dates[i] === expected.toDateString()) streak++;
-    else break;
-  }
-  return streak;
-}
 
 function getFocusTopics(
   topics: NoteContent[],
@@ -94,94 +74,155 @@ interface Props {
   progressVersion: number;
 }
 
-export function ReportCard({ onNavigate, progressVersion: _ }: Props) {
-  const jsTopics = CONTENT_DB.filter(n => n.moduleId === 'js');
+export function ReportCard({ onNavigate, progressVersion }: Props) {
+  const [report, setReport] = useState<DetailedReport | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchDetailedReport().then(data => {
+      setReport(data);
+      setLoading(false);
+    });
+  }, [progressVersion]);
+
+  const allTopics = CONTENT_DB;
   const progress = Progress.getAll();
 
-  const doneTopics = jsTopics.filter(t => progress[t.id]?.status === 'done');
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
+        <div className="w-8 h-8 border-4 border-[#4db8ff33] border-t-[#4db8ff] rounded-full animate-spin" />
+        <p className="text-[12px] text-[#555] font-mono">Generating report card...</p>
+      </div>
+    );
+  }
+
+  const doneTopics = allTopics.filter(t => progress[t.id]?.status === 'done');
   const strongTopics = doneTopics.filter(t => progress[t.id]?.confidence === 'high');
-  const shakyTopics = jsTopics.filter(t => progress[t.id]?.confidence === 'shaky');
-  const strugglingTopics = jsTopics.filter(t => progress[t.id]?.status === 'struggling');
+  const shakyTopics = allTopics.filter(t => progress[t.id]?.confidence === 'shaky');
+  const strugglingTopics = allTopics.filter(t => progress[t.id]?.status === 'struggling');
   const needsWorkTopics = [...strugglingTopics, ...shakyTopics]
     .filter((t, i, arr) => arr.findIndex(x => x.id === t.id) === i)
     .slice(0, 5);
 
   const done = doneTopics.length;
-  const level = getLevel(done);
-  const streak = getStreak(progress);
-  const remaining = jsTopics.length - done;
+  const remaining = allTopics.length - done;
   const hoursLeft = remaining * 0.5;
 
-  const clusterData = CLUSTERS.map(name => {
-    const clusterTopics = jsTopics.filter(t => t.group === name);
-    const clusterDone = clusterTopics.filter(t => progress[t.id]?.status === 'done').length;
-    return { name, done: clusterDone, total: clusterTopics.length };
-  });
-
-  const focusTopics = getFocusTopics(jsTopics, progress);
+  const focusTopics = getFocusTopics(allTopics, progress);
 
   return (
     <div className="page-enter max-w-[680px] mx-auto">
       {/* Header */}
-      <div className="flex items-start justify-between mb-10">
+      <div className="flex items-start justify-between mb-8">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-2">JavaScript Module</p>
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-2">Student Dashboard</p>
           <h1 className="text-3xl sm:text-4xl font-black text-[#f1f1f1] tracking-tight">Report Card</h1>
         </div>
         <div className="flex flex-col items-end gap-2 pt-1">
-          <span
-            className="px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider border"
-            style={{ borderColor: 'var(--domain-accent, #4db8ff)33', backgroundColor: 'var(--domain-accent, #4db8ff)15', color: 'var(--domain-accent, #4db8ff)' }}
-          >
-            {level.label}
-          </span>
-          {streak > 0 && <span className="text-[12px] text-[#888]">🔥 {streak} day streak</span>}
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <p className="text-[10px] font-bold uppercase text-[#555] leading-none mb-1">Current Level</p>
+              <p className="text-[14px] font-black text-[#f1f1f1] leading-none">{report?.user.levelLabel}</p>
+            </div>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-[18px] bg-gradient-to-br from-[#4db8ff30] to-[#4db8ff10] border border-[#4db8ff30] text-[#4db8ff]">
+              {report?.user.level}
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Overall progress */}
-      <div className="p-5 rounded-2xl border border-white/7 bg-white/[0.01] mb-3">
-        <div className="flex justify-between items-center mb-3">
-          <span className="text-[13px] text-[#888]">Overall Progress</span>
-          <span className="text-[13px] font-bold text-[#f1f1f1]">{done} / {jsTopics.length} topics</span>
+      {/* Level & XP Progress */}
+      <div className="p-6 rounded-2xl border border-[#4db8ff20] bg-gradient-to-br from-[#4db8ff08] to-transparent mb-8">
+        <div className="flex justify-between items-end mb-3">
+          <div>
+            <p className="text-[12px] font-bold text-[#f1f1f1] mb-1">XP Progression</p>
+            <p className="text-[10px] text-[#555] uppercase font-mono">Next Milestone at {report?.user.nextThreshold} XP</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[20px] font-black text-[#f1f1f1] leading-none">{report?.user.xp}</p>
+            <p className="text-[10px] font-bold text-[#4db8ff] uppercase tracking-wider">Total XP Earned</p>
+          </div>
         </div>
-        <div className="h-2 rounded-full bg-white/5 overflow-hidden">
+        <div className="h-3 rounded-full bg-white/5 overflow-hidden border border-white/5">
           <div
-            className="h-full rounded-full transition-all duration-700"
-            style={{ width: `${(done / jsTopics.length) * 100}%`, backgroundColor: 'var(--domain-accent, #4db8ff)' }}
+            className="h-full rounded-full transition-all duration-1000 ease-out bg-gradient-to-r from-[#4db8ff] to-[#4db8ff99]"
+            style={{ width: `${Math.min(100, (report?.user.xp || 0) / (report?.user.nextThreshold || 1) * 100)}%` }}
           />
         </div>
-        {level.next && (
-          <p className="text-[11px] text-[#888] mt-2">{level.threshold - done} more topics to reach {level.next}</p>
-        )}
       </div>
 
-      {/* Cluster breakdown */}
-      <div className="flex flex-col gap-1.5 mb-8">
-        {clusterData.map(c => (
-          <div key={c.name} className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.01]">
-            <div className="flex-1 min-w-0">
-              <div className="flex justify-between mb-1.5">
-                <span className="text-[12px] text-[#888] truncate">{c.name}</span>
-                <span
-                  className="text-[12px] font-bold shrink-0 ml-2"
-                  style={{ color: c.done === c.total && c.total > 0 ? '#27c93f' : '#f1f1f1' }}
-                >
-                  {c.done}/{c.total} {c.done === c.total && c.total > 0 ? '✓' : ''}
-                </span>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+          <div className="flex items-center gap-2 mb-2 text-orange-400">
+            <Flame size={14} />
+            <span className="text-[10px] font-bold uppercase tracking-wider">Streak</span>
+          </div>
+          <p className="text-xl font-black text-[#f1f1f1]">{report?.streak} <span className="text-[10px] text-[#555] font-normal">days</span></p>
+        </div>
+        <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+          <div className="flex items-center gap-2 mb-2 text-green-400">
+            <Check size={14} />
+            <span className="text-[10px] font-bold uppercase tracking-wider">Done</span>
+          </div>
+          <p className="text-xl font-black text-[#f1f1f1]">{report?.summary.completedTopics}</p>
+        </div>
+        <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+          <div className="flex items-center gap-2 mb-2 text-[#4db8ff]">
+            <Zap size={14} />
+            <span className="text-[10px] font-bold uppercase tracking-wider">XP</span>
+          </div>
+          <p className="text-xl font-black text-[#f1f1f1]">{report?.user.xp}</p>
+        </div>
+        <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+          <div className="flex items-center gap-2 mb-2 text-purple-400">
+            <Award size={14} />
+            <span className="text-[10px] font-bold uppercase tracking-wider">Badges</span>
+          </div>
+          <p className="text-xl font-black text-[#f1f1f1]">{report?.badges.length}</p>
+        </div>
+      </div>
+
+      {/* Badges Section */}
+      {report?.badges && report.badges.length > 0 && (
+        <div className="mb-8">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-4">Milestones Unlocked</p>
+          <div className="flex flex-wrap gap-2">
+            {report.badges.map(badge => (
+              <div key={badge.id} className="group relative">
+                <div className="flex items-center gap-2 px-3 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400">
+                  <Trophy size={12} />
+                  <span className="text-[12px] font-bold">{badge.label}</span>
+                </div>
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 rounded-lg bg-[#1a1a1f] border border-white/10 text-[11px] text-[#888] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-xl">
+                  {badge.description}
+                </div>
               </div>
-              <div className="h-1 rounded-full bg-white/5 overflow-hidden">
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Multi-Module Progress */}
+      <div className="mb-8">
+        <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-4">Curriculum Completion</p>
+        <div className="flex flex-col gap-2">
+          {report?.modules.map(mod => (
+            <div key={mod.id} className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-[13px] font-bold text-[#f1f1f1] uppercase tracking-wide">{mod.id}</span>
+                <span className="text-[12px] font-mono text-[#888]">{mod.done} / {mod.total} topics</span>
+              </div>
+              <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
                 <div
-                  className="h-full rounded-full transition-all duration-500"
-                  style={{
-                    width: `${c.total > 0 ? (c.done / c.total) * 100 : 0}%`,
-                    backgroundColor: c.done === c.total && c.total > 0 ? '#27c93f' : 'var(--domain-accent, #4db8ff)',
-                  }}
+                  className="h-full rounded-full transition-all duration-500 bg-[#4db8ff]"
+                  style={{ width: `${mod.percentage}%` }}
                 />
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Strong / Needs work */}
@@ -249,7 +290,7 @@ export function ReportCard({ onNavigate, progressVersion: _ }: Props) {
 
       {/* Time estimate */}
       <div className="p-5 rounded-2xl border border-white/7 bg-white/[0.01]">
-        <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-4">Time to Advanced JS</p>
+        <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-4">Mastery Projection</p>
         <div className="grid grid-cols-2 gap-3 mb-3">
           <div className="p-3 rounded-xl bg-white/[0.02] text-center">
             <p className="text-[10px] text-[#888] mb-1">At 1 hr / day</p>
@@ -262,7 +303,7 @@ export function ReportCard({ onNavigate, progressVersion: _ }: Props) {
             <p className="text-[10px] text-[#888]">days</p>
           </div>
         </div>
-        <p className="text-[12px] text-[#888]">{remaining} remaining × ~30 min avg = {hoursLeft} hrs total</p>
+        <p className="text-[12px] text-[#888]">{remaining} remaining topics × ~30 min avg = {hoursLeft} hrs total</p>
       </div>
     </div>
   );

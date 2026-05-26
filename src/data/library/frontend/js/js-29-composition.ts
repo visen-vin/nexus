@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import compositionSvg from '../../../../assets/diagrams/frontend/js/composition.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-29',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'In functional programming, **Composition** is the act of combining two or more functions to produce a new function. It allows you to build complex transformations from simple, reusable building blocks, adhering to the mathematical principle of $f(g(x))$. This leads to code that is more declarative, easier to test, and highly maintainable.'
+    },
+    {
+      type: 'diagram',
+      content: compositionSvg
     },
     {
       type: 'callout',

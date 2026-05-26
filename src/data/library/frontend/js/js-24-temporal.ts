@@ -1,5 +1,5 @@
-// --- FILE: js-24-temporal.ts ---
 import type { NoteContent } from '../../../types';
+import temporalSvg from '../../../../assets/diagrams/frontend/js/temporal.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-24',
@@ -11,11 +11,15 @@ export const content: NoteContent = {
   sections: [
     {
       type: 'text',
-      content: 'For decades, the JavaScript \\`Date\\` object has been a source of frustration due to its mutability, lack of timezone support, and inconsistent parsing. The **Temporal API** is the next-generation solution, providing a set of immutable objects for handling dates, times, and durations with mathematical precision and built-in DST (Daylight Saving Time) awareness.'
+      content: 'For decades, the JavaScript \`Date\` object has been a source of frustration due to its mutability, lack of timezone support, and inconsistent parsing. The **Temporal API** is the next-generation solution, providing a set of immutable objects for handling dates, times, and durations with mathematical precision and built-in DST (Daylight Saving Time) awareness.'
+    },
+    {
+      type: 'diagram',
+      content: temporalSvg
     },
     {
       type: 'callout',
-      content: 'Unlike the legacy Date object, all Temporal objects are **immutable**. Methods like \\`.add()\\` or \\`.with()\\` return a new instance, preventing the common "action at a distance" bugs caused by shared Date references.',
+      content: 'Unlike the legacy Date object, all Temporal objects are **immutable**. Methods like \`.add()\` or \`.with()\` return a new instance, preventing the common "action at a distance" bugs caused by shared Date references.',
       metadata: { type: 'architecture', title: 'Immutable Time' }
     },
     {
@@ -25,7 +29,7 @@ export const content: NoteContent = {
     },
     {
       type: 'text',
-      content: '\\`Temporal.ZonedDateTime\\` represents a specific event at a specific location. It is the most comprehensive type, handling wall-clock time, timezones, and DST transitions automatically.'
+      content: '\`Temporal.ZonedDateTime\` represents a specific event at a specific location. It is the most comprehensive type, handling wall-clock time, timezones, and DST transitions automatically.'
     },
     {
       type: 'code',
@@ -44,7 +48,7 @@ console.log(zdt.toString()); // 2026-05-24T12:00:00-04:00[America/New_York]`,
     },
     {
       type: 'text',
-      content: '\\`Temporal.PlainDate\\` represents a date without any time or timezone info. This eliminates the "midnight in UTC" bug where a user in a different timezone sees a birthday shift to the previous day.'
+      content: '\`Temporal.PlainDate\` represents a date without any time or timezone info. This eliminates the "midnight in UTC" bug where a user in a different timezone sees a birthday shift to the previous day.'
     },
     {
       type: 'code',
@@ -79,11 +83,11 @@ console.log(birthday.dayOfWeek); // 4 (Thursday)`,
     },
     {
       type: 'faq',
-      content: 'Q: What is the difference between Temporal.Instant and Temporal.ZonedDateTime?\nA: \\`Instant\\` is a fixed point in time (UTC) represented by nanoseconds since the Unix epoch. \\`ZonedDateTime\\` is an Instant combined with a specific timezone and calendar rules.'
+      content: 'Q: What is the difference between Temporal.Instant and Temporal.ZonedDateTime?\nA: \`Instant\` is a fixed point in time (UTC) represented by nanoseconds since the Unix epoch. \`ZonedDateTime\` is an Instant combined with a specific timezone and calendar rules.'
     },
     {
       type: 'faq',
-      content: 'Q: Is Temporal available in all browsers?\nA: As of mid-2024, Temporal is a Stage 4 proposal and is being implemented across major engines. For production use, a polyfill (like \\`@js-temporal/polyfill\\`) is currently required.'
+      content: 'Q: Is Temporal available in all browsers?\nA: As of mid-2024, Temporal is a Stage 4 proposal and is being implemented across major engines. For production use, a polyfill (like \`@js-temporal/polyfill\`) is currently required.'
     }
   ]
 };

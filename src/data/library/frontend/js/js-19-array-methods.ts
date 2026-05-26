@@ -1,5 +1,6 @@
 // --- FILE: js-19-array-methods.ts ---
 import type { NoteContent } from '../../../types';
+import arrayMethodsSvg from '../../../../assets/diagrams/frontend/js/array-methods.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-19',
@@ -12,6 +13,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'Historically, many JavaScript array methods like \\`sort()\\`, \\`reverse()\\`, and \\`splice()\\` mutated the original array in-place. ES2023 introduced **Immutable Array Methods**, allowing developers to perform these operations while returning a new array, aligning JavaScript closer to functional programming principles.'
+    },
+    {
+      type: 'diagram',
+      content: arrayMethodsSvg
     },
     {
       type: 'callout',

@@ -1,5 +1,5 @@
-// --- FILE: js-22-observers.ts ---
 import type { NoteContent } from '../../../types';
+import observersSvg from '../../../../assets/diagrams/frontend/js/observers.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-22',
@@ -12,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'Traditionally, reacting to scroll events or DOM changes required expensive, synchronous listeners that often caused "jank" by blocking the main thread. **IntersectionObserver** and **MutationObserver** provide modern, asynchronous alternatives that run off-thread or as microtasks, significantly improving UI performance.'
+    },
+    {
+      type: 'diagram',
+      content: observersSvg
     },
     {
       type: 'callout',

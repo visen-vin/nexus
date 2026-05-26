@@ -32,21 +32,21 @@ A topic is considered **REFINED** when it has:
 - [x] **js-6: Promises & Async/Await** (✅ REFINED — SVG: promises.svg ✓)
 - [x] **js-12: Garbage Collection & Memory** (✅ REFINED — SVG: gc.svg ✓)
 - [x] **js-13: Web Workers & Concurrency** (✅ REFINED — SVG: web-workers.svg ✓)
-- [x] **js-21: AbortController** (✅ Content Done — SVG needed)
+- [x] **js-21: AbortController** (✅ REFINED — SVG: abort-controller.svg ✓)
 - [x] **js-26: The Fetch API** (✅ Content Done — SVG needed)
 - [x] **js-27: Streams API** (✅ Content Done — SVG needed)
 
 ## Cluster 4: Modern Standards (ES2023 - ES2026)
 - [x] **js-15: Symbols & Iterators** (✅ REFINED — SVG: symbols.svg ✓)
 - [x] **js-16: Map, Set, WeakMap & WeakSet** (✅ REFINED — SVG: collections.svg ✓)
-- [x] **js-17: BigInt & Advanced Math** (✅ Content Done — SVG needed)
-- [x] **js-18: Explicit Resource Management** (✅ Content Done — SVG needed)
-- [x] **js-19: New Immutable Array Methods** (✅ Content Done — SVG needed)
+- [x] **js-17: BigInt & Advanced Math** (✅ REFINED — SVG: bigint.svg ✓)
+- [x] **js-18: Explicit Resource Management** (✅ REFINED — SVG: resource-mgmt.svg ✓)
+- [x] **js-19: New Immutable Array Methods** (✅ REFINED — SVG: array-methods.svg ✓)
 - [x] **js-24: The Temporal API** (✅ Content Done — SVG needed)
 
 ## Cluster 5: Browser APIs & Security
-- [x] **js-20: DOM & Event Flow** (✅ Content Done — SVG needed)
-- [x] **js-22: Intersection & Mutation Observers** (✅ Content Done — SVG needed)
+- [x] **js-20: DOM & Event Flow** (✅ REFINED — SVG: dom-events.svg ✓)
+- [x] **js-22: Intersection & Mutation Observers** (✅ REFINED — SVG: observers.svg ✓)
 - [x] **js-23: Web Components & Shadow DOM** (✅ Content Done — SVG needed)
 - [x] **js-25: Intl API** (✅ Content Done — SVG needed)
 - [x] **js-28: Web Security (XSS & CSRF)** (✅ Content Done — SVG needed)
@@ -56,4 +56,4 @@ A topic is considered **REFINED** when it has:
 ## Progress Summary
 - **Content done**: 29 / 29 topics ✅
 - **Missing files**: 0 ✅
-- **Need SVGs** (13): js-17, js-18, js-19, js-20, js-21, js-22, js-23, js-24, js-25, js-26, js-27, js-28, js-29
+- **Need SVGs** (7): js-23, js-24, js-25, js-26, js-27, js-28, js-29

@@ -1,0 +1,254 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="sourceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="destructiveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#991B1B" />
+    </linearGradient>
+    <linearGradient id="immutableGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="highlightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <!-- Glowing effects -->
+    <filter id="glowSource" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowDestructive" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowImmutable" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowDestructive" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#EF4444" />
+    </marker>
+    <marker id="arrowImmutable" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowSource" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3B82F6" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .section-header { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #94A3B8; letter-spacing: 1px; }
+    
+    .node-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 14px; fill: #FFFFFF; }
+    .node-val { font-family: 'Fira Code', 'Courier New', monospace; font-weight: 700; font-size: 18px; fill: #FFFFFF; }
+    .node-idx { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #94A3B8; font-weight: 600; }
+    .node-addr { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #64748B; font-weight: 600; }
+    
+    .label-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 12px; font-weight: bold; }
+    .badge-text { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; }
+    .method-call { font-family: 'Fira Code', 'Courier New', monospace; font-size: 13px; font-weight: bold; fill: #F1F5F9; }
+    .caption { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #475569; }
+  </style>
+
+  <!-- Outer container with rounded corners -->
+  <rect width="960" height="540" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.02">
+    <line x1="80" y1="0" x2="80" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="200" y1="0" x2="200" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="320" y1="0" x2="320" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="440" y1="0" x2="440" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="560" y1="0" x2="560" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="680" y1="0" x2="680" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="800" y1="0" x2="800" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="960" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="220" x2="960" y2="220" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="340" x2="960" y2="340" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="460" x2="960" y2="460" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title Section -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">ES2023 IMMUTABLE ARRAY METHODS</text>
+    <text class="subtitle" x="0" y="18">MUTATION IN-PLACE (OLD) VS. CHANGE-BY-COPY (NEW)</text>
+  </g>
+
+  <!-- SECTION 1: SOURCE ARRAY (Top Center) -->
+  <g transform="translate(370, 75)">
+    <text class="section-header" x="0" y="15" text-anchor="middle">SOURCE ARRAY</text>
+    <text class="node-addr" x="0" y="32" text-anchor="middle">base (Memory Ref: @0xAF01)</text>
+
+    <!-- Array Boxes base = [3, 1, 2] -->
+    <g transform="translate(-105, 45)">
+      <!-- Box 0 -->
+      <g transform="translate(0, 0)">
+        <rect width="60" height="50" rx="8" fill="#1E293B" stroke="#3B82F6" stroke-width="2" filter="url(#glowSource)" />
+        <text class="node-val" x="30" y="32" text-anchor="middle">3</text>
+        <text class="node-idx" x="30" y="65" text-anchor="middle">idx 0</text>
+      </g>
+      <!-- Box 1 -->
+      <g transform="translate(75, 0)">
+        <rect width="60" height="50" rx="8" fill="#1E293B" stroke="#3B82F6" stroke-width="2" filter="url(#glowSource)" />
+        <text class="node-val" x="30" y="32" text-anchor="middle">1</text>
+        <text class="node-idx" x="30" y="65" text-anchor="middle">idx 1</text>
+      </g>
+      <!-- Box 2 -->
+      <g transform="translate(150, 0)">
+        <rect width="60" height="50" rx="8" fill="#1E293B" stroke="#3B82F6" stroke-width="2" filter="url(#glowSource)" />
+        <text class="node-val" x="30" y="32" text-anchor="middle">2</text>
+        <text class="node-idx" x="30" y="65" text-anchor="middle">idx 2</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- SPLIT ARROWS -->
+  <!-- Left path (Destructive) -->
+  <path d="M 310,170 C 240,190 170,220 170,265" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-dasharray="4 4" marker-end="url(#arrowDestructive)" />
+  <g transform="translate(180, 205)">
+    <rect x="-10" y="-12" width="100" height="22" rx="4" fill="#450A0A" stroke="#EF4444" stroke-width="1" />
+    <text class="label-text" x="40" y="3" fill="#FCA5A5" text-anchor="middle">base.sort()</text>
+  </g>
+
+  <!-- Right path (Immutable Hub) -->
+  <path d="M 430,170 C 510,195 620,225 620,265" fill="none" stroke="#10B981" stroke-width="2.5" marker-end="url(#arrowImmutable)" />
+  <g transform="translate(485, 205)">
+    <rect x="-15" y="-12" width="130" height="22" rx="4" fill="#064E3B" stroke="#10B981" stroke-width="1" />
+    <text class="label-text" x="50" y="3" fill="#A7F3D0" text-anchor="middle">toSorted(), with()</text>
+  </g>
+
+
+  <!-- ================= LEFT: MUTATING / DESTRUCTIVE ================= -->
+  <g transform="translate(40, 275)">
+    <!-- Header -->
+    <rect width="260" height="220" rx="10" fill="#140808" stroke="#EF4444" stroke-width="1" />
+    
+    <g transform="translate(15, 25)">
+      <!-- Warning Badge -->
+      <rect width="130" height="20" rx="4" fill="#991B1B" />
+      <text class="badge-text" x="65" y="13" fill="#FFFFFF" text-anchor="middle">MUTATED IN-PLACE</text>
+      
+      <text class="node-addr" x="0" y="42" fill="#FDA4AF">base (Memory Ref: @0xAF01)</text>
+      <text class="caption" x="0" y="58" fill="#F3F4F6">Original array memory structure altered!</text>
+      
+      <!-- Array Boxes (Sorted in place: [1, 2, 3]) -->
+      <g transform="translate(15, 80)">
+        <!-- Box 0 -->
+        <g transform="translate(0, 0)">
+          <rect width="55" height="45" rx="6" fill="#1E293B" stroke="#EF4444" stroke-width="1.5" />
+          <text class="node-val" x="27.5" y="28" font-size="16" text-anchor="middle">1</text>
+          <text class="node-idx" x="27.5" y="58" text-anchor="middle">idx 0</text>
+        </g>
+        <!-- Box 1 -->
+        <g transform="translate(68, 0)">
+          <rect width="55" height="45" rx="6" fill="#1E293B" stroke="#EF4444" stroke-width="1.5" />
+          <text class="node-val" x="27.5" y="28" font-size="16" text-anchor="middle">2</text>
+          <text class="node-idx" x="27.5" y="58" text-anchor="middle">idx 1</text>
+        </g>
+        <!-- Box 2 -->
+        <g transform="translate(136, 0)">
+          <rect width="55" height="45" rx="6" fill="#1E293B" stroke="#EF4444" stroke-width="1.5" />
+          <text class="node-val" x="27.5" y="28" font-size="16" text-anchor="middle">3</text>
+          <text class="node-idx" x="27.5" y="58" text-anchor="middle">idx 2</text>
+        </g>
+      </g>
+
+      <!-- Warning note -->
+      <text class="caption" x="0" y="175" fill="#EF4444" font-weight="bold">⚠️ React / State breaks here!</text>
+    </g>
+  </g>
+
+
+  <!-- ================= RIGHT: IMMUTABLE CHANGE-BY-COPY ================= -->
+  
+  <!-- Example A: toSorted() -->
+  <g transform="translate(480, 275)">
+    <rect width="440" height="100" rx="10" fill="#061F17" stroke="#10B981" stroke-width="1" />
+    
+    <g transform="translate(20, 20)">
+      <!-- Badge -->
+      <rect width="135" height="18" rx="4" fill="#047857" />
+      <text class="badge-text" x="67.5" y="12" fill="#FFFFFF" text-anchor="middle">NEW COPY: toSorted()</text>
+      
+      <text class="node-addr" x="150" y="14" fill="#34D399">sorted (Memory Ref: @0xCE22)</text>
+      
+      <!-- Array Boxes (Sorted copy: [1, 2, 3]) -->
+      <g transform="translate(0, 30)">
+        <!-- Box 0 -->
+        <g transform="translate(0, 0)">
+          <rect width="50" height="40" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5" filter="url(#glowImmutable)" />
+          <text class="node-val" x="25" y="26" font-size="15" text-anchor="middle">1</text>
+        </g>
+        <!-- Box 1 -->
+        <g transform="translate(60, 0)">
+          <rect width="50" height="40" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5" filter="url(#glowImmutable)" />
+          <text class="node-val" x="25" y="26" font-size="15" text-anchor="middle">2</text>
+        </g>
+        <!-- Box 2 -->
+        <g transform="translate(120, 0)">
+          <rect width="50" height="40" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5" filter="url(#glowImmutable)" />
+          <text class="node-val" x="25" y="26" font-size="15" text-anchor="middle">3</text>
+        </g>
+        
+        <!-- Explanation text -->
+        <text class="caption" x="185" y="25" fill="#A7F3D0">Creates a sorted shallow copy.</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Example B: with(1, 99) -->
+  <g transform="translate(480, 395)">
+    <rect width="440" height="100" rx="10" fill="#061F17" stroke="#10B981" stroke-width="1" />
+    
+    <g transform="translate(20, 20)">
+      <!-- Badge -->
+      <rect width="135" height="18" rx="4" fill="#047857" />
+      <text class="badge-text" x="67.5" y="12" fill="#FFFFFF" text-anchor="middle">NEW COPY: with(1, 99)</text>
+      
+      <text class="node-addr" x="150" y="14" fill="#34D399">updated (Memory Ref: @0xFB14)</text>
+      
+      <!-- Array Boxes (With element replaced: [3, 99, 2]) -->
+      <g transform="translate(0, 30)">
+        <!-- Box 0 -->
+        <g transform="translate(0, 0)">
+          <rect width="50" height="40" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5" filter="url(#glowImmutable)" />
+          <text class="node-val" x="25" y="26" font-size="15" text-anchor="middle">3</text>
+        </g>
+        <!-- Box 1 (Replaced, highlight gradient) -->
+        <g transform="translate(60, 0)">
+          <rect width="50" height="40" rx="6" fill="#78350F" stroke="#F59E0B" stroke-width="2" />
+          <text class="node-val" x="25" y="26" font-size="15" fill="#FBBF24" text-anchor="middle">99</text>
+        </g>
+        <!-- Box 2 -->
+        <g transform="translate(120, 0)">
+          <rect width="50" height="40" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5" filter="url(#glowImmutable)" />
+          <text class="node-val" x="25" y="26" font-size="15" text-anchor="middle">2</text>
+        </g>
+        
+        <!-- Explanation text -->
+        <text class="caption" x="185" y="25" fill="#A7F3D0">Replaces element at index 1 without mutation.</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footnote / Core Rule -->
+  <text class="caption" x="40" y="515" fill="#64748B">Note: All new ES2023 change-by-copy methods (toSorted, toReversed, toSpliced, with) perform shallow copies, preserving the original array structure completely.</text>
+
+</svg>

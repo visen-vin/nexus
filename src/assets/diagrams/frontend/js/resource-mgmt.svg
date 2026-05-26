@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 550" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0D1527" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="usingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+    
+    <linearGradient id="disposeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <linearGradient id="asyncDisposeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#0891B2" />
+    </linearGradient>
+
+    <linearGradient id="errorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#DC2626" />
+    </linearGradient>
+
+    <linearGradient id="stackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <!-- Glowing effects -->
+    <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#8B5CF6" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowCyan" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#06B6D4" />
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#EF4444" />
+    </marker>
+    <marker id="arrowMuted" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748B" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 18px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .section-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #94A3B8; letter-spacing: 0.5px; }
+    .node-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 14px; fill: #FFFFFF; }
+    .node-desc { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #E2E8F0; opacity: 0.85; }
+    .node-state { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #94A3B8; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 12px; fill: #F1F5F9; }
+    .keyword { fill: #F43F5E; font-weight: bold; }
+    .symbol { fill: #38BDF8; font-weight: bold; }
+    .label-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; font-weight: 600; }
+    .label-bg { rx: 4px; }
+    .method-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 13px; font-weight: bold; fill: #FFFFFF; }
+  </style>
+
+  <!-- Outer container with rounded corners -->
+  <rect width="950" height="550" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.02">
+    <line x1="50" y1="0" x2="50" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="250" y1="0" x2="250" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="350" y1="0" x2="350" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="550" y1="0" x2="550" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="650" y1="0" x2="650" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="750" y1="0" x2="750" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="850" y1="0" x2="850" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="950" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="200" x2="950" y2="200" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="300" x2="950" y2="300" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="400" x2="950" y2="400" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="500" x2="950" y2="500" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title Section -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">EXPLICIT RESOURCE MANAGEMENT</text>
+    <text class="subtitle" x="0" y="18">DETERMINISTIC LIFECYCLE, SCOPE EXIT DISPOSAL &amp; ERROR SUPPRESSION</text>
+  </g>
+
+  <!-- PHASE 1: ALLOCATION & REGISTER -->
+  <g transform="translate(40, 95)">
+    <text class="section-title">1. ALLOCATION &amp; LIFO STACK</text>
+    
+    <!-- Code Input Box -->
+    <g transform="translate(0, 20)">
+      <rect width="240" height="95" rx="8" fill="#0B132B" stroke="#334155" stroke-width="1.5" />
+      <rect width="6" height="95" rx="0" fill="url(#usingGrad)" clip-path="inset(0 0 0 0)" />
+      <!-- Code lines -->
+      <text class="code-text" x="20" y="30"><tspan class="keyword">using</tspan> file = openFile();</text>
+      <text class="code-text" x="20" y="52"><tspan class="keyword">await using</tspan> conn = db();</text>
+      <text class="code-text" x="20" y="74"><span style="fill: #64748B;">// Stacked in LIFO order</span></text>
+    </g>
+
+    <!-- Stack graphic container -->
+    <g transform="translate(0, 135)">
+      <rect width="240" height="230" rx="8" fill="#0B132B" stroke="#1E293B" stroke-width="1.5" />
+      <text class="node-state" x="20" y="30">IMPLICIT DISPOSAL STACK</text>
+      
+      <!-- Top Resource (conn) - Declared last, disposed first -->
+      <g transform="translate(15, 50)">
+        <rect width="210" height="65" rx="6" fill="#162E3B" stroke="#06B6D4" stroke-width="1.5" />
+        <text class="node-text" x="12" y="24" font-size="12">1st to Dispose: conn</text>
+        <text class="node-state" x="12" y="42" font-size="10">await using (Async)</text>
+        <circle cx="195" cy="32" r="7" fill="#06B6D4" opacity="0.3" />
+        <circle cx="195" cy="32" r="3" fill="#06B6D4" />
+      </g>
+
+      <!-- Bottom Resource (file) - Declared first, disposed last -->
+      <g transform="translate(15, 130)">
+        <rect width="210" height="65" rx="6" fill="#142B24" stroke="#10B981" stroke-width="1.5" />
+        <text class="node-text" x="12" y="24" font-size="12">2nd to Dispose: file</text>
+        <text class="node-state" x="12" y="42" font-size="10">using (Synchronous)</text>
+        <circle cx="195" cy="32" r="7" fill="#10B981" opacity="0.3" />
+        <circle cx="195" cy="32" r="3" fill="#10B981" />
+      </g>
+
+      <!-- Legend/LIFO Arrow -->
+      <path d="M230,180 L230,70" fill="none" stroke="#8B5CF6" stroke-width="2" marker-end="url(#arrowPurple)" />
+      <text class="label-text" x="135" y="215" fill="#8B5CF6" font-size="9">LIFO DISPOSAL ORDER</text>
+    </g>
+  </g>
+
+  <!-- Arrow Phase 1 to Phase 2 -->
+  <path d="M300,280 L335,280" stroke="#64748B" stroke-width="2" marker-end="url(#arrowMuted)" />
+
+  <!-- PHASE 2: BLOCK EXECUTION -->
+  <g transform="translate(360, 95)">
+    <text class="section-title">2. SCOPE BLOCK EXECUTION</text>
+
+    <!-- Scope block container -->
+    <g transform="translate(0, 20)">
+      <rect width="230" height="345" rx="12" fill="#090E1A" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" />
+      
+      <!-- Inside curly brace labels -->
+      <text class="node-state" x="15" y="30">{ // BLOCK SCOPE START</text>
+      
+      <!-- Operations card -->
+      <g transform="translate(15, 50)">
+        <rect width="200" height="100" rx="8" fill="#111827" stroke="#334155" stroke-width="1.5" />
+        <text class="node-text" x="15" y="30" font-size="13">Active Operations</text>
+        <text class="node-desc" x="15" y="55">Executing business logic...</text>
+        <text class="node-desc" x="15" y="72">Resource usage occurs here.</text>
+      </g>
+
+      <!-- Decision Diamond or Split paths on Exit -->
+      <g transform="translate(15, 170)">
+        <rect width="200" height="135" rx="8" fill="#0F172A" stroke="#1E293B" stroke-width="1.5" />
+        <text class="node-state" x="12" y="25">EXIT PATH TRIGGERS</text>
+        
+        <!-- Normal Exit Button -->
+        <g transform="translate(12, 40)">
+          <rect width="176" height="35" rx="4" fill="#064E3B" stroke="#059669" stroke-width="1" />
+          <text class="label-text" x="10" y="22" fill="#34D399">✔ Regular Completion</text>
+        </g>
+        
+        <!-- Error Exit Button -->
+        <g transform="translate(12, 85)">
+          <rect width="176" height="35" rx="4" fill="#7F1D1D" stroke="#DC2626" stroke-width="1" />
+          <text class="label-text" x="10" y="22" fill="#FCA5A5">⚠ Uncaught Error thrown</text>
+        </g>
+      </g>
+
+      <text class="node-state" x="15" y="330">} // AUTOMATIC CLEANUP INITIATED</text>
+    </g>
+  </g>
+
+  <!-- Arrow Phase 2 to Phase 3 (Normal Flow) -->
+  <path d="M605,250 C630,250 635,185 660,185" fill="none" stroke="#10B981" stroke-width="2.5" marker-end="url(#arrowGreen)" />
+  <g transform="translate(605, 190)">
+    <rect class="label-bg" x="0" y="0" width="55" height="18" fill="#064E3B" stroke="#059669" stroke-width="1" />
+    <text class="label-text" x="5" y="12" fill="#34D399" font-size="9">Success</text>
+  </g>
+
+  <!-- Arrow Phase 2 to Phase 3 (Error Flow) -->
+  <path d="M605,310 C630,310 635,395 660,395" fill="none" stroke="#EF4444" stroke-width="2.5" marker-end="url(#arrowRed)" />
+  <g transform="translate(605, 335)">
+    <rect class="label-bg" x="0" y="0" width="55" height="18" fill="#7F1D1D" stroke="#DC2626" stroke-width="1" />
+    <text class="label-text" x="8" y="12" fill="#FCA5A5" font-size="9">Error</text>
+  </g>
+
+  <!-- PHASE 3: DISPOSAL PROTOCOL PROTOCOLS -->
+  <g transform="translate(680, 95)">
+    <text class="section-title">3. AUTO DISPOSAL STAGE</text>
+
+    <!-- Async Dispose Node -->
+    <g transform="translate(0, 20)" filter="url(#glowCyan)">
+      <rect width="230" height="100" rx="10" fill="#0B2A35" stroke="#06B6D4" stroke-width="2" />
+      <text class="node-text" x="15" y="32">conn [Symbol.asyncDispose]</text>
+      <text class="node-state" x="15" y="52">Awaited Async Call</text>
+      <text class="node-desc" x="15" y="70" fill="#67E8F9">Closing sockets, active DB pools...</text>
+      <circle cx="205" cy="28" r="8" fill="#06B6D4" />
+      <path d="M201,28 L209,28 M205,24 L205,32" fill="none" stroke="#FFFFFF" stroke-width="1.5" />
+    </g>
+
+    <!-- Sync Dispose Node -->
+    <g transform="translate(0, 135)" filter="url(#glowGreen)">
+      <rect width="230" height="100" rx="10" fill="#082F22" stroke="#10B981" stroke-width="2" />
+      <text class="node-text" x="15" y="32">file [Symbol.dispose]</text>
+      <text class="node-state" x="15" y="52">Synchronous Call</text>
+      <text class="node-desc" x="15" y="70" fill="#6EE7B7">Releasing local file handlers...</text>
+      <circle cx="205" cy="28" r="8" fill="#10B981" />
+      <path d="M201,28 L209,28" fill="none" stroke="#FFFFFF" stroke-width="1.5" />
+    </g>
+
+    <!-- PHASE 4: SUPPRESSED ERROR HANDLING -->
+    <g transform="translate(0, 250)">
+      <rect width="230" height="130" rx="10" fill="#2D0A0A" stroke="#EF4444" stroke-width="2" filter="url(#glowRed)" />
+      <text class="node-text" x="15" y="30">SuppressedError thrown</text>
+      
+      <!-- Connection line / visual wrapper -->
+      <g transform="translate(15, 45)">
+        <rect width="200" height="70" rx="6" fill="#1E0808" stroke="#7F1D1D" stroke-width="1.5" />
+        <text class="code-text" x="8" y="22" font-size="10" fill="#FCA5A5">error: Disposer Error</text>
+        <text class="code-text" x="8" y="42" font-size="10" fill="#FCA5A5">suppressed: Block Error</text>
+        <text class="code-text" x="8" y="58" font-size="8" fill="#94A3B8">// Neither exception is swallowed!</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footnote -->
+  <text x="40" y="515" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#64748B">
+    Note: Disposal is guaranteed to execute even if the block throws an exception. Resources are closed in LIFO (reverse declaration) order.
+  </text>
+</svg>

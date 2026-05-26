@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="domNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    
+    <linearGradient id="targetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EC4899" />
+      <stop offset="100%" stop-color="#F43F5E" />
+    </linearGradient>
+
+    <linearGradient id="capturingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+
+    <linearGradient id="bubblingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+
+    <!-- Glowing effects -->
+    <filter id="glowCapturing" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowTarget" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowBubbling" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowCapturing" markerWidth="8" markerHeight="8" refX="5" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L7,4 L1,7 z" fill="#06B6D4" />
+    </marker>
+    <marker id="arrowBubbling" markerWidth="8" markerHeight="8" refX="5" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L7,4 L1,7 z" fill="#10B981" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    
+    .node-text { font-family: 'Fira Code', 'Courier New', monospace; font-weight: 600; font-size: 13px; fill: #E2E8F0; }
+    .node-target-text { font-family: 'Fira Code', 'Courier New', monospace; font-weight: 700; font-size: 14px; fill: #FFFFFF; }
+    
+    .phase-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 1.5px; }
+    .phase-desc { font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 10px; fill: #94A3B8; }
+    
+    .path-label { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; font-weight: 600; }
+  </style>
+
+  <!-- Outer container with rounded corners -->
+  <rect width="900" height="520" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.02">
+    <line x1="50" y1="0" x2="50" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="250" y1="0" x2="250" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="350" y1="0" x2="350" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="550" y1="0" x2="550" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="650" y1="0" x2="650" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="750" y1="0" x2="750" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="850" y1="0" x2="850" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="900" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="200" x2="900" y2="200" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="300" x2="900" y2="300" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="400" x2="900" y2="400" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title Section -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">DOM EVENT PROPAGATION FLOW</text>
+    <text class="subtitle" x="0" y="18">VISUALIZING CAPTURING, TARGET, AND BUBBLING PHASES</text>
+  </g>
+
+  <!-- DOM Hierarchy Connecting Spine -->
+  <line x1="450" y1="88" x2="450" y2="400" stroke="#334155" stroke-dasharray="4,4" stroke-width="1.5" />
+
+  <!-- ================= DOM NODES STACK ================= -->
+  
+  <!-- 1. Window -->
+  <g transform="translate(360, 70)">
+    <rect width="180" height="36" rx="8" fill="url(#domNodeGrad)" stroke="#334155" stroke-width="1.5" />
+    <text class="node-text" x="90" y="22" text-anchor="middle">window</text>
+  </g>
+
+  <!-- 2. Document -->
+  <g transform="translate(360, 130)">
+    <rect width="180" height="36" rx="8" fill="url(#domNodeGrad)" stroke="#334155" stroke-width="1.5" />
+    <text class="node-text" x="90" y="22" text-anchor="middle">document</text>
+  </g>
+
+  <!-- 3. HTML -->
+  <g transform="translate(360, 190)">
+    <rect width="180" height="36" rx="8" fill="url(#domNodeGrad)" stroke="#334155" stroke-width="1.5" />
+    <text class="node-text" x="90" y="22" text-anchor="middle">&lt;html&gt;</text>
+  </g>
+
+  <!-- 4. Body -->
+  <g transform="translate(360, 250)">
+    <rect width="180" height="36" rx="8" fill="url(#domNodeGrad)" stroke="#334155" stroke-width="1.5" />
+    <text class="node-text" x="90" y="22" text-anchor="middle">&lt;body&gt;</text>
+  </g>
+
+  <!-- 5. Div (Container) -->
+  <g transform="translate(360, 310)">
+    <rect width="180" height="36" rx="8" fill="url(#domNodeGrad)" stroke="#334155" stroke-width="1.5" />
+    <text class="node-text" x="90" y="22" text-anchor="middle">&lt;div id="container"&gt;</text>
+  </g>
+
+  <!-- 6. Button (Target Element) -->
+  <g transform="translate(350, 385)" filter="url(#glowTarget)">
+    <rect width="200" height="46" rx="10" fill="url(#targetGrad)" stroke="#F43F5E" stroke-width="2.5" />
+    <text class="node-target-text" x="100" y="27" text-anchor="middle">&lt;button id="submit"&gt;</text>
+  </g>
+
+
+  <!-- ================= CAPTURING PHASE (LEFT) ================= -->
+  <g transform="translate(80, 120)">
+    <!-- Phase Banner -->
+    <rect width="180" height="45" rx="6" fill="#082F49" stroke="#06B6D4" stroke-width="1.5" opacity="0.9" />
+    <text class="phase-title" x="15" y="20" fill="#22D3EE">1. CAPTURING PHASE</text>
+    <text class="phase-desc" x="15" y="34" fill="#94A3B8">Window down to Target</text>
+  </g>
+
+  <!-- Capturing Curved Path -->
+  <path d="M 330 88 
+           C 280 88, 280 148, 330 148
+           C 280 148, 280 208, 330 208
+           C 280 208, 280 268, 330 268
+           C 280 268, 280 328, 330 328
+           C 270 328, 270 408, 330 408" 
+        fill="none" stroke="#06B6D4" stroke-dasharray="1,1" stroke-width="3" opacity="0.3" />
+  
+  <path d="M 330 88 
+           C 280 88, 280 148, 330 148
+           C 280 148, 280 208, 330 208
+           C 280 208, 280 268, 330 268
+           C 280 268, 280 328, 330 328
+           C 270 328, 270 408, 332 408" 
+        fill="none" stroke="url(#capturingGrad)" stroke-width="3" filter="url(#glowCapturing)" marker-end="url(#arrowCapturing)" />
+
+  <text class="path-label" x="220" y="212" fill="#06B6D4" text-anchor="end">capture: true</text>
+
+
+  <!-- ================= TARGET PHASE ================= -->
+  <g transform="translate(360, 462)">
+    <!-- Phase Banner -->
+    <rect width="180" height="32" rx="6" fill="#50072B" stroke="#EC4899" stroke-width="1.5" opacity="0.9" />
+    <text class="phase-title" x="90" y="20" fill="#F472B6" text-anchor="middle">2. TARGET PHASE</text>
+  </g>
+
+
+  <!-- ================= BUBBLING PHASE (RIGHT) ================= -->
+  <g transform="translate(640, 120)">
+    <!-- Phase Banner -->
+    <rect width="180" height="45" rx="6" fill="#064E3B" stroke="#10B981" stroke-width="1.5" opacity="0.9" />
+    <text class="phase-title" x="15" y="20" fill="#34D399">3. BUBBLING PHASE</text>
+    <text class="phase-desc" x="15" y="34" fill="#94A3B8">Target back up to Window</text>
+  </g>
+
+  <!-- Bubbling Curved Path -->
+  <path d="M 568 408 
+           C 630 408, 630 328, 570 328
+           C 620 328, 620 268, 570 268
+           C 620 268, 620 208, 570 208
+           C 620 208, 620 148, 570 148
+           C 620 148, 620 88, 570 88" 
+        fill="none" stroke="#10B981" stroke-dasharray="1,1" stroke-width="3" opacity="0.3" />
+
+  <path d="M 568 408 
+           C 630 408, 630 328, 570 328
+           C 620 328, 620 268, 570 268
+           C 620 268, 620 208, 570 208
+           C 620 208, 620 148, 570 148
+           C 620 148, 620 88, 568 88" 
+        fill="none" stroke="url(#bubblingGrad)" stroke-width="3" filter="url(#glowBubbling)" marker-end="url(#arrowBubbling)" />
+
+  <text class="path-label" x="680" y="212" fill="#10B981" text-anchor="start">event.stopPropagation()</text>
+  <text class="path-label" x="680" y="226" fill="#64748B" text-anchor="start">(can halt here)</text>
+
+  <!-- Footnote -->
+  <text x="40" y="495" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#475569">Note: Focus, blur, load, and unload events do not bubble up by default.</text>
+</svg>

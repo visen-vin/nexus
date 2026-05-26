@@ -1,0 +1,213 @@
+<svg width="100%" height="100%" viewBox="0 0 760 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0b10"/>
+      <stop offset="50%" stop-color="#0f111a"/>
+      <stop offset="100%" stop-color="#07080c"/>
+    </linearGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="constructorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.02" />
+    </linearGradient>
+    <linearGradient id="prototypeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0d9488" stop-opacity="0.02" />
+    </linearGradient>
+    <linearGradient id="instanceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.02" />
+    </linearGradient>
+    <linearGradient id="nullGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eab308" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#eab308" stop-opacity="0.02" />
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="glowProto" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="glowConstructor" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Arrow Markers -->
+    <!-- Pink marker for __proto__ (internal prototype link) -->
+    <marker id="arrowProto" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e" />
+    </marker>
+    <!-- Blue/Violet marker for .prototype -->
+    <marker id="arrowPrototypeProp" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#a855f7" />
+    </marker>
+    <!-- Cyan/Slate marker for .constructor -->
+    <marker id="arrowConstructorProp" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="100%" height="100%" rx="20" fill="url(#bgGrad)" stroke="#1f2937" stroke-width="1.5"/>
+
+  <!-- Grid Pattern Overlay for Tech Aesthetic -->
+  <g opacity="0.03">
+    <path d="M0 40 H760 M0 80 H760 M0 120 H760 M0 160 H760 M0 200 H760 M0 240 H760 M0 280 H760 M0 320 H760 M0 360 H760 M0 400 H760 M0 440 H760 M0 480 H760 M0 520 H760" stroke="#ffffff" stroke-width="1"/>
+    <path d="M40 0 V620 M80 0 V620 M120 0 V620 M160 0 V620 M200 0 V620 M240 0 V620 M280 0 V620 M320 0 V620 M360 0 V620 M400 0 V620 M440 0 V620 M480 0 V620 M520 0 V620 M560 0 V620 M600 0 V620 M640 0 V620 M680 0 V620" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <!-- Title & Header -->
+  <g transform="translate(40, 45)">
+    <text x="0" y="0" fill="#f3f4f6" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="800" style="letter-spacing: 0.15em">THE JAVASCRIPT PROTOTYPE CHAIN</text>
+    <text x="0" y="18" fill="#6b7280" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" style="letter-spacing: 0.05em">A DEEP DIVE INTO BEHAVIOR DELEGATION &amp; RESOLUTION PATHS</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(430, 30)">
+    <!-- Proto Link -->
+    <path d="M 0 10 L 25 10" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrowProto)"/>
+    <text x="35" y="14" fill="#f43f5e" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">[[Prototype]] (__proto__)</text>
+
+    <!-- prototype Link -->
+    <path d="M 0 28 L 25 28" stroke="#a855f7" stroke-dasharray="3 3" stroke-width="1.5" marker-end="url(#arrowPrototypeProp)"/>
+    <text x="35" y="32" fill="#a855f7" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">.prototype</text>
+
+    <!-- constructor Link -->
+    <path d="M 160 10 L 185 10" stroke="#94a3b8" stroke-dasharray="2 2" stroke-width="1.5" marker-end="url(#arrowConstructorProp)"/>
+    <text x="195" y="14" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">.constructor</text>
+  </g>
+
+  <!-- ==================== LEFT COLUMN: CONSTRUCTORS (Functions) ==================== -->
+  <text x="140" y="100" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" style="letter-spacing: 0.08em">CONSTRUCTOR FUNCTIONS</text>
+
+  <!-- 1. Object Constructor -->
+  <g transform="translate(40, 120)">
+    <rect width="200" height="60" rx="10" fill="url(#constructorGrad)" stroke="#8b5cf6" stroke-opacity="0.3" stroke-width="1.5"/>
+    <text x="15" y="24" fill="#c084fc" font-family="monospace" font-size="13" font-weight="bold">Object()</text>
+    <text x="15" y="42" fill="#6b7280" font-family="system-ui, -apple-system, sans-serif" font-size="9">Built-in Base Constructor</text>
+    <circle cx="185" cy="30" r="4" fill="#8b5cf6" filter="url(#glowConstructor)"/>
+  </g>
+
+  <!-- 2. Function Constructor -->
+  <g transform="translate(40, 240)">
+    <rect width="200" height="60" rx="10" fill="url(#constructorGrad)" stroke="#8b5cf6" stroke-opacity="0.3" stroke-width="1.5"/>
+    <text x="15" y="24" fill="#c084fc" font-family="monospace" font-size="13" font-weight="bold">Function()</text>
+    <text x="15" y="42" fill="#6b7280" font-family="system-ui, -apple-system, sans-serif" font-size="9">Constructor for all functions</text>
+    <circle cx="185" cy="30" r="4" fill="#8b5cf6" filter="url(#glowConstructor)"/>
+  </g>
+
+  <!-- 3. Custom Rabbit Constructor -->
+  <g transform="translate(40, 360)">
+    <rect width="200" height="60" rx="10" fill="url(#constructorGrad)" stroke="#8b5cf6" stroke-opacity="0.3" stroke-width="1.5"/>
+    <text x="15" y="24" fill="#c084fc" font-family="monospace" font-size="13" font-weight="bold">Rabbit()</text>
+    <text x="15" y="42" fill="#6b7280" font-family="system-ui, -apple-system, sans-serif" font-size="9">Custom constructor function</text>
+    <circle cx="185" cy="30" r="4" fill="#8b5cf6" filter="url(#glowConstructor)"/>
+  </g>
+
+
+  <!-- ==================== MIDDLE COLUMN: PROTOTYPE OBJECTS ==================== -->
+  <text x="440" y="100" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" style="letter-spacing: 0.08em">PROTOTYPE OBJECTS</text>
+
+  <!-- 1. Object.prototype -->
+  <g transform="translate(340, 120)">
+    <rect width="200" height="60" rx="10" fill="url(#prototypeGrad)" stroke="#0d9488" stroke-opacity="0.3" stroke-width="1.5"/>
+    <text x="15" y="24" fill="#2dd4bf" font-family="monospace" font-size="13" font-weight="bold">Object.prototype</text>
+    <text x="15" y="42" fill="#6b7280" font-family="system-ui, -apple-system, sans-serif" font-size="9">Top of the prototype chain</text>
+    <circle cx="185" cy="30" r="4" fill="#0d9488" filter="url(#glowProto)"/>
+  </g>
+
+  <!-- 2. Function.prototype -->
+  <g transform="translate(340, 240)">
+    <rect width="200" height="60" rx="10" fill="url(#prototypeGrad)" stroke="#0d9488" stroke-opacity="0.3" stroke-width="1.5"/>
+    <text x="15" y="24" fill="#2dd4bf" font-family="monospace" font-size="13" font-weight="bold">Function.prototype</text>
+    <text x="15" y="42" fill="#6b7280" font-family="system-ui, -apple-system, sans-serif" font-size="9">Shared methods (call, bind, etc.)</text>
+    <circle cx="185" cy="30" r="4" fill="#0d9488" filter="url(#glowProto)"/>
+  </g>
+
+  <!-- 3. Rabbit.prototype -->
+  <g transform="translate(340, 360)">
+    <rect width="200" height="60" rx="10" fill="url(#prototypeGrad)" stroke="#0d9488" stroke-opacity="0.3" stroke-width="1.5"/>
+    <text x="15" y="24" fill="#2dd4bf" font-family="monospace" font-size="13" font-weight="bold">Rabbit.prototype</text>
+    <text x="15" y="42" fill="#6b7280" font-family="system-ui, -apple-system, sans-serif" font-size="9">Instance shared properties</text>
+    <circle cx="185" cy="30" r="4" fill="#0d9488" filter="url(#glowProto)"/>
+  </g>
+
+
+  <!-- ==================== BOTTOM / INSTANCE AREA ==================== -->
+  <!-- Custom Instance rabbit -->
+  <g transform="translate(340, 480)">
+    <rect width="200" height="60" rx="10" fill="url(#instanceGrad)" stroke="#0284c7" stroke-opacity="0.3" stroke-width="1.5"/>
+    <text x="15" y="24" fill="#38bdf8" font-family="monospace" font-size="13" font-weight="bold">rabbit (instance)</text>
+    <text x="15" y="42" fill="#6b7280" font-family="system-ui, -apple-system, sans-serif" font-size="9">Created via: new Rabbit()</text>
+  </g>
+
+  <!-- The top null node -->
+  <g transform="translate(590, 130)">
+    <rect width="90" height="40" rx="8" fill="url(#nullGrad)" stroke="#eab308" stroke-opacity="0.3" stroke-width="1.5"/>
+    <text x="45" y="25" fill="#facc15" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">null</text>
+  </g>
+
+
+  <!-- ==================== CONNECTIONS / ARROWS ==================== -->
+
+  <!-- A. .prototype relationships (Constructor -> Prototype Object) -->
+  <!-- Object -> Object.prototype -->
+  <path d="M 240 142 L 332 142" stroke="#a855f7" stroke-dasharray="3 3" stroke-width="1.5" marker-end="url(#arrowPrototypeProp)"/>
+  <text x="285" y="135" fill="#a855f7" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">.prototype</text>
+
+  <!-- Function -> Function.prototype -->
+  <path d="M 240 262 L 332 262" stroke="#a855f7" stroke-dasharray="3 3" stroke-width="1.5" marker-end="url(#arrowPrototypeProp)"/>
+  <text x="285" y="255" fill="#a855f7" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">.prototype</text>
+
+  <!-- Rabbit -> Rabbit.prototype -->
+  <path d="M 240 382 L 332 382" stroke="#a855f7" stroke-dasharray="3 3" stroke-width="1.5" marker-end="url(#arrowPrototypeProp)"/>
+  <text x="285" y="375" fill="#a855f7" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">.prototype</text>
+
+
+  <!-- B. .constructor relationships (Prototype Object -> Constructor) -->
+  <!-- Object.prototype -> Object -->
+  <path d="M 340 158 L 248 158" stroke="#94a3b8" stroke-dasharray="2 2" stroke-width="1.5" marker-end="url(#arrowConstructorProp)"/>
+  <text x="285" y="170" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">.constructor</text>
+
+  <!-- Function.prototype -> Function -->
+  <path d="M 340 278 L 248 278" stroke="#94a3b8" stroke-dasharray="2 2" stroke-width="1.5" marker-end="url(#arrowConstructorProp)"/>
+  <text x="285" y="290" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">.constructor</text>
+
+  <!-- Rabbit.prototype -> Rabbit -->
+  <path d="M 340 398 L 248 398" stroke="#94a3b8" stroke-dasharray="2 2" stroke-width="1.5" marker-end="url(#arrowConstructorProp)"/>
+  <text x="285" y="410" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">.constructor</text>
+
+
+  <!-- C. [[Prototype]] / __proto__ relationships (The actual inheritance chain!) -->
+  <!-- 1. Instance rabbit -> Rabbit.prototype -->
+  <path d="M 440 480 L 440 430" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrowProto)"/>
+  <text x="450" y="458" fill="#f43f5e" font-family="monospace" font-size="10" font-weight="bold">__proto__</text>
+
+  <!-- 2. Rabbit.prototype -> Object.prototype -->
+  <path d="M 540 390 C 580 390, 580 150, 548 150" stroke="#f43f5e" stroke-width="2" fill="none" marker-end="url(#arrowProto)"/>
+  <text x="590" y="270" fill="#f43f5e" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">__proto__</text>
+
+  <!-- 3. Object.prototype -> null -->
+  <path d="M 540 140 L 582 140" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrowProto)"/>
+  <text x="560" y="132" fill="#f43f5e" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">__proto__</text>
+
+  <!-- 4. Function.prototype -> Object.prototype -->
+  <path d="M 440 240 L 440 190" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrowProto)"/>
+  <text x="450" y="218" fill="#f43f5e" font-family="monospace" font-size="10" font-weight="bold">__proto__</text>
+
+  <!-- 5. Rabbit constructor -> Function.prototype -->
+  <path d="M 140 360 L 140 320 C 140 310, 320 310, 390 285" stroke="#f43f5e" stroke-width="1.8" fill="none" marker-end="url(#arrowProto)"/>
+  <text x="210" y="325" fill="#f43f5e" font-family="monospace" font-size="9" font-weight="bold">__proto__</text>
+
+  <!-- 6. Function constructor -> Function.prototype -->
+  <path d="M 140 240 L 140 200 C 140 190, 310 190, 380 230" stroke="#f43f5e" stroke-width="1.8" fill="none" marker-end="url(#arrowProto)"/>
+  <text x="210" y="205" fill="#f43f5e" font-family="monospace" font-size="9" font-weight="bold">__proto__</text>
+
+  <!-- 7. Object constructor -> Function.prototype -->
+  <path d="M 240 160 C 270 175, 290 195, 348 232" stroke="#f43f5e" stroke-width="1.8" fill="none" marker-end="url(#arrowProto)"/>
+  <text x="310" y="195" fill="#f43f5e" font-family="monospace" font-size="9" font-weight="bold">__proto__</text>
+
+</svg>

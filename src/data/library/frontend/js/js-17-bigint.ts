@@ -1,5 +1,5 @@
-// --- FILE: js-17-bigint.ts ---
 import type { NoteContent } from '../../../types';
+import bigintSvg from '../../../../assets/diagrams/frontend/js/bigint.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-17',
@@ -12,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'JavaScript traditionally used 64-bit floats for all numbers, capped at \\`Number.MAX_SAFE_INTEGER\\` ($2^{53} - 1$). **BigInt** breaks this barrier, providing arbitrary-precision integers for handling massive database IDs, high-resolution timestamps, and cryptographic keys without precision loss.'
+    },
+    {
+      type: 'diagram',
+      content: bigintSvg
     },
     {
       type: 'callout',

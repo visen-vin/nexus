@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Component Gradients -->
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <linearGradient id="proxyOuterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.05" />
+    </linearGradient>
+
+    <linearGradient id="trapGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+
+    <linearGradient id="targetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+
+    <linearGradient id="reflectGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+
+    <!-- Glowing Effects -->
+    <filter id="glowProxy" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowTarget" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowReflect" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3B82F6" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowAmber" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#F59E0B" />
+    </marker>
+    <marker id="arrowMuted" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .section-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 13px; fill: #94A3B8; letter-spacing: 1px; }
+    .node-text { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 14px; fill: #FFFFFF; }
+    .node-desc { font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 11px; fill: #94A3B8; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #E2E8F0; }
+    .code-accent { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #60A5FA; font-weight: 600; }
+    .code-green { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #34D399; font-weight: 600; }
+    .label-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; font-weight: 600; }
+    .label-bg { rx: 4px; }
+  </style>
+
+  <!-- Outer background container -->
+  <rect width="900" height="500" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.02">
+    <line x1="50" y1="0" x2="50" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="250" y1="0" x2="250" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="350" y1="0" x2="350" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="550" y1="0" x2="550" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="650" y1="0" x2="650" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="750" y1="0" x2="750" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="850" y1="0" x2="850" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="900" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="200" x2="900" y2="200" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="300" x2="900" y2="300" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="400" x2="900" y2="400" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title Section -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">JS PROXY &amp; REFLECT RUNTIME MODEL</text>
+    <text class="subtitle" x="0" y="18">INTERCEPTING AND CUSTOMIZING FUNDAMENTAL OBJECT OPERATIONS</text>
+  </g>
+
+  <!-- COLUMN 1: CLIENT / OPERATION (Left) -->
+  <g transform="translate(40, 120)">
+    <text class="section-title" x="0" y="-10">1. CONSUMER / CALLER</text>
+    <!-- Code Box for Set Operation -->
+    <g transform="translate(0, 10)">
+      <rect width="200" height="110" rx="10" fill="#0D1527" stroke="#334155" stroke-width="1.5" />
+      <rect width="200" height="6" rx="0" fill="url(#clientGrad)" clip-path="inset(0 0 104 0)" />
+      <text class="node-text" x="15" y="30">Property Write</text>
+      <text class="code-text" x="15" y="55"><tspan fill="#F43F5E">proxy</tspan>.age = <tspan fill="#38BDF8">25</tspan>;</text>
+      <text class="node-desc" x="15" y="82">Triggers the handler's</text>
+      <text class="node-desc" x="15" y="96">"set" trap function.</text>
+    </g>
+
+    <!-- Code Box for Get Operation -->
+    <g transform="translate(0, 170)">
+      <rect width="200" height="110" rx="10" fill="#0D1527" stroke="#334155" stroke-width="1.5" />
+      <rect width="200" height="6" rx="0" fill="url(#clientGrad)" clip-path="inset(0 0 104 0)" />
+      <text class="node-text" x="15" y="30">Property Read</text>
+      <text class="code-text" x="15" y="55">let val = <tspan fill="#F43F5E">proxy</tspan>.name;</text>
+      <text class="node-desc" x="15" y="82">Triggers the handler's</text>
+      <text class="node-desc" x="15" y="96">"get" trap function.</text>
+    </g>
+  </g>
+
+  <!-- COLUMN 2: THE PROXY & HANDLER TRAPS (Middle) -->
+  <!-- Proxy Envelope -->
+  <g transform="translate(290, 120)">
+    <text class="section-title" x="0" y="-10">2. PROXY WRAPPER (INTERCEPTOR)</text>
+    <rect width="290" height="290" rx="16" fill="url(#proxyOuterGrad)" stroke="#3B82F6" stroke-width="2" stroke-dasharray="2,2" filter="url(#glowProxy)" />
+    
+    <!-- Proxy Label inside the container -->
+    <rect x="15" y="15" width="260" height="30" rx="6" fill="#1E293B" stroke="#3B82F6" stroke-opacity="0.3" stroke-width="1" />
+    <text class="node-text" x="145" y="34" text-anchor="middle" font-size="12" fill="#93C5FD">new Proxy(target, handler)</text>
+
+    <!-- Set Trap Box -->
+    <g transform="translate(15, 60)">
+      <rect width="260" height="95" rx="10" fill="#0F172A" stroke="#7C3AED" stroke-width="2" />
+      <rect x="10" y="8" width="60" height="18" rx="4" fill="#6B21A8" />
+      <text class="label-text" x="40" y="20" text-anchor="middle" fill="#E9D5FF">SET TRAP</text>
+      
+      <text class="code-text" x="15" y="48"><tspan fill="#A78BFA">set</tspan>(target, prop, value, receiver) {</text>
+      <text class="code-text" x="30" y="66"><tspan fill="#F59E0B">return Reflect.set</tspan>(...args);</text>
+      <text class="code-text" x="15" y="84">}</text>
+    </g>
+
+    <!-- Get Trap Box -->
+    <g transform="translate(15, 175)">
+      <rect width="260" height="95" rx="10" fill="#0F172A" stroke="#3B82F6" stroke-width="2" />
+      <rect x="10" y="8" width="60" height="18" rx="4" fill="#1E3A8A" />
+      <text class="label-text" x="40" y="20" text-anchor="middle" fill="#BFDBFE">GET TRAP</text>
+      
+      <text class="code-text" x="15" y="48"><tspan fill="#60A5FA">get</tspan>(target, prop, receiver) {</text>
+      <text class="code-text" x="30" y="66"><tspan fill="#F59E0B">return Reflect.get</tspan>(...args);</text>
+      <text class="code-text" x="15" y="84">}</text>
+    </g>
+  </g>
+
+  <!-- COLUMN 3: TARGET OBJECT & REFLECT API (Right) -->
+  <g transform="translate(630, 120)">
+    <text class="section-title" x="0" y="-10">3. TARGET &amp; REFLECT API</text>
+    
+    <!-- Target Object Block -->
+    <g transform="translate(0, 10)" filter="url(#glowTarget)">
+      <rect width="230" height="110" rx="12" fill="#062F25" stroke="#10B981" stroke-width="2" />
+      <rect x="15" y="12" width="90" height="18" rx="4" fill="#064E3B" />
+      <text class="label-text" x="60" y="24" text-anchor="middle" fill="#34D399">TARGET OBJECT</text>
+
+      <text class="code-text" x="15" y="55">const <tspan fill="#34D399">user</tspan> = {</text>
+      <text class="code-text" x="30" y="73">name: <tspan fill="#A7F3D0">"Alice"</tspan>,</text>
+      <text class="code-text" x="30" y="91">age: <tspan fill="#F59E0B">20</tspan></text>
+      <text class="code-text" x="15" y="103">};</text>
+    </g>
+
+    <!-- Reflect API Block -->
+    <g transform="translate(0, 170)" filter="url(#glowReflect)">
+      <rect width="230" height="110" rx="12" fill="#3E1F03" stroke="#F59E0B" stroke-width="2" />
+      <rect x="15" y="12" width="80" height="18" rx="4" fill="#78350F" />
+      <text class="label-text" x="55" y="24" text-anchor="middle" fill="#FBBF24">REFLECT API</text>
+      
+      <text class="node-desc" x="15" y="52" fill="#FDE68A">Performs standard actions with</text>
+      <text class="node-desc" x="15" y="68" fill="#FDE68A">proper inheritance 'this' context.</text>
+      
+      <text class="code-text" x="15" y="92"><tspan fill="#F59E0B">Reflect.get</tspan>(target, prop, rx)</text>
+    </g>
+  </g>
+
+  <!-- ARROWS & INTERACTIONS -->
+  <!-- Client Set -> Set Trap -->
+  <path d="M240,185 L280,195" fill="none" stroke="#7C3AED" stroke-width="2.5" marker-end="url(#arrowBlue)" />
+  
+  <!-- Client Get -> Get Trap -->
+  <path d="M240,345 L280,315" fill="none" stroke="#3B82F6" stroke-width="2.5" marker-end="url(#arrowBlue)" />
+
+  <!-- Set Trap -> Reflect API -->
+  <path d="M565,200 C585,210 595,220 620,230" fill="none" stroke="#7C3AED" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowAmber)" />
+
+  <!-- Get Trap -> Reflect API -->
+  <path d="M565,310 C585,300 595,270 620,250" fill="none" stroke="#3B82F6" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowAmber)" />
+
+  <!-- Reflect API -> Target Object -->
+  <path d="M745,170 L745,135" fill="none" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowGreen)" />
+  <text class="label-text" x="755" y="155" fill="#F59E0B">Reads/Writes</text>
+
+  <!-- Target Object returns value back through Proxy -->
+  <path d="M630,90 C450,90 240,110 160,115" fill="none" stroke="#10B981" stroke-dasharray="4,4" stroke-width="1.5" marker-end="url(#arrowMuted)" />
+  <g transform="translate(370, 75)">
+    <rect class="label-bg" width="160" height="20" fill="#064E3B" opacity="0.9"/>
+    <text class="label-text" x="80" y="13" text-anchor="middle" fill="#A7F3D0">RETURNS VAL / CONFIRMS SUCCESS</text>
+  </g>
+
+  <!-- Footer explanation note -->
+  <text x="40" y="465" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#475569">💡 Pro-Tip: Reflect methods automatically preserve the correct 'this' (receiver argument) context when invoking accessors on prototypes.</text>
+</svg>

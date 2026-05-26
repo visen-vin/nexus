@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="iterableGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+    <linearGradient id="iteratorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D9488" />
+      <stop offset="100%" stop-color="#0F766E" />
+    </linearGradient>
+    <linearGradient id="resultGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="symbolGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+
+    <!-- Glowing effects -->
+    <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowTeal" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowGold" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7C3AED" />
+    </marker>
+    <marker id="arrowTeal" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0D9488" />
+    </marker>
+    <marker id="arrowGold" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#D97706" />
+    </marker>
+    <marker id="arrowMuted" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .node-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 14px; fill: #FFFFFF; }
+    .node-subtitle { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #94A3B8; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #E2E8F0; }
+    .code-highlight { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #F59E0B; font-weight: bold; }
+    .code-keyword { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #F43F5E; font-weight: bold; }
+    .code-type { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #38BDF8; }
+    .label-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; font-weight: 600; fill: #FFFFFF; }
+    .flow-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 12px; fill: #94A3B8; }
+  </style>
+
+  <!-- Outer container with rounded corners -->
+  <rect width="900" height="500" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.02">
+    <line x1="50" y1="0" x2="50" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="250" y1="0" x2="250" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="350" y1="0" x2="350" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="550" y1="0" x2="550" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="650" y1="0" x2="650" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="750" y1="0" x2="750" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="850" y1="0" x2="850" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="900" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="200" x2="900" y2="200" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="300" x2="900" y2="300" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="400" x2="900" y2="400" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title Section -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">THE ITERATION PROTOCOL MODEL</text>
+    <text class="subtitle" x="0" y="18">HOW JAVASCRIPT CONSUMES ITERABLES VIA SYMBOL.ITERATOR &amp; NEXT()</text>
+  </g>
+
+  <!-- 1. The Iterable Object (Left) -->
+  <g transform="translate(40, 105)">
+    <!-- Section Border Header -->
+    <text class="flow-title" x="0" y="-8">1. THE ITERABLE</text>
+    <rect width="230" height="230" rx="12" fill="#0D1527" stroke="#4F46E5" stroke-width="1.5" filter="url(#glowPurple)" opacity="0.95" />
+    <rect width="230" height="8" rx="0" fill="url(#iterableGrad)" clip-path="inset(0 0 222 0)" />
+    
+    <text class="node-text" x="15" y="32">Iterable Object</text>
+    <text class="node-subtitle" x="15" y="48">Implements [Symbol.iterator]</text>
+
+    <!-- Custom Code Display inside Iterable -->
+    <rect x="15" y="65" width="200" height="145" rx="6" fill="#070C16" stroke="#1E293B" stroke-width="1" />
+    
+    <g transform="translate(25, 85)">
+      <text class="code-text" x="0" y="0"><tspan class="code-keyword">const</tspan> range = {</text>
+      <text class="code-text" x="10" y="20">from: 1, to: 3,</text>
+      <text class="code-text" x="10" y="40"><tspan class="code-highlight">[Symbol.iterator]</tspan>() {</text>
+      <text class="code-text" x="20" y="60"><tspan class="code-keyword">return</tspan> iterator;</text>
+      <text class="code-text" x="10" y="80">}</text>
+      <text class="code-text" x="0" y="100">};</text>
+    </g>
+  </g>
+
+  <!-- Connection: Iterable to Iterator -->
+  <g>
+    <!-- Beautiful Curved Connection Line -->
+    <path d="M270,220 C305,220 310,220 345,220" fill="none" stroke="#6366F1" stroke-width="2.5" marker-end="url(#arrowPurple)" />
+    <rect x="277" y="195" width="60" height="18" rx="4" fill="#312E81" stroke="#4F46E5" stroke-width="1" />
+    <text class="label-text" x="282" y="207" font-size="8px">Invokes [Symbol.iterator]()</text>
+  </g>
+
+  <!-- 2. The Iterator Object (Middle) -->
+  <g transform="translate(360, 105)">
+    <text class="flow-title" x="0" y="-8">2. THE ITERATOR</text>
+    <rect width="230" height="230" rx="12" fill="#0D1527" stroke="#0D9488" stroke-width="1.5" filter="url(#glowTeal)" opacity="0.95" />
+    <rect width="230" height="8" rx="0" fill="url(#iteratorGrad)" clip-path="inset(0 0 222 0)" />
+
+    <text class="node-text" x="15" y="32">Iterator Object</text>
+    <text class="node-subtitle" x="15" y="48">Keeps state &amp; has next() method</text>
+
+    <!-- Custom Code Display inside Iterator -->
+    <rect x="15" y="65" width="200" height="145" rx="6" fill="#070C16" stroke="#1E293B" stroke-width="1" />
+
+    <g transform="translate(25, 85)">
+      <text class="code-text" x="0" y="0"><tspan class="code-keyword">let</tspan> current = from;</text>
+      <text class="code-text" x="0" y="20"><tspan class="code-keyword">const</tspan> iterator = {</text>
+      <text class="code-text" x="10" y="40"><tspan class="code-type">next</tspan>() {</text>
+      <text class="code-text" x="20" y="60"><tspan class="code-keyword">return</tspan> {</text>
+      <text class="code-text" x="30" y="80">value: current++,</text>
+      <text class="code-text" x="30" y="100">done: false/true</text>
+      <text class="code-text" x="20" y="120">};</text>
+      <text class="code-text" x="10" y="130">}</text>
+      <text class="code-text" x="0" y="140">};</text>
+    </g>
+  </g>
+
+  <!-- Connection: Iterator to Sequence -->
+  <g>
+    <path d="M590,220 C615,220 615,220 640,220" fill="none" stroke="#0D9488" stroke-width="2.5" marker-end="url(#arrowTeal)" />
+    <rect x="597" y="195" width="40" height="18" rx="4" fill="#115E59" stroke="#0D9488" stroke-width="1" />
+    <text class="label-text" x="602" y="207" font-size="8px">next() calls</text>
+  </g>
+
+  <!-- 3. The Result Stream (Right) -->
+  <g transform="translate(655, 105)">
+    <text class="flow-title" x="0" y="-8">3. VALUE STREAM</text>
+    <rect width="205" height="230" rx="12" fill="#090F1C" stroke="#334155" stroke-width="1.5" />
+    
+    <!-- State sequence bubbles -->
+    <!-- 1st iteration -->
+    <g transform="translate(12, 20)">
+      <rect width="180" height="55" rx="8" fill="url(#resultGrad)" stroke="#10B981" stroke-width="1" />
+      <text class="node-subtitle" x="10" y="18" fill="#10B981">1st CALL</text>
+      <text class="code-text" x="10" y="36">{ value: <tspan fill="#38BDF8">1</tspan>, done: <tspan fill="#F43F5E">false</tspan> }</text>
+    </g>
+
+    <!-- 2nd iteration -->
+    <g transform="translate(12, 85)">
+      <rect width="180" height="55" rx="8" fill="url(#resultGrad)" stroke="#10B981" stroke-width="1" />
+      <text class="node-subtitle" x="10" y="18" fill="#10B981">2nd CALL</text>
+      <text class="code-text" x="10" y="36">{ value: <tspan fill="#38BDF8">2</tspan>, done: <tspan fill="#F43F5E">false</tspan> }</text>
+    </g>
+
+    <!-- Final iteration -->
+    <g transform="translate(12, 150)">
+      <rect width="180" height="55" rx="8" fill="url(#resultGrad)" stroke="#64748B" stroke-width="1" />
+      <text class="node-subtitle" x="10" y="18" fill="#94A3B8">FINAL CALL</text>
+      <text class="code-text" x="10" y="36">{ done: <tspan fill="#10B981">true</tspan> }</text>
+    </g>
+  </g>
+
+  <!-- Divider Line for Bottom section -->
+  <line x1="40" y1="365" x2="860" y2="365" stroke="#1E293B" stroke-width="1.5" stroke-dasharray="4,4" />
+
+  <!-- Bottom Block: Symbols Uniqueness Concept -->
+  <g transform="translate(40, 390)">
+    <rect width="820" height="75" rx="10" fill="#0D1527" stroke="#B45309" stroke-width="1" filter="url(#glowGold)" opacity="0.9" />
+    <rect width="8" height="75" rx="0" fill="url(#symbolGrad)" clip-path="inset(0 812 0 0)" />
+    
+    <text class="node-text" x="25" y="30" fill="#F59E0B">Primitive Symbol Uniqueness</text>
+    <text class="node-subtitle" x="25" y="48">Every single Symbol generated is guaranteed to refer to a unique memory address, preventing collisions.</text>
+    
+    <g transform="translate(490, 18)">
+      <rect x="0" y="5" width="310" height="35" rx="6" fill="#070C16" stroke="#334155" stroke-width="1" />
+      <text class="code-text" x="15" y="27">
+        <tspan class="code-keyword">Symbol</tspan>(<tspan fill="#E2E8F0">"id"</tspan>) === <tspan class="code-keyword">Symbol</tspan>(<tspan fill="#E2E8F0">"id"</tspan>) <tspan fill="#EF4444" font-weight="bold">→ false</tspan>
+      </text>
+    </g>
+  </g>
+
+  <!-- Footnote -->
+  <text x="40" y="485" font-family="'Inter', system-ui, sans-serif" font-size="10px" fill="#475569">Protocols enabled by Iterators: for..of loops, Array spread (...) operators, destructuring operations, and Array.from().</text>
+</svg>

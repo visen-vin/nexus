@@ -1,5 +1,5 @@
-// --- FILE: js-18-resource-mgmt.ts ---
 import type { NoteContent } from '../../../types';
+import resourceMgmtSvg from '../../../../assets/diagrams/frontend/js/resource-mgmt.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-18',
@@ -12,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'Managing the lifecycle of external resources—like file handles, network sockets, or database connections—has historically relied on manual \\`try...finally\\` blocks. **Explicit Resource Management** introduces the \\`using\\` keyword, providing a standardized, deterministic way to ensure resources are cleaned up as soon as they leave scope.'
+    },
+    {
+      type: 'diagram',
+      content: resourceMgmtSvg
     },
     {
       type: 'callout',

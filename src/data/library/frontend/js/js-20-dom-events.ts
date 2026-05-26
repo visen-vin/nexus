@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import domEventsSvg from '../../../../assets/diagrams/frontend/js/dom-events.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-20',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'The **Document Object Model (DOM)** is the programming interface for HTML and XML documents. It represents the page as a logical tree where every node is an object. Understanding how this tree is structured and how events navigate through it is fundamental to building interactive web applications.'
+    },
+    {
+      type: 'diagram',
+      content: domEventsSvg
     },
     {
       type: 'callout',
@@ -48,11 +53,11 @@ elem.addEventListener("click", (e) => {
     },
     {
       type: 'text',
-      content: 'Bubbling is the most common pattern: an event triggers on the inner-most element and then "bubbles up" through its ancestors. To distinguish between the initiator and the handler, we use \\`event.target\\` (where it started) and \\`event.currentTarget\\` (the element currently handling the event).'
+      content: 'Bubbling is the most common pattern: an event triggers on the inner-most element and then "bubbles up" through its ancestors. To distinguish between the initiator and the handler, we use \`event.target\` (where it started) and \`event.currentTarget\` (the element currently handling the event).'
     },
     {
       type: 'callout',
-      content: 'Stopping propagation via \\`event.stopPropagation()\\` is generally discouraged. It can break global tracking scripts or component-level logic that relies on seeing all events.',
+      content: 'Stopping propagation via \`event.stopPropagation()\` is generally discouraged. It can break global tracking scripts or component-level logic that relies on seeing all events.',
       metadata: { type: 'warning', title: 'Architectural Warning' }
     },
     {
@@ -89,15 +94,15 @@ document.querySelector('#menu').onclick = function(event) {
     },
     {
       type: 'faq',
-      content: 'Q: What is the difference between event.target and event.currentTarget?\\nA: \\`event.target\\` is the "origin" element that was actually clicked. \\`event.currentTarget\\` (which is also \\`this\\`) is the element that the event listener is physically attached to.'
+      content: 'Q: What is the difference between event.target and event.currentTarget?\nA: \`event.target\` is the "origin" element that was actually clicked. \`event.currentTarget\` (which is also \`this\`) is the element that the event listener is physically attached to.'
     },
     {
       type: 'faq',
-      content: 'Q: Can you stop an event from triggering other handlers on the same element?\\nA: Yes. \\`event.stopPropagation()\\` only stops the event from moving to other elements. To stop subsequent handlers on the **current** element, use \\`event.stopImmediatePropagation()\\`. '
+      content: 'Q: Can you stop an event from triggering other handlers on the same element?\nA: Yes. \`event.stopPropagation()\` only stops the event from moving to other elements. To stop subsequent handlers on the **current** element, use \`event.stopImmediatePropagation()\`. '
     },
     {
       type: 'faq',
-      content: 'Q: Why do browsers add a <tbody> automatically if missing in HTML?\\nA: The DOM specification requires a \\`<tbody>\\` for every table. Browsers "autocorrect" malformed HTML during parsing to ensure the resulting DOM tree adheres to the standard structure.'
+      content: 'Q: Why do browsers add a <tbody> automatically if missing in HTML?\nA: The DOM specification requires a \`<tbody>\` for every table. Browsers "autocorrect" malformed HTML during parsing to ensure the resulting DOM tree adheres to the standard structure.'
     }
   ]
 };

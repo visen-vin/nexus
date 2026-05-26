@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import gcSvg from '../../../../assets/diagrams/frontend/js/gc.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-12',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'In JavaScript, memory management is performed automatically and invisibly. The engine monitors all objects and reclaims the memory used by those that have become unreachable. This process is known as **Garbage Collection (GC)**, and while it is automatic, understanding its internal mechanics is vital for building memory-efficient applications.'
+    },
+    {
+      type: 'diagram',
+      content: gcSvg
     },
     {
       type: 'callout',

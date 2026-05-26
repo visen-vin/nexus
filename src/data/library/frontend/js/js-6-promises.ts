@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import promisesSvg from '../../../../assets/diagrams/frontend/js/promises.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-6',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'In the early days, JavaScript relied on callbacks for asynchrony, leading to the infamous **"Callback Hell."** **Promises** and the subsequent **Async/Await** syntax revolutionized this by providing a robust, clean, and composable way to handle operations that take time, such as network requests or file I/O.'
+    },
+    {
+      type: 'diagram',
+      content: promisesSvg
     },
     {
       type: 'callout',

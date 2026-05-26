@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <!-- Number (Blue) Gradient -->
+    <linearGradient id="numberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+
+    <!-- BigInt (Purple) Gradient -->
+    <linearGradient id="bigintGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+
+    <!-- Safe Zone Gradient -->
+    <linearGradient id="safeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.2" />
+      <stop offset="50%" stop-color="#10B981" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.9" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" rx="16" fill="url(#bgGrad)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Grid pattern overlay for high-tech premium feel -->
+  <g opacity="0.05">
+    <path d="M 0 40 L 800 40 M 0 80 L 800 80 M 0 120 L 800 120 M 0 160 L 800 160 M 0 200 L 800 200 M 0 240 L 800 240 M 0 280 L 800 280 M 0 320 L 800 320 M 0 360 L 800 360 M 0 400 L 800 400 M 0 440 L 800 440" fill="none" stroke="#FFFFFF" stroke-width="1" />
+    <path d="M 80 0 L 80 480 M 160 0 L 160 480 M 240 0 L 240 480 M 320 0 L 320 480 M 400 0 L 400 480 M 480 0 L 480 480 M 560 0 L 560 480 M 640 0 L 640 480 M 720 0 L 720 480" fill="none" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Header Title -->
+  <text x="40" y="45" font-family="'Inter', system-ui, sans-serif" font-size="20" font-weight="800" fill="#F8FAFC" letter-spacing="0.5">JS NUMERIC SYSTEM SPECIFICATION</text>
+  <text x="40" y="65" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="500" fill="#94A3B8">Number vs. BigInt Execution Model &amp; Precision Limits</text>
+
+  <!-- Spectrum Line / Range Axis -->
+  <g transform="translate(0, 40)">
+    <!-- Main Spectrum Axis Bar -->
+    <rect x="60" y="100" width="680" height="24" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1" />
+
+    <!-- Safe Integer Zone -->
+    <rect x="220" y="100" width="360" height="24" rx="0" fill="url(#safeGrad)" stroke="#10B981" stroke-width="1" stroke-dasharray="4,4" />
+
+    <!-- Labels for Limits -->
+    <!-- -MAX_SAFE_INTEGER -->
+    <line x1="220" y1="90" x2="220" y2="134" stroke="#10B981" stroke-width="1.5" />
+    <text x="220" y="80" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#34D399" text-anchor="middle">-2⁵³ + 1</text>
+    <text x="220" y="148" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="500" fill="#64748B" text-anchor="middle">-9,007,199,254,740,991</text>
+
+    <!-- MAX_SAFE_INTEGER -->
+    <line x1="580" y1="90" x2="580" y2="134" stroke="#10B981" stroke-width="1.5" />
+    <text x="580" y="80" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#34D399" text-anchor="middle">2⁵³ - 1</text>
+    <text x="580" y="148" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="500" fill="#64748B" text-anchor="middle">9,007,199,254,740,991</text>
+
+    <!-- Safe Zone Label -->
+    <text x="400" y="116" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#34D399" text-anchor="middle" letter-spacing="1">SAFE INTEGER ZONE (IEEE 754 Number)</text>
+
+    <!-- Unsafe Zones / Precision Loss Zone -->
+    <!-- Left Unsafe Zone -->
+    <path d="M 60 100 L 220 100 L 220 124 L 60 124 Z" fill="url(#numberGrad)" opacity="0.15" />
+    <text x="140" y="116" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#38BDF8" text-anchor="middle">UNSAFE / FLOAT PRECISION LOSS</text>
+    <!-- Right Unsafe Zone -->
+    <path d="M 580 100 L 740 100 L 740 124 L 580 124 Z" fill="url(#numberGrad)" opacity="0.15" />
+    <text x="660" y="116" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#38BDF8" text-anchor="middle">UNSAFE / FLOAT PRECISION LOSS</text>
+
+    <!-- BigInt Range (Arbitrary Precision Overlay) -->
+    <path d="M 40 168 L 760 168" stroke="url(#bigintGrad)" stroke-width="4" stroke-linecap="round" filter="url(#glow)" />
+    <!-- Infinite arrows/endpoints -->
+    <path d="M 35 168 L 45 163 L 45 173 Z" fill="#C084FC" />
+    <path d="M 765 168 L 755 163 L 755 173 Z" fill="#C084FC" />
+    <text x="400" y="188" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="800" fill="#C084FC" text-anchor="middle" letter-spacing="1.5">BIGINT ARBITRARY PRECISION RANGE (-&amp;infin; to +&amp;infin;)</text>
+  </g>
+
+  <!-- Split Comparison Cards -->
+  <!-- Left Card: Number (Double-precision 64-bit) -->
+  <g transform="translate(60, 270)">
+    <rect width="320" height="170" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" />
+    <!-- Decorative top border line -->
+    <path d="M 0 4 L 0 12 A 12 12 0 0 0 12 24 L 308 24 A 12 12 0 0 0 320 12 L 320 4" fill="none" stroke="url(#numberGrad)" stroke-width="2" />
+    <rect x="12" y="12" width="80" height="20" rx="10" fill="#0284C7" fill-opacity="0.2" />
+    <text x="52" y="26" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#38BDF8" text-anchor="middle">NUMBER</text>
+
+    <text x="16" y="55" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#F1F5F9">Double-Precision 64-bit Float</text>
+    <text x="16" y="75" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#94A3B8">&bull; Fast CPU register hardware execution</text>
+    <text x="16" y="93" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#94A3B8">&bull; Supports decimals / fractional parts</text>
+    <text x="16" y="111" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#94A3B8">&bull; Native support in Math.* &amp; JSON APIs</text>
+
+    <!-- Code Pill -->
+    <rect x="16" y="132" width="288" height="26" rx="6" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+    <text x="26" y="149" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#38BDF8">const num = 2 ** 53; // 9007199254740992</text>
+  </g>
+
+  <!-- Right Card: BigInt (Arbitrary Precision) -->
+  <g transform="translate(420, 270)">
+    <rect width="320" height="170" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" />
+    <!-- Decorative top border line -->
+    <path d="M 0 4 L 0 12 A 12 12 0 0 0 12 24 L 308 24 A 12 12 0 0 0 320 12 L 320 4" fill="none" stroke="url(#bigintGrad)" stroke-width="2" />
+    <rect x="12" y="12" width="80" height="20" rx="10" fill="#7C3AED" fill-opacity="0.2" />
+    <text x="52" y="26" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#C084FC" text-anchor="middle">BIGINT</text>
+
+    <text x="16" y="55" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#F1F5F9">Arbitrary-Length Integers</text>
+    <text x="16" y="75" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#A78BFA">&bull; Software-allocated arbitrary precision</text>
+    <text x="16" y="93" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#A78BFA">&bull; No decimals (truncates division: 5n/2n = 2n)</text>
+    <text x="16" y="111" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="500" fill="#EF4444">&bull; Throws on mixed types, JSON &amp; Math.*</text>
+
+    <!-- Code Pill -->
+    <rect x="16" y="132" width="288" height="26" rx="6" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+    <text x="26" y="149" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#C084FC">const big = 2n ** 53n; // 9007199254740992n</text>
+  </g>
+</svg>

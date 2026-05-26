@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import proxySvg from '../../../../assets/diagrams/frontend/js/proxy.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-14',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'The **Proxy** object allows you to create a wrapper for another object, which can intercept and redefine fundamental operations for that object, such as property lookup, assignment, enumeration, and function invocation. Paired with the **Reflect API**, it provides a powerful toolkit for meta-programming in JavaScript.'
+    },
+    {
+      type: 'diagram',
+      content: proxySvg
     },
     {
       type: 'callout',

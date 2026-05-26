@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Column Gradients -->
+    <linearGradient id="mainThreadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="workerThreadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0891B2" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="mainNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="workerNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#0E7490" />
+    </linearGradient>
+    <linearGradient id="cloneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="transferGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <!-- Glowing effects -->
+    <filter id="glowMain" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowWorker" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowChannel" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowMain" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3B82F6" />
+    </marker>
+    <marker id="arrowWorker" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#06B6D4" />
+    </marker>
+    <marker id="arrowClone" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#F59E0B" />
+    </marker>
+    <marker id="arrowTransfer" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowMuted" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    
+    .col-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 14px; fill: #F1F5F9; letter-spacing: 1px; }
+    .col-subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 10px; fill: #94A3B8; }
+    
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #FFFFFF; }
+    .node-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #E2E8F0; }
+    .node-desc { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 10px; fill: #94A3B8; }
+    
+    .dom-badge-yes { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 10px; fill: #10B981; }
+    .dom-badge-no { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 10px; fill: #EF4444; }
+    
+    .label-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; font-weight: 600; }
+    .label-bg { rx: 4px; }
+    .boundary-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 11px; fill: #64748B; letter-spacing: 2px; }
+  </style>
+
+  <!-- Outer container with rounded corners -->
+  <rect width="900" height="500" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.03">
+    <line x1="50" y1="0" x2="50" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="250" y1="0" x2="250" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="350" y1="0" x2="350" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="550" y1="0" x2="550" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="650" y1="0" x2="650" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="750" y1="0" x2="750" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="850" y1="0" x2="850" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="900" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="200" x2="900" y2="200" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="300" x2="900" y2="300" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="400" x2="900" y2="400" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title Section -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">WEB WORKERS &amp; MULTI-THREADED RUNTIME</text>
+    <text class="subtitle" x="0" y="18">CONCURRENCY MODEL, postMessage BOUNDARY &amp; DATA PASSING</text>
+  </g>
+
+  <!-- COLUMN 1: MAIN UI THREAD -->
+  <g transform="translate(40, 95)">
+    <!-- Lane Container -->
+    <rect width="280" height="340" rx="12" fill="url(#mainThreadGrad)" stroke="#2563EB" stroke-width="1.5" stroke-opacity="0.4" />
+    
+    <!-- Title -->
+    <rect width="280" height="40" rx="12" fill="#1E293B" stroke="#2563EB" stroke-width="1.5" stroke-opacity="0.4" clip-path="inset(0 0 28 0)" />
+    <text class="col-title" x="15" y="25">MAIN THREAD (UI)</text>
+    
+    <!-- Status / Features list in Main Thread -->
+    <g transform="translate(15, 60)">
+      <!-- DOM Access indicator -->
+      <rect width="250" height="30" rx="6" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+      <text class="node-title" x="12" y="19" font-size="11">DOM &amp; Window Access:</text>
+      <text class="dom-badge-yes" x="180" y="19">✓ ENABLED</text>
+
+      <!-- Application Execution (Main Loop / Call Stack) -->
+      <g transform="translate(0, 45)">
+        <rect width="250" height="180" rx="8" fill="#0B1329" stroke="#3B82F6" stroke-width="1.5" filter="url(#glowMain)" />
+        <text class="node-title" x="15" y="25">Main Event Loop</text>
+        
+        <!-- Stack Frames -->
+        <g transform="translate(15, 45)">
+          <rect width="220" height="30" rx="4" fill="#1D4ED8" opacity="0.8" />
+          <text class="node-text" x="10" y="19">UI Rendering / Paint</text>
+        </g>
+        
+        <g transform="translate(15, 85)">
+          <rect width="220" height="35" rx="4" fill="#1E293B" stroke="#3B82F6" stroke-width="1" />
+          <text class="node-text" x="10" y="22">new Worker('worker.js')</text>
+        </g>
+        
+        <g transform="translate(15, 130)">
+          <rect width="220" height="35" rx="4" fill="#1E293B" stroke="#3B82F6" stroke-width="1" />
+          <text class="node-text" x="10" y="22">worker.postMessage(data)</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- THE BOUNDARY (MIDDLE AREA) -->
+  <g transform="translate(320, 95)">
+    <line x1="130" y1="40" x2="130" y2="340" stroke="#334155" stroke-dasharray="6,6" stroke-width="2" />
+    <text class="boundary-title" x="130" y="20" text-anchor="middle">postMessage BOUNDARY</text>
+    
+    <!-- TOP PATH: postMessage with Structured Clone -->
+    <path d="M10,170 L230,170" fill="none" stroke="#F59E0B" stroke-width="3" marker-end="url(#arrowClone)" />
+    <g transform="translate(120, 170)" filter="url(#glowChannel)">
+      <rect class="label-bg" x="-75" y="-30" width="150" height="42" fill="#78350F" stroke="#F59E0B" stroke-width="1.5" />
+      <text class="label-text" x="0" y="-18" fill="#FBBF24" text-anchor="middle">Structured Clone</text>
+      <text class="node-desc" x="0" y="-5" fill="#FDE68A" text-anchor="middle" font-size="9px">Deep Copy (Serialization)</text>
+    </g>
+
+    <!-- MIDDLE PATH: postMessage with Transferable Objects -->
+    <path d="M10,240 L230,240" fill="none" stroke="#10B981" stroke-width="3" marker-end="url(#arrowTransfer)" />
+    <g transform="translate(120, 240)" filter="url(#glowChannel)">
+      <rect class="label-bg" x="-75" y="-30" width="150" height="42" fill="#064E3B" stroke="#10B981" stroke-width="1.5" />
+      <text class="label-text" x="0" y="-18" fill="#34D399" text-anchor="middle">Transfer Ownership</text>
+      <text class="node-desc" x="0" y="-5" fill="#A7F3D0" text-anchor="middle" font-size="9px">Zero-Copy (ArrayBuffer)</text>
+    </g>
+
+    <!-- BOTTOM PATH: Worker to Main Thread onmessage -->
+    <path d="M230,310 L10,310" fill="none" stroke="#06B6D4" stroke-width="3" marker-end="url(#arrowWorker)" />
+    <g transform="translate(120, 310)">
+      <rect class="label-bg" x="-65" y="-13" width="130" height="24" fill="#083344" stroke="#06B6D4" stroke-width="1" />
+      <text class="label-text" x="0" y="3" fill="#67E8F9" text-anchor="middle">onmessage (Result)</text>
+    </g>
+  </g>
+
+  <!-- COLUMN 2: WORKER BACKGROUND THREAD -->
+  <g transform="translate(580, 95)">
+    <!-- Lane Container -->
+    <rect width="280" height="340" rx="12" fill="url(#workerThreadGrad)" stroke="#06B6D4" stroke-width="1.5" stroke-opacity="0.4" />
+    
+    <!-- Title -->
+    <rect width="280" height="40" rx="12" fill="#1E293B" stroke="#06B6D4" stroke-width="1.5" stroke-opacity="0.4" clip-path="inset(0 0 28 0)" />
+    <text class="col-title" x="15" y="25">WORKER THREAD</text>
+    
+    <!-- Status / Features list in Worker Thread -->
+    <g transform="translate(15, 60)">
+      <!-- DOM Access indicator -->
+      <rect width="250" height="30" rx="6" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+      <text class="node-title" x="12" y="19" font-size="11">DOM &amp; Window Access:</text>
+      <text class="dom-badge-no" x="180" y="19">✗ BLOCKED</text>
+
+      <!-- Worker Execution (Worker Loop / Heavy Processing) -->
+      <g transform="translate(0, 45)">
+        <rect width="250" height="180" rx="8" fill="#081E26" stroke="#06B6D4" stroke-width="1.5" filter="url(#glowWorker)" />
+        <text class="node-title" x="15" y="25">Isolated Event Loop</text>
+        
+        <!-- Stack Frames / Functions inside worker -->
+        <g transform="translate(15, 45)">
+          <rect width="220" height="30" rx="4" fill="#0E7490" opacity="0.8" />
+          <text class="node-text" x="10" y="19">self.onmessage = (e) =&gt; {</text>
+        </g>
+        
+        <g transform="translate(15, 85)">
+          <rect width="220" height="35" rx="4" fill="#1E293B" stroke="#06B6D4" stroke-width="1" />
+          <text class="node-text" x="10" y="22" fill="#38BDF8">heavyCalculation(data)</text>
+        </g>
+        
+        <g transform="translate(15, 130)">
+          <rect width="220" height="35" rx="4" fill="#1E293B" stroke="#06B6D4" stroke-width="1" />
+          <text class="node-text" x="10" y="22">self.postMessage(result)</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footnote / Legend -->
+  <g transform="translate(40, 455)">
+    <circle cx="5" cy="10" r="4" fill="#F59E0B" />
+    <text x="15" y="13" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#94A3B8">Structured Clone (Copying data, safe but overhead for huge objects)</text>
+    
+    <circle cx="445" cy="10" r="4" fill="#10B981" />
+    <text x="455" y="13" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#94A3B8">Transferable Objects (Zero-copy memory transfer, super-fast)</text>
+  </g>
+</svg>

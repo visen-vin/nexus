@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import thisSvg from '../../../../assets/diagrams/frontend/js/this.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-10',
@@ -10,11 +11,15 @@ export const content: NoteContent = {
   sections: [
     {
       type: 'text',
-      content: 'The \\`this\\` keyword is one of the most misunderstood aspects of JavaScript. Unlike many other languages where \\`this\\` is strictly bound to an instance, in JavaScript, **\\`this\\` is dynamic**. Its value is determined not by where a function is defined, but by **how the function is called**.'
+      content: 'The \`this\` keyword is one of the most misunderstood aspects of JavaScript. Unlike many other languages where \`this\` is strictly bound to an instance, in JavaScript, **\`this\` is dynamic**. Its value is determined not by where a function is defined, but by **how the function is called**.'
+    },
+    {
+      type: 'diagram',
+      content: thisSvg
     },
     {
       type: 'callout',
-      content: 'Mental Model: The value of \\`this\\` is usually the object "before the dot" at the moment of invocation.',
+      content: 'Mental Model: The value of \`this\` is usually the object "before the dot" at the moment of invocation.',
       metadata: { type: 'architecture', title: 'The Call-Site Rule' }
     },
     {
@@ -24,7 +29,7 @@ export const content: NoteContent = {
     },
     {
       type: 'text',
-      content: 'In JavaScript, \\`this\\` is not bound to an object at declaration time. It is "evaluated" at runtime. This allows a single function to be shared across multiple objects, behaving differently depending on its caller.'
+      content: 'In JavaScript, \`this\` is not bound to an object at declaration time. It is "evaluated" at runtime. This allows a single function to be shared across multiple objects, behaving differently depending on its caller.'
     },
     {
       type: 'code',
@@ -46,11 +51,11 @@ admin.f(); // "I am Bob"   (this is admin)`,
     },
     {
       type: 'text',
-      content: 'Arrow functions do not have their own \\`this\\`. Instead, they capture the \\`this\\` value of the enclosing lexical context. This makes them ideal for callbacks (like \\`setTimeout\\` or event listeners) where you want to preserve the outer context.'
+      content: 'Arrow functions do not have their own \`this\`. Instead, they capture the \`this\` value of the enclosing lexical context. This makes them ideal for callbacks (like \`setTimeout\` or event listeners) where you want to preserve the outer context.'
     },
     {
       type: 'callout',
-      content: 'Because arrow functions don\'t have their own \\`this\\`, they cannot be used as constructors (you cannot call them with \\`new\\`) and they don\'t have an \\`arguments\\` object.',
+      content: 'Because arrow functions don\'t have their own \`this\`, they cannot be used as constructors (you cannot call them with \`new\`) and they don\'t have an \`arguments\` object.',
       metadata: { type: 'runtime', title: 'Arrow Function Constraints' }
     },
     {
@@ -75,7 +80,7 @@ group.showList(); // "Engineering: Alice", "Engineering: Bob"`,
     },
     {
       type: 'text',
-      content: 'A common bug occurs when a method is passed as a reference (e.g., as a callback). The "before the dot" connection is broken, and \\`this\\` defaults to \\`undefined\\` (in strict mode) or the global object.'
+      content: 'A common bug occurs when a method is passed as a reference (e.g., as a callback). The "before the dot" connection is broken, and \`this\` defaults to \`undefined\` (in strict mode) or the global object.'
     },
     {
       type: 'code',

@@ -1,5 +1,5 @@
-// --- FILE: js-21-abort-controller.ts ---
 import type { NoteContent } from '../../../types';
+import abortControllerSvg from '../../../../assets/diagrams/frontend/js/abort-controller.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-21',
@@ -14,8 +14,12 @@ export const content: NoteContent = {
       content: 'Managing long-running asynchronous tasks is a core engineering challenge. The **AbortController** API provides a first-class way to cancel operations that are no longer needed—such as a network request after a user navigates away or a timeout-triggered cleanup—preventing memory leaks and redundant processing.'
     },
     {
+      type: 'diagram',
+      content: abortControllerSvg
+    },
+    {
       type: 'callout',
-      content: 'An AbortController instance has a \\`signal\\` property (an \\`AbortSignal\\`) which is passed to the asynchronous API, and an \\`abort()\\` method used to trigger the cancellation.',
+      content: 'An AbortController instance has a \`signal\` property (an \`AbortSignal\`) which is passed to the asynchronous API, and an \`abort()\` method used to trigger the cancellation.',
       metadata: { type: 'architecture', title: 'Controller-Signal Pattern' }
     },
     {
@@ -25,7 +29,7 @@ export const content: NoteContent = {
     },
     {
       type: 'text',
-      content: 'The most common use case for \\`AbortController\\` is with the Fetch API. When \\`abort()\\` is called, the fetch promise rejects with an \\`AbortError\\`.'
+      content: 'The most common use case for \`AbortController\` is with the Fetch API. When \`abort()\` is called, the fetch promise rejects with an \`AbortError\`.'
     },
     {
       type: 'code',
@@ -53,7 +57,7 @@ controller.abort();`,
     },
     {
       type: 'text',
-      content: 'Modern browsers provide a static method \\`AbortSignal.timeout(ms)\\` which returns a signal that automatically aborts after a specified duration. This eliminates the need for manual \\`setTimeout\\` orchestration for simple timeouts.'
+      content: 'Modern browsers provide a static method \`AbortSignal.timeout(ms)\` which returns a signal that automatically aborts after a specified duration. This eliminates the need for manual \`setTimeout\` orchestration for simple timeouts.'
     },
     {
       type: 'code',
@@ -70,7 +74,7 @@ const response = await fetch(url, {
     },
     {
       type: 'text',
-      content: 'Beyond fetch, \\`AbortSignal\\` can be used to clean up multiple event listeners in a single call, which is much cleaner than individual \\`removeEventListener\\` calls.'
+      content: 'Beyond fetch, \`AbortSignal\` can be used to clean up multiple event listeners in a single call, which is much cleaner than individual \`removeEventListener\` calls.'
     },
     {
       type: 'code',
@@ -95,11 +99,11 @@ controller.abort();`,
     },
     {
       type: 'faq',
-      content: 'Q: Can an AbortController be reused?\nA: No. Once \\`abort()\\` is called, the signal remains in the aborted state. You must create a new \\`AbortController\\` instance for a new operation.'
+      content: 'Q: Can an AbortController be reused?\nA: No. Once \`abort()\` is called, the signal remains in the aborted state. You must create a new \`AbortController\` instance for a new operation.'
     },
     {
       type: 'faq',
-      content: 'Q: How do you combine multiple signals?\nA: Use \\`AbortSignal.any([signal1, signal2])\\`. This returns a signal that aborts as soon as **any** of the provided signals are triggered (e.g., abort on user click OR timeout).'
+      content: 'Q: How do you combine multiple signals?\nA: Use \`AbortSignal.any([signal1, signal2])\`. This returns a signal that aborts as soon as **any** of the provided signals are triggered (e.g., abort on user click OR timeout).'
     },
     {
       type: 'faq',

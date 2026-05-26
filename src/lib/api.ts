@@ -96,12 +96,12 @@ export async function deleteTopic(id: string): Promise<boolean> {
   } catch { return false; }
 }
 
-export async function syncProgress(topicId: string, status: string, confidence: string): Promise<void> {
+export async function syncProgress(topicId: string, status: string, confidence: string, remarks?: string): Promise<void> {
   try {
     await fetch(`${BASE}/users/${getUserId()}/progress`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ topicId, status, confidence }),
+      body: JSON.stringify({ topicId, status, confidence, remarks }),
     });
   } catch { /* best-effort */ }
 }
@@ -144,10 +144,11 @@ export interface UserSummary {
 }
 
 export interface DetailedReport {
-  user: { id: string; xp: number; level: number; levelLabel: string; nextThreshold: number };
+  user: { id: string; xp: number; level: number; levelLabel: string; nextThreshold: number; insights?: string };
   streak: number;
   badges: { id: string; label: string; description: string }[];
   modules: { id: string; total: number; done: number; percentage: number }[];
+  topicRemarks: { topicId: string; status: string; confidence: string; remark: string; updatedAt: string }[];
   summary: { totalTopics: number; completedTopics: number; strugglingTopics: number };
 }
 

@@ -225,6 +225,30 @@ export function ReportCard({ onNavigate, progressVersion }: Props) {
         </div>
       </div>
 
+      {/* Guru Ji's Remarks Section */}
+      {report?.topicRemarks && report.topicRemarks.length > 0 && (
+        <div className="mb-8">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#888] mb-4">Guru Ji's Detailed Remarks</p>
+          <div className="flex flex-col gap-3">
+            {report.topicRemarks.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()).slice(0, 5).map((r, i) => {
+              const topic = CONTENT_DB.find(t => t.id === r.topicId);
+              return (
+                <div key={i} className="p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+                  <div className="flex justify-between items-start mb-2">
+                    <p className="text-[13px] font-bold text-[#f1f1f1]">{topic?.title || r.topicId}</p>
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${r.confidence === 'high' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'}`}>
+                      {r.confidence}
+                    </span>
+                  </div>
+                  <p className="text-[12px] text-[#888] italic leading-relaxed">"{r.remark}"</p>
+                  <p className="text-[10px] text-[#444] mt-2 font-mono">{new Date(r.updatedAt).toLocaleDateString()}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Strong / Needs work */}
       {(strongTopics.length > 0 || needsWorkTopics.length > 0) && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">

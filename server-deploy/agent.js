@@ -28,6 +28,32 @@ const getDetailedReportTool = tool(
   }
 );
 
+const updateTopicProgressTool = tool(
+  async ({ topicId, status, confidence, remarks }, config) => {
+    const userId = config.configurable.thread_id;
+    try {
+      const res = await fetch(`http://localhost:3005/api/users/${userId}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topicId, status, confidence, remarks }),
+      });
+      return res.ok ? `Progress updated for ${topicId}.` : `Error updating progress.`;
+    } catch (e) {
+      return `Error: ${e.message}`;
+    }
+  },
+  {
+    name: 'update_topic_progress',
+    description: 'Use this to mark a topic as done, struggling, or todo, and to save detailed remarks/feedback about the student\'s performance on this specific topic. Remarks should include what they did well and specific concepts they missed.',
+    schema: z.object({
+      topicId: z.string().description('The ID of the topic (e.g., "js-1-how-js-works")'),
+      status: z.enum(['done', 'struggling', 'todo']),
+      confidence: z.enum(['high', 'shaky']),
+      remarks: z.string().description('Detailed feedback about the student\'s understanding of this topic.'),
+    }),
+  }
+);
+
 const listCurriculumTool = tool(
   async (args, config) => {
     const userId = config.configurable.thread_id;
@@ -298,14 +324,14 @@ Respond with ONLY the name of the agent: 'tutor' or 'creator'.`;
 
 async function tutorNode(state) {
   const { messages } = state;
-  const tutorModel = model.bindTools([getDetailedReportTool, saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool]);
+  const tutorModel = model.bindTools([getDetailedReportTool, updateTopicProgressTool, saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool]);
   const response = await tutorModel.invoke(messages);
   return { messages: [response] };
 }
 
 async function creatorNode(state) {
   const { messages, forceCreateTopic } = state;
-  const tools = [getDetailedReportTool, createTopicTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool];
+  const tools = [getDetailedReportTool, updateTopicProgressTool, createTopicTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool];
   let creatorModel = model.bindTools(tools);
   
   if (forceCreateTopic) {

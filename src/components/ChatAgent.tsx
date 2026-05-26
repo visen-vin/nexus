@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { X, Send, Loader2, Target, Pencil, BookPlus, Check, Sparkles, FilePlus, RefreshCcw, Quote } from 'lucide-react';
+import { X, Send, Loader2, Target, Pencil, BookPlus, Check, Sparkles, FilePlus, RefreshCcw, Quote, Moon, BrainCircuit } from 'lucide-react';
 import { streamChat, buildSystemPrompt, MonthlyGoal } from '../lib/chat';
 import type { ToolCall } from '../lib/chat';
 import { Progress } from '../lib/progress';
-import { saveTopic, syncMonthlyGoal, fetchSubjectSummary, fetchUserSummary, fetchUserMemory, saveMemory, fetchWeaknesses } from '../lib/api';
+import { saveTopic, syncMonthlyGoal, fetchSubjectSummary, fetchUserSummary, fetchUserMemory, saveMemory, fetchWeaknesses, syncProgress, fetchDetailedReport } from '../lib/api';
 import type { Message } from '../lib/chat';
 import type { NoteContent } from '../data/types';
 
@@ -37,17 +37,24 @@ function ChatMarkdown({ content }: { content: string }) {
           );
         }
         return (
-          <div key={i}>
+          <div key={i} className="mb-2">
             {block.split('\n').map((line, j) => {
               const isBullet = /^[*+-] /.test(line);
               const isNumbered = /^\d+\. /.test(line);
-              const text = isBullet ? line.slice(2) : isNumbered ? line.replace(/^\d+\. /, '') : line;
-              if (!text.trim()) return <div key={j} className="h-1.5" />;
+              const isHeader = /^#{1,3} /.test(line);
+              
+              let text = line;
+              if (isBullet) text = line.slice(2);
+              else if (isNumbered) text = line.replace(/^\d+\. /, '');
+              else if (isHeader) text = line.replace(/^#{1,3} /, '');
+
+              if (!text.trim() && !isBullet && !isNumbered) return <div key={j} className="h-1.5" />;
+              
               return (
-                <div key={j} className={`${isBullet || isNumbered ? 'flex gap-2 items-start mb-0.5' : ''} leading-relaxed`}>
-                  {isBullet && <span className="text-[#4db8ff] mt-1 shrink-0 text-[8px]">◆</span>}
-                  {isNumbered && <span className="text-[#888] shrink-0 text-[11px] font-mono mt-0.5">{line.match(/^\d+/)?.[0]}.</span>}
-                  <span>{renderInline(text)}</span>
+                <div key={j} className={`${isBullet || isNumbered ? 'flex gap-2 items-start mb-1' : 'mb-1'} ${isHeader ? 'font-bold text-[#f1f1f1] mt-3 mb-2' : ''} leading-relaxed`}>
+                  {isBullet && <span className="text-[#4db8ff] mt-1.5 shrink-0 text-[8px]">◆</span>}
+                  {isNumbered && <span className="text-[#888] shrink-0 text-[11px] font-mono mt-1">{line.match(/^\d+/)?.[0]}.</span>}
+                  <span className="flex-1">{renderInline(text)}</span>
                 </div>
               );
             })}
@@ -144,7 +151,20 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
   const [fullJourney, setFullJourney] = useState('');
   const [studentMemory, setStudentMemory] = useState('');
   const [weaknesses, setWeaknesses] = useState('');
+  const [learningInsights, setLearningInsights] = useState('');
+  const [isRevisionMode, setIsRevisionMode] = useState(false);
+  const [isDreaming, setIsDreaming] = useState(false);
   const [isWarmupMode, setIsWarmupMode] = useState(false);
+
+  const triggerDream = async () => {
+    setIsDreaming(true);
+    try {
+      const res = await fetch(`/api/users/${localStorage.getItem('nexus_user_id')}/dream`, { method: 'POST' });
+      const data = await res.json();
+      if (data.insights) setLearningInsights(data.insights);
+    } catch (e) { console.error('Dream failed:', e); }
+    finally { setIsDreaming(false); }
+  };
   const isAdmin = !!localStorage.getItem('nexus_admin_key');
   const bottomRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -161,6 +181,9 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
 
   useEffect(() => {
     if (!open) return;
+    fetchDetailedReport().then(report => {
+      if (report?.user.insights) setLearningInsights(report.user.insights);
+    });
     fetchUserSummary().then(summary => {
       if (!summary) return;
       const parts: string[] = [];
@@ -199,6 +222,8 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
     activeModuleId: activeModuleId || undefined,
     activeModuleLabel: activeModuleLabel || undefined,
     weaknesses: weaknesses || undefined,
+    isRevisionMode,
+    learningInsights: learningInsights || undefined,
   });
 
   useEffect(() => {
@@ -271,6 +296,20 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
               return updated;
             });
             results.push(`Detailed report analyzed.`);
+          } else if (call.name === 'update_topic_progress') {
+            try {
+              const { topicId, status, confidence, remarks } = JSON.parse(call.argsJson);
+              setMessages(prev => {
+                const updated = [...prev];
+                updated[updated.length - 1] = {
+                  role: 'assistant',
+                  content: updated[updated.length - 1].content + `\n\n> 📝 **Guru Ji left a remark for:** ${topicId}`,
+                };
+                return updated;
+              });
+              await syncProgress(topicId, status, confidence, remarks);
+              results.push(`Topic progress and remark saved for ${topicId}.`);
+            } catch (e) { results.push(`Error: ${String(e)}`); }
           } else if (call.name === 'create_topic') {
             try {
               const topic = JSON.parse(call.argsJson);
@@ -407,10 +446,27 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                   </p>
                 </div>
               </div>
-              <button onClick={close}
-                className="w-7 h-7 flex items-center justify-center rounded-lg text-[#444] hover:text-[#888] hover:bg-white/5 transition-all">
-                <X size={15} />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={triggerDream}
+                  disabled={isDreaming}
+                  className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all ${isDreaming ? 'animate-pulse text-[#4db8ff]' : 'text-[#444] hover:text-[#4db8ff] hover:bg-white/5'}`}
+                  title="Trigger Dreaming Mode (Analyze Logs)"
+                >
+                  <Moon size={15} />
+                </button>
+                <button
+                  onClick={() => setIsRevisionMode(!isRevisionMode)}
+                  className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all ${isRevisionMode ? 'bg-[#4db8ff]20 text-[#4db8ff]' : 'text-[#444] hover:text-[#888] hover:bg-white/5'}`}
+                  title="Toggle Revision Mode"
+                >
+                  <BrainCircuit size={15} />
+                </button>
+                <button onClick={close}
+                  className="w-7 h-7 flex items-center justify-center rounded-lg text-[#444] hover:text-[#888] hover:bg-white/5 transition-all">
+                  <X size={15} />
+                </button>
+              </div>
             </div>
 
             {/* Goal strip */}

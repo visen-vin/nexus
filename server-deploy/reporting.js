@@ -50,6 +50,16 @@ async function getDetailedReport(userId) {
     }
   });
 
+  const topicRemarks = progress
+    .filter(p => p.remarks)
+    .map(p => ({
+      topicId: p.topic_id,
+      status: p.status,
+      confidence: p.confidence,
+      remark: p.remarks,
+      updatedAt: p.updated_at
+    }));
+
   Object.values(moduleStats).forEach(m => {
     m.percentage = Math.round((m.done / m.total) * 100);
   });
@@ -72,10 +82,11 @@ async function getDetailedReport(userId) {
   const badges = getBadges(progress, streak);
 
   return {
-    user: { id: userId, xp, level: levelInfo.level, levelLabel: levelInfo.label, nextThreshold: levelInfo.nextThreshold },
+    user: { id: userId, xp, level: levelInfo.level, levelLabel: levelInfo.label, nextThreshold: levelInfo.nextThreshold, insights: user.insights },
     streak,
     badges,
     modules: Object.values(moduleStats),
+    topicRemarks,
     summary: {
       totalTopics: topics.length,
       completedTopics: progress.filter(p => p.status === 'done').length,

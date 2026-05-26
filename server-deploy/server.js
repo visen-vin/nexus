@@ -5,6 +5,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const db = require('./db');
 const { getDetailedReport } = require('./reporting');
+const { generateLearningInsights } = require('./dreaming');
 const { app: agent } = require('./agent');
 const { HumanMessage, AIMessage, SystemMessage } = require('@langchain/core/messages');
 
@@ -135,6 +136,15 @@ app.get('/api/users/:id/detailed-report', async (req, res) => {
   res.json(report);
 });
 
+app.post('/api/users/:id/dream', async (req, res) => {
+  try {
+    const insights = await generateLearningInsights(req.params.id);
+    res.json({ success: true, insights });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // ── PROGRESS ──────────────────────────────────────────────────────────
 app.get('/api/users/:id/progress', (req, res) => {
   const rows = db.prepare('SELECT * FROM progress WHERE user_id = ?').all(req.params.id);
@@ -144,10 +154,10 @@ app.get('/api/users/:id/progress', (req, res) => {
 });
 
 app.post('/api/users/:id/progress', (req, res) => {
-  const { topicId, status, confidence } = req.body;
+  const { topicId, status, confidence, remarks } = req.body;
   if (!topicId || !status || !confidence) return res.status(400).json({ error: 'Missing fields' });
-  db.prepare("INSERT OR REPLACE INTO progress (user_id,topic_id,status,confidence,updated_at) VALUES (?,?,?,?,datetime('now'))")
-    .run(req.params.id, topicId, status, confidence);
+  db.prepare("INSERT OR REPLACE INTO progress (user_id,topic_id,status,confidence,remarks,updated_at) VALUES (?,?,?,?,?,datetime('now'))")
+    .run(req.params.id, topicId, status, confidence, remarks || null);
   res.json({ success: true });
 });
 

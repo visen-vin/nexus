@@ -17,6 +17,7 @@ db.exec(`
     id TEXT PRIMARY KEY,
     monthly_goal TEXT DEFAULT '',
     learning_style TEXT DEFAULT '',
+    insights TEXT,
     created_at TEXT DEFAULT (datetime('now'))
   );
 
@@ -26,6 +27,7 @@ db.exec(`
     status TEXT NOT NULL,
     confidence TEXT NOT NULL,
     updated_at TEXT DEFAULT (datetime('now')),
+    remarks TEXT,
     PRIMARY KEY (user_id, topic_id)
   );
 

@@ -1,0 +1,78 @@
+<svg width="100%" height="100%" viewBox="0 0 600 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="hofGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--domain-accent, #3b82f6)" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="var(--domain-accent, #3b82f6)" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="callbackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="returnedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="glowHof"><feGaussianBlur stdDeviation="2" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+  </defs>
+
+  <rect width="600" height="380" rx="24" fill="#0d0d0f"/>
+  
+  <!-- Title -->
+  <text x="300" y="35" text-anchor="middle" fill="#f1f1f1" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="800" style="letter-spacing: 0.12em;">HIGHER-ORDER FUNCTION (HOF) PATTERNS</text>
+  <text x="300" y="52" text-anchor="middle" fill="#666" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">Functions that either accept callbacks or return new functions</text>
+
+  <!-- Left: Accepting a Callback -->
+  <g transform="translate(25, 80)">
+    <!-- Boundary Box -->
+    <rect width="260" height="260" rx="16" fill="url(#hofGrad)" stroke="var(--domain-accent, #3b82f6)" stroke-opacity="0.2" stroke-width="1.5"/>
+    <text x="130" y="24" text-anchor="middle" fill="var(--domain-accent, #3b82f6)" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" style="letter-spacing: 0.05em;">PATTERN A: ACCEPTS CALLBACK</text>
+    
+    <!-- Outer HOF Function -->
+    <rect x="20" y="45" width="220" height="190" rx="12" fill="#141416" stroke="#333" stroke-width="1"/>
+    <text x="35" y="68" fill="#f1f1f1" font-family="monospace" font-size="11" font-weight="700">function <tspan fill="var(--domain-accent, #3b82f6)">repeat</tspan>(n, action)</text>
+    
+    <!-- Callback box -->
+    <g transform="translate(40, 95)">
+      <rect width="180" height="50" rx="8" fill="url(#callbackGrad)" stroke="#10b981" stroke-opacity="0.4" stroke-dasharray="3 3"/>
+      <text x="12" y="22" fill="#10b981" font-family="monospace" font-size="10" font-weight="bold">action (Callback Function)</text>
+      <text x="12" y="38" fill="#888" font-family="monospace" font-size="9">() =&gt; console.log("Hi!")</text>
+    </g>
+
+    <!-- Execution inside HOF -->
+    <g transform="translate(40, 160)">
+      <rect width="180" height="60" rx="8" fill="#1a1a1d" stroke="#444"/>
+      <text x="12" y="20" fill="#888" font-family="monospace" font-size="10">for (let i = 0; i &lt; n; i++) {</text>
+      <text x="24" y="38" fill="#10b981" font-family="monospace" font-size="10" font-weight="bold" filter="url(#glowHof)">action(i); <tspan fill="#666" filter="none">// Executing</tspan></text>
+      <text x="12" y="52" fill="#888" font-family="monospace" font-size="10">}</text>
+    </g>
+  </g>
+
+  <!-- Right: Returning a Function -->
+  <g transform="translate(315, 80)">
+    <!-- Boundary Box -->
+    <rect width="260" height="260" rx="16" fill="url(#hofGrad)" stroke="var(--domain-accent, #3b82f6)" stroke-opacity="0.2" stroke-width="1.5"/>
+    <text x="130" y="24" text-anchor="middle" fill="var(--domain-accent, #3b82f6)" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" style="letter-spacing: 0.05em;">PATTERN B: RETURNS FUNCTION</text>
+
+    <!-- Outer HOF Function -->
+    <rect x="20" y="45" width="220" height="110" rx="12" fill="#141416" stroke="#333" stroke-width="1"/>
+    <text x="35" y="68" fill="#f1f1f1" font-family="monospace" font-size="11" font-weight="700">function <tspan fill="var(--domain-accent, #3b82f6)">multiplier</tspan>(factor)</text>
+    
+    <!-- Returned inner function -->
+    <g transform="translate(40, 90)">
+      <rect width="180" height="50" rx="8" fill="url(#returnedGrad)" stroke="#f59e0b" stroke-opacity="0.4"/>
+      <text x="12" y="22" fill="#f59e0b" font-family="monospace" font-size="10" font-weight="bold">return <tspan fill="#f1f1f1">(x) =&gt; x * factor</tspan></text>
+      <text x="12" y="38" fill="#666" font-family="monospace" font-size="9">Remembers `factor` via Closure</text>
+    </g>
+
+    <!-- Flow Arrow down to returned instance -->
+    <path d="M130 155 L130 185" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6"/>
+    <polygon points="130,191 127,184 133,184" fill="#f59e0b" opacity="0.8"/>
+
+    <!-- Generated/Returned function instances -->
+    <g transform="translate(30, 195)">
+      <rect width="200" height="40" rx="8" fill="#1a1a1d" stroke="#555"/>
+      <text x="12" y="24" fill="#888" font-family="monospace" font-size="10">const <tspan fill="#f1f1f1">double</tspan> = multiplier(<tspan fill="#f59e0b">2</tspan>);</text>
+    </g>
+  </g>
+</svg>

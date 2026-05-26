@@ -1,0 +1,104 @@
+<svg width="100%" height="100%" viewBox="0 0 400 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients for Cards -->
+    <linearGradient id="cardGradNew" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.02" />
+    </linearGradient>
+    <linearGradient id="cardGradExplicit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.02" />
+    </linearGradient>
+    <linearGradient id="cardGradImplicit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--domain-accent)" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="var(--domain-accent)" stop-opacity="0.02" />
+    </linearGradient>
+    <linearGradient id="cardGradDefault" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.02" />
+    </linearGradient>
+    
+    <!-- Filters for glows -->
+    <filter id="glowNew"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+    <filter id="glowExplicit"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+    <filter id="glowImplicit"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+    <filter id="glowDefault"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+  </defs>
+
+  <rect width="400" height="680" rx="24" fill="#0d0d0f"/>
+  
+  <!-- Header -->
+  <text x="200" y="35" text-anchor="middle" fill="#f1f1f1" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="900" style="letter-spacing:0.12em">THE 4 RULES OF "THIS"</text>
+  <text x="200" y="52" text-anchor="middle" fill="#666" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" style="letter-spacing:0.05em">PRECEDENCE: HIGHEST TO LOWEST</text>
+
+  <!-- Rule 1: New Binding (Priority 1) -->
+  <g transform="translate(25, 75)">
+    <rect width="350" height="120" rx="16" fill="url(#cardGradNew)" stroke="#10b981" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect x="15" y="15" width="8" height="8" rx="2" fill="#10b981" filter="url(#glowNew)"/>
+    <text x="32" y="23" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800" style="letter-spacing:0.05em">1. NEW BINDING (Highest Priority)</text>
+    <text x="32" y="42" fill="#888" font-family="system-ui, -apple-system, sans-serif" font-size="10">Function invoked with the 'new' keyword.</text>
+    <text x="32" y="56" fill="#f1f1f1" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600">this ➔ The newly constructed object instance</text>
+    
+    <!-- Code Box -->
+    <rect x="32" y="68" width="286" height="38" rx="6" fill="#000000" fill-opacity="0.4" stroke="#ffffff" stroke-opacity="0.05"/>
+    <text x="42" y="84" fill="#a855f7" font-family="monospace" font-size="11">const <tspan fill="#f1f1f1">obj =</tspan> new <tspan fill="#38bdf8">User</tspan><tspan fill="#f1f1f1">();</tspan></text>
+    <text x="42" y="98" fill="#555" font-family="monospace" font-size="9">// 'this' inside User refers to the new obj</text>
+  </g>
+
+  <!-- Connector Arrow 1 to 2 -->
+  <path d="M200 195 L200 215" stroke="#333" stroke-width="2" stroke-dasharray="3 3"/>
+  <polygon points="200,218 196,212 204,212" fill="#333"/>
+
+  <!-- Rule 2: Explicit Binding (Priority 2) -->
+  <g transform="translate(25, 220)">
+    <rect width="350" height="120" rx="16" fill="url(#cardGradExplicit)" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect x="15" y="15" width="8" height="8" rx="2" fill="#38bdf8" filter="url(#glowExplicit)"/>
+    <text x="32" y="23" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800" style="letter-spacing:0.05em">2. EXPLICIT BINDING</text>
+    <text x="32" y="42" fill="#888" font-family="system-ui, -apple-system, sans-serif" font-size="10">Invoked via call(), apply(), or pre-bound via bind().</text>
+    <text x="32" y="56" fill="#f1f1f1" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600">this ➔ The object passed as the first argument</text>
+    
+    <!-- Code Box -->
+    <rect x="32" y="68" width="286" height="38" rx="6" fill="#000000" fill-opacity="0.4" stroke="#ffffff" stroke-opacity="0.05"/>
+    <text x="42" y="84" fill="#f1f1f1" font-family="monospace" font-size="11">func.<tspan fill="#38bdf8">call</tspan>(<tspan fill="#eab308">contextObj</tspan>, arg1);</text>
+    <text x="42" y="98" fill="#555" font-family="monospace" font-size="9">// 'this' inside func is locked to contextObj</text>
+  </g>
+
+  <!-- Connector Arrow 2 to 3 -->
+  <path d="M200 340 L200 360" stroke="#333" stroke-width="2" stroke-dasharray="3 3"/>
+  <polygon points="200,363 196,357 204,357" fill="#333"/>
+
+  <!-- Rule 3: Implicit Binding (Priority 3) -->
+  <g transform="translate(25, 365)">
+    <rect width="350" height="120" rx="16" fill="url(#cardGradImplicit)" stroke="var(--domain-accent)" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect x="15" y="15" width="8" height="8" rx="2" fill="var(--domain-accent)" filter="url(#glowImplicit)"/>
+    <text x="32" y="23" fill="var(--domain-accent)" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800" style="letter-spacing:0.05em">3. IMPLICIT BINDING</text>
+    <text x="32" y="42" fill="#888" font-family="system-ui, -apple-system, sans-serif" font-size="10">Function called with a context object (object before dot).</text>
+    <text x="32" y="56" fill="#f1f1f1" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600">this ➔ The object preceding the method call</text>
+    
+    <!-- Code Box -->
+    <rect x="32" y="68" width="286" height="38" rx="6" fill="#000000" fill-opacity="0.4" stroke="#ffffff" stroke-opacity="0.05"/>
+    <text x="42" y="84" fill="#eab308" font-family="monospace" font-size="11">userObj<tspan fill="#f1f1f1">.</tspan><tspan fill="#38bdf8">sayHi</tspan><tspan fill="#f1f1f1">();</tspan></text>
+    <text x="42" y="98" fill="#555" font-family="monospace" font-size="9">// 'this' inside sayHi is userObj</text>
+  </g>
+
+  <!-- Connector Arrow 3 to 4 -->
+  <path d="M200 485 L200 505" stroke="#333" stroke-width="2" stroke-dasharray="3 3"/>
+  <polygon points="200,508 196,502 204,502" fill="#333"/>
+
+  <!-- Rule 4: Default Binding (Priority 4) -->
+  <g transform="translate(25, 510)">
+    <rect width="350" height="120" rx="16" fill="url(#cardGradDefault)" stroke="#f43f5e" stroke-opacity="0.3" stroke-width="1.5"/>
+    <rect x="15" y="15" width="8" height="8" rx="2" fill="#f43f5e" filter="url(#glowDefault)"/>
+    <text x="32" y="23" fill="#f43f5e" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="800" style="letter-spacing:0.05em">4. DEFAULT BINDING (Lowest Priority)</text>
+    <text x="32" y="42" fill="#888" font-family="system-ui, -apple-system, sans-serif" font-size="10">Standalone function invocation (no dot, no special helper).</text>
+    <text x="32" y="56" fill="#f1f1f1" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600">this ➔ undefined <tspan fill="#666">(strict)</tspan> / window <tspan fill="#666">(non-strict)</tspan></text>
+    
+    <!-- Code Box -->
+    <rect x="32" y="68" width="286" height="38" rx="6" fill="#000000" fill-opacity="0.4" stroke="#ffffff" stroke-opacity="0.05"/>
+    <text x="42" y="84" fill="#38bdf8" font-family="monospace" font-size="11">getUser<tspan fill="#f1f1f1">();</tspan></text>
+    <text x="42" y="98" fill="#555" font-family="monospace" font-size="9">// 'this' is undefined in strict mode</text>
+  </g>
+
+  <!-- Footer/Summary -->
+  <text x="200" y="655" text-anchor="middle" fill="#444" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" style="text-transform:uppercase; letter-spacing: 0.1em">Dynamic Call-Site Execution Model</text>
+</svg>

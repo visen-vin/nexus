@@ -294,9 +294,9 @@ app.put('/api/users/:id/subject-summary/:moduleId', (req, res) => {
 
 // ── CHAT (LangGraph) ──────────────────────────────────────────────────
 app.post('/api/chat/stream', async (req, res) => {
-  const { messages, systemPrompt, userId, activeModuleId, forceCreateTopic } = req.body;
+  const { messages, systemPrompt, userId, activeModuleId, forceCreateTopic, topicId } = req.body;
   
-  console.log(`[Chat] Request from user: ${userId}, forceCreateTopic: ${forceCreateTopic}`);
+  console.log(`[Chat] Request from user: ${userId}, topic: ${topicId}, forceCreateTopic: ${forceCreateTopic}`);
 
   if (!messages || !userId) {
     console.error('[Chat] Missing messages or userId');
@@ -317,7 +317,8 @@ app.post('/api/chat/stream', async (req, res) => {
   res.setHeader('Connection', 'keep-alive');
   res.setHeader('X-Accel-Buffering', 'no'); // Prevent Nginx buffering
 
-  const config = { configurable: { thread_id: userId } };
+  const threadId = topicId ? `${userId}-${topicId}` : userId;
+  const config = { configurable: { thread_id: threadId } };
   const input = { 
     messages: lcMessages, 
     userId, 

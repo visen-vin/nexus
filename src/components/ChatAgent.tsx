@@ -372,7 +372,8 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
         },
         abortRef.current.signal,
         handleToolCall,
-        forceCreateTopic
+        forceCreateTopic,
+        activeNote?.id
       );
     } catch (e: unknown) {
       if (e instanceof Error && e.name !== 'AbortError') {

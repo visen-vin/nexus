@@ -75,11 +75,14 @@ Do NOT teach new material unless requested. Stay in a strict questioning loop.`
     : ctx.topicTitle 
       ? `## CRITICAL FOCUS: CURRENT TOPIC
 You MUST focus your teaching and questions on the current topic: "**${ctx.topicTitle}**". 
+
+### MANDATORY INSTRUCTION
+If the chat history below contains messages about a different topic (e.g. GEC, Hoisting, etc.), IGNORE THEM COMPLETELY. Treat this as a fresh start for the topic "**${ctx.topicTitle}**".
+
 Topic Content for Reference:
 """
 ${ctx.topicContent}
-"""
-Ignore previous topics (like GEC or Hoisting) unless they are directly relevant to explaining ${ctx.topicTitle}.`
+"""`
       : `## SESSION
 Free-form mentoring session. Check the student's journey to see what to cover next.`;
 
@@ -148,7 +151,8 @@ export async function streamChat(
   onDone: () => void,
   signal?: AbortSignal,
   onToolCall?: OnToolCall,
-  forceCreateTopic = false
+  forceCreateTopic = false,
+  topicId?: string
 ): Promise<void> {
   const userId = getUserId();
   
@@ -160,6 +164,7 @@ export async function streamChat(
       systemPrompt,
       userId,
       forceCreateTopic,
+      topicId,
     }),
     signal,
   });

@@ -46,10 +46,10 @@ const updateTopicProgressTool = tool(
     name: 'update_topic_progress',
     description: 'Use this to mark a topic as done, struggling, or todo, and to save detailed remarks/feedback about the student\'s performance on this specific topic. Remarks should include what they did well and specific concepts they missed.',
     schema: z.object({
-      topicId: z.string().description('The ID of the topic (e.g., "js-1-how-js-works")'),
+      topicId: z.string().describe('The ID of the topic (e.g., "js-1-how-js-works")'),
       status: z.enum(['done', 'struggling', 'todo']),
       confidence: z.enum(['high', 'shaky']),
-      remarks: z.string().description('Detailed feedback about the student\'s understanding of this topic.'),
+      remarks: z.string().describe('Detailed feedback about the student\'s understanding of this topic.'),
     }),
   }
 );

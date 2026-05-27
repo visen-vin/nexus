@@ -1,0 +1,288 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="requestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+    <linearGradient id="networkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+    <linearGradient id="responseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064E3B" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+    <linearGradient id="cacheGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350F" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glowRequest" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowNetwork" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowResponse" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L8,3.5 z" fill="#3B82F6" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L8,3.5 z" fill="#8B5CF6" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L8,3.5 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L8,3.5 z" fill="#EF4444" />
+    </marker>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L8,3.5 z" fill="#F59E0B" />
+    </marker>
+    <marker id="arrowMuted" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L8,3.5 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    
+    .panel-header { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 13px; fill: #F8FAFC; letter-spacing: 0.5px; }
+    .node-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 13px; fill: #FFFFFF; }
+    .node-text { font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 11px; fill: #94A3B8; }
+    .node-code { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #38BDF8; font-weight: 600; }
+    .node-code-purple { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #C084FC; font-weight: 600; }
+    .node-code-green { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #34D399; font-weight: 600; }
+    
+    .flow-label { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; font-weight: 600; fill: #94A3B8; text-anchor: middle; }
+    .badge-text { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 9px; fill: #FFFFFF; text-anchor: middle; }
+    .warn-text { font-family: 'Inter', system-ui, sans-serif; font-weight: 600; font-size: 10px; fill: #FCA5A5; }
+  </style>
+
+  <!-- Outer Canvas Border -->
+  <rect width="960" height="540" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid Decoration -->
+  <g opacity="0.02">
+    <line x1="80" y1="0" x2="80" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="200" y1="0" x2="200" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="320" y1="0" x2="320" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="440" y1="0" x2="440" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="560" y1="0" x2="560" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="680" y1="0" x2="680" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="800" y1="0" x2="800" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="960" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="220" x2="960" y2="220" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="340" x2="960" y2="340" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="460" x2="960" y2="460" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title & Subtitle -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">THE FETCH API LIFECYCLE</text>
+    <text class="subtitle" x="0" y="18">REQUEST STAGES, NETWORK LAYER, HTTP CACHING &amp; STREAM CONSUMPTION</text>
+  </g>
+
+  <!-- ==================== 1. REQUEST CONSTRUCTION ==================== -->
+  <g transform="translate(40, 100)">
+    <!-- Container -->
+    <rect width="250" height="360" rx="12" fill="#090F1C" stroke="#1E293B" stroke-width="1.5" />
+    <rect width="250" height="35" rx="0" fill="url(#requestGrad)" clip-path="inset(0 0 325 0)" />
+    <text class="panel-header" x="15" y="22">1. Request Initiation</text>
+
+    <!-- fetch() Call Block -->
+    <g transform="translate(15, 50)">
+      <rect width="220" height="75" rx="8" fill="#111827" stroke="#3B82F6" stroke-width="1.5" filter="url(#glowRequest)" />
+      <text class="node-title" x="12" y="24">fetch(url, options)</text>
+      <text class="node-code" x="12" y="44">method: 'POST' | 'GET'</text>
+      <text class="node-code" x="12" y="60">credentials: 'same-origin'</text>
+    </g>
+
+    <!-- Headers Config -->
+    <g transform="translate(15, 140)">
+      <rect width="220" height="65" rx="6" fill="#0F172A" stroke="#334155" stroke-width="1" />
+      <text class="node-title" x="12" y="20" font-size="12">Headers Object</text>
+      <text class="node-text" x="12" y="38">Content-Type: application/json</text>
+      <text class="node-text" x="12" y="52">Authorization: Bearer token</text>
+    </g>
+
+    <!-- Request Body Stream -->
+    <g transform="translate(15, 220)">
+      <rect width="220" height="60" rx="6" fill="#0F172A" stroke="#334155" stroke-width="1" />
+      <text class="node-title" x="12" y="20" font-size="12">Request Body (optional)</text>
+      <text class="node-code" x="12" y="38" font-size="10">JSON.stringify(data)</text>
+      <text class="node-text" x="12" y="50">or Blob, FormData, Stream</text>
+    </g>
+
+    <!-- Abort Signal -->
+    <g transform="translate(15, 295)">
+      <rect width="220" height="50" rx="6" fill="#1C1021" stroke="#A855F7" stroke-width="1" />
+      <text class="node-title" x="12" y="20" font-size="11" fill="#D8B4FE">AbortController.signal</text>
+      <text class="node-text" x="12" y="36" fill="#E9D5FF">Enables on-the-fly cancellation</text>
+    </g>
+  </g>
+
+  <!-- ==================== 2. NETWORK & CACHING LAYER ==================== -->
+  <g transform="translate(340, 100)">
+    <!-- Container -->
+    <rect width="280" height="360" rx="12" fill="#090F1C" stroke="#1E293B" stroke-width="1.5" />
+    <rect width="280" height="35" rx="0" fill="url(#networkGrad)" clip-path="inset(0 0 325 0)" />
+    <text class="panel-header" x="15" y="22">2. Network &amp; Caching Engine</text>
+
+    <!-- Cache Middleware Box -->
+    <g transform="translate(20, 50)">
+      <rect width="240" height="90" rx="8" fill="#1C140D" stroke="#F59E0B" stroke-width="1.5" />
+      <!-- Cache icon -->
+      <circle cx="215" cy="25" r="12" fill="#78350F" />
+      <path d="M208,21 L222,21 M208,25 L222,25 M208,29 L222,29" fill="none" stroke="#F59E0B" stroke-width="2" />
+      
+      <text class="node-title" x="15" y="24" fill="#F59E0B">HTTP Cache Validation</text>
+      <text class="node-text" x="15" y="44" fill="#FDE047">Options: default, no-store, reload,</text>
+      <text class="node-text" x="15" y="58" fill="#FDE047">force-cache, only-if-cached</text>
+      <text class="node-text" x="15" y="76" font-style="italic" fill="#94A3B8">Checks Cache-Control &amp; ETags</text>
+    </g>
+
+    <!-- Network Fetch execution -->
+    <g transform="translate(20, 155)" filter="url(#glowNetwork)">
+      <rect width="240" height="85" rx="8" fill="#181028" stroke="#8B5CF6" stroke-width="1.5" />
+      <text class="node-title" x="15" y="24">DNS, TLS &amp; HTTP/2 Request</text>
+      <text class="node-text" x="15" y="44">Connects with Remote Host</text>
+      <text class="node-code-purple" x="15" y="60">Connection / CORS Handshake</text>
+      <text class="node-text" x="15" y="74">Streams raw headers + payload</text>
+    </g>
+
+    <!-- Dual Resolution Pathways -->
+    <g transform="translate(20, 255)">
+      <rect width="240" height="90" rx="8" fill="#111827" stroke="#334155" stroke-width="1" />
+      
+      <!-- Rejection Case (Offline/DNS) -->
+      <rect x="10" y="10" width="105" height="70" rx="6" fill="#2E0A0A" stroke="#EF4444" stroke-width="1" />
+      <text class="node-title" x="16" y="28" font-size="10" fill="#FCA5A5">Network Fail</text>
+      <text class="node-text" x="16" y="44" font-size="9" fill="#F87171">CORS or Offline</text>
+      <text class="node-text" x="16" y="58" font-size="9" font-weight="bold" fill="#EF4444">PROMISE REJECT</text>
+
+      <!-- Resolution Case (Even if HTTP Error) -->
+      <rect x="125" y="10" width="105" height="70" rx="6" fill="#062F1F" stroke="#10B981" stroke-width="1" />
+      <text class="node-title" x="131" y="28" font-size="10" fill="#A7F3D0">HTTP Response</text>
+      <text class="node-text" x="131" y="44" font-size="9" fill="#6EE7B7">200 OK or 404/500</text>
+      <text class="node-text" x="131" y="58" font-size="9" font-weight="bold" fill="#10B981">PROMISE RESOLVE</text>
+    </g>
+  </g>
+
+  <!-- ==================== 3. RESPONSE & CONSUMPTION ==================== -->
+  <g transform="translate(670, 100)">
+    <!-- Container -->
+    <rect width="250" height="360" rx="12" fill="#090F1C" stroke="#1E293B" stroke-width="1.5" />
+    <rect width="250" height="35" rx="0" fill="url(#responseGrad)" clip-path="inset(0 0 325 0)" />
+    <text class="panel-header" x="15" y="22">3. Response &amp; Stream Parse</text>
+
+    <!-- Response Instance Block -->
+    <g transform="translate(15, 50)" filter="url(#glowResponse)">
+      <rect width="220" height="95" rx="8" fill="#062F22" stroke="#10B981" stroke-width="1.5" />
+      <text class="node-title" x="12" y="24">Response Object</text>
+      <text class="node-code-green" x="12" y="44">.ok: boolean (status 200-299)</text>
+      <text class="node-code-green" x="12" y="60">.status: number (e.g. 200, 404)</text>
+      <text class="node-text" x="12" y="76">.headers: Headers instance</text>
+      <text class="node-text" x="12" y="88">.bodyUsed: boolean</text>
+    </g>
+
+    <!-- Body stream reader block -->
+    <g transform="translate(15, 160)">
+      <rect width="220" height="185" rx="8" fill="#0F172A" stroke="#334155" stroke-width="1" />
+      
+      <!-- Lock icon representation -->
+      <g transform="translate(185, 12)">
+        <rect width="18" height="14" rx="3" y="8" fill="#EF4444" />
+        <path d="M191,8 L191,5 C191,3.5 192.5,2 194,2 C195.5,2 197,3.5 197,5 L197,8" fill="none" stroke="#EF4444" stroke-width="1.5" />
+      </g>
+      
+      <text class="node-title" x="12" y="25" fill="#38BDF8">ReadableStream (response.body)</text>
+      
+      <!-- Methods list -->
+      <g transform="translate(12, 45)">
+        <rect width="100" height="22" rx="4" fill="#1E293B" stroke="#0284C7" stroke-width="1" />
+        <text class="node-code" x="8" y="15" font-size="10">.json()</text>
+        <text class="node-text" x="110" y="14" font-size="9">Parse JSON</text>
+      </g>
+      <g transform="translate(12, 73)">
+        <rect width="100" height="22" rx="4" fill="#1E293B" stroke="#0284C7" stroke-width="1" />
+        <text class="node-code" x="8" y="15" font-size="10">.text()</text>
+        <text class="node-text" x="110" y="14" font-size="9">Plain string</text>
+      </g>
+      <g transform="translate(12, 101)">
+        <rect width="100" height="22" rx="4" fill="#1E293B" stroke="#0284C7" stroke-width="1" />
+        <text class="node-code" x="8" y="15" font-size="10">.blob()</text>
+        <text class="node-text" x="110" y="14" font-size="9">Files &amp; Media</text>
+      </g>
+      <g transform="translate(12, 129)">
+        <rect width="100" height="22" rx="4" fill="#1E293B" stroke="#0284C7" stroke-width="1" />
+        <text class="node-code" x="8" y="15" font-size="10">.arrayBuffer()</text>
+        <text class="node-text" x="110" y="14" font-size="9">Raw Binary</text>
+      </g>
+
+      <text class="warn-text" x="12" y="170">⚠️ Stream can only be read ONCE!</text>
+    </g>
+  </g>
+
+  <!-- ==================== FLOW & CONNECTIONS ==================== -->
+
+  <!-- Request to Cache Middleware -->
+  <path d="M290,180 L340,180" fill="none" stroke="#3B82F6" stroke-width="2.5" marker-end="url(#arrowBlue)" />
+  <text class="flow-label" x="315" y="172">Options</text>
+
+  <!-- Cache Miss line from validation block to Network Fetch block -->
+  <path d="M460,140 L460,155" fill="none" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowAmber)" />
+  <!-- Cache Hit shortcut (Bypass Network directly to Response Resolution) -->
+  <path d="M580,95 C625,95 625,180 662,180" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowAmber)" />
+  <g transform="translate(585, 75)">
+    <rect x="-10" y="-3" width="70" height="15" rx="3" fill="#78350F" opacity="0.9" />
+    <text class="badge-text" x="25" y="8">Cache Hit</text>
+  </g>
+
+  <!-- Abort Signal pointing to network fetch -->
+  <path d="M290,410 C325,410 325,225 350,225" fill="none" stroke="#A855F7" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowPurple)" />
+  <g transform="translate(285, 330)">
+    <rect x="0" y="0" width="40" height="15" rx="3" fill="#4C1D95" />
+    <text class="badge-text" x="20" y="10" fill="#F3E8FF">Abort</text>
+  </g>
+
+  <!-- Network Dispatch to Dual Outcomes -->
+  <path d="M460,240 L460,250" fill="none" stroke="#8B5CF6" stroke-width="2" marker-end="url(#arrowPurple)" />
+
+  <!-- Resolve Outcome to Response Object -->
+  <path d="M590,310 C630,310 630,120 662,120" fill="none" stroke="#10B981" stroke-width="2.5" marker-end="url(#arrowGreen)" />
+  <g transform="translate(595, 210)">
+    <rect x="0" y="0" width="55" height="16" rx="3" fill="#064E3B" />
+    <text class="badge-text" x="27" y="11" fill="#A7F3D0">Resolves</text>
+  </g>
+
+  <!-- Reject Outcome to Failure handler -->
+  <path d="M400,345 C400,480 720,480 720,355" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowRed)" />
+  <g transform="translate(480, 483)">
+    <rect x="-15" y="-12" width="115" height="16" rx="3" fill="#7F1D1D" />
+    <text class="badge-text" x="42.5" y="-1" fill="#FCA5A5">Promise Rejects</text>
+  </g>
+
+  <!-- Response Object to Stream Parse -->
+  <path d="M780,145 L780,160" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrowGreen)" />
+
+  <!-- Footnote -->
+  <text x="40" y="500" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#475569">Note: The outer fetch Promise resolves immediately when HTTP headers are received, before body data stream finishes downloading.</text>
+</svg>

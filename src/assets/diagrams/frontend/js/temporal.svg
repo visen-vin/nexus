@@ -1,0 +1,186 @@
+<svg width="100%" height="100%" viewBox="0 0 840 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 20px; fill: #F8FAFC; }
+    .subtitle { font-family: system-ui, -apple-system, sans-serif; font-weight: 400; font-size: 13px; fill: #94A3B8; }
+    .card-title { font-family: system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 15px; fill: #F8FAFC; }
+    .card-subtitle { font-family: system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; }
+    .card-body { font-family: Courier New, Courier, monospace; font-size: 12px; fill: #CBD5E1; }
+    .label { font-family: system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #94A3B8; }
+    .label-highlight { font-family: system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 12px; }
+    .arrow-text { font-family: system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; }
+    
+    .card { filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3)); }
+    .glow { filter: drop-shadow(0 0 8px currentColor); }
+  </style>
+
+  <defs>
+    <!-- Card Gradients -->
+    <linearGradient id="grad-instant" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E3A8A" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="grad-zoned" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#581C87" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="grad-plain" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#064E3B" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="grad-duration" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#78350F" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.95"/>
+    </linearGradient>
+    
+    <!-- Accent Line Gradients -->
+    <linearGradient id="line-blue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="line-purple" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="line-green" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+    <linearGradient id="line-amber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+
+    <!-- Arrow markers -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3B82F6"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8B5CF6"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10B981"/>
+    </marker>
+    <marker id="arrow-slate" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="100%" height="100%" rx="16" fill="#0B0F17" stroke="#1E293B" stroke-width="1.5"/>
+
+  <!-- Title & Header -->
+  <g transform="translate(30, 40)">
+    <text class="title" x="0" y="0">Temporal API Ecosystem</text>
+    <text class="subtitle" x="0" y="20">Modern, immutable, and DST-safe date-time handling in JavaScript</text>
+  </g>
+
+  <!-- COLUMN 1: GLOBAL TIME (TimeZone-Agnostic, UTC Epoch) -->
+  <g class="card" transform="translate(40, 100)">
+    <!-- Card Frame -->
+    <rect width="230" height="150" rx="12" fill="url(#grad-instant)" stroke="#3B82F6" stroke-width="1.5"/>
+    <rect width="230" height="4" rx="2" fill="url(#line-blue)"/>
+    
+    <!-- Content -->
+    <text class="card-title" x="16" y="28">Temporal.Instant</text>
+    <text class="card-subtitle" x="16" y="44" fill="#60A5FA">GLOBAL TIME (UTC)</text>
+    <line x1="16" y1="52" x2="214" y2="52" stroke="#1E293B" stroke-width="1"/>
+    
+    <text class="label" x="16" y="70">Point on the timeline</text>
+    <text class="card-body" x="16" y="88">epochNanoseconds: bigint</text>
+    
+    <rect x="16" y="102" width="198" height="32" rx="6" fill="#1E293B" fill-opacity="0.5" stroke="#334155" stroke-width="1"/>
+    <text class="card-body" x="24" y="122" fill="#93C5FD">2026-05-24T16:00:00Z</text>
+  </g>
+
+  <!-- COLUMN 2: LOCAL / WALL-CLOCK TIME (TimeZone-Agnostic) -->
+  <g class="card" transform="translate(570, 100)">
+    <!-- Card Frame -->
+    <rect width="230" height="150" rx="12" fill="url(#grad-plain)" stroke="#10B981" stroke-width="1.5"/>
+    <rect width="230" height="4" rx="2" fill="url(#line-green)"/>
+    
+    <!-- Content -->
+    <text class="card-title" x="16" y="28">Temporal.PlainDate</text>
+    <text class="card-subtitle" x="16" y="44" fill="#34D399">LOCAL TIME / CALENDAR DATE</text>
+    <line x1="16" y1="52" x2="214" y2="52" stroke="#1E293B" stroke-width="1"/>
+    
+    <text class="label" x="16" y="70">No timezone. Safe for birthdays.</text>
+    <text class="card-body" x="16" y="88">year, month, day properties</text>
+    
+    <rect x="16" y="102" width="198" height="32" rx="6" fill="#1E293B" fill-opacity="0.5" stroke="#334155" stroke-width="1"/>
+    <text class="card-body" x="24" y="122" fill="#6EE7B7">2026-05-24</text>
+  </g>
+
+  <!-- CENTRAL NODE: ZonedDateTime (The Union) -->
+  <g class="card" transform="translate(290, 240)">
+    <!-- Card Frame -->
+    <rect width="260" height="220" rx="12" fill="url(#grad-zoned)" stroke="#8B5CF6" stroke-width="1.5"/>
+    <rect width="260" height="4" rx="2" fill="url(#line-purple)"/>
+    
+    <!-- Content -->
+    <text class="card-title" x="16" y="28">Temporal.ZonedDateTime</text>
+    <text class="card-subtitle" x="16" y="44" fill="#A78BFA">GLOBAL + TIME ZONE + CALENDAR</text>
+    <line x1="16" y1="52" x2="244" y2="52" stroke="#1E293B" stroke-width="1"/>
+    
+    <text class="label" x="16" y="70">Complete date, time, zone, and DST rules</text>
+    
+    <text class="card-body" x="16" y="92" fill="#C084FC">.timeZoneId <tspan fill="#64748B">-&gt; &apos;America/New_York&apos;</tspan></text>
+    <text class="card-body" x="16" y="110" fill="#C084FC">.offset <tspan fill="#64748B">-&gt; &apos;-04:00&apos; (DST Active)</tspan></text>
+    
+    <rect x="16" y="128" width="228" height="74" rx="6" fill="#1E293B" fill-opacity="0.5" stroke="#334155" stroke-width="1"/>
+    <text class="card-body" x="24" y="148" fill="#E9D5FF">2026-05-24T12:00:00-04:00</text>
+    <text class="card-body" x="24" y="166" fill="#E9D5FF" font-size="11">[America/New_York]</text>
+    <text class="card-body" x="24" y="186" fill="#A78BFA" font-size="10">DST transitions handled automatically</text>
+  </g>
+
+  <!-- COLUMN 1 BOTTOM: DURATION (The Vector / Span of Time) -->
+  <g class="card" transform="translate(40, 310)">
+    <!-- Card Frame -->
+    <rect width="210" height="150" rx="12" fill="url(#grad-duration)" stroke="#F59E0B" stroke-width="1.5"/>
+    <rect width="210" height="4" rx="2" fill="url(#line-amber)"/>
+    
+    <!-- Content -->
+    <text class="card-title" x="16" y="28">Temporal.Duration</text>
+    <text class="card-subtitle" x="16" y="44" fill="#FBBF24">SPAN / MEASUREMENT OF TIME</text>
+    <line x1="16" y1="52" x2="194" y2="52" stroke="#1E293B" stroke-width="1"/>
+    
+    <text class="label" x="16" y="70">Immutable duration representation</text>
+    <text class="card-body" x="16" y="88">hours, days, months, etc.</text>
+    
+    <rect x="16" y="102" width="178" height="32" rx="6" fill="#1E293B" fill-opacity="0.5" stroke="#334155" stroke-width="1"/>
+    <text class="card-body" x="24" y="122" fill="#FDE68A">P1DT5H (1 day, 5 hours)</text>
+  </g>
+
+  <!-- CONNECTION PIPELINES -->
+  
+  <!-- Instant to ZonedDateTime (With Time Zone Offset Map) -->
+  <path d="M 155, 250 L 155, 290 Q 155, 330 290, 330" stroke="#3B82F6" stroke-dasharray="4,4" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+  <rect x="105" y="275" width="100" height="20" rx="4" fill="#0B0F17" stroke="#1E293B" stroke-width="1"/>
+  <text class="label-highlight" x="112" y="289" fill="#60A5FA">.toZonedDateTime()</text>
+
+  <!-- PlainDate to ZonedDateTime -->
+  <path d="M 685, 250 L 685, 330 Q 685, 370 550, 370" stroke="#10B981" stroke-dasharray="4,4" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+  <rect x="615" y="275" width="115" height="20" rx="4" fill="#0B0F17" stroke="#1E293B" stroke-width="1"/>
+  <text class="label-highlight" x="622" y="289" fill="#34D399">.toZonedDateTime()</text>
+
+  <!-- ZonedDateTime back to PlainDate -->
+  <path d="M 420, 240 L 420, 175 Q 420, 160 570, 160" stroke="#8B5CF6" stroke-dasharray="2,2" stroke-width="1.2" fill="none" marker-end="url(#arrow-purple)"/>
+  <text class="arrow-text" x="430" y="195">.toPlainDate()</text>
+
+  <!-- ZonedDateTime back to Instant -->
+  <path d="M 420, 240 L 420, 175 Q 420, 160 270, 160" stroke="#8B5CF6" stroke-dasharray="2,2" stroke-width="1.2" fill="none" marker-end="url(#arrow-purple)"/>
+  <text class="arrow-text" x="325" y="195">.toInstant()</text>
+
+  <!-- Duration addition (ZonedDateTime) -->
+  <path d="M 145, 310 L 145, 210 Q 145, 200 240, 200 Q 350, 200 350, 240" stroke="#FBBF24" stroke-width="1.5" stroke-dasharray="2,2" fill="none" marker-end="url(#arrow-slate)"/>
+  <rect x="180" y="190" width="120" height="20" rx="4" fill="#0B0F17" stroke="#1E293B" stroke-width="1"/>
+  <text class="label-highlight" x="187" y="204" fill="#FBBF24">.add(duration) - DST Safe</text>
+
+  <!-- Central Time Zone Bridge Info -->
+  <g transform="translate(290, 80)">
+    <rect width="260" height="60" rx="8" fill="#1E293B" fill-opacity="0.8" stroke="#334155" stroke-width="1.5"/>
+    <text class="card-subtitle" x="12" y="22" fill="#94A3B8">THE TIME ZONE BRIDGE</text>
+    <text class="card-body" x="12" y="42" fill="#E2E8F0">Instant + Time Zone ID = ZonedDateTime</text>
+    <circle cx="238" cy="30" r="10" fill="#3B82F6" fill-opacity="0.2"/>
+    <path d="M 235, 30 L 241, 30 M 238, 27 L 238, 33" stroke="#60A5FA" stroke-width="2"/>
+  </g>
+</svg>

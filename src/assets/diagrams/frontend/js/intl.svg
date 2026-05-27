@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 560" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="dateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+    <linearGradient id="numberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D9488" />
+      <stop offset="100%" stop-color="#0F766E" />
+    </linearGradient>
+    <linearGradient id="relativeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EC4899" />
+      <stop offset="100%" stop-color="#BE185D" />
+    </linearGradient>
+    <linearGradient id="collatorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+    <linearGradient id="localeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <!-- Glowing effects -->
+    <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowTeal" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowPink" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowGold" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7C3AED" />
+    </marker>
+    <marker id="arrowTeal" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0D9488" />
+    </marker>
+    <marker id="arrowPink" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#EC4899" />
+    </marker>
+    <marker id="arrowGold" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#D97706" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .node-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 14px; fill: #FFFFFF; }
+    .node-subtitle { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #94A3B8; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10.5px; fill: #E2E8F0; }
+    .code-highlight { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10.5px; fill: #F59E0B; font-weight: bold; }
+    .code-keyword { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10.5px; fill: #F43F5E; font-weight: bold; }
+    .code-type { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10.5px; fill: #38BDF8; }
+    .label-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; font-weight: 600; fill: #FFFFFF; }
+    .flow-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 12px; fill: #94A3B8; }
+  </style>
+
+  <!-- Outer container with rounded corners -->
+  <rect width="950" height="560" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.02">
+    <line x1="50" y1="0" x2="50" y2="560" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="560" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="250" y1="0" x2="250" y2="560" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="350" y1="0" x2="350" y2="560" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="560" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="550" y1="0" x2="550" y2="560" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="650" y1="0" x2="650" y2="560" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="750" y1="0" x2="750" y2="560" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="850" y1="0" x2="850" y2="560" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title Section -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">THE JAVASCRIPT INTL API ARCHITECTURE</text>
+    <text class="subtitle" x="0" y="18">HIGH-PERFORMANCE, ZERO-BUNDLE LOCALIZATION POWERED BY NATIVE ENGINES</text>
+  </g>
+
+  <!-- Input Controller: Locale & Options (Top Center) -->
+  <g transform="translate(290, 85)">
+    <rect width="370" height="65" rx="8" fill="#0D1527" stroke="#38BDF8" stroke-width="1.5" />
+    <rect width="370" height="4" rx="0" fill="url(#localeGrad)" clip-path="inset(0 0 366 0)" />
+    <text class="node-text" x="15" y="24" fill="#38BDF8">new Intl.[Formatter](locales, options)</text>
+    <text class="node-subtitle" x="15" y="42">Locales: e.g., 'en-US', 'de-DE', 'ar-EG'  |  Options: formatting configurations</text>
+  </g>
+
+  <!-- Connection lines radiating from Locale input -->
+  <!-- Line to DateTimeFormat -->
+  <path d="M290,117 C190,117 190,140 190,175" fill="none" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrowPurple)" />
+  <!-- Line to NumberFormat -->
+  <path d="M660,117 C760,117 760,140 760,175" fill="none" stroke="#0D9488" stroke-width="2" marker-end="url(#arrowTeal)" />
+
+  <!-- 1. DateTimeFormat (Left-Top) -->
+  <g transform="translate(40, 185)">
+    <text class="flow-title" x="0" y="-8">1. INTL.DATETIMEFORMAT</text>
+    <rect width="415" height="150" rx="10" fill="#0D1527" stroke="#4F46E5" stroke-width="1.5" filter="url(#glowPurple)" opacity="0.95" />
+    <rect width="415" height="6" rx="0" fill="url(#dateGrad)" clip-path="inset(0 0 409 0)" />
+    
+    <text class="node-text" x="15" y="25">Date &amp; Time Formatting</text>
+    <text class="node-subtitle" x="15" y="40">Timezones, Calendar types, Locale representation</text>
+
+    <rect x="15" y="55" width="385" height="80" rx="6" fill="#070C16" stroke="#1E293B" stroke-width="1" />
+    <g transform="translate(25, 72)">
+      <text class="code-text" x="0" y="0"><tspan class="code-keyword">const</tspan> dtf = <tspan class="code-keyword">new</tspan> <tspan class="code-type">Intl.DateTimeFormat</tspan>(<tspan fill="#A78BFA">'en-US'</tspan>, {</text>
+      <text class="code-text" x="10" y="16">dateStyle: <tspan fill="#A78BFA">'full'</tspan>, timeZone: <tspan fill="#A78BFA">'America/New_York'</tspan></text>
+      <text class="code-text" x="0" y="32">});</text>
+      <text class="code-text" x="0" y="52">dtf.format(<tspan class="code-keyword">new</tspan> <tspan class="code-type">Date</tspan>()) <tspan class="code-highlight">→ "Tuesday, May 26, 2026"</tspan></text>
+    </g>
+  </g>
+
+  <!-- 2. NumberFormat (Right-Top) -->
+  <g transform="translate(495, 185)">
+    <text class="flow-title" x="0" y="-8">2. INTL.NUMBERFORMAT</text>
+    <rect width="415" height="150" rx="10" fill="#0D1527" stroke="#0D9488" stroke-width="1.5" filter="url(#glowTeal)" opacity="0.95" />
+    <rect width="415" height="6" rx="0" fill="url(#numberGrad)" clip-path="inset(0 0 409 0)" />
+    
+    <text class="node-text" x="15" y="25">Currency &amp; Unit Formatting</text>
+    <text class="node-subtitle" x="15" y="40">Dynamic symbol alignment, compact numbers &amp; units</text>
+
+    <rect x="15" y="55" width="385" height="80" rx="6" fill="#070C16" stroke="#1E293B" stroke-width="1" />
+    <g transform="translate(25, 72)">
+      <text class="code-text" x="0" y="0"><tspan class="code-keyword">const</tspan> nf = <tspan class="code-keyword">new</tspan> <tspan class="code-type">Intl.NumberFormat</tspan>(<tspan fill="#2DD4BF">'de-DE'</tspan>, {</text>
+      <text class="code-text" x="10" y="16">style: <tspan fill="#2DD4BF">'currency'</tspan>, currency: <tspan fill="#2DD4BF">'EUR'</tspan></text>
+      <text class="code-text" x="0" y="32">});</text>
+      <text class="code-text" x="0" y="52">nf.format(<tspan fill="#F59E0B">1234.56</tspan>) <tspan class="code-highlight">→ "1.234,56 €"</tspan></text>
+    </g>
+  </g>
+
+  <!-- Connection to Bottom Row Formatter/APIs -->
+  <path d="M290,135 C190,135 190,320 190,360" fill="none" stroke="#EC4899" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowPink)" />
+  <path d="M660,135 C760,135 760,320 760,360" fill="none" stroke="#D97706" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowGold)" />
+
+  <!-- 3. RelativeTimeFormat (Left-Bottom) -->
+  <g transform="translate(40, 370)">
+    <text class="flow-title" x="0" y="-8">3. INTL.RELATIVETIMEFORMAT</text>
+    <rect width="415" height="135" rx="10" fill="#0D1527" stroke="#EC4899" stroke-width="1.5" filter="url(#glowPink)" opacity="0.95" />
+    <rect width="415" height="6" rx="0" fill="url(#relativeGrad)" clip-path="inset(0 0 409 0)" />
+    
+    <text class="node-text" x="15" y="25">Relative Time Conversion</text>
+    <text class="node-subtitle" x="15" y="40">Translates durations into relative textual descriptors</text>
+
+    <rect x="15" y="55" width="385" height="65" rx="6" fill="#070C16" stroke="#1E293B" stroke-width="1" />
+    <g transform="translate(25, 72)">
+      <text class="code-text" x="0" y="0"><tspan class="code-keyword">const</tspan> rtf = <tspan class="code-keyword">new</tspan> <tspan class="code-type">Intl.RelativeTimeFormat</tspan>(<tspan fill="#F472B6">'en'</tspan>, { numeric: <tspan fill="#F472B6">'auto'</tspan> });</text>
+      <text class="code-text" x="0" y="20">rtf.format(<tspan fill="#F59E0B">-1</tspan>, <tspan fill="#F472B6">'day'</tspan>) <tspan class="code-highlight">→ "yesterday"</tspan></text>
+      <text class="code-text" x="0" y="38">rtf.format(<tspan fill="#F59E0B">2</tspan>, <tspan fill="#F472B6">'week'</tspan>) <tspan class="code-highlight">→ "in 2 weeks"</tspan></text>
+    </g>
+  </g>
+
+  <!-- 4. Collator (Right-Bottom) -->
+  <g transform="translate(495, 370)">
+    <text class="flow-title" x="0" y="-8">4. INTL.COLLATOR</text>
+    <rect width="415" height="135" rx="10" fill="#0D1527" stroke="#D97706" stroke-width="1.5" filter="url(#glowGold)" opacity="0.95" />
+    <rect width="415" height="6" rx="0" fill="url(#collatorGrad)" clip-path="inset(0 0 409 0)" />
+    
+    <text class="node-text" x="15" y="25">Locale-Sensitive String Comparison</text>
+    <text class="node-subtitle" x="15" y="40">Alphabetical sort across characters with custom accents</text>
+
+    <rect x="15" y="55" width="385" height="65" rx="6" fill="#070C16" stroke="#1E293B" stroke-width="1" />
+    <g transform="translate(25, 72)">
+      <text class="code-text" x="0" y="0"><tspan class="code-keyword">const</tspan> col = <tspan class="code-keyword">new</tspan> <tspan class="code-type">Intl.Collator</tspan>(<tspan fill="#F59E0B">'de'</tspan>, { sensitivity: <tspan fill="#F59E0B">'base'</tspan> });</text>
+      <text class="code-text" x="0" y="20"><tspan class="code-keyword">const</tspan> arr = [<tspan fill="#F59E0B">'ä'</tspan>, <tspan fill="#F59E0B">'a'</tspan>, <tspan fill="#F59E0B">'z'</tspan>];</text>
+      <text class="code-text" x="0" y="38">arr.sort(col.compare) <tspan class="code-highlight">→ ["a", "ä", "z"]</tspan> <tspan fill="#64748B" font-size="9px">(German phonebook sorting)</tspan></text>
+    </g>
+  </g>
+
+  <!-- Footer Info / Performance Rule -->
+  <text x="40" y="535" font-family="'Inter', system-ui, sans-serif" font-size="10px" fill="#475569">💡 Pro-Tip: Cache and reuse Formatter instances! Creating fresh instances inside hot paths or render loops adds CPU overhead.</text>
+</svg>

@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import securitySvg from '../../../../assets/diagrams/frontend/js/security.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-28',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'In the modern web, security is not a feature—it\'s a fundamental architectural requirement. The two most prevalent attack vectors are **Cross-Site Scripting (XSS)** and **Cross-Site Request Forgery (CSRF)**. Mastering the defenses against these is essential for any senior engineer responsible for user data and system integrity.'
+    },
+    {
+      type: 'diagram',
+      content: securitySvg
     },
     {
       type: 'callout',

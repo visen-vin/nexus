@@ -1,4 +1,5 @@
 import type { NoteContent } from '../../../types';
+import fetchSvg from '../../../../assets/diagrams/frontend/js/fetch.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-26',
@@ -11,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'The **Fetch API** provides a powerful and flexible interface for accessing and manipulating parts of the protocol, such as requests and responses. It serves as a modern, cleaner replacement for the older \\`XMLHttpRequest\\` (AJAX), built from the ground up to work with Promises and \\`async/await\\`.'
+    },
+    {
+      type: 'diagram',
+      content: fetchSvg
     },
     {
       type: 'callout',

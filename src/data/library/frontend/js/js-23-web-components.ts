@@ -1,5 +1,6 @@
 // --- FILE: js-23-web-components.ts ---
 import type { NoteContent } from '../../../types';
+import webComponentsSvg from '../../../../assets/diagrams/frontend/js/web-components.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-23',
@@ -12,6 +13,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: '**Web Components** are a suite of browser-native technologies that allow you to create reusable, encapsulated UI components. Unlike components in React or Vue, Web Components are standard-compliant and work natively in the browser without any external libraries, making them perfect for design systems and long-lived architectural building blocks.'
+    },
+    {
+      type: 'diagram',
+      content: webComponentsSvg
     },
     {
       type: 'callout',

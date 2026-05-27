@@ -1,5 +1,5 @@
-// --- FILE: js-25-intl.ts ---
 import type { NoteContent } from '../../../types';
+import intlSvg from '../../../../assets/diagrams/frontend/js/intl.svg?raw';
 
 export const content: NoteContent = {
   id: 'js-25',
@@ -12,6 +12,10 @@ export const content: NoteContent = {
     {
       type: 'text',
       content: 'Localization (i18n) is often an afterthought but is critical for global applications. The **Intl API** provides a powerful set of tools to format numbers, dates, and relative times according to a user\'s locale, ensuring that your application feels native to everyone, everywhere.'
+    },
+    {
+      type: 'diagram',
+      content: intlSvg
     },
     {
       type: 'callout',

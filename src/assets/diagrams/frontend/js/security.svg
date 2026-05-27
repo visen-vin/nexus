@@ -1,0 +1,284 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Block Gradients -->
+    <linearGradient id="attackerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7F1D1D" />
+      <stop offset="100%" stop-color="#DC2626" />
+    </linearGradient>
+    
+    <linearGradient id="secureGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064E3B" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+
+    <linearGradient id="cspGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E1B4B" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+
+    <linearGradient id="neutralGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glowDanger" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowSecure" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowCSP" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#EF4444" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#818CF8" />
+    </marker>
+    <marker id="arrowMuted" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 18px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1.5px; }
+    
+    .panel-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 13px; fill: #94A3B8; letter-spacing: 1px; }
+    .node-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 12px; fill: #FFFFFF; }
+    .node-desc { font-family: 'Inter', system-ui, sans-serif; font-weight: 400; font-size: 10px; fill: #94A3B8; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; font-weight: 600; fill: #E2E8F0; }
+    .label-text { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; font-weight: 600; fill: #F1F5F9; }
+    
+    .badge-danger { fill: #7F1D1D; stroke: #EF4444; }
+    .badge-secure { fill: #064E3B; stroke: #10B981; }
+    .badge-neutral { fill: #1E293B; stroke: #475569; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="1000" height="650" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid Decoration -->
+  <g opacity="0.02">
+    <line x1="50" y1="0" x2="50" y2="650" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="200" y1="0" x2="200" y2="650" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="350" y1="0" x2="350" y2="650" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="500" y1="0" x2="500" y2="650" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="650" y1="0" x2="650" y2="650" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="800" y1="0" x2="800" y2="650" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="950" y1="0" x2="950" y2="650" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="1000" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="300" x2="1000" y2="300" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="500" x2="1000" y2="500" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title Block -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">WEB SECURITY ARCHITECTURE</text>
+    <text class="subtitle" x="0" y="18">XSS VECTORS, CSRF TOKEN VALIDATION &amp; CONTENT SECURITY POLICY (CSP)</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- COLUMN 1: XSS INJECTION & DEFENSES (x: 40-330) -->
+  <!-- ========================================== -->
+  <g transform="translate(40, 95)">
+    <!-- Container -->
+    <rect width="290" height="510" rx="12" fill="#0B1320" stroke="#1E293B" stroke-width="1.5" />
+    <text class="panel-title" x="15" y="25">1. XSS ATTACK VECTORS &amp; INJECTIONS</text>
+
+    <!-- Reflected XSS Node -->
+    <g transform="translate(15, 45)">
+      <rect width="260" height="75" rx="8" fill="#1C1B2A" stroke="#F87171" stroke-width="1.5" />
+      <circle cx="20" cy="20" r="8" class="badge-danger" />
+      <text class="node-title" x="35" y="22">Reflected XSS</text>
+      <text class="node-desc" x="35" y="38">Payload in URL query params. Non-persistent.</text>
+      <text class="code-text" x="35" y="55">?search=&lt;script&gt;stealCookies()&lt;/script&gt;</text>
+    </g>
+
+    <!-- Stored XSS Node -->
+    <g transform="translate(15, 135)">
+      <rect width="260" height="75" rx="8" fill="#1C1B2A" stroke="#EF4444" stroke-width="1.5" />
+      <circle cx="20" cy="20" r="8" class="badge-danger" filter="url(#glowDanger)" />
+      <text class="node-title" x="35" y="22">Stored XSS (Persistent)</text>
+      <text class="node-desc" x="35" y="38">Payload saved to database (e.g. comments).</text>
+      <text class="code-text" x="35" y="55">comment_body: "safe text &lt;img src=x onerror=...&gt;"</text>
+    </g>
+
+    <!-- DOM-based XSS Node -->
+    <g transform="translate(15, 225)">
+      <rect width="260" height="75" rx="8" fill="#1C1B2A" stroke="#F87171" stroke-width="1.5" />
+      <circle cx="20" cy="20" r="8" class="badge-danger" />
+      <text class="node-title" x="35" y="22">DOM-based XSS</text>
+      <text class="node-desc" x="35" y="38">Client script unsafe DOM execution.</text>
+      <text class="code-text" x="35" y="55">el.innerHTML = location.hash;</text>
+    </g>
+
+    <!-- Arrow Down to Sanitization -->
+    <path d="M145,300 L145,340" stroke="#EF4444" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowRed)" />
+    
+    <!-- Mitigation Guard (Sanitization) -->
+    <g transform="translate(15, 355)" filter="url(#glowSecure)">
+      <rect width="260" height="135" rx="8" fill="#062F21" stroke="#10B981" stroke-width="2" />
+      <circle cx="20" cy="25" r="8" class="badge-secure" />
+      <text class="node-title" x="35" y="27">Defense: Encoding &amp; Sanitization</text>
+      
+      <!-- TextContent Badge -->
+      <g transform="translate(15, 45)">
+        <rect width="230" height="32" rx="4" fill="#0D1F17" stroke="#059669" stroke-width="1" />
+        <text class="code-text" x="8" y="20">element.textContent = safeUserText;</text>
+      </g>
+      <!-- DOMPurify Badge -->
+      <g transform="translate(15, 87)">
+        <rect width="230" height="32" rx="4" fill="#0D1F17" stroke="#059669" stroke-width="1" />
+        <text class="code-text" x="8" y="20">DOMPurify.sanitize(dirtyHTML)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- COLUMN 2: CSRF MITIGATION FLOW (x: 350-650) -->
+  <!-- ========================================== -->
+  <g transform="translate(350, 95)">
+    <!-- Container -->
+    <rect width="300" height="510" rx="12" fill="#0B1320" stroke="#1E293B" stroke-width="1.5" />
+    <text class="panel-title" x="15" y="25">2. ANTI-CSRF TOKEN VALIDATION FLOW</text>
+
+    <!-- Browser Node -->
+    <g transform="translate(15, 45)">
+      <rect width="115" height="60" rx="6" fill="#141E30" stroke="#475569" stroke-width="1" />
+      <text class="node-title" x="10" y="25">User Browser</text>
+      <text class="node-desc" x="10" y="42">Authenticated</text>
+    </g>
+
+    <!-- Web Server Node -->
+    <g transform="translate(170, 45)">
+      <rect width="115" height="60" rx="6" fill="#141E30" stroke="#475569" stroke-width="1" />
+      <text class="node-title" x="10" y="25">App Server</text>
+      <text class="node-desc" x="10" y="42">Validates session</text>
+    </g>
+
+    <!-- Step 1: GET (Generate Token) -->
+    <path d="M72,105 L72,165" stroke="#818CF8" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+    <path d="M228,165 L228,105" stroke="#818CF8" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+    
+    <g transform="translate(15, 175)">
+      <rect width="270" height="75" rx="8" fill="#111B30" stroke="#818CF8" stroke-width="1.5" />
+      <text class="node-title" x="15" y="20">Step 1: Handshake &amp; Cookie</text>
+      <text class="node-desc" x="15" y="38">Server sets standard session cookie + issues unique</text>
+      <text class="code-text" x="15" y="55">x-csrf-token (sent via response header / meta tag)</text>
+    </g>
+
+    <!-- Attacker Node (Evil.com) -->
+    <g transform="translate(15, 275)">
+      <rect width="115" height="65" rx="6" fill="#2D1111" stroke="#EF4444" stroke-width="1.5" />
+      <text class="node-title" x="10" y="20">Attacker Site</text>
+      <text class="node-desc" x="10" y="36">Tricks browser to</text>
+      <text class="node-desc" x="10" y="48">POST to App Server</text>
+    </g>
+
+    <!-- Request paths with & without token -->
+    <!-- Attacker request (No token, automatically attaches cookies) -->
+    <path d="M72,340 L72,400 C72,430 110,430 135,430" fill="none" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowRed)" />
+    <text class="node-desc" x="12" y="375" fill="#EF4444" font-weight="bold">No Custom Header</text>
+    
+    <!-- Safe user request (With token) -->
+    <path d="M228,250 L228,400" stroke="#10B981" stroke-width="2" marker-end="url(#arrowGreen)" />
+    <text class="node-desc" x="162" y="325" fill="#10B981" font-weight="bold">With CSRF Token</text>
+
+    <!-- Server Validation block -->
+    <g transform="translate(15, 410)" filter="url(#glowSecure)">
+      <rect width="270" height="85" rx="8" fill="#0F172A" stroke="#10B981" stroke-width="2" />
+      <text class="node-title" x="15" y="20">Server-Side Guard Check</text>
+      <text class="node-desc" x="15" y="36">Does req.headers['x-csrf-token'] match session?</text>
+      
+      <!-- Split result display -->
+      <g transform="translate(15, 48)">
+        <rect width="110" height="25" rx="4" fill="#310D0D" stroke="#EF4444" stroke-width="1" />
+        <text class="node-desc" x="10" y="16" fill="#FCA5A5" font-weight="bold">No/Invalid: 403</text>
+      </g>
+      <g transform="translate(145, 48)">
+        <rect width="110" height="25" rx="4" fill="#0D2E1F" stroke="#10B981" stroke-width="1" />
+        <text class="node-desc" x="10" y="16" fill="#A7F3D0" font-weight="bold">Match: 200 OK</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- COLUMN 3: CSP FILTER LAYERS (x: 670-960) -->
+  <!-- ========================================== -->
+  <g transform="translate(670, 95)">
+    <!-- Container -->
+    <rect width="290" height="510" rx="12" fill="#0B1320" stroke="#1E293B" stroke-width="1.5" />
+    <text class="panel-title" x="15" y="25">3. CSP (CONTENT SECURITY POLICY)</text>
+
+    <!-- Source script / styles -->
+    <g transform="translate(15, 45)">
+      <rect width="260" height="60" rx="8" fill="#18182B" stroke="#818CF8" stroke-width="1.5" />
+      <text class="node-title" x="15" y="20">Requested Web Assets</text>
+      <text class="node-desc" x="15" y="36">Scripts, stylesheets, fonts, dynamic connections</text>
+      <text class="code-text" x="15" y="50">&lt;script src="https://attacker.evil.com/malicious.js"&gt;</text>
+    </g>
+
+    <path d="M145,105 L145,145" stroke="#818CF8" stroke-width="2" marker-end="url(#arrowBlue)" />
+
+    <!-- Browser CSP Filtering Engine -->
+    <g transform="translate(15, 155)" filter="url(#glowCSP)">
+      <rect width="260" height="150" rx="8" fill="#0F1035" stroke="#6366F1" stroke-width="2" />
+      <circle cx="20" cy="20" r="8" fill="#4F46E5" stroke="#818CF8" stroke-width="1.5" />
+      <text class="node-title" x="35" y="24">Browser CSP Enforcement Gate</text>
+      <text class="node-desc" x="15" y="48">Checks HTTP Response Header directives:</text>
+      <text class="code-text" x="15" y="68">Content-Security-Policy: </text>
+      <text class="code-text" x="25" y="85">default-src 'self';</text>
+      <text class="code-text" x="25" y="100">script-src 'self' https://apis.google.com;</text>
+      <text class="code-text" x="25" y="115">object-src 'none';</text>
+      <text class="code-text" x="25" y="130">style-src 'self' 'unsafe-inline';</text>
+    </g>
+
+    <!-- Two Outcomes paths -->
+    <path d="M85,305 L85,360" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowRed)" />
+    <path d="M205,305 L205,360" stroke="#10B981" stroke-width="2" marker-end="url(#arrowGreen)" />
+
+    <!-- Blocked Box -->
+    <g transform="translate(15, 370)">
+      <rect width="120" height="120" rx="8" fill="#3F1212" stroke="#EF4444" stroke-width="1.5" />
+      <text class="node-title" x="10" y="25" fill="#FCA5A5">BLOCKED</text>
+      <text class="node-desc" x="10" y="45" fill="#FCA5A5">Blocked inline scripts,</text>
+      <text class="node-desc" x="10" y="60" fill="#FCA5A5">untrusted domains,</text>
+      <text class="node-desc" x="10" y="75" fill="#FCA5A5">eval() usage</text>
+      <circle cx="100" cy="22" r="8" fill="#EF4444" />
+      <path d="M96,18 L104,26 M104,18 L96,26" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+    </g>
+
+    <!-- Allowed Box -->
+    <g transform="translate(155, 370)">
+      <rect width="120" height="120" rx="8" fill="#0D2E1F" stroke="#10B981" stroke-width="1.5" />
+      <text class="node-title" x="10" y="25" fill="#A7F3D0">ALLOWED</text>
+      <text class="node-desc" x="10" y="45" fill="#A7F3D0">Loads from same-origin</text>
+      <text class="node-desc" x="10" y="60" fill="#A7F3D0">('self') or explicitly</text>
+      <text class="node-desc" x="10" y="75" fill="#A7F3D0">whitelisted URLs,</text>
+      <text class="node-desc" x="10" y="90" fill="#A7F3D0">nonce-validated elements</text>
+      <circle cx="100" cy="22" r="8" fill="#10B981" />
+      <path d="M96,22 L99,25 L104,19" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+    </g>
+  </g>
+
+  <!-- Footnote / Extra Security Concept -->
+  <text x="40" y="625" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#475569">Defense-in-depth security requires layering all three protection methodologies: input sanitization/output encoding (XSS mitigation), anti-CSRF token verification, and strict CSP validation rules.</text>
+</svg>

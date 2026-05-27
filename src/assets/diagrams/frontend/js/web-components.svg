@@ -1,0 +1,264 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+
+    <!-- Pillar Gradients -->
+    <linearGradient id="hostGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="shadowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#6D28D9" />
+    </linearGradient>
+    <linearGradient id="templateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glowHost" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowTemplate" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L7,3.5 z" fill="#3B82F6" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L7,3.5 z" fill="#8B5CF6" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L7,3.5 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowMuted" markerWidth="8" markerHeight="8" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L7,3.5 z" fill="#64748B" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .header-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #FFFFFF; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #E2E8F0; }
+    .tag-blue { fill: #38BDF8; font-weight: bold; }
+    .tag-purple { fill: #C084FC; font-weight: bold; }
+    .tag-green { fill: #34D399; font-weight: bold; }
+    .attr-text { fill: #FBBF24; }
+    .comment-text { fill: #64748B; font-style: italic; }
+    .boundary-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 600; font-size: 12px; fill: #A78BFA; letter-spacing: 1px; }
+    .legend-text { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #94A3B8; }
+  </style>
+
+  <!-- Base Card Container -->
+  <rect width="920" height="540" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid Decoration -->
+  <g opacity="0.02">
+    <line x1="100" y1="0" x2="100" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="230" y1="0" x2="230" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="360" y1="0" x2="360" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="490" y1="0" x2="490" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="620" y1="0" x2="620" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="750" y1="0" x2="750" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="920" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="220" x2="920" y2="220" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="340" x2="920" y2="340" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="460" x2="920" y2="460" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title & Subtitle -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">WEB COMPONENTS &amp; SHADOW DOM ARCHITECTURE</text>
+    <text class="subtitle" x="0" y="18">ENCAPSULATED STYLES, CUSTOM ELEMENTS, AND LIGHT DOM PROJECTION</text>
+  </g>
+
+  <!-- PILLAR 1: Light DOM (The Consumer Tree) -->
+  <g transform="translate(40, 110)">
+    <rect width="280" height="370" rx="12" fill="#0D1321" stroke="#334155" stroke-width="1.5" />
+    <rect width="280" height="35" rx="0" fill="url(#hostGrad)" clip-path="inset(0 0 23 0)" opacity="0.85" />
+    <text class="header-text" x="15" y="22">LIGHT DOM (Document Tree)</text>
+
+    <!-- Light DOM Elements Visual Nodes -->
+    <g transform="translate(15, 55)">
+      <!-- Custom Host Element -->
+      <rect width="250" height="295" rx="8" fill="#1E293B" stroke="#3B82F6" stroke-width="2" filter="url(#glowHost)" />
+      
+      <!-- Tag label for Host -->
+      <g transform="translate(15, 20)">
+        <text class="code-text" x="0" y="12">
+          <tspan class="tag-blue">&lt;custom-card</tspan> <tspan class="attr-text">theme</tspan>=<tspan fill="#A78BFA">"dark"</tspan><tspan class="tag-blue">&gt;</tspan>
+        </text>
+      </g>
+
+      <!-- Light DOM Children (Title) -->
+      <g transform="translate(30, 60)">
+        <rect width="190" height="70" rx="6" fill="#0F172A" stroke="#475569" stroke-width="1.5" />
+        <text class="code-text" x="12" y="25">
+          <tspan class="tag-blue">&lt;span</tspan> <tspan class="attr-text">slot</tspan>=<tspan fill="#34D399">"title"</tspan><tspan class="tag-blue">&gt;</tspan>
+        </text>
+        <text class="code-text" x="25" y="45" fill="#E2E8F0" font-weight="bold">Card Title</text>
+        <text class="code-text" x="12" y="60"><tspan class="tag-blue">&lt;/span&gt;</tspan></text>
+      </g>
+
+      <!-- Light DOM Children (Body) -->
+      <g transform="translate(30, 150)">
+        <rect width="190" height="70" rx="6" fill="#0F172A" stroke="#475569" stroke-width="1.5" />
+        <text class="code-text" x="12" y="25">
+          <tspan class="tag-blue">&lt;p&gt;</tspan>
+        </text>
+        <text class="code-text" x="25" y="45" fill="#94A3B8">This is description...</text>
+        <text class="code-text" x="12" y="60"><tspan class="tag-blue">&lt;/p&gt;</tspan></text>
+      </g>
+
+      <!-- Custom Host Element Closing Tag -->
+      <g transform="translate(15, 275)">
+        <text class="code-text" x="0" y="10">
+          <tspan class="tag-blue">&lt;/custom-card&gt;</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <!-- PILLAR 2: HTML Template (Blueprint) -->
+  <g transform="translate(380, 85)">
+    <rect width="480" height="95" rx="10" fill="#061F17" stroke="#10B981" stroke-width="1.5" filter="url(#glowTemplate)" />
+    
+    <!-- Template header -->
+    <rect width="480" height="25" rx="0" fill="url(#templateGrad)" clip-path="inset(0 0 15 0)" opacity="0.8" />
+    <text class="header-text" x="15" y="17" font-size="11px">HTML TEMPLATE (Blueprint / Unrendered)</text>
+
+    <!-- Template inner code preview -->
+    <text class="code-text" x="15" y="48" font-size="10px">
+      <tspan class="tag-green">&lt;template</tspan> <tspan class="attr-text">id</tspan>=<tspan fill="#38BDF8">"card-tpl"</tspan><tspan class="tag-green">&gt;</tspan>
+    </text>
+    <text class="code-text" x="35" y="66" font-size="10px">
+      <tspan class="tag-purple">&lt;style&gt;</tspan><tspan fill="#94A3B8">/* isolated component styles */</tspan><tspan class="tag-purple">&lt;/style&gt;</tspan>
+    </text>
+    <text class="code-text" x="35" y="82" font-size="10px">
+      <tspan class="tag-green">&lt;div</tspan> <tspan class="attr-text">class</tspan>=<tspan fill="#34D399">"wrapper"</tspan><tspan class="tag-green">&gt;</tspan> <tspan class="tag-green">&lt;slot</tspan> <tspan class="attr-text">name</tspan>=<tspan fill="#34D399">"title"</tspan><tspan class="tag-green">&gt;&lt;/slot&gt;</tspan> ...
+    </text>
+
+    <!-- Instantiation Arrow down to Shadow DOM -->
+    <path d="M620,180 L620,225" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrowGreen)" stroke-dasharray="3,3" />
+    <rect x="630" y="188" width="135" height="30" rx="4" fill="#0A2F25" stroke="#10B981" stroke-width="1" />
+    <text class="code-text" x="638" y="206" fill="#34D399" font-size="9px">cloneNode(true) append</text>
+  </g>
+
+  <!-- PILLAR 3: Shadow DOM boundary -->
+  <g transform="translate(380, 240)">
+    <!-- Shadow Boundary Glowing Box -->
+    <rect width="480" height="240" rx="14" fill="#110C24" stroke="#8B5CF6" stroke-width="2.5" stroke-dasharray="6,4" filter="url(#glowShadow)" />
+    
+    <!-- Boundary Title label -->
+    <text class="boundary-title" x="20" y="25">SHADOW ROOT BOUNDARY (open)</text>
+    
+    <!-- Styles capsule / isolation -->
+    <g transform="translate(20, 45)">
+      <rect width="180" height="175" rx="8" fill="#171030" stroke="#7C3AED" stroke-width="1.5" />
+      <rect width="180" height="25" rx="0" fill="url(#shadowGrad)" clip-path="inset(0 0 17 0)" opacity="0.6" />
+      <text class="header-text" x="10" y="17" font-size="10px">ISOLATED STYLES <tspan fill="#F8FAFC" font-weight="normal">(Encapsulated)</tspan></text>
+      
+      <!-- CSS inside component -->
+      <text class="code-text" x="12" y="45" font-size="10px" fill="#A5B4FC">
+        :host {
+      </text>
+      <text class="code-text" x="24" y="60" font-size="10px" fill="#D8B4FE">
+        display: block;
+      </text>
+      <text class="code-text" x="24" y="75" font-size="10px" fill="#D8B4FE">
+        border: 1px solid var(--border);
+      </text>
+      <text class="code-text" x="12" y="90" font-size="10px" fill="#A5B4FC">
+        }
+      </text>
+      <text class="code-text" x="12" y="110" font-size="10px" fill="#C084FC">
+        .wrapper {
+      </text>
+      <text class="code-text" x="24" y="125" font-size="10px" fill="#D8B4FE">
+        padding: 16px;
+      </text>
+      <text class="code-text" x="12" y="140" font-size="10px" fill="#C084FC">
+        }
+      </text>
+      <text class="code-text" x="12" y="160" font-size="10px" fill="#64748B">
+        /* Cannot leak in or out */
+      </text>
+    </g>
+
+    <!-- Component Internal DOM Tree -->
+    <g transform="translate(220, 45)">
+      <rect width="240" height="175" rx="8" fill="#090514" stroke="#4C1D95" stroke-width="1.5" />
+      <rect width="240" height="25" rx="0" fill="#2E1065" clip-path="inset(0 0 17 0)" />
+      <text class="header-text" x="10" y="17" font-size="10px">SHADOW DOM TREE</text>
+
+      <!-- Shadow Node: Wrapper -->
+      <g transform="translate(15, 38)">
+        <rect width="210" height="122" rx="6" fill="#1C143B" stroke="#6D28D9" stroke-width="1" />
+        <text class="code-text" x="10" y="18">
+          <tspan class="tag-purple">&lt;div</tspan> <tspan class="attr-text">class</tspan>=<tspan fill="#C084FC">"wrapper"</tspan><tspan class="tag-purple">&gt;</tspan>
+        </text>
+
+        <!-- Slot title representation -->
+        <g transform="translate(15, 30)">
+          <rect width="180" height="34" rx="4" fill="#0C0A1F" stroke="#8B5CF6" stroke-dasharray="2,2" />
+          <text class="code-text" x="8" y="21" font-size="10px">
+            <tspan class="tag-purple">&lt;slot</tspan> <tspan class="attr-text">name</tspan>=<tspan fill="#34D399">"title"</tspan><tspan class="tag-purple">&gt;</tspan>
+          </text>
+        </g>
+
+        <!-- Slot default representation -->
+        <g transform="translate(15, 72)">
+          <rect width="180" height="34" rx="4" fill="#0C0A1F" stroke="#8B5CF6" stroke-dasharray="2,2" />
+          <text class="code-text" x="8" y="21" font-size="10px">
+            <tspan class="tag-purple">&lt;slot&gt;</tspan> <tspan class="comment-text">/* default */</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Projection Curves (Slot / Light DOM connections) -->
+  <!-- Projection: Title -> Slot Title -->
+  <path d="M260,205 C330,205 480,240 600,320" fill="none" stroke="#34D399" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arrowGreen)" />
+  <rect x="330" y="222" width="75" height="18" rx="3" fill="#064E3B" stroke="#059669" stroke-width="1" />
+  <text class="code-text" x="335" y="234" font-size="9px" fill="#34D399">Projected Slot</text>
+
+  <!-- Projection: Body -> Default Slot -->
+  <path d="M260,295 C330,295 480,330 600,362" fill="none" stroke="#38BDF8" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arrowBlue)" />
+
+  <!-- Style Boundary Walls Symbolized (No leak arrow) -->
+  <path d="M380,310 L330,310" fill="none" stroke="#DC2626" stroke-width="2.5" marker-end="url(#arrowMuted)" />
+  <circle cx="330" cy="310" r="8" fill="#EF4444" />
+  <line x1="326" y1="306" x2="334" y2="314" stroke="#FFFFFF" stroke-width="2" />
+  <line x1="334" y1="306" x2="326" y2="314" stroke="#FFFFFF" stroke-width="2" />
+  <text class="legend-text" x="290" y="332" font-size="9px" fill="#FCA5A5">CSS Isolated</text>
+
+  <!-- Footer Legend -->
+  <g transform="translate(40, 505)">
+    <circle cx="10" cy="6" r="5" fill="#3B82F6" />
+    <text class="legend-text" x="22" y="10">Custom Element Host</text>
+
+    <circle cx="170" cy="6" r="5" fill="#8B5CF6" />
+    <text class="legend-text" x="182" y="10">Shadow DOM / Root Boundary</text>
+
+    <circle cx="380" cy="6" r="5" fill="#10B981" />
+    <text class="legend-text" x="392" y="10">HTML Template (Blueprint)</text>
+
+    <text class="legend-text" x="650" y="10" fill="#64748B">Web Standards: W3C compliant, framework agnostic</text>
+  </g>
+</svg>

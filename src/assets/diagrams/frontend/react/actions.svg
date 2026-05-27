@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#0c0f1d" />
+    </linearGradient>
+
+    <!-- Glassmorphic States Gradient -->
+    <linearGradient id="glassState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#6b21a8" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Success Accent -->
+    <linearGradient id="successGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <!-- Processing Accent -->
+    <linearGradient id="processGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+
+    <!-- Error Accent -->
+    <linearGradient id="errorGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f87171" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+
+    <!-- Box Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f3f4f6; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; font-weight: 500; }
+    .state-title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #e9d5ff; }
+    .desc { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #d1d5db; }
+    .meta { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #9ca3af; }
+    .flow-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #f59e0b; text-anchor: middle; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad)" />
+  <rect width="800" height="450" rx="16" fill="none" stroke="#1f2937" stroke-width="2" />
+
+  <g opacity="0.04">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- TITLE -->
+  <text x="30" y="45" class="title">React 19 Actions: State Transition Lifecycle</text>
+  <text x="30" y="63" class="subtitle">Standardized asynchronous operation boundaries, automatic pending states, and error boundary recovery.</text>
+
+  <!-- STATE 1: IDLE / TRIGGER -->
+  <g filter="url(#boxShadow)">
+    <rect x="40" y="140" width="180" height="120" rx="10" fill="url(#glassState)" stroke="#c084fc" stroke-width="1.5" stroke-opacity="0.3" />
+    <circle cx="65" cy="165" r="12" fill="#6b21a8" />
+    <text x="65" y="169" font-family="'Inter'" font-size="10" font-weight="700" fill="#f3e8ff" text-anchor="middle">1</text>
+    <text x="90" y="169" class="state-title">Trigger (Idle)</text>
+    
+    <text x="55" y="200" class="desc">User submits Form or</text>
+    <text x="55" y="215" class="desc">clicks an async button.</text>
+    <text x="55" y="235" class="meta" fill="#c084fc">React awaits action callback</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 220 200 L 290 200" fill="none" stroke="#6b7280" stroke-width="2" />
+  <polygon points="290,200 282,195 282,205" fill="#6b7280" />
+  <text x="255" y="190" class="flow-label">Invokes Callback</text>
+
+  <!-- STATE 2: PENDING / EXECUTING -->
+  <g filter="url(#boxShadow)">
+    <rect x="300" y="140" width="200" height="135" rx="10" fill="url(#glassState)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.4" />
+    <circle cx="325" cy="165" r="12" fill="#1e3a8a" />
+    <text x="325" y="169" font-family="'Inter'" font-size="10" font-weight="700" fill="#93c5fd" text-anchor="middle">2</text>
+    <text x="350" y="169" class="state-title" fill="#93c5fd">Pending State</text>
+
+    <!-- Progress Loader Indicator -->
+    <path d="M 465 165 A 6 6 0 0 1 477 165" fill="none" stroke="#60a5fa" stroke-width="2" />
+
+    <text x="315" y="200" class="desc" font-weight="700" fill="#60a5fa">isPending = true</text>
+    <text x="315" y="218" class="desc">React intercepts callback,</text>
+    <text x="315" y="233" class="desc">keeping UI interactive.</text>
+    <text x="315" y="255" class="meta" fill="#60a5fa">Fiber priority lane active</text>
+  </g>
+
+  <!-- Routing Arrows to Success or Error -->
+  <!-- Success path (Top right) -->
+  <path d="M 500 180 Q 560 140 600 140" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3" />
+  <polygon points="600,140 592,136 594,144" fill="#10b981" />
+  <text x="550" y="145" class="flow-label" fill="#10b981">Promise Resolves</text>
+
+  <!-- Error path (Bottom right) -->
+  <path d="M 500 220 Q 560 260 600 260" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3" />
+  <polygon points="600,260 594,256 592,264" fill="#ef4444" />
+  <text x="550" y="255" class="flow-label" fill="#ef4444">Promise Rejects</text>
+
+  <!-- STATE 3A: SUCCESS / COMMIT -->
+  <g filter="url(#boxShadow)">
+    <rect x="600" y="80" width="170" height="100" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5" />
+    <text x="615" y="105" class="state-title" fill="#34d399">Success State</text>
+    <text x="615" y="130" class="desc">isPending = false</text>
+    <text x="615" y="145" class="desc">State updates committed.</text>
+    <text x="615" y="160" class="meta" fill="#34d399">Forms reset automatically</text>
+  </g>
+
+  <!-- STATE 3B: ERROR / RECOVER -->
+  <g filter="url(#boxShadow)">
+    <rect x="600" y="220" width="170" height="100" rx="8" fill="#450a0a" stroke="#ef4444" stroke-width="1.5" />
+    <text x="615" y="245" class="state-title" fill="#f87171">Error Recovery</text>
+    <text x="615" y="270" class="desc">isPending = false</text>
+    <text x="615" y="285" class="desc">Error scoped to hook.</text>
+    <text x="615" y="300" class="meta" fill="#f87171">No app-wide crash</text>
+  </g>
+
+  <!-- FOOTER LEGEND -->
+  <rect x="40" y="355" width="730" height="60" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1" />
+  <text x="55" y="375" class="desc" font-weight="700" fill="#c084fc">Key Advantage of React 19 Actions:</text>
+  <text x="55" y="395" class="desc">Standardizes handling of async operations, eliminating hand-written loading states, error traps, and manual sync-state resets.</text>
+</svg>

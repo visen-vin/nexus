@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Glassmorphic Server Box Gradient -->
+    <linearGradient id="serverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Glassmorphic Client Box Gradient -->
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Accent Gradients -->
+    <linearGradient id="blueAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="emeraldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="amberAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+
+    <!-- Box Shadow Filter -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glowBlue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f3f4f6; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; font-weight: 500; }
+    .label { font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 600; fill: #e5e7eb; }
+    .value { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; }
+    .code { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #34d399; }
+    .boundary-text { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #f43f5e; letter-spacing: 1px; text-anchor: middle; }
+    .flow-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #fbbf24; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad)" />
+  <rect width="800" height="450" rx="16" fill="none" stroke="#1f2937" stroke-width="2" />
+
+  <!-- Grid Pattern overlay for tech aesthetic -->
+  <g opacity="0.05">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- TITLE -->
+  <text x="30" y="40" class="title">React Server Components (RSC) Architecture</text>
+  <text x="30" y="58" class="subtitle">Deep-dive representation of the Server-Client Boundary, serialization protocol, and hybrid reconciliation.</text>
+
+  <!-- ================= SERVER SIDE BOUNDARY ================= -->
+  <g filter="url(#shadow)">
+    <!-- Container -->
+    <rect x="30" y="90" width="320" height="320" rx="12" fill="url(#serverGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.4" />
+    <rect x="40" y="100" width="90" height="24" rx="6" fill="#1e3a8a" opacity="0.6" />
+    <text x="85" y="116" class="label" text-anchor="middle" fill="#60a5fa">SERVER</text>
+    <text x="40" y="140" class="subtitle">Executes in the data center / edge node</text>
+
+    <!-- Server Components Tree -->
+    <rect x="50" y="165" width="120" height="50" rx="8" fill="#1e293b" stroke="url(#blueAccent)" stroke-width="1.5" />
+    <text x="110" y="187" class="label" text-anchor="middle">ServerComponent</text>
+    <text x="110" y="202" class="value" text-anchor="middle">Direct DB Access</text>
+
+    <line x1="110" y1="215" x2="80" y2="255" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="3" />
+    <line x1="110" y1="215" x2="160" y2="255" stroke="#4b5563" stroke-width="1.5" />
+
+    <!-- DB Node (Dependency) -->
+    <rect x="30" y="255" width="90" height="40" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+    <text x="75" y="279" class="label" text-anchor="middle" fill="#34d399">Postgres DB</text>
+
+    <!-- Client Component Placeholder on Server -->
+    <rect x="130" y="255" width="110" height="50" rx="8" fill="#1e293b" stroke="url(#emeraldAccent)" stroke-width="1.5" />
+    <text x="185" y="277" class="label" text-anchor="middle">ClientComponent</text>
+    <text x="185" y="292" class="subtitle" text-anchor="middle">(Client Boundary)</text>
+
+    <!-- RSC Serializer -->
+    <rect x="50" y="335" width="280" height="60" rx="8" fill="#0f172a" stroke="#fbbf24" stroke-width="1" />
+    <text x="60" y="352" class="label" fill="#fbbf24">RSC Serializer (Bundler Integration)</text>
+    <text x="60" y="372" class="value">Converts server trees to serialized JSON-like stream.</text>
+    <text x="60" y="386" class="code">M1:{"id":"./ClientComp.js","name":"default"}</text>
+  </g>
+
+  <!-- ================= NETWORK / SERIALIZATION BOUNDARY ================= -->
+  <!-- Boundary Line -->
+  <line x1="390" y1="90" x2="390" y2="410" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5 5" opacity="0.6" />
+  <text x="390" y="80" class="boundary-text">SERVER-CLIENT NETWORK BOUNDARY</text>
+
+  <!-- Streaming Arrow -->
+  <g filter="url(#glowBlue)">
+    <path d="M 335 240 L 445 240" fill="none" stroke="url(#amberAccent)" stroke-width="3" marker-end="url(#arrow)" />
+  </g>
+  <rect x="345" y="205" width="90" height="24" rx="4" fill="#1e1b4b" stroke="#fbbf24" stroke-width="1" />
+  <text x="390" y="221" class="flow-label" text-anchor="middle">RSC PAYLOAD</text>
+
+  <!-- ================= CLIENT SIDE BOUNDARY ================= -->
+  <g filter="url(#shadow)">
+    <!-- Container -->
+    <rect x="430" y="90" width="340" height="320" rx="12" fill="url(#clientGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.4" />
+    <rect x="440" y="100" width="90" height="24" rx="6" fill="#064e3b" opacity="0.6" />
+    <text x="485" y="116" class="label" text-anchor="middle" fill="#34d399">CLIENT</text>
+    <text x="440" y="140" class="subtitle">Executes in user's browser</text>
+
+    <!-- RSC Stream Reader & Reconciler -->
+    <rect x="450" y="165" width="300" height="60" rx="8" fill="#172554" stroke="#60a5fa" stroke-width="1.5" />
+    <text x="465" y="187" class="label" fill="#93c5fd">RSC Stream Parser &amp; Reconciler</text>
+    <text x="465" y="207" class="value">Parses stream, fetches client bundles, merges trees.</text>
+
+    <!-- Combined Hybrid Virtual DOM -->
+    <rect x="450" y="255" width="130" height="50" rx="8" fill="#1e293b" stroke="url(#blueAccent)" stroke-width="1.5" />
+    <text x="515" y="277" class="label" text-anchor="middle">Server UI Output</text>
+    <text x="515" y="292" class="subtitle" text-anchor="middle">(Non-Interactive HTML)</text>
+
+    <line x1="515" y1="305" x2="515" y2="335" stroke="#4b5563" stroke-width="1.5" />
+    <line x1="515" y1="305" x2="685" y2="335" stroke="#4b5563" stroke-width="1.5" />
+
+    <!-- Interactive Client Component -->
+    <rect x="610" y="255" width="140" height="50" rx="8" fill="#1e293b" stroke="url(#emeraldAccent)" stroke-width="1.5" />
+    <text x="680" y="277" class="label" text-anchor="middle">Client UI Output</text>
+    <text x="680" y="292" class="subtitle" text-anchor="middle">(Hydrated &amp; Interactive)</text>
+
+    <!-- Browser Paint -->
+    <rect x="450" y="340" width="300" height="55" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5" />
+    <text x="600" y="362" class="label" text-anchor="middle" fill="#34d399">Real DOM &amp; Interactive UI Paint</text>
+    <text x="600" y="380" class="value" text-anchor="middle">Zero layout shift, instant client bundle hydration</text>
+  </g>
+
+  <!-- Markers -->
+  <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 10 5 L 0 9 z" fill="#fbbf24" />
+  </marker>
+</svg>

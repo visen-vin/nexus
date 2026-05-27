@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="100%" height="100%">
+  <defs>
+    <!-- Dark glassmorphic background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F1D" />
+      <stop offset="50%" stop-color="#0F172E" />
+      <stop offset="100%" stop-color="#060A14" />
+    </linearGradient>
+
+    <!-- Glowing Node Gradients -->
+    <linearGradient id="urgentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="100%" stop-color="#4FACFE" />
+    </linearGradient>
+    
+    <linearGradient id="bgRenderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D946EF" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+
+    <linearGradient id="commitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <linearGradient id="staleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64748B" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+
+    <!-- Subtle grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.03" />
+    </pattern>
+
+    <!-- Box glowing filters -->
+    <filter id="glowUrgent" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowBg" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowCommit" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow markers -->
+    <marker id="arrowUrgent" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#00F2FE" />
+    </marker>
+    <marker id="arrowDeferred" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#D946EF" />
+    </marker>
+    <marker id="arrowSuccess" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#10B981" />
+    </marker>
+  </defs>
+
+  <style>
+    .font-sans { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    .font-mono { font-family: 'Fira Code', 'Courier New', monospace; }
+    
+    .title { font-weight: 800; font-size: 18px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    
+    .section-title { font-weight: 700; font-size: 14px; fill: #E2E8F0; }
+    .card-title { font-weight: 700; font-size: 13px; fill: #FFFFFF; }
+    .card-body { font-size: 11px; fill: #94A3B8; }
+    .card-highlight { font-weight: 600; font-size: 11px; fill: #00F2FE; }
+    .card-purple-highlight { font-weight: 600; font-size: 11px; fill: #D946EF; }
+    
+    .badge { font-weight: 700; font-size: 9px; fill: #FFFFFF; }
+    .label-meta { font-weight: 600; font-size: 10px; fill: #475569; }
+    .diag-text { font-size: 10px; fill: #E2E8F0; }
+  </style>
+
+  <!-- Background Container -->
+  <rect width="960" height="560" rx="20" fill="url(#bgGrad)" stroke="#1E293B" stroke-width="2.5" />
+  <rect width="960" height="560" rx="20" fill="url(#grid)" />
+
+  <!-- Premium header -->
+  <g transform="translate(40, 45)">
+    <text class="font-sans title" x="0" y="0">REACT useDeferredValue ARCHITECTURE</text>
+    <text class="font-sans subtitle" x="0" y="20">CONCURRENT TRANSITIONS, STALE-WHILE-REVALIDATE PATTERNS &amp; NON-BLOCKING UI RENDERS</text>
+  </g>
+
+  <!-- ================= PHASE 1: URGENT PATH ================= -->
+  <g transform="translate(40, 95)">
+    <!-- Column Border & Label -->
+    <rect width="250" height="420" rx="12" fill="#1E293B" fill-opacity="0.25" stroke="#334155" stroke-width="1.5" stroke-dasharray="4,4" />
+    <text class="font-sans section-title" x="20" y="30">1. Urgent State Update</text>
+    <text class="font-sans card-body" x="20" y="48">Keystroke triggers immediate re-render</text>
+
+    <!-- User Action / Keystroke -->
+    <g transform="translate(20, 70)">
+      <rect width="210" height="65" rx="8" fill="#111827" fill-opacity="0.8" stroke="#334155" stroke-width="1.5" />
+      <rect width="5" height="65" rx="2" fill="url(#urgentGrad)" />
+      <text class="font-sans card-title" x="15" y="25">User Types &apos;AB&apos;</text>
+      <text class="font-mono card-body" x="15" y="45">query: &apos;A&apos; → &apos;AB&apos;</text>
+      <rect x="155" y="12" width="40" height="16" rx="4" fill="#0369A1" />
+      <text class="font-sans badge" x="162" y="23">INPUT</text>
+    </g>
+
+    <!-- State & Hook Input -->
+    <g transform="translate(20, 160)" filter="url(#glowUrgent)">
+      <rect width="210" height="90" rx="8" fill="#111827" fill-opacity="0.85" stroke="#00F2FE" stroke-width="1.5" />
+      <rect width="210" height="4" fill="url(#urgentGrad)" />
+      <text class="font-sans card-title" x="15" y="25">Urgent Render Pass</text>
+      <text class="font-mono card-body" x="15" y="48">value: <tspan fill="#00F2FE">&apos;AB&apos;</tspan> (Updated)</text>
+      <text class="font-mono card-body" x="15" y="68">deferredValue: <tspan fill="#D946EF">&apos;A&apos;</tspan> <tspan fill="#64748B">(Stale)</tspan></text>
+      <rect x="135" y="10" width="60" height="16" rx="4" fill="#00F2FE" fill-opacity="0.2" stroke="#00F2FE" stroke-width="1" />
+      <text class="font-sans badge" x="141" y="21" fill="#00F2FE">URGENT (0)</text>
+    </g>
+
+    <!-- Fast Component UI (Search Input) -->
+    <g transform="translate(20, 275)">
+      <rect width="210" height="110" rx="8" fill="#111827" fill-opacity="0.8" stroke="#334155" stroke-width="1.5" />
+      <rect width="5" height="110" rx="2" fill="url(#urgentGrad)" />
+      <text class="font-sans card-title" x="15" y="25">&lt;SearchInput /&gt;</text>
+      <text class="font-sans card-body" x="15" y="48">Fast UI updates instantly at 60 FPS.</text>
+      
+      <!-- Input rendering representation -->
+      <g transform="translate(15, 62)">
+        <rect width="180" height="30" rx="4" fill="#1F2937" stroke="#00F2FE" stroke-width="1" />
+        <text class="font-mono card-body" x="10" y="18" fill="#F3F4F6">AB|</text>
+        <circle cx="165" cy="15" r="5" fill="#00F2FE" />
+      </g>
+    </g>
+  </g>
+
+  <!-- Connect Phase 1 to Phase 2 -->
+  <path d="M290,290 L345,290" fill="none" stroke="#00F2FE" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowUrgent)" />
+  <text class="font-sans label-meta" x="295" y="280" fill="#00F2FE">Triggers</text>
+
+  <!-- ================= PHASE 2: BACKGROUND CONCURRENT RENDERING ================= -->
+  <g transform="translate(325, 95)">
+    <!-- Column Border & Label -->
+    <rect width="360" height="420" rx="12" fill="#1E293B" fill-opacity="0.25" stroke="#334155" stroke-width="1.5" stroke-dasharray="4,4" />
+    <text class="font-sans section-title" x="20" y="30">2. Dual-Tree Background Render</text>
+    <text class="font-sans card-body" x="20" y="48">Keeps screen responsive by yielding to main thread</text>
+
+    <!-- Main Thread (Responsive) -->
+    <g transform="translate(20, 70)">
+      <rect width="320" height="65" rx="8" fill="#111827" fill-opacity="0.8" stroke="#334155" stroke-width="1.5" />
+      <rect width="320" height="4" fill="url(#urgentGrad)" />
+      <text class="font-sans card-title" x="15" y="25">Main Thread: Free &amp; Unblocked</text>
+      <text class="font-sans card-body" x="15" y="45">Urgent frame commits. User is able to type and click.</text>
+      <rect x="225" y="10" width="80" height="16" rx="4" fill="#0284C7" />
+      <text class="font-sans badge" x="231" y="21">RESPONSIVE</text>
+    </g>
+
+    <!-- Background Concurrent Engine -->
+    <g transform="translate(20, 160)" filter="url(#glowBg)">
+      <rect width="320" height="225" rx="8" fill="#111827" fill-opacity="0.9" stroke="#D946EF" stroke-width="1.5" />
+      <rect width="320" height="4" fill="url(#bgRenderGrad)" />
+      
+      <!-- Inside background work-loop -->
+      <text class="font-sans card-title" x="15" y="25">React Fiber WorkLoop (Deferred)</text>
+      
+      <!-- Stale Committed Tree -->
+      <g transform="translate(15, 45)">
+        <rect width="290" height="65" rx="6" fill="#1E293B" stroke="#475569" stroke-width="1" />
+        <text class="font-sans card-title" x="12" y="20" fill="#94A3B8">Committed Tree (Stale UI)</text>
+        <text class="font-mono card-body" x="12" y="38">deferredValue: <tspan fill="#F43F5E">&apos;A&apos;</tspan></text>
+        <text class="font-sans card-body" x="12" y="52">List shows results for &apos;A&apos;, opacity: 0.6</text>
+        <rect x="235" y="8" width="45" height="14" rx="3" fill="#334155" />
+        <text class="font-sans badge" x="240" y="18" fill="#E2E8F0">VISIBLE</text>
+      </g>
+
+      <!-- Low-Priority workInProgress Tree -->
+      <g transform="translate(15, 125)">
+        <rect width="290" height="85" rx="6" fill="#1E1B4B" stroke="#D946EF" stroke-width="1" stroke-dasharray="2,2" />
+        <text class="font-sans card-title" x="12" y="20" fill="#E9D5FF">WorkInProgress Tree (Background)</text>
+        <text class="font-mono card-body" x="12" y="38">deferredValue: <tspan fill="#A855F7">&apos;AB&apos;</tspan> (Low-Priority)</text>
+        <text class="font-sans card-body" x="12" y="54">Renders expensive component tree in memory.</text>
+        <text class="font-sans card-purple-highlight" x="12" y="70">⚠ Interrupted / Aborted if user types &apos;ABC&apos;</text>
+        <rect x="210" y="8" width="70" height="14" rx="3" fill="#D946EF" fill-opacity="0.2" stroke="#D946EF" stroke-width="1" />
+        <text class="font-sans badge" x="216" y="18" fill="#E9D5FF">PREPARING</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Connect Phase 2 to Phase 3 -->
+  <path d="M685,307 L720,307" fill="none" stroke="#10B981" stroke-width="2.5" marker-end="url(#arrowSuccess)" />
+  <text class="font-sans label-meta" x="686" y="295" fill="#10B981">Commit</text>
+
+  <!-- ================= PHASE 3: COMMIT & ATOMIC SWAP ================= -->
+  <g transform="translate(710, 95)">
+    <!-- Column Border & Label -->
+    <rect width="210" height="420" rx="12" fill="#1E293B" fill-opacity="0.25" stroke="#334155" stroke-width="1.5" stroke-dasharray="4,4" />
+    <text class="font-sans section-title" x="15" y="30">3. Atomic Swap</text>
+    <text class="font-sans card-body" x="15" y="48">Background updates commit</text>
+
+    <!-- Atomic pointer swap -->
+    <g transform="translate(10, 70)">
+      <rect width="190" height="135" rx="8" fill="#111827" fill-opacity="0.8" stroke="#334155" stroke-width="1.5" />
+      <rect width="5" height="135" rx="2" fill="url(#commitGrad)" />
+      <text class="font-sans card-title" x="15" y="25">Double Buffering Swap</text>
+      <text class="font-sans card-body" x="15" y="48">The workInProgress tree</text>
+      <text class="font-sans card-body" x="15" y="63">becomes current tree.</text>
+      <text class="font-sans card-body" x="15" y="78">This is instant and atomic!</text>
+      
+      <!-- Atomic swap dynamic line representation -->
+      <g transform="translate(15, 95)">
+        <line x1="0" y1="15" x2="105" y2="15" stroke="#475569" stroke-width="2" />
+        <polygon points="105,10 115,15 105,20" fill="#475569" />
+        <circle cx="5" cy="15" r="4" fill="#EC4899" />
+        <text class="font-mono label-meta" x="15" y="10" fill="#EC4899">root.current</text>
+        <path d="M 5,15 Q 40,-5 85,12" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="2,2" />
+        <polygon points="85,8 92,15 82,16" fill="#10B981" />
+        <text class="font-mono label-meta" x="40" y="-3" fill="#10B981">SWAP</text>
+      </g>
+    </g>
+
+    <!-- Up-to-date UI (Committed) -->
+    <g transform="translate(10, 220)" filter="url(#glowCommit)">
+      <rect width="190" height="165" rx="8" fill="#111827" fill-opacity="0.85" stroke="#10B981" stroke-width="1.5" />
+      <rect width="190" height="4" fill="url(#commitGrad)" />
+      <text class="font-sans card-title" x="15" y="25">&lt;ExpensiveList /&gt;</text>
+      <text class="font-mono card-body" x="15" y="48" fill="#94A3B8">deferredValue: <tspan fill="#10B981">&apos;AB&apos;</tspan></text>
+      <text class="font-sans card-body" x="15" y="65">UI now displays final list</text>
+      <text class="font-sans card-body" x="15" y="80">for &apos;AB&apos;. Full opacity.</text>
+      
+      <!-- Visual representation of list elements -->
+      <g transform="translate(15, 95)">
+        <rect width="160" height="15" rx="2" fill="#1E293B" stroke="#10B981" stroke-width="0.75" />
+        <text class="font-sans font-mono" x="8" y="11" font-size="8" fill="#F8FAFC">⚡ Result 1 (AB)</text>
+        <rect y="22" width="160" height="15" rx="2" fill="#1E293B" stroke="#1E293B" stroke-width="0.75" />
+        <text class="font-sans font-mono" x="8" y="33" font-size="8" fill="#94A3B8">⚡ Result 2 (AB)</text>
+        <rect y="44" width="160" height="15" rx="2" fill="#1E293B" stroke="#1E293B" stroke-width="0.75" />
+        <text class="font-sans font-mono" x="8" y="55" font-size="8" fill="#94A3B8">⚡ Result 3 (AB)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= LEGEND BAR ================= -->
+  <g transform="translate(40, 523)">
+    <rect width="880" height="28" rx="6" fill="#111827" fill-opacity="0.8" stroke="#1E293B" stroke-width="1" />
+    <g transform="translate(20, 8)">
+      <!-- Urgent Pointer -->
+      <circle cx="10" cy="6" r="5" fill="#00F2FE" />
+      <text class="font-sans diag-text" x="22" y="9">Urgent path (input/interactive) - High Priority (60 FPS)</text>
+
+      <!-- Background Deferred Pointer -->
+      <circle cx="395" cy="6" r="5" fill="#D946EF" />
+      <text class="font-sans diag-text" x="407" y="9">Concurrent Background Path - Low Priority &amp; Abortable</text>
+
+      <!-- Commit Success Pointer -->
+      <circle cx="735" cy="6" r="5" fill="#10B981" />
+      <text class="font-sans diag-text" x="747" y="9">Atomic Swap &amp; Commit</text>
+    </g>
+  </g>
+</svg>

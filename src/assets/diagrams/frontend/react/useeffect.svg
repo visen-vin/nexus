@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node colors -->
+    <linearGradient id="renderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="domGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <linearGradient id="effectGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="cleanupGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#B91C1C" />
+    </linearGradient>
+
+    <!-- Glowing Effects -->
+    <filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0EA5E9" />
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#F59E0B" />
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#EF4444" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12px; fill: #FFFFFF; }
+    .node-sub { font-family: 'Fira Code', monospace; font-size: 9px; fill: #94A3B8; }
+    .flow-label { font-family: 'Fira Code', monospace; font-size: 8.5px; fill: #E2E8F0; font-weight: 600; }
+  </style>
+
+  <!-- Container -->
+  <rect width="900" height="500" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.03">
+    <line x1="50" y1="0" x2="50" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="250" y1="0" x2="250" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="650" y1="0" x2="650" y2="500" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6,6" />
+    <line x1="850" y1="0" x2="850" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="900" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="400" x2="900" y2="400" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">USEEFFECT SYNCHRONIZATION CYCLE</text>
+    <text class="subtitle" x="0" y="18">INTERACTIVE LIFECYCLE DECOUPLING: PURE RENDER, PAINT AND ASYNCHRONOUS DEFERRED EFFECTS</text>
+  </g>
+
+  <!-- 1. Render Frame (Blue) -->
+  <g transform="translate(60, 200)">
+    <rect width="140" height="70" rx="8" fill="#111827" stroke="#0EA5E9" stroke-width="2" />
+    <rect width="140" height="4" fill="url(#renderGrad)" />
+    <text class="node-title" x="12" y="25">1. Render</text>
+    <text class="node-sub" x="12" y="45">Computes VDOM</text>
+    <text class="node-sub" x="12" y="58">Pure Projection</text>
+  </g>
+
+  <!-- Connection: Render -> DOM/Paint -->
+  <path d="M200,235 L252,235" fill="none" stroke="#0EA5E9" stroke-width="2" marker-end="url(#arrowBlue)" />
+  <text class="flow-label" x="208" y="222" fill="#0EA5E9">commit</text>
+
+  <!-- 2. Paint to Screen (Purple) -->
+  <g transform="translate(260, 200)">
+    <rect width="140" height="70" rx="8" fill="#111827" stroke="#A855F7" stroke-width="2" />
+    <rect width="140" height="4" fill="url(#domGrad)" />
+    <text class="node-title" x="12" y="25">2. DOM &amp; Paint</text>
+    <text class="node-sub" x="12" y="45">DOM mutated</text>
+    <text class="node-sub" x="12" y="58">Screen painted</text>
+  </g>
+
+  <!-- Connection: Paint -> Effect -->
+  <path d="M400,235 L452,235" fill="none" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowOrange)" />
+  <text class="flow-label" x="410" y="222" fill="#F59E0B">deferred</text>
+
+  <!-- 3. Effect Execution (Orange) -->
+  <g transform="translate(460, 185)" filter="url(#glowEffect)">
+    <rect width="160" height="95" rx="8" fill="#111827" stroke="#F59E0B" stroke-width="2.5" />
+    <rect width="160" height="4" fill="url(#effectGrad)" />
+    <text class="node-title" x="12" y="25">3. Run Effect</text>
+    <text class="node-sub" x="12" y="45">Asynchronous</text>
+    <text class="node-sub" x="12" y="60">Sync with system</text>
+    <text class="node-sub" x="12" y="78" fill="#F59E0B">Returns: Cleanup()</text>
+  </g>
+
+  <!-- Connection: Effect -> Cleanup -->
+  <path d="M620,235 L672,235" fill="none" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowRed)" />
+  <text class="flow-label" x="625" y="222" fill="#EF4444">re-render</text>
+
+  <!-- 4. Cleanup Execution (Red) -->
+  <g transform="translate(680, 200)">
+    <rect width="150" height="70" rx="8" fill="#111827" stroke="#EF4444" stroke-width="2" />
+    <rect width="150" height="4" fill="url(#cleanupGrad)" />
+    <text class="node-title" x="12" y="25">4. Run Cleanup</text>
+    <text class="node-sub" x="12" y="45">Runs BEFORE next</text>
+    <text class="node-sub" x="12" y="58">effect or on unmount</text>
+  </g>
+
+  <!-- Cycle Loop back from Cleanup to Render on Re-render -->
+  <path d="M755,200 C755,140 130,140 130,192" fill="none" stroke="#6B7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowBlue)" />
+  <text class="flow-label" x="410" y="152" fill="#94A3B8">State Change Cycle</text>
+
+  <!-- Footnote -->
+  <text x="40" y="445" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#475569">Note: useEffect is a mechanism to synchronize the React state with an external system (e.g. Chat APIs, window event handlers). It is fundamentally different from class lifecycle hooks.</text>
+</svg>

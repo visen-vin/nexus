@@ -1,0 +1,269 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080B11" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#04060A" />
+    </linearGradient>
+
+    <!-- Vibrant Node Gradients -->
+    <linearGradient id="triggerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="batchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="stackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#B91C1C" />
+    </linearGradient>
+    <linearGradient id="commitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glowBlue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowOrange" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrowOrange" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#F59E0B" />
+    </marker>
+    <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#0EA5E9" />
+    </marker>
+    <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#EF4444" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L7,3 z" fill="#10B981" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 18px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1.5px; }
+    .section-header { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #F8FAFC; letter-spacing: 0.5px; }
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12px; fill: #FFFFFF; }
+    .node-subtitle { font-family: 'Fira Code', monospace; font-size: 9.5px; fill: #94A3B8; }
+    .node-code { font-family: 'Fira Code', monospace; font-size: 9px; fill: #E2E8F0; }
+    .node-code-highlight { font-family: 'Fira Code', monospace; font-size: 9px; fill: #38BDF8; font-weight: bold; }
+    .node-desc { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #94A3B8; }
+    .label-badge { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 9px; fill: #0F172A; }
+    .legend-text { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #64748B; }
+  </style>
+
+  <!-- Container -->
+  <rect width="1000" height="680" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2.5" />
+
+  <!-- Grid Decoration -->
+  <g opacity="0.04">
+    <line x1="50" y1="0" x2="50" y2="680" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="200" y1="0" x2="200" y2="680" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="400" y1="0" x2="400" y2="680" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="600" y1="0" x2="600" y2="680" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="800" y1="0" x2="800" y2="680" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="1000" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="340" x2="1000" y2="340" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="580" x2="1000" y2="580" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">REACT 15 SYNCHRONOUS RENDERING &amp; BATCHING ENGINE</text>
+    <text class="subtitle" x="0" y="20">STACK RECONCILER FLOW, TRANSACTION WRAPPERS, AND BATCHING BOUNDARIES</text>
+  </g>
+
+  <!-- STAGE 1: TRIGGER (Amber/Orange) -->
+  <g transform="translate(40, 110)">
+    <rect width="210" height="240" rx="12" fill="#0B132B" stroke="#F59E0B" stroke-width="1.5" />
+    <path d="M0,12 Q0,0 12,0 L198,0 Q210,0 210,12 L210,16 L0,16 Z" fill="url(#triggerGrad)" />
+    <text class="section-header" x="15" y="12" fill="#0F172A">1. TRIGGER UPDATES</text>
+    
+    <g transform="translate(15, 30)">
+      <rect width="180" height="42" rx="6" fill="#1E293B" stroke="#334155" />
+      <text class="node-title" x="10" y="18">setState() / forceUpdate()</text>
+      <text class="node-subtitle" x="10" y="32">Enqueues new state/callbacks</text>
+    </g>
+
+    <g transform="translate(15, 82)">
+      <rect width="180" height="42" rx="6" fill="#1E293B" stroke="#334155" />
+      <text class="node-title" x="10" y="18">Parent Re-renders</text>
+      <text class="node-subtitle" x="10" y="32">Triggers child prop comparisons</text>
+    </g>
+
+    <g transform="translate(15, 134)">
+      <rect width="180" height="42" rx="6" fill="#1E293B" stroke="#334155" />
+      <text class="node-title" x="10" y="18">ReactDOM.render()</text>
+      <text class="node-subtitle" x="10" y="32">Initial mounting of subtree</text>
+    </g>
+
+    <text class="node-desc" x="15" y="200" width="180">All updates funnel into the</text>
+    <text class="node-desc" x="15" y="215" width="180">batching strategy layer to</text>
+    <text class="node-desc" x="15" y="230" width="180">determine immediate execution.</text>
+  </g>
+
+  <!-- Connect Stage 1 -> Stage 2 -->
+  <path d="M250,230 L290,230" fill="none" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowOrange)" />
+
+  <!-- STAGE 2: BATCHING & TRANSACTION LAYER (Sky Blue) -->
+  <g transform="translate(300, 110)" filter="url(#glowBlue)">
+    <rect width="320" height="240" rx="12" fill="#0B132B" stroke="#0EA5E9" stroke-width="2" />
+    <path d="M0,12 Q0,0 12,0 L308,0 Q320,0 320,12 L320,16 L0,16 Z" fill="url(#batchGrad)" />
+    <text class="section-header" x="15" y="12" fill="#FFFFFF">2. TRANSACTION &amp; BATCHING STRATEGY</text>
+
+    <!-- Transaction Wrapper Visual -->
+    <rect x="15" y="28" width="290" height="195" rx="8" fill="#111B30" stroke="#0EA5E9" stroke-opacity="0.3" />
+    <text class="node-subtitle" x="25" y="44" fill="#38BDF8">ReactDefaultBatchingStrategyTransaction</text>
+
+    <!-- Branching Check -->
+    <g transform="translate(25, 55)">
+      <rect width="270" height="36" rx="4" fill="#1E293B" stroke="#0EA5E9" stroke-width="1" />
+      <text class="node-code-highlight" x="10" y="21">isBatchingUpdates == true ?</text>
+    </g>
+
+    <!-- PATH A: BATCHED (Inside React Event Listeners) -->
+    <g transform="translate(25, 100)">
+      <rect width="130" height="70" rx="4" fill="#0F172A" stroke="#10B981" stroke-width="1" />
+      <text class="node-title" x="8" y="18" fill="#10B981">YES: Queue Update</text>
+      <text class="node-desc" x="8" y="34">component -> queue</text>
+      <text class="node-code" x="8" y="48" fill="#94A3B8">dirtyComponents.push</text>
+      <text class="node-desc" x="8" y="62">Deferred flush at close()</text>
+    </g>
+
+    <!-- PATH B: SYNCHRONOUS IMMEDIATE (Async Callback: setTimeout/Promise/Native) -->
+    <g transform="translate(165, 100)">
+      <rect width="130" height="70" rx="4" fill="#0F172A" stroke="#EF4444" stroke-width="1" />
+      <text class="node-title" x="8" y="18" fill="#F87171">NO: Instant Flush</text>
+      <text class="node-desc" x="8" y="34">No transaction context</text>
+      <text class="node-code" x="8" y="48" fill="#EF4444">synchronous render</text>
+      <text class="node-desc" x="8" y="62">Causes layout thrashing</text>
+    </g>
+  </g>
+
+  <!-- Connection: Stage 2 Yes Path to Stack Reconciler -->
+  <path d="M620,230 L660,230" fill="none" stroke="#0EA5E9" stroke-width="2" marker-end="url(#arrowBlue)" />
+
+  <!-- STAGE 3: THE SYNCHRONOUS STACK RECONCILER (Red) -->
+  <g transform="translate(670, 110)" filter="url(#glowRed)">
+    <rect width="290" height="240" rx="12" fill="#0B132B" stroke="#EF4444" stroke-width="2" />
+    <path d="M0,12 Q0,0 12,0 L278,0 Q290,0 290,12 L290,16 L0,16 Z" fill="url(#stackGrad)" />
+    <text class="section-header" x="15" y="12" fill="#FFFFFF">3. STACK RECONCILER ENGINE</text>
+
+    <text class="node-subtitle" x="15" y="35" fill="#F87171">Synchronous Recursive DFS Traversal</text>
+    
+    <g transform="translate(15, 50)">
+      <rect width="260" height="175" rx="6" fill="#1E1E2E" stroke="#EF4444" stroke-opacity="0.3" />
+      
+      <!-- Component DFS representation -->
+      <g transform="translate(20, 15)">
+        <circle cx="110" cy="15" r="10" fill="#EF4444" />
+        <text class="node-code" x="105" y="18" fill="#FFF" font-weight="bold">A</text>
+
+        <!-- Line to B -->
+        <line x1="105" y1="23" x2="75" y2="47" stroke="#EF4444" stroke-width="1.5" />
+        <circle cx="70" cy="55" r="10" fill="#EF4444" />
+        <text class="node-code" x="65" y="58" fill="#FFF" font-weight="bold">B</text>
+
+        <!-- Line to C -->
+        <line x1="115" y1="23" x2="145" y2="47" stroke="#EF4444" stroke-width="1.5" />
+        <circle cx="150" cy="55" r="10" fill="#B91C1C" />
+        <text class="node-code" x="145" y="58" fill="#FFF" font-weight="bold">C</text>
+        
+        <!-- Line from B to D -->
+        <line x1="70" y1="65" x2="70" y2="95" stroke="#EF4444" stroke-width="1.5" />
+        <circle cx="70" cy="105" r="10" fill="#B91C1C" />
+        <text class="node-code" x="65" y="108" fill="#FFF" font-weight="bold">D</text>
+
+        <!-- Recursive Stack Execution visual -->
+        <rect x="110" y="85" width="120" height="60" rx="3" fill="#181825" stroke="#EF4444" stroke-width="0.5" />
+        <text class="node-code" x="115" y="100" fill="#F87171" font-size="8">Call Stack Execution</text>
+        <text class="node-code" x="115" y="115" font-size="7.5">- mountComponent()</text>
+        <text class="node-code" x="115" y="127" font-size="7.5">- receiveComponent()</text>
+        <text class="node-code" x="115" y="139" font-size="7.5">- updateComponent()</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Connect Stage 3 -> Stage 4 Downwards and Leftwards -->
+  <path d="M815,350 L815,400" fill="none" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowRed)" />
+
+  <!-- STAGE 4: COMMIT, PHYSICAL DOM MUTATIONS & LIFECYCLES (Green) -->
+  <g transform="translate(40, 420)">
+    <rect width="920" height="190" rx="12" fill="#0B132B" stroke="#10B981" stroke-width="1.5" />
+    <path d="M0,12 Q0,0 12,0 L908,0 Q920,0 920,12 L920,16 L0,16 Z" fill="url(#commitGrad)" />
+    <text class="section-header" x="15" y="12" fill="#FFFFFF">4. COMMIT DOM CHANGES &amp; EXECUTE LIFECYCLES (ATOMIC, SYNCHRONOUS)</text>
+
+    <g transform="translate(20, 30)">
+      <!-- Box 1: DOM Mutation -->
+      <g transform="translate(0, 0)">
+        <rect width="270" height="130" rx="6" fill="#111B30" stroke="#10B981" stroke-width="1" />
+        <text class="node-title" x="15" y="25" fill="#34D399">Physical DOM Updates</text>
+        <text class="node-desc" x="15" y="45">React 15 calculates DOM operations (inserts,</text>
+        <text class="node-desc" x="15" y="60">moves, deletes) during reconciliation, then</text>
+        <text class="node-desc" x="15" y="75">applies them immediately in one blocking</text>
+        <text class="node-desc" x="15" y="90">synchronous commit layout pass.</text>
+        <text class="node-code" x="15" y="112" fill="#10B981">dangerouslyReplaceNodeWithMarkup</text>
+      </g>
+
+      <!-- Connect Box 1 -> Box 2 -->
+      <path d="M270,65 L310,65" fill="none" stroke="#10B981" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+
+      <!-- Box 2: Lifecycle Queuing -->
+      <g transform="translate(320, 0)">
+        <rect width="270" height="130" rx="6" fill="#111B30" stroke="#10B981" stroke-width="1" />
+        <text class="node-title" x="15" y="25" fill="#34D399">Post-Mutation Lifecycles</text>
+        <text class="node-desc" x="15" y="45">Lifecycles are queued and invoked in order</text>
+        <text class="node-desc" x="15" y="60">after the virtual stack traversal settles</text>
+        <text class="node-desc" x="15" y="75">and the browser DOM gets patched.</text>
+        <text class="node-code" x="15" y="95" fill="#A7F3D0">- componentDidUpdate()</text>
+        <text class="node-code" x="15" y="110" fill="#A7F3D0">- componentDidMount()</text>
+      </g>
+
+      <!-- Connect Box 2 -> Box 3 -->
+      <path d="M590,65 L630,65" fill="none" stroke="#10B981" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+
+      <!-- Box 3: Synchronous Thread Execution Blocking -->
+      <g transform="translate(640, 0)">
+        <rect width="240" height="130" rx="6" fill="#1F1315" stroke="#EF4444" stroke-width="1" />
+        <text class="node-title" x="15" y="25" fill="#F87171">Main Thread Blocking Danger</text>
+        <text class="node-desc" x="15" y="45">If the component tree is huge,</text>
+        <text class="node-desc" x="15" y="60">the synchronous render + commit</text>
+        <text class="node-desc" x="15" y="75">monopolizes the main JS thread,</text>
+        <text class="node-desc" x="15" y="90">causing dropped frames (jank)</text>
+        <text class="node-desc" x="15" y="105">and unresponsive input fields.</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footnote / Legend -->
+  <g transform="translate(40, 635)">
+    <circle cx="10" cy="5" r="5" fill="#F59E0B" />
+    <text class="legend-text" x="22" y="9">Update Trigger</text>
+
+    <circle cx="140" cy="5" r="5" fill="#0EA5E9" />
+    <text class="legend-text" x="152" y="9">Transaction wrapping / Batching</text>
+
+    <circle cx="360" cy="5" r="5" fill="#EF4444" />
+    <text class="legend-text" x="372" y="9">Synchronous Stack Reconciler</text>
+
+    <circle cx="560" cy="5" r="5" fill="#10B981" />
+    <text class="legend-text" x="572" y="9">DOM Commit &amp; Lifecycles</text>
+    
+    <text class="legend-text" x="780" y="9" font-style="italic">Engine: React 15 Stack Reconciler (Replaced by Fiber in v16)</text>
+  </g>
+</svg>

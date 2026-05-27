@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070c14" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#0b0f19" />
+    </linearGradient>
+
+    <!-- Glassmorphic States Gradient -->
+    <linearGradient id="glassState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Highlights -->
+    <linearGradient id="primaryAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="purpleAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f3f4f6; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; font-weight: 500; }
+    .state-title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #93c5fd; }
+    .desc { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #d1d5db; }
+    .meta { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #94a3b8; }
+    .flow-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #fbbf24; text-anchor: middle; }
+    .hook-bracket { font-family: 'Fira Code', 'Courier New', monospace; font-size: 13px; fill: #60a5fa; font-weight: 700; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad)" />
+  <rect width="800" height="450" rx="16" fill="none" stroke="#1f2937" stroke-width="2" />
+
+  <g opacity="0.04">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- TITLE -->
+  <text x="30" y="45" class="title">React 19 useActionState: State &amp; Action Cycle</text>
+  <text x="30" y="63" class="subtitle">Managing asynchronous action returns, state modifications, auto-pending, and form submission states natively.</text>
+
+  <!-- HOOK DECONSTRUCTION CONTAINER -->
+  <g filter="url(#boxShadow)">
+    <rect x="40" y="100" width="720" height="70" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="60" y="140" class="hook-bracket">const [state, formAction, isPending] = useActionState(actionFn, initialState);</text>
+    <text x="60" y="158" class="meta">Provides: [1] The returned state. [2] The direct form action wrapper. [3] The async pending indicator.</text>
+  </g>
+
+  <!-- THE INTERACTION FLOW -->
+  <!-- Box 1: Form Trigger -->
+  <g filter="url(#boxShadow)">
+    <rect x="40" y="210" width="180" height="130" rx="10" fill="url(#glassState)" stroke="#60a5fa" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="55" y="235" class="state-title">1. Form Submission</text>
+    <text x="55" y="260" class="desc">&lt;form action={formAction}&gt;</text>
+    <text x="55" y="280" class="desc">User enters input fields,</text>
+    <text x="55" y="295" class="desc">and clicks Submit.</text>
+    <text x="55" y="322" class="meta" fill="#60a5fa">FormData generated</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 220 275 L 300 275" fill="none" stroke="#4b5563" stroke-width="2" />
+  <polygon points="300,275 292,270 292,280" fill="#4b5563" />
+  <text x="260" y="262" class="flow-label">Calls Action</text>
+
+  <!-- Box 2: Action Executing -->
+  <g filter="url(#boxShadow)">
+    <rect x="310" y="210" width="200" height="130" rx="10" fill="url(#glassState)" stroke="#fbbf24" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="325" y="235" class="state-title" fill="#fbbf24">2. Action Execution</text>
+    <text x="325" y="260" class="desc" font-weight="700" fill="#fbbf24">isPending = true</text>
+    <text x="325" y="278" class="desc">Invokes: actionFn(state, fd)</text>
+    <text x="325" y="293" class="desc">Sends async payload,</text>
+    <text x="325" y="308" class="desc">e.g. database validation.</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 510 275 L 590 275" fill="none" stroke="#4b5563" stroke-width="2" />
+  <polygon points="590,275 582,270 582,280" fill="#4b5563" />
+  <text x="550" y="262" class="flow-label">Returns State</text>
+
+  <!-- Box 3: State Re-render -->
+  <g filter="url(#boxShadow)">
+    <rect x="600" y="210" width="160" height="130" rx="10" fill="url(#glassState)" stroke="#a855f7" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="615" y="235" class="state-title" fill="#d8b4fe">3. UI Commit</text>
+    <text x="615" y="260" class="desc" font-weight="700" fill="#d8b4fe">isPending = false</text>
+    <text x="615" y="280" class="desc">Receives: new state</text>
+    <text x="615" y="295" class="desc">Validates success or</text>
+    <text x="615" y="310" class="desc">binds input errors.</text>
+  </g>
+
+  <!-- Connective loop from 3 back to 1 representing cycle -->
+  <path d="M 680 340 Q 390 410 130 340" fill="none" stroke="#4b5563" stroke-dasharray="3 3" />
+  <polygon points="130,340 138,345 136,337" fill="#4b5563" />
+  <text x="400" y="395" class="meta" text-anchor="middle">Ready for next form action submission</text>
+</svg>

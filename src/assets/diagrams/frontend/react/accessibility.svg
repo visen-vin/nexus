@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#070a16" />
+    </linearGradient>
+
+    <!-- Glassmorphic States Gradient -->
+    <linearGradient id="glassState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Highlights -->
+    <linearGradient id="emeraldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="roseAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f3f4f6; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; font-weight: 500; }
+    .state-title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #34d399; }
+    .desc { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #d1d5db; }
+    .meta { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #94a3b8; }
+    .flow-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #fbbf24; text-anchor: middle; }
+    .header-text { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #34d399; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad)" />
+  <rect width="800" height="450" rx="16" fill="none" stroke="#1f2937" stroke-width="2" />
+
+  <g opacity="0.04">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- TITLE -->
+  <text x="30" y="45" class="title">React Accessibility (a11y) Architectural Blueprint</text>
+  <text x="30" y="63" class="subtitle">Focus management lifecycle, avoiding invalid div semantic trees, and implementing screen-reader aria patterns.</text>
+
+  <!-- LEFT BOX: Semantic Fragments -->
+  <g filter="url(#boxShadow)">
+    <rect x="30" y="95" width="340" height="320" rx="12" fill="url(#glassState)" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="50" y="125" class="header-text">1. Semantic Fragments (&lt;&gt;)</text>
+    <text x="50" y="145" class="desc">Prevents structural breakage of HTML validation.</text>
+
+    <!-- Bad approach -->
+    <rect x="50" y="175" width="300" height="90" rx="8" fill="#4c0519" stroke="#fb7185" stroke-width="1" />
+    <text x="65" y="198" class="state-title" fill="#fda4af">Bad: Div Soup Pollution</text>
+    <text x="65" y="220" class="desc" font-family="monospace" font-size="10" fill="#fecdd3">&lt;ul&gt; &lt;div&gt; &lt;li&gt;Item&lt;/li&gt; &lt;/div&gt; &lt;/ul&gt;</text>
+    <text x="65" y="245" class="meta" fill="#fda4af">Breaks browser parsing and structural screen readers!</text>
+
+    <!-- Flow Arrow -->
+    <path d="M 200 270 Q 200 280 200 290" fill="none" stroke="#34d399" stroke-width="2" />
+
+    <!-- Good approach -->
+    <rect x="50" y="295" width="300" height="95" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+    <text x="65" y="320" class="state-title" fill="#34d399">Good: React.Fragment (&lt;&gt;)</text>
+    <text x="65" y="342" class="desc" font-family="monospace" font-size="10" fill="#a7f3d0">&lt;ul&gt; &lt;&gt; &lt;li&gt;Item&lt;/li&gt; &lt;/&gt; &lt;/ul&gt;</text>
+    <text x="65" y="368" class="meta" fill="#34d399">Validates clean HTML. DOM is clean and semantic!</text>
+  </g>
+
+  <!-- RIGHT BOX: Ref-based Focus Management -->
+  <g filter="url(#boxShadow)">
+    <rect x="410" y="95" width="360" height="320" rx="12" fill="url(#glassState)" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="430" y="125" class="header-text">2. Focus Management (Refs)</text>
+    <text x="430" y="145" class="desc">Controlling cursor highlights when components open.</text>
+
+    <!-- Dialog / Modal Open flow -->
+    <rect x="430" y="175" width="320" height="65" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1.5" />
+    <text x="445" y="198" class="state-title" fill="#e2e8f0">Step A: Open Modal Trigger</text>
+    <text x="445" y="220" class="meta">User clicks "Edit Profile" button.</text>
+
+    <!-- Arrow down -->
+    <path d="M 590 245 L 590 270" fill="none" stroke="#34d399" stroke-width="1.5" />
+
+    <rect x="430" y="275" width="320" height="110" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1.5" />
+    <text x="445" y="298" class="state-title" fill="#34d399">Step B: Focus Trap &amp; Target ref</text>
+    <text x="445" y="322" class="desc" font-family="monospace" font-size="10" fill="#a7f3d0">useEffect(() =&gt; { inputRef.current?.focus(); })</text>
+    <text x="445" y="348" class="meta">Screen reader instantly jumps focus to modal text input,</text>
+    <text x="445" y="365" class="meta">allowing instant keyboard entry.</text>
+  </g>
+</svg>

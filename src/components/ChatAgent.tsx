@@ -435,7 +435,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                 {/* Avatar */}
                 <div className="relative shrink-0">
                   <div className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-[13px]"
-                    style={{ background: 'linear-gradient(135deg, var(--domain-accent, #4db8ff)30, var(--domain-accent, #4db8ff)10)', border: '1px solid var(--domain-accent, #4db8ff)30', color: 'var(--domain-accent, #4db8ff)' }}>
+                    style={{ background: 'linear-gradient(135deg, color-mix(in srgb, var(--domain-accent, #4db8ff) 30%, transparent), color-mix(in srgb, var(--domain-accent, #4db8ff) 10%, transparent))', border: '1px solid color-mix(in srgb, var(--domain-accent, #4db8ff) 30%, transparent)', color: 'var(--domain-accent, #4db8ff)' }}>
                     GJ
                   </div>
                   <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#27c93f] border-2 border-[#111113]" />
@@ -458,7 +458,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                 </button>
                 <button
                   onClick={() => setIsRevisionMode(!isRevisionMode)}
-                  className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all ${isRevisionMode ? 'bg-[#4db8ff]20 text-[#4db8ff]' : 'text-[#444] hover:text-[#888] hover:bg-white/5'}`}
+                  className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all ${isRevisionMode ? 'bg-[#4db8ff]/20 text-[#4db8ff]' : 'text-[#444] hover:text-[#888] hover:bg-white/5'}`}
                   title="Toggle Revision Mode"
                 >
                   <BrainCircuit size={15} />
@@ -485,7 +485,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                   />
                   <button onClick={saveGoal}
                     className="px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all active:scale-95"
-                    style={{ background: 'var(--domain-accent, #4db8ff)20', color: 'var(--domain-accent, #4db8ff)' }}>
+                    style={{ background: 'color-mix(in srgb, var(--domain-accent, #4db8ff) 20%, transparent)', color: 'var(--domain-accent, #4db8ff)' }}>
                     Save
                   </button>
                 </div>
@@ -523,7 +523,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                   
                   {!isWarmupMode && (
                     <div className="w-14 h-14 rounded-2xl flex items-center justify-center font-bold text-[18px]"
-                      style={{ background: 'linear-gradient(135deg, var(--domain-accent, #4db8ff)25, var(--domain-accent, #4db8ff)08)', border: '1px solid var(--domain-accent, #4db8ff)25', color: 'var(--domain-accent, #4db8ff)' }}>
+                      style={{ background: 'linear-gradient(135deg, color-mix(in srgb, var(--domain-accent, #4db8ff) 25%, transparent), color-mix(in srgb, var(--domain-accent, #4db8ff) 8%, transparent))', border: '1px solid color-mix(in srgb, var(--domain-accent, #4db8ff) 25%, transparent)', color: 'var(--domain-accent, #4db8ff)' }}>
                       GJ
                     </div>
                   )}
@@ -573,7 +573,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                   <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} gap-2`}>
                     {msg.role === 'user' ? (
                       <div className="max-w-[80%] px-4 py-2.5 rounded-2xl rounded-tr-sm text-[13px] leading-relaxed text-[#f1f1f1]"
-                        style={{ background: 'var(--domain-accent, #4db8ff)22', border: '1px solid var(--domain-accent, #4db8ff)30' }}>
+                        style={{ background: 'color-mix(in srgb, var(--domain-accent, #4db8ff) 22%, transparent)', border: '1px solid color-mix(in srgb, var(--domain-accent, #4db8ff) 30%, transparent)' }}>
                         {msg.content}
                       </div>
                     ) : (
@@ -581,7 +581,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                         {/* Guru Ji label */}
                         <div className="flex items-center gap-1.5 mb-2">
                           <div className="w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-bold shrink-0"
-                            style={{ background: 'var(--domain-accent, #4db8ff)15', color: 'var(--domain-accent, #4db8ff)' }}>
+                            style={{ background: 'color-mix(in srgb, var(--domain-accent, #4db8ff) 15%, transparent)', color: 'var(--domain-accent, #4db8ff)' }}>
                             GJ
                           </div>
                           <span className="text-[10px] font-semibold text-[#444]">Guru Ji</span>
@@ -605,8 +605,8 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                         disabled={savingTopic === detectedTopic.id || savedTopics.has(detectedTopic.id)}
                         className="flex items-center gap-2 px-3 py-2 rounded-xl text-[12px] font-semibold transition-all active:scale-95 disabled:opacity-60"
                         style={{
-                          border: `1px solid ${savedTopics.has(detectedTopic.id) ? '#27c93f40' : 'var(--domain-accent, #4db8ff)35'}`,
-                          background: savedTopics.has(detectedTopic.id) ? '#27c93f12' : 'var(--domain-accent, #4db8ff)10',
+                          border: `1px solid ${savedTopics.has(detectedTopic.id) ? '#27c93f40' : 'color-mix(in srgb, var(--domain-accent, #4db8ff) 35%, transparent)'}`,
+                          background: savedTopics.has(detectedTopic.id) ? '#27c93f12' : 'color-mix(in srgb, var(--domain-accent, #4db8ff) 10%, transparent)',
                           color: savedTopics.has(detectedTopic.id) ? '#27c93f' : 'var(--domain-accent, #4db8ff)',
                         }}>
                         {savingTopic === detectedTopic.id ? <Loader2 size={12} className="animate-spin" />
@@ -642,7 +642,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
           <div className="shrink-0 px-3 py-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#111113' }}>
             {highlightedText && (
               <div className="flex items-center justify-between mb-2 px-2.5 py-2 rounded-lg border animate-in fade-in slide-in-from-bottom-2"
-                style={{ background: 'var(--domain-accent, #4db8ff)10', borderColor: 'var(--domain-accent, #4db8ff)25' }}>
+                style={{ background: 'color-mix(in srgb, var(--domain-accent, #4db8ff) 10%, transparent)', borderColor: 'color-mix(in srgb, var(--domain-accent, #4db8ff) 25%, transparent)' }}>
                 <div className="flex items-center gap-2 overflow-hidden">
                   <Quote size={12} style={{ color: 'var(--domain-accent, #4db8ff)' }} className="shrink-0" />
                   <span className="text-[10px] font-bold tracking-wider text-[#f1f1f1] uppercase shrink-0">Asking About:</span>
@@ -655,7 +655,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
             )}
             {createMode && (
               <div className="flex items-center justify-between mb-2 px-2.5 py-1.5 rounded-lg border animate-in fade-in slide-in-from-bottom-2"
-                style={{ background: 'var(--domain-accent, #4db8ff)10', borderColor: 'var(--domain-accent, #4db8ff)25' }}>
+                style={{ background: 'color-mix(in srgb, var(--domain-accent, #4db8ff) 10%, transparent)', borderColor: 'color-mix(in srgb, var(--domain-accent, #4db8ff) 25%, transparent)' }}>
                 <div className="flex items-center gap-2">
                   <FilePlus size={12} style={{ color: 'var(--domain-accent, #4db8ff)' }} />
                   <span className="text-[10px] font-bold tracking-wider text-[#f1f1f1] uppercase">Create Mode</span>
@@ -671,7 +671,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                 onClick={() => setCreateMode(!createMode)}
                 className="w-7 h-7 flex items-center justify-center rounded-lg transition-all active:scale-90 hover:bg-white/5 shrink-0"
                 style={{ 
-                  background: createMode ? 'var(--domain-accent, #4db8ff)15' : 'transparent',
+                  background: createMode ? 'color-mix(in srgb, var(--domain-accent, #4db8ff) 15%, transparent)' : 'transparent',
                   color: createMode ? 'var(--domain-accent, #4db8ff)' : '#555' 
                 }}>
                 <FilePlus size={16} />
@@ -685,6 +685,12 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
                   e.target.style.height = 'auto';
                   const newHeight = Math.min(e.target.scrollHeight, 72); // ~3 lines (24px each)
                   e.target.style.height = `${newHeight}px`;
+                }}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    send();
+                  }
                 }}
                 onFocus={() => setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: 'smooth' }), 300)}
                 placeholder={createMode ? "Topic name to create..." : highlightedText ? "Ask about highlighted text..." : "Ask Guru Ji..."}

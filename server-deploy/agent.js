@@ -46,10 +46,10 @@ const updateTopicProgressTool = tool(
     name: 'update_topic_progress',
     description: 'Use this to mark a topic as done, struggling, or todo, and to save detailed remarks/feedback about the student\'s performance on this specific topic. Remarks should include what they did well and specific concepts they missed.',
     schema: z.object({
-      topicId: z.string().describe('The ID of the topic (e.g., "js-1-how-js-works")'),
+      topicId: z.string(),
       status: z.enum(['done', 'struggling', 'todo']),
       confidence: z.enum(['high', 'shaky']),
-      remarks: z.string().describe('Detailed feedback about the student\'s understanding of this topic.'),
+      remarks: z.string(),
     }),
   }
 );
@@ -130,8 +130,8 @@ const saveMemoryTool = tool(
     name: 'save_memory',
     description: 'Save an observation about the student to long-term memory. Use when you notice a strength, weakness, learning style insight, or any pattern worth remembering across sessions.',
     schema: z.object({
-      key: z.string().describe('Short snake_case key e.g. "weakness_async", "strength_closures"'),
-      value: z.string().describe('Concise observation in 1-2 sentences.'),
+      key: z.string(),
+      value: z.string(),
     }),
   }
 );
@@ -151,9 +151,9 @@ const logWeaknessTool = tool(
     name: 'log_weakness',
     description: 'Log a specific conceptual gap or weakness identified during teaching or assessment. Use this for tracking what needs revision later.',
     schema: z.object({
-      concept: z.string().describe('The specific concept or sub-topic (e.g. "Event Loop Macrotasks")'),
-      topicId: z.string().optional().describe('The ID of the chapter being studied'),
-      severity: z.number().optional().describe('1 for minor doubt, 2 for fundamental misunderstanding'),
+      concept: z.string(),
+      topicId: z.string().optional(),
+      severity: z.number().optional(),
     }),
   }
 );
@@ -189,7 +189,7 @@ const executeCodeTool = tool(
     name: 'execute_code',
     description: 'Executes JavaScript code in a secure sandbox and returns console output. Use this to verify code, demonstrate logic, or show live results to the student.',
     schema: z.object({
-      code: z.string().describe('The JavaScript code to execute.'),
+      code: z.string(),
     }),
   }
 );
@@ -217,12 +217,12 @@ const generateRoadmapTool = tool(
     name: 'generate_roadmap',
     description: 'Call this tool to create a structured study plan (roadmap) for the student. A roadmap is a sequence of steps to reach a specific goal. Do NOT use this for single topics; use it for multi-step curricula.',
     schema: z.object({
-      id: z.string().describe('Unique kebab-case slug for the roadmap'),
-      title: z.string().describe('Clear goal-oriented title (e.g. "React Hooks Mastery")'),
-      description: z.string().describe('Brief overview of what this plan covers'),
+      id: z.string(),
+      title: z.string(),
+      description: z.string(),
       steps: z.array(z.object({
-        title: z.string().describe('Title of the roadmap step'),
-        description: z.string().describe('What will be learned in this specific step'),
+        title: z.string(),
+        description: z.string(),
       })).min(2).max(15),
     }),
   }
@@ -243,8 +243,8 @@ const createTopicTool = tool(
     name: 'create_topic',
     description: 'ALWAYS call this function when creating any topic, lesson, or course content.',
     schema: z.object({
-      id: z.string().describe('Unique kebab-case slug'),
-      moduleId: z.string().describe('Module ID this belongs to'),
+      id: z.string(),
+      moduleId: z.string(),
       order: z.number().optional(),
       group: z.string().optional(),
       title: z.string(),

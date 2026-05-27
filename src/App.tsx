@@ -275,14 +275,44 @@ function App() {
     }
   };
 
-  const navigate = (to: typeof view, domain?: Domain, mod?: Module, noteId?: string) => {
+  const navigate = (to: typeof view, domain?: Domain, mod?: Module, noteId?: string, skipPush = false) => {
     if (domain) setActiveDomain(domain);
     if (mod) setActiveModule(mod);
     if (noteId) setActiveNoteId(noteId);
     setReadProgress(0);
     setView(to);
     window.scrollTo(0, 0);
+
+    if (!skipPush) {
+      const state = { view: to, domainId: domain?.id, moduleId: mod?.id, noteId };
+      window.history.pushState(state, '', '');
+    }
   };
+
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      const state = e.state;
+      if (!state) {
+        setView('domains');
+        return;
+      }
+      
+      const domain = state.domainId ? allDomains.find(d => d.id === state.domainId) : null;
+      const mod = state.moduleId ? allModules.find(m => m.id === state.moduleId) : null;
+      
+      if (domain) setActiveDomain(domain);
+      if (mod) setActiveModule(mod);
+      if (state.noteId) setActiveNoteId(state.noteId);
+      setView(state.view);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    
+    // Initial state
+    window.history.replaceState({ view: 'domains' }, '', '');
+    
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [allDomains, allModules]);
 
   const navigateToNote = (noteId: string) => {
     const note = allTopics.find(n => n.id === noteId);

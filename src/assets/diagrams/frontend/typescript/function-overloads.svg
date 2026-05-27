@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030816" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#040612" />
+    </linearGradient>
+
+    <!-- Glassmorphic States Gradient -->
+    <linearGradient id="glassState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Highlights -->
+    <linearGradient id="cyanAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="purpleAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <linearGradient id="emeraldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f3f4f6; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; font-weight: 500; }
+    .state-title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #22d3ee; }
+    .desc { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #d1d5db; }
+    .meta { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #94a3b8; }
+    .flow-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #fbbf24; text-anchor: middle; }
+    .header-text { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #22d3ee; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #e0f2fe; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad)" />
+  <rect width="800" height="450" rx="16" fill="none" stroke="#1f2937" stroke-width="2" />
+
+  <g opacity="0.04">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- TITLE -->
+  <text x="30" y="45" class="title">TypeScript Function Overloads Architecture</text>
+  <text x="30" y="63" class="subtitle">Declaring multiple type-safe call interfaces routed into a single, unified execution implementation.</text>
+
+  <!-- LEFT COLUMN: Overload Signatures (Compile-Time Interface) -->
+  <g filter="url(#boxShadow)">
+    <rect x="30" y="100" width="340" height="310" rx="12" fill="url(#glassState)" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="50" y="130" class="header-text">1. Overload Signatures (Compile-Time)</text>
+    <text x="50" y="150" class="desc">Defines the valid ways the function can be invoked.</text>
+
+    <!-- Signature 1 -->
+    <rect x="50" y="175" width="300" height="60" rx="6" fill="#1e1b4b" stroke="#312e81" stroke-width="1" />
+    <text x="65" y="198" class="code-text" fill="#a5b4fc">function format(val: string): string;</text>
+    <text x="65" y="216" class="meta" fill="#c7d2fe">Signature A: Single string argument lookup</text>
+
+    <!-- Signature 2 -->
+    <rect x="50" y="245" width="300" height="60" rx="6" fill="#1e1b4b" stroke="#312e81" stroke-width="1" />
+    <text x="65" y="268" class="code-text" fill="#a5b4fc">function format(val: number[]): string;</text>
+    <text x="65" y="286" class="meta" fill="#c7d2fe">Signature B: Array of numbers argument lookup</text>
+
+    <!-- Note on Visibility -->
+    <rect x="50" y="325" width="300" height="65" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+    <text x="65" y="348" class="meta" fill="#38bdf8">Only these signatures are visible to IDE autocompletes</text>
+    <text x="65" y="362" class="meta" fill="#38bdf8">and type-checked by the compiler!</text>
+  </g>
+
+  <!-- RIGHT COLUMN: Implementation Signature (Runtime Execution) -->
+  <g filter="url(#boxShadow)">
+    <rect x="410" y="100" width="360" height="310" rx="12" fill="url(#glassState)" stroke="#fbbf24" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="430" y="130" class="header-text" fill="#fbbf24">2. Implementation Signature (Runtime)</text>
+    <text x="430" y="150" class="desc">A single function that actually executes and handles all inputs.</text>
+
+    <!-- The actual implementation -->
+    <rect x="430" y="175" width="320" height="110" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="445" y="200" class="code-text" fill="#fcd34d">function format(</text>
+    <text x="445" y="220" class="code-text" fill="#fcd34d">  val: string | number[]</text>
+    <text x="445" y="240" class="code-text" fill="#fcd34d">): string { ... }</text>
+    <text x="445" y="265" class="meta" fill="#fbbf24">Implementation is invisible to callers.</text>
+
+    <!-- Runtime type narrowing callout -->
+    <rect x="430" y="298" width="320" height="95" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5" />
+    <text x="445" y="322" class="state-title" fill="#34d399">Inside the Implementation Block:</text>
+    <text x="445" y="345" class="meta" fill="#a7f3d0">Developers must write runtime narrowing filters (like</text>
+    <text x="445" y="359" class="meta" fill="#a7f3d0">typeof or Array.isArray) to route arguments correctly</text>
+    <text x="445" y="373" class="meta" fill="#a7f3d0">and satisfy return formats.</text>
+  </g>
+</svg>

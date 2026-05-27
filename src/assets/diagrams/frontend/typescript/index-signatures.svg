@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020716" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#040612" />
+    </linearGradient>
+
+    <!-- Glassmorphic States Gradient -->
+    <linearGradient id="glassState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Highlights -->
+    <linearGradient id="cyanAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="roseAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+    <linearGradient id="emeraldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f3f4f6; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; font-weight: 500; }
+    .state-title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #22d3ee; }
+    .desc { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #d1d5db; }
+    .meta { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #94a3b8; }
+    .flow-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #fbbf24; text-anchor: middle; }
+    .header-text { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #22d3ee; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #e0f2fe; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad)" />
+  <rect width="800" height="450" rx="16" fill="none" stroke="#1f2937" stroke-width="2" />
+
+  <g opacity="0.04">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- TITLE -->
+  <text x="30" y="45" class="title">TypeScript Index Signatures &amp; Dynamic Dictionaries</text>
+  <text x="30" y="63" class="subtitle">Validating dynamic key-value maps safely, comparing Records, and enforcing strict index access checks.</text>
+
+  <!-- LEFT BOX: Index Signatures vs Records -->
+  <g filter="url(#boxShadow)">
+    <rect x="30" y="100" width="340" height="310" rx="12" fill="url(#glassState)" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="50" y="130" class="header-text">1. Key-Value Index Modeling</text>
+    <text x="50" y="150" class="desc">Declaring dynamic dictionary properties.</text>
+
+    <!-- Index Signature syntax -->
+    <rect x="50" y="175" width="300" height="75" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+    <text x="65" y="198" class="state-title" fill="#34d399">Dynamic Index Signature</text>
+    <text x="65" y="218" class="code-text">[key: string]: User;</text>
+    <text x="65" y="235" class="meta" fill="#34d399">Allows any arbitrary string key mapping to User.</text>
+
+    <!-- Record syntax -->
+    <rect x="50" y="265" width="300" height="120" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+    <text x="65" y="288" class="state-title" fill="#93c5fd">Record Utility Type</text>
+    <text x="65" y="308" class="code-text">Record&lt;AppCategory, Product&gt;</text>
+    <text x="65" y="328" class="meta" fill="#93c5fd">Limits keys explicitly to a predefined union</text>
+    <text x="65" y="343" class="meta" fill="#93c5fd">(e.g., key must be 'books' | 'electronics').</text>
+    <text x="65" y="368" class="meta" fill="#93c5fd">Highly structured alternative to index signatures.</text>
+  </g>
+
+  <!-- RIGHT BOX: Strict Index Checks -->
+  <g filter="url(#boxShadow)">
+    <rect x="410" y="100" width="360" height="310" rx="12" fill="url(#glassState)" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="430" y="130" class="header-text">2. noUncheckedIndexedAccess Safety</text>
+    <text x="430" y="150" class="desc">Protecting against reading missing dynamic keys.</text>
+
+    <!-- Without flag -->
+    <rect x="430" y="175" width="320" height="85" rx="8" fill="#4c0519" stroke="#fb7185" stroke-width="1" />
+    <text x="445" y="198" class="state-title" fill="#fda4af">Default TS: Unchecked Access</text>
+    <text x="445" y="218" class="code-text">const user = cache['invalid_id'];</text>
+    <text x="445" y="234" class="meta" fill="#fda4af">Inferred: User (compiler assumes key exists!).</text>
+    <text x="445" y="248" class="meta" fill="#fda4af">At Runtime: Returns undefined. CRASHES when reading fields!</text>
+
+    <!-- With flag -->
+    <rect x="430" y="275" width="320" height="115" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5" />
+    <text x="445" y="300" class="state-title" fill="#34d399">Strict Mode: Checked Index Access</text>
+    <text x="445" y="322" class="code-text">const user = cache['invalid_id'];</text>
+    <text x="445" y="338" class="code-text" fill="#34d399">Inferred: User | undefined (Strict Safe!)</text>
+    <text x="445" y="358" class="meta" fill="#a7f3d0">Forces developer to use optional chaining (?.)</text>
+    <text x="445" y="372" class="meta" fill="#a7f3d0">or explicit if-check guards before reading fields.</text>
+  </g>
+</svg>

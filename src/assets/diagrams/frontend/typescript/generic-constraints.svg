@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020815" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#040612" />
+    </linearGradient>
+
+    <!-- Glassmorphic States Gradient -->
+    <linearGradient id="glassState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Highlights -->
+    <linearGradient id="cyanAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="roseAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+    <linearGradient id="emeraldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f3f4f6; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; font-weight: 500; }
+    .state-title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #22d3ee; }
+    .desc { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #d1d5db; }
+    .meta { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #94a3b8; }
+    .flow-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #fbbf24; text-anchor: middle; }
+    .header-text { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #22d3ee; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #e0f2fe; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad)" />
+  <rect width="800" height="450" rx="16" fill="none" stroke="#1f2937" stroke-width="2" />
+
+  <g opacity="0.04">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- TITLE -->
+  <text x="30" y="45" class="title">TypeScript Generic Constraints (extends)</text>
+  <text x="30" y="63" class="subtitle">Validating and limiting type parameters to specific structural shapes and keyof property intersections.</text>
+
+  <!-- LEFT BOX: Unconstrained Generic -->
+  <g filter="url(#boxShadow)">
+    <rect x="30" y="100" width="340" height="310" rx="12" fill="url(#glassState)" stroke="#f43f5e" stroke-width="1.5" stroke-opacity="0.2" />
+    <text x="50" y="130" class="header-text" fill="#fda4af">1. Unconstrained Generic (&lt;T&gt;)</text>
+    <text x="50" y="150" class="desc">T accepts literally any type in JavaScript.</text>
+
+    <!-- Code box -->
+    <rect x="50" y="175" width="300" height="60" rx="6" fill="#1e1b4b" stroke="#312e81" stroke-width="1" />
+    <text x="65" y="198" class="code-text" fill="#fda4af">function logVal&lt;T&gt;(x: T): void;</text>
+    <text x="65" y="216" class="meta" fill="#fda4af">T can be string, number, null, or undefined.</text>
+
+    <!-- Limitations -->
+    <rect x="50" y="250" width="300" height="140" rx="8" fill="#4c0519" stroke="#fb7185" stroke-width="1.5" />
+    <text x="65" y="278" class="state-title" fill="#fda4af">No Structural Guarantees</text>
+    <text x="65" y="300" class="code-text">console.log(x.length);</text>
+    <text x="65" y="318" class="desc" font-weight="700" fill="#f43f5e">❌ COMPILE ERROR</text>
+    <text x="65" y="342" class="meta" fill="#fda4af">TypeScript cannot guarantee that type T has property</text>
+    <text x="65" y="356" class="meta" fill="#fda4af">".length" (such as number or null which lack it).</text>
+  </g>
+
+  <!-- RIGHT BOX: Constrained Generic -->
+  <g filter="url(#boxShadow)">
+    <rect x="410" y="100" width="360" height="310" rx="12" fill="url(#glassState)" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="430" y="130" class="header-text">2. Constrained Generic (extends Shape)</text>
+    <text x="430" y="150" class="desc">T must satisfy a specific minimum contract shape.</text>
+
+    <!-- Code box -->
+    <rect x="430" y="175" width="320" height="75" rx="8" fill="#0c4a6e" stroke="#0369a1" stroke-width="1" />
+    <text x="445" y="198" class="code-text" fill="#38bdf8">T extends { length: number }</text>
+    <text x="445" y="218" class="meta" fill="#e0f2fe">Forces T to contain at least the length field.</text>
+
+    <!-- Compatibility check -->
+    <rect x="430" y="265" width="320" height="125" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5" />
+    <text x="445" y="290" class="code-text" fill="#34d399">function logVal&lt;T extends Lengthwise&gt;</text>
+    <text x="445" y="310" class="code-text" fill="#34d399">console.log(x.length);</text>
+    <text x="445" y="332" class="desc" font-weight="700" fill="#10b981">✓ COMPILES PERFECTLY</text>
+    <text x="445" y="355" class="meta" fill="#34d399">Safe. Arrays, strings, and custom objects</text>
+    <text x="445" y="370" class="meta" fill="#34d399">containing .length pass compilation smoothly.</text>
+  </g>
+</svg>

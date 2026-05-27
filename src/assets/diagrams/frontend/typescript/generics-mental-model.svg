@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020815" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#040612" />
+    </linearGradient>
+
+    <!-- Glassmorphic States Gradient -->
+    <linearGradient id="glassState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Highlights -->
+    <linearGradient id="cyanAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="purpleAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #f3f4f6; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; font-weight: 500; }
+    .state-title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #22d3ee; }
+    .desc { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #d1d5db; }
+    .meta { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #94a3b8; }
+    .flow-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #fbbf24; text-anchor: middle; }
+    .header-text { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #22d3ee; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #e0f2fe; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad)" />
+  <rect width="800" height="450" rx="16" fill="none" stroke="#1f2937" stroke-width="2" />
+
+  <g opacity="0.04">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- TITLE -->
+  <text x="30" y="45" class="title">TypeScript Generics: The Type Parameter model</text>
+  <text x="30" y="63" class="subtitle">Visualizing Generics as variables for types, establishing dynamic referential relationships between inputs and outputs.</text>
+
+  <!-- LEFT BOX: The Type Parameter Box -->
+  <g filter="url(#boxShadow)">
+    <rect x="30" y="100" width="340" height="310" rx="12" fill="url(#glassState)" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="50" y="130" class="header-text">1. Type Parameter definition (&lt;T&gt;)</text>
+    <text x="50" y="150" class="desc">A variable designed specifically to capture types, not values.</text>
+
+    <!-- Function box -->
+    <rect x="50" y="175" width="300" height="85" rx="8" fill="#1e1b4b" stroke="#312e81" stroke-width="1" />
+    <text x="65" y="198" class="code-text" fill="#c084fc">function identity&lt;T&gt;(arg: T): T;</text>
+    <text x="65" y="222" class="meta" fill="#c7d2fe">T is a placeholder: "The Captured Type"</text>
+    <text x="65" y="238" class="meta" fill="#c7d2fe">Enforces: Input type MUST equal Return type.</text>
+
+    <!-- Value parameters vs Type parameters -->
+    <rect x="50" y="280" width="300" height="110" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+    <text x="65" y="305" class="state-title" fill="#38bdf8">The Dynamic Connection</text>
+    <text x="65" y="325" class="meta">Just like passing 'hello' binds to value 'arg',</text>
+    <text x="65" y="340" class="meta">passing 'hello' (string) binds string to type 'T'.</text>
+    <text x="65" y="355" class="meta">Creates dynamic contracts on the fly.</text>
+  </g>
+
+  <!-- RIGHT BOX: The Instantiation Cycle -->
+  <g filter="url(#boxShadow)">
+    <rect x="410" y="100" width="360" height="310" rx="12" fill="url(#glassState)" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="430" y="130" class="header-text">2. Dynamic Type Mapping</text>
+    <text x="430" y="150" class="desc">How TypeScript captures and locks types during calls.</text>
+
+    <!-- Instantiation flow -->
+    <rect x="430" y="175" width="320" height="95" rx="8" fill="#0c4a6e" stroke="#0369a1" stroke-width="1.5" />
+    <text x="445" y="200" class="code-text" fill="#38bdf8">const output = identity('hello');</text>
+    <text x="445" y="222" class="meta" fill="#e0f2fe">1. Compiler parses string value 'hello'.</text>
+    <text x="445" y="237" class="meta" fill="#e0f2fe">2. Deducts that T is strictly 'string'.</text>
+    <text x="445" y="252" class="meta" fill="#34d399">3. Return value type locked to string.</text>
+
+    <!-- Alternative invocation -->
+    <rect x="430" y="285" width="320" height="105" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="445" y="310" class="code-text" fill="#93c5fd">const output = identity&lt;User&gt;(u);</text>
+    <text x="445" y="332" class="meta" fill="#93c5fd">Explicit Type Parameter override:</text>
+    <text x="445" y="347" class="meta">Tells compiler: "I am explicitly declaring T as User,"</text>
+    <text x="445" y="362" class="meta">forcing argument u to conform structurally.</text>
+  </g>
+</svg>

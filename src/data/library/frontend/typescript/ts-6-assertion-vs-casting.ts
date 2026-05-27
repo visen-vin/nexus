@@ -38,7 +38,7 @@ export const content: NoteContent = {
     },
     {
       type: 'text',
-      content: 'Introduced in TypeScript 3.4, **Const Assertions** (`as const`) provide a powerful way to lock down object structures and arrays. When you apply `as const` to a literal expression:\n1. Primitive types are narrowed to their literal values (e.g., `'active'` instead of `string`).\n2. Object properties become strictly `readonly` recursively.\n3. Array literals are frozen, becoming strictly sized `readonly` tuples.'
+      content: 'Introduced in TypeScript 3.4, **Const Assertions** (`as const`) provide a powerful way to lock down object structures and arrays. When you apply `as const` to a literal expression:\n1. Primitive types are narrowed to their literal values (e.g., "active" instead of `string`).\n2. Object properties become strictly `readonly` recursively.\n3. Array literals are frozen, becoming strictly sized `readonly` tuples.'
     },
     {
       type: 'heading',

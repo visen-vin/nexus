@@ -89,10 +89,20 @@ A topic is considered **REFINED** when it has:
 
 ## Cluster 7: TypeScript Type System Core
 - [x] **ts-1: Structural Typing** (✅ REFINED — SVG: structural-typing.svg ✓)
+- [x] **ts-2: Compilation & Type Erasure** (✅ REFINED — SVG: compilation-erasure.svg ✓)
+- [x] **ts-3: any, unknown, never** (✅ REFINED — SVG: any-unknown-never.svg ✓)
+- [x] **ts-4: Type Guards** (✅ REFINED — SVG: type-guards.svg ✓)
+- [x] **ts-5: Discriminated Unions** (✅ REFINED — SVG: discriminated-unions.svg ✓)
+- [x] **ts-6: Assertion vs Casting** (✅ REFINED — SVG: assertion-vs-casting.svg ✓)
+- [x] **ts-7: Interface vs Type** (✅ REFINED — SVG: interface-vs-type.svg ✓)
+- [x] **ts-8: Index Signatures** (✅ REFINED — SVG: index-signatures.svg ✓)
+- [x] **ts-9: Function Overloads** (✅ REFINED — SVG: function-overloads.svg ✓)
+- [x] **ts-10: Generics Mental Model** (✅ REFINED — SVG: generics-mental-model.svg ✓)
+- [x] **ts-11: Generic Constraints** (✅ REFINED — SVG: generic-constraints.svg ✓)
 
 ---
 
 ## Progress Summary
-- **Content done**: 60 / 60 topics ✅
+- **Content done**: 70 / 70 topics ✅
 - **Missing files**: 0 ✅
 - **Need SVGs** (0): None! All topics refined with high-fidelity custom SVGs. 🎉

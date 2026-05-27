@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#0b1329" />
+      <stop offset="100%" stop-color="#02040a" />
+    </linearGradient>
+
+    <!-- Glassmorphic Gradients -->
+    <linearGradient id="purpleGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="cyanGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="emeraldGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.03" />
+    </linearGradient>
+
+    <!-- Arrow Gradients -->
+    <linearGradient id="arrowGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+    <linearGradient id="arrowGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+
+    <!-- Drop Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 12px; }
+    .keyword { fill: #f472b6; font-weight: bold; }
+    .identifier { fill: #38bdf8; }
+    .type-name { fill: #fbbf24; }
+    .string-literal { fill: #34d399; }
+    .comment { fill: #64748b; font-style: italic; }
+    .label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-anchor: middle; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <!-- Grid Overlay for tech look -->
+  <g opacity="0.03">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- TITLE -->
+  <text x="30" y="45" class="title">keyof &amp; typeof Operators</text>
+  <text x="30" y="65" class="subtitle">Extracting static types from runtime objects and mapping keys dynamically</text>
+
+  <!-- ==================== BOX 1: JS RUNTIME OBJECT ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(30, 95)">
+    <!-- Card Frame -->
+    <rect width="210" height="290" rx="12" fill="url(#purpleGlass)" stroke="#a855f7" stroke-width="1.5" stroke-opacity="0.4" />
+    <!-- Top Accent Bar -->
+    <rect width="210" height="6" rx="3" fill="#a855f7" />
+    
+    <!-- Title -->
+    <text x="20" y="30" class="card-title" fill="#e879f9">1. JS Runtime Object</text>
+    <text x="20" y="48" class="subtitle" fill="#c084fc">Physical object in memory</text>
+
+    <!-- Code Block -->
+    <rect x="15" y="65" width="180" height="205" rx="8" fill="#090514" stroke="#c084fc" stroke-width="1" stroke-opacity="0.2" />
+    
+    <text x="25" y="85" class="code-text" fill="#cbd5e1">
+      <tspan class="keyword">const</tspan> config = {
+    </text>
+    <text x="35" y="110" class="code-text" fill="#cbd5e1">
+      apiEndpoint: 
+    </text>
+    <text x="45" y="130" class="code-text" fill="url(#arrowGrad2)">
+      "https://api.v1"
+    </text>
+    <text x="35" y="155" class="code-text" fill="#cbd5e1">
+      port: <tspan fill="#f472b6">443</tspan>,
+    </text>
+    <text x="35" y="180" class="code-text" fill="#cbd5e1">
+      timeout: <tspan fill="#f472b6">5000</tspan>,
+    </text>
+    <text x="35" y="205" class="code-text" fill="#cbd5e1">
+      secure: <tspan fill="#fb7185">true</tspan>
+    </text>
+    <text x="25" y="230" class="code-text" fill="#cbd5e1">
+      };
+    </text>
+    
+    <text x="25" y="255" class="code-text comment">// Existential JS value</text>
+  </g>
+
+  <!-- ==================== ARROW 1: typeof ==================== -->
+  <g transform="translate(250, 220)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="url(#arrowGrad1)" stroke-width="3" stroke-dasharray="4 2" />
+    <polygon points="60,-6 72,0 60,6" fill="#22d3ee" />
+    
+    <rect x="5" y="-35" width="50" height="20" rx="4" fill="#1e1b4b" stroke="#a855f7" stroke-width="1" />
+    <text x="30" y="-21" class="code-text" fill="#e879f9" font-weight="bold" text-anchor="middle">typeof</text>
+    <text x="30" y="18" class="subtitle" font-size="10px" fill="#a855f7" text-anchor="middle">Extract Shape</text>
+  </g>
+
+  <!-- ==================== BOX 2: EXTRACTED STATIC TYPE ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(330, 95)">
+    <!-- Card Frame -->
+    <rect width="210" height="290" rx="12" fill="url(#cyanGlass)" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.4" />
+    <!-- Top Accent Bar -->
+    <rect width="210" height="6" rx="3" fill="#22d3ee" />
+    
+    <!-- Title -->
+    <text x="20" y="30" class="card-title" fill="#22d3ee">2. Extracted Static Type</text>
+    <text x="20" y="48" class="subtitle" fill="#67e8f9">TS Compilation Layer</text>
+
+    <!-- Code Block -->
+    <rect x="15" y="65" width="180" height="205" rx="8" fill="#030c14" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.2" />
+
+    <text x="25" y="85" class="code-text" fill="#cbd5e1">
+      <tspan class="keyword">type</tspan> ConfigType = {
+    </text>
+    <text x="35" y="110" class="code-text" fill="#67e8f9">
+      apiEndpoint: <tspan fill="#f59e0b">string</tspan>;
+    </text>
+    <text x="35" y="135" class="code-text" fill="#67e8f9">
+      port: <tspan fill="#f59e0b">number</tspan>;
+    </text>
+    <text x="35" y="160" class="code-text" fill="#67e8f9">
+      timeout: <tspan fill="#f59e0b">number</tspan>;
+    </text>
+    <text x="35" y="185" class="code-text" fill="#67e8f9">
+      secure: <tspan fill="#f59e0b">boolean</tspan>;
+    </text>
+    <text x="25" y="210" class="code-text" fill="#cbd5e1">
+      };
+    </text>
+
+    <text x="25" y="240" class="code-text comment">// Entirely erased in JS</text>
+    <text x="25" y="255" class="code-text comment">// compilation output!</text>
+  </g>
+
+  <!-- ==================== ARROW 2: keyof ==================== -->
+  <g transform="translate(550, 220)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="url(#arrowGrad2)" stroke-width="3" stroke-dasharray="4 2" />
+    <polygon points="60,-6 72,0 60,6" fill="#34d399" />
+    
+    <rect x="5" y="-35" width="50" height="20" rx="4" fill="#061f2d" stroke="#22d3ee" stroke-width="1" />
+    <text x="30" y="-21" class="code-text" fill="#67e8f9" font-weight="bold" text-anchor="middle">keyof</text>
+    <text x="30" y="18" class="subtitle" font-size="10px" fill="#22d3ee" text-anchor="middle">Extract Keys</text>
+  </g>
+
+  <!-- ==================== BOX 3: EXTRACTED KEYS UNION ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(630, 95)">
+    <!-- Card Frame -->
+    <rect width="140" height="290" rx="12" fill="url(#emeraldGlass)" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.4" />
+    <!-- Top Accent Bar -->
+    <rect width="140" height="6" rx="3" fill="#34d399" />
+    
+    <!-- Title -->
+    <text x="15" y="30" class="card-title" fill="#34d399">3. Keys Union</text>
+    <text x="15" y="48" class="subtitle" fill="#6ee7b7">Strong key boundary</text>
+
+    <!-- Code Block -->
+    <rect x="15" y="65" width="110" height="205" rx="8" fill="#02120b" stroke="#34d399" stroke-width="1" stroke-opacity="0.2" />
+
+    <text x="25" y="85" class="code-text" fill="#34d399">
+      "apiEndpoint"
+    </text>
+    <text x="25" y="110" class="code-text" fill="#cbd5e1">
+      | <tspan fill="#34d399">"port"</tspan>
+    </text>
+    <text x="25" y="135" class="code-text" fill="#cbd5e1">
+      | <tspan fill="#34d399">"timeout"</tspan>
+    </text>
+    <text x="25" y="160" class="code-text" fill="#cbd5e1">
+      | <tspan fill="#34d399">"secure"</tspan>
+    </text>
+
+    <text x="25" y="200" class="code-text comment">// String literal</text>
+    <text x="25" y="215" class="code-text comment">// union constraint</text>
+    <text x="25" y="230" class="code-text comment">// prevents typos</text>
+  </g>
+</svg>

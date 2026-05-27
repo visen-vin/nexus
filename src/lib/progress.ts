@@ -24,4 +24,7 @@ export const Progress = {
     delete all[topicId];
     localStorage.setItem(KEY, JSON.stringify(all));
   },
+  hydrate(serverProgress: Record<string, TopicProgress>): void {
+    localStorage.setItem(KEY, JSON.stringify(serverProgress));
+  }
 };

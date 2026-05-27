@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Block Gradients -->
+    <linearGradient id="unoptimizedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#B91C1C" />
+    </linearGradient>
+    <linearGradient id="optimizedStateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="optimizedDispatchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+
+    <!-- Glowing Effects -->
+    <filter id="glowRoot" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#EF4444" />
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0EA5E9" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#A855F7" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .header-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #F8FAFC; }
+    .node-label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12px; fill: #FFFFFF; }
+    .node-sub { font-family: 'Fira Code', monospace; font-size: 9px; fill: #94A3B8; }
+    .node-code { font-family: 'Fira Code', monospace; font-size: 8px; fill: #E2E8F0; }
+  </style>
+
+  <!-- Container -->
+  <rect width="900" height="500" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.03">
+    <line x1="50" y1="0" x2="50" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="500" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6,6" />
+    <line x1="850" y1="0" x2="850" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="900" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="400" x2="900" y2="400" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">CONTEXT API DEEP DIVE ARCHITECTURE</text>
+    <text class="subtitle" x="0" y="18">COMPARING UNOPTIMIZED COMBINED PROVIDERS WITH THE HIGH-PERFORMANCE SPLIT CONTEXT PATTERN</text>
+  </g>
+
+  <!-- LEFT: Unoptimized Single Context -->
+  <g transform="translate(40, 110)">
+    <rect width="380" height="260" rx="12" fill="#111827" stroke="#374151" stroke-width="1.5" />
+    <text class="header-text" x="20" y="30" fill="#EF4444">1. Unoptimized Context (Giant State)</text>
+    
+    <!-- Provider Node -->
+    <g transform="translate(30, 60)" filter="url(#glowRoot)">
+      <rect width="180" height="60" rx="6" fill="#1E293B" stroke="#EF4444" stroke-width="2" />
+      <rect width="180" height="4" fill="url(#unoptimizedGrad)" />
+      <text class="node-label" x="12" y="22">AppContext.Provider</text>
+      <text class="node-sub" x="12" y="42">value={{ state, dispatch }}</text>
+    </g>
+
+    <!-- Consumer: State reader -->
+    <g transform="translate(30, 160)">
+      <rect width="140" height="70" rx="4" fill="#1E293B" stroke="#EF4444" stroke-width="1.5" />
+      <text class="node-label" x="12" y="22">StateReader</text>
+      <text class="node-sub" x="12" y="42">Reads: state</text>
+      <text class="node-sub" x="12" y="58" fill="#EF4444">Re-renders on change</text>
+    </g>
+
+    <!-- Consumer: Action dispatcher -->
+    <g transform="translate(210, 160)">
+      <rect width="140" height="70" rx="4" fill="#1E293B" stroke="#EF4444" stroke-width="1.5" />
+      <text class="node-label" x="12" y="22">ActionDispatcher</text>
+      <text class="node-sub" x="12" y="42">Reads: dispatch</text>
+      <text class="node-sub" x="12" y="58" fill="#EF4444">RE-RENDERS WASTEFULLY!</text>
+    </g>
+
+    <!-- Connectors -->
+    <path d="M100,120 L100,152" fill="none" stroke="#EF4444" stroke-width="1.5" marker-end="url(#arrowRed)" />
+    <path d="M140,120 L230,155" fill="none" stroke="#EF4444" stroke-width="1.5" marker-end="url(#arrowRed)" />
+  </g>
+
+  <!-- RIGHT: High Performance Split Context -->
+  <g transform="translate(480, 110)">
+    <rect width="380" height="260" rx="12" fill="#111827" stroke="#374151" stroke-width="1.5" />
+    <text class="header-text" x="20" y="30" fill="#10B981">2. High-Performance Split Contexts</text>
+    
+    <!-- State Provider -->
+    <g transform="translate(20, 60)" filter="url(#glowRoot)">
+      <rect width="155" height="50" rx="6" fill="#1E293B" stroke="#0EA5E9" stroke-width="2" />
+      <rect width="155" height="4" fill="url(#optimizedStateGrad)" />
+      <text class="node-label" x="12" y="20">StateContext.Provider</text>
+      <text class="node-sub" x="12" y="38">value={state}</text>
+    </g>
+
+    <!-- Dispatch Provider -->
+    <g transform="translate(195, 60)" filter="url(#glowRoot)">
+      <rect width="165" height="50" rx="6" fill="#1E293B" stroke="#A855F7" stroke-width="2" />
+      <rect width="165" height="4" fill="url(#optimizedDispatchGrad)" />
+      <text class="node-label" x="12" y="20">DispatchContext.Provider</text>
+      <text class="node-sub" x="12" y="38">value={dispatch}</text>
+    </g>
+
+    <!-- Consumer: State reader -->
+    <g transform="translate(20, 160)">
+      <rect width="150" height="70" rx="4" fill="#1E293B" stroke="#0EA5E9" stroke-width="1.5" />
+      <text class="node-label" x="12" y="22">StateReader</text>
+      <text class="node-sub" x="12" y="42">Reads: state</text>
+      <text class="node-sub" x="12" y="58" fill="#0EA5E9">Re-renders on change</text>
+    </g>
+
+    <!-- Consumer: Action dispatcher -->
+    <g transform="translate(200, 160)">
+      <rect width="160" height="70" rx="4" fill="#1E293B" stroke="#A855F7" stroke-width="1.5" />
+      <text class="node-label" x="12" y="22">ActionDispatcher</text>
+      <text class="node-sub" x="12" y="42">Reads: dispatch</text>
+      <text class="node-sub" x="12" y="58" fill="#10B981">ZERO RE-RENDERS! ✓</text>
+    </g>
+
+    <!-- Connectors -->
+    <path d="M90,110 L90,152" fill="none" stroke="#0EA5E9" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+    <path d="M280,110 L280,152" fill="none" stroke="#A855F7" stroke-width="1.5" marker-end="url(#arrowPurple)" />
+  </g>
+
+  <!-- Footnote -->
+  <text x="40" y="445" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#475569">Insight: A combined provider value={ {state, dispatch} } creates a new object reference on every render, causing all consumer nodes to fail reference checks and force full visual re-renders. Splitting them keeps dispatch consumers isolated.</text>
+</svg>

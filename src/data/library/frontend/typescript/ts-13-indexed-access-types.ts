@@ -10,131 +10,74 @@ export const content: NoteContent = {
   description: 'In-depth analysis of Indexed Access Types. Access nested object properties dynamically, extract element types from arrays using Type[number], and coordinate type boundaries on complex database payload schemas.',
   sections: [
     {
-      type: 'text',
-      content: 'In complex applications, maintaining a single source of truth for type definitions is essential to avoid redundant code and drift between the frontend and database models. **Indexed Access Types** (also known as Lookup Types) allow you to query and extract the type of a specific property from another type using the `Type[Key]` syntax. Just as you access values in JavaScript using bracket notation, TypeScript allows you to look up type shapes at compile-time. This mechanism works seamlessly across nested object hierarchies, union types, and arrays or tuples using the `Type[number]` operator.'
-    },
-    {
       type: 'diagram',
       content: indexedAccessTypesSvg
     },
     {
+      type: 'text',
+      content: 'In TypeScript, **Indexed Access Types** (also known as lookup types) allow you to lookup the type of a specific property on another type using a bracket notation similar to property access in JavaScript: `Type[Key]`. This enables a single source of truth for your data structures, ensuring that nested properties, API payloads, or database schema subsets stay perfectly in sync without manually duplicating deep types.\n\nIndexed access types are evaluated entirely at compile-time. Because of this, you index using **types**, not values. You cannot use a runtime variable inside the brackets; instead, you must use a string literal type, a union of literal types, or another generic type parameter.'
+    },
+    {
       type: 'callout',
-      content: 'Indexed Access Types strictly require a type-level lookup. You cannot pass a runtime variable inside the brackets; only types, type aliases, or literal values can be used. For example, `type Port = AppConfig[runtimeKey]` is invalid and will trigger a compiler error.',
-      metadata: { type: 'architecture', title: 'Compile-Time Restrictions' }
-    },
-    {
-      type: 'heading',
-      content: 'Deep Object Navigation & Type Extraction',
-      metadata: { level: 2 }
-    },
-    {
-      type: 'text',
-      content: 'Using index lookups, you can dissect nested structures without redeclaring them. This is highly effective when consuming third-party API definitions or shared database schemas. For instance, if an API client exposes a massive interface, you can pluck exactly the nested payload type your component needs. Lookups can also resolve union type keys dynamically. If you pass a union of keys (e.g., `Type["host" | "port"]`), TypeScript evaluates the lookup to a union of their respective types.'
-    },
-    {
-      type: 'heading',
-      content: 'Array & Tuple Indexing with Type[number]',
-      metadata: { level: 2 }
-    },
-    {
-      type: 'text',
-      content: 'Array elements can be dynamically targeted using the `Type[number]` index signature. When applied to an array type like `string[]`, indexing with `number` resolves to `string`. However, the real power of `number` is revealed when working with **tuple types** and **const assertions**. By plucking elements from a readonly tuple, we can effortlessly transform a static list of strings into a precise union of string literals, creating an automated link between runtime values and compile-time boundaries.'
-    },
-    {
-      type: 'heading',
-      content: 'Production Implementation: Schema Coordination',
-      metadata: { level: 2 }
-    },
-    {
-      type: 'text',
-      content: 'The following module demonstrates how to coordinate database payload structures with client-side requirements using advanced nested lookups and tuple element extraction.'
+      content: 'You must index using type-level entities. A common mistake is attempting to use a runtime string variable: `type Prop = User[keyVar]` will fail compilation because `keyVar` is a value. Use `type Prop = User["profile"]` or generic variables instead.',
+      metadata: { type: 'warning', title: 'Compile-Time Type Boundary' }
     },
     {
       type: 'code',
-      content: `// ============================================================================
-// 1. Nested Database Schema & Lookup Types
-// ============================================================================
-export interface DatabaseSchema {
-  users: {
+      content: `// 1. Unified Application State Type
+interface AppState {
+  user: {
     id: string;
     profile: {
       firstName: string;
       lastName: string;
-      avatarUrl: string | null;
+      avatarUrl: string;
     };
-    settings: {
-      theme: "light" | "dark" | "system";
-      notificationsEnabled: boolean;
-    };
-    createdAt: Date;
+    roles: ("admin" | "editor" | "viewer")[];
   };
-  orders: {
-    id: string;
-    amount: number;
-    status: "pending" | "shipped" | "delivered" | "cancelled";
-    items: Array<{
-      productId: string;
-      quantity: number;
-      price: number;
-    }>;
+  settings: {
+    theme: "light" | "dark" | "system";
+    notifications: boolean;
   };
 }
 
-// Pluck nested profile type directly from schema source of truth
-export type UserProfile = DatabaseSchema["users"]["profile"];
-
-// Pluck notification settings directly
-export type UserNotificationSettings = DatabaseSchema["users"]["settings"]["notificationsEnabled"]; // boolean
-
-// Pluck elements from the orders items array
-// Since items is an Array, we index by number to extract the individual item type
-export type OrderItem = DatabaseSchema["orders"]["items"][number];
-
-// ============================================================================
-// 2. Automated Union Generation from Readonly Configurations
-// ============================================================================
-export const FEATURE_FLAGS = [
-  "dark_mode",
-  "beta_dashboard",
-  "ai_copilot",
-  "premium_exports"
-] as const;
-
-// 1. typeof FEATURE_FLAGS yields: readonly ["dark_mode", "beta_dashboard", ...]
-// 2. Indexing by [number] extracts the values as a literal union type!
-export type FeatureFlag = (typeof FEATURE_FLAGS)[number];
-// Evaluated: "dark_mode" | "beta_dashboard" | "ai_copilot" | "premium_exports"
-
-export interface UserPermissions {
-  allowedFlags: FeatureFlag[];
-  userId: DatabaseSchema["users"]["id"];
+// 2. Extract nested property type using bracket lookup
+type UserProfile = AppState["user"]["profile"];
+/*
+Evaluates to:
+type UserProfile = {
+  firstName: string;
+  lastName: string;
+  avatarUrl: string;
 }
+*/
 
-// ============================================================================
-// 3. Dynamic Key Lookups with Generics
-// ============================================================================
-export function pluckProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
-  return obj[key];
-}
+// 3. Extract union from array using [number]
+type UserRole = AppState["user"]["roles"][number];
+// Evaluates to: "admin" | "editor" | "viewer"`,
+      metadata: { language: 'typescript', title: 'Nested Object & Array Indexing' }
+    },
+    {
+      type: 'text',
+      content: 'Beyond indexing with single string literals, you can index using a union of literal types. This returns a union of the respective property types. For example, indexing `AppState["user" | "settings"]` gathers the types of both the `user` and `settings` branches into a combined union type.'
+    },
+    {
+      type: 'code',
+      content: `// Indexing using union of keys
+type AppSlices = AppState["user" | "settings"];
+/*
+Evaluates to:
+type AppSlices = AppState["user"] | AppState["settings"]
+*/
 
-const userSettings: DatabaseSchema["users"]["settings"] = {
-  theme: "dark",
-  notificationsEnabled: true
-};
-
-// themeVal is strongly typed as "light" | "dark" | "system"
-const themeVal = pluckProperty(userSettings, "theme");`,
-      metadata: { language: 'typescript' }
+// Dynamic mapped dictionary extraction
+type ThemeOption = AppState["settings"]["theme"]; // "light" | "dark" | "system"`,
+      metadata: { language: 'typescript', title: 'Indexing with Unions' }
     },
     {
       type: 'callout',
-      content: 'When using `as const` on arrays, TypeScript marks the array as `readonly`. If you attempt to pass this to a function expecting a mutable `string[]`, it will trigger a compiler mismatch. Be sure to type functions receiving these configurations as `readonly string[]`.',
-      metadata: { type: 'warning', title: 'Readonly Tuple Assignment' }
-    },
-    {
-      type: 'callout',
-      content: 'If you attempt to perform an indexed lookup using a key that does not exist in the object type, TypeScript will immediately block compilation. Unlike JavaScript, which fails silently returning `undefined`, TypeScript protects against property misalignments during build time.',
-      metadata: { type: 'runtime', title: 'Compiler Key Verification' }
+      content: 'Using Indexed Access Types promotes the "single source of truth" architectural principle. Rather than writing distinct types for every intermediate component prop, index directly into your central interface (e.g. `interface ProfileProps { data: AppState["user"]["profile"] }`).',
+      metadata: { type: 'architecture', title: 'Architectural Data Synchronization' }
     },
     {
       type: 'heading',
@@ -144,19 +87,19 @@ const themeVal = pluckProperty(userSettings, "theme");`,
     {
       type: 'callout',
       content: 'PREPARATION ZONE',
-      metadata: { type: 'architecture', title: 'Indexed Access Mastery' }
+      metadata: { type: 'architecture', title: 'Indexed Access Deep Dive' }
     },
     {
       type: 'faq',
-      content: 'Q: How do you extract the element type of an array or list type in TypeScript dynamically?\nA: You can extract the element type of any array or tuple by indexing it with the `number` type. For example, if you have `type StringList = string[]`, then `StringList[number]` resolves to `string`. When combined with a const-asserted array (e.g. `const FRUITS = ["apple", "banana"] as const`), you can query `(typeof FRUITS)[number]` to extract the exact literal union `"apple" | "banana"`.'
+      content: 'Q: What does indexing an array type with [number] accomplish, and how does it differ from [0]?\nA: Indexing an array or tuple type `T[]` with `[number]` extracts the type of *any* element inside that array. For `string[]`, `string[][number]` evaluates to `string`. Indexing a tuple with a numeric literal like `[0]` extracts the specific type of the element at that exact index position (e.g., `[string, number][0]` evaluates to `string`, whereas `[string, number][number]` evaluates to `string | number`).'
     },
     {
       type: 'faq',
-      content: 'Q: Can you perform an indexed access lookup using a dynamic runtime value as the key?\nA: No. TypeScript is a compile-time system, and type relationships are resolved before code execution. Bracket notation lookup `Type[Key]` strictly requires `Key` to be a *type*, such as a string literal type, a union of literal types, or `number`. Passing a standard runtime JavaScript variable inside bracket notation will result in a compiler error.'
+      content: 'Q: Why does the compiler throw an error if you write User[typeof keyName] where keyName is a runtime string variable?\nA: Because `typeof keyName` in that context is evaluated by TypeScript as the wide type `string` (unless defined as `const keyName = "profile"`). Since `User` does not have a string index signature, you cannot index it with the broad `string` type. You must index it with specific literal string keys (e.g. `"profile"` | `"id"`).'
     },
     {
       type: 'faq',
-      content: 'Q: What happens if you index a type with a union of keys (e.g. User["firstName" | "lastName"])?\nA: TypeScript will resolve the lookup by extracting the type for each key in the union, and then returning a union of those resolved types. If `firstName` is `string` and `lastName` is `string`, then `User["firstName" | "lastName"]` evaluates to `string`. If the keys yield different types, the result will be a union of all those unique property types.'
+      content: 'Q: How do you combine keyof and indexed access types inside a generic function for perfect type safety?\nA: By defining two coupled type parameters, `<T, K extends keyof T>`, and setting the function\'s return type to `T[K]`. This guarantees that the compiler enforces a compile-time check that the key matches a valid property on the object, and automatically narrows the return type to the exact type of that property.'
     }
   ]
 };

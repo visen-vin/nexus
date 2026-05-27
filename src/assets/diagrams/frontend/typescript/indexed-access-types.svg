@@ -3,126 +3,151 @@
     <!-- Background Gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#030712" />
-      <stop offset="50%" stop-color="#0b1329" />
+      <stop offset="50%" stop-color="#0f172a" />
       <stop offset="100%" stop-color="#02040a" />
     </linearGradient>
 
-    <!-- Glassmorphic States Gradient -->
-    <linearGradient id="glassState" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12" />
-      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.03" />
+    <!-- Glassmorphic Gradients -->
+    <linearGradient id="glassPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0369a1" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="glassSuccess" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#065f46" stop-opacity="0.03" />
     </linearGradient>
 
-    <!-- Highlights -->
-    <linearGradient id="blueAccent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#60a5fa" />
-      <stop offset="100%" stop-color="#3b82f6" />
+    <!-- Arrow Gradients -->
+    <linearGradient id="arrowOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#f97316" />
     </linearGradient>
-    <linearGradient id="purpleAccent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#c084fc" />
-      <stop offset="100%" stop-color="#a855f7" />
-    </linearGradient>
-    <linearGradient id="emeraldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#34d399" />
-      <stop offset="100%" stop-color="#10b981" />
-    </linearGradient>
-    <linearGradient id="pinkAccent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#f472b6" />
-      <stop offset="100%" stop-color="#db2777" />
+    <linearGradient id="arrowTeal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#14b8a6" />
     </linearGradient>
 
-    <!-- Shadow -->
+    <!-- Shadows -->
     <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.5" />
-    </filter>
-
-    <!-- Blur filter for background light -->
-    <filter id="glowBlur" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="60" />
+      <drop-shadow dx="0" dy="8" stdDeviation="5" flood-color="#000000" flood-opacity="0.5" />
     </filter>
   </defs>
 
   <style>
-    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 21px; font-weight: 700; fill: #f3f4f6; letter-spacing: 0.5px; }
-    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #9ca3af; font-weight: 500; }
-    .header-text { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #60a5fa; }
-    .state-title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 700; }
-    .desc { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #d1d5db; }
-    .meta { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #94a3b8; }
-    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; fill: #e2e8f0; }
-    .code-keyword { fill: #f472b6; font-weight: 700; }
-    .code-type { fill: #c084fc; }
-    .code-property { fill: #38bdf8; }
-    .code-string { fill: #34d399; }
-    .code-comment { fill: #64748b; font-style: italic; }
+    .title { font-family: 'Outfit', 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 12px; }
+    .keyword { fill: #f472b6; font-weight: bold; }
+    .type-name { fill: #fbbf24; }
+    .prop-name { fill: #38bdf8; }
+    .indexer { fill: #f43f5e; font-weight: bold; }
+    .comment { fill: #64748b; font-style: italic; }
   </style>
 
   <!-- Background -->
-  <rect width="800" height="450" rx="16" fill="url(#bgGrad)" />
-  <rect width="800" height="450" rx="16" fill="none" stroke="#1e293b" stroke-width="2" />
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
 
-  <!-- Grid overlay -->
-  <g opacity="0.03">
+  <!-- Grid lines -->
+  <g opacity="0.02">
     <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
     <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
   </g>
 
-  <!-- Ambient Glows -->
-  <circle cx="180" cy="250" r="90" fill="#3b82f6" opacity="0.15" filter="url(#glowBlur)" />
-  <circle cx="620" cy="220" r="90" fill="#a855f7" opacity="0.15" filter="url(#glowBlur)" />
+  <!-- Title -->
+  <text x="30" y="45" class="title">Indexed Access Types</text>
+  <text x="30" y="65" class="subtitle">Extracting deep nested types using bracket indexing notation</text>
 
-  <!-- TITLE -->
-  <text x="30" y="45" class="title">TypeScript Indexed Access Types</text>
-  <text x="30" y="63" class="subtitle">Extracting type shapes by indexing into Nested Objects (Type[Key]) and Array types (Type[number]) dynamically.</text>
+  <!-- ==================== LEFT CARD: SOURCE TYPE ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(30, 95)">
+    <rect width="280" height="290" rx="12" fill="url(#glassPrimary)" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="280" height="6" rx="3" fill="#38bdf8" />
+    <text x="20" y="30" class="card-title" fill="#38bdf8">Source Object Type</text>
+    
+    <!-- Code box -->
+    <rect x="15" y="55" width="250" height="215" rx="8" fill="#090d16" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.1" />
 
-  <!-- LEFT BOX: Nested Object Indexing -->
-  <g filter="url(#boxShadow)">
-    <rect x="30" y="95" width="355" height="325" rx="12" fill="url(#glassState)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
-    <text x="50" y="122" class="header-text">1. Nested Object Lookups</text>
-    <text x="50" y="140" class="desc">Querying specific properties directly from interface hierarchies.</text>
-
-    <!-- Source Type -->
-    <rect x="50" y="160" width="315" height="100" rx="8" fill="#090d16" stroke="#1e293b" stroke-width="1" />
-    <text x="65" y="180" class="code-text"><tspan class="code-keyword">type</tspan> AppConfig = {</text>
-    <text x="65" y="196" class="code-text">  database: {</text>
-    <text x="65" y="212" class="code-text">    host: <tspan class="code-type">string</tspan>;</text>
-    <text x="65" y="228" class="code-text">    port: <tspan class="code-type">number</tspan>;</text>
-    <text x="65" y="244" class="code-text">  };</text>
-    <text x="65" y="250" class="code-text">};</text>
-
-    <!-- Index Type [Key] -->
-    <rect x="50" y="275" width="315" height="58" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1" stroke-opacity="0.5" />
-    <text x="65" y="295" class="state-title" fill="#a5b4fc">Index: AppConfig["database"]</text>
-    <text x="65" y="315" class="code-text" fill="#c084fc">{ host: string; port: number; }</text>
-
-    <!-- Deep Index Type [Key][Key] -->
-    <rect x="50" y="348" width="315" height="58" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1" stroke-opacity="0.5" />
-    <text x="65" y="368" class="state-title" fill="#a7f3d0">Deep Index: AppConfig["database"]["port"]</text>
-    <text x="65" y="388" class="code-text" fill="#34d399">number</text>
+    <text x="25" y="75" class="code-text" fill="#cbd5e1">
+      <tspan class="keyword">interface</tspan> UserPayload {
+    </text>
+    <text x="35" y="95" class="code-text" fill="#94a3b8">
+      id: <tspan fill="#fbbf24">number</tspan>;
+    </text>
+    <text x="35" y="115" class="code-text" fill="#94a3b8">
+      <tspan class="prop-name">profile</tspan>: {
+    </text>
+    <text x="45" y="135" class="code-text" fill="#94a3b8">
+      name: <tspan fill="#fbbf24">string</tspan>;
+    </text>
+    <text x="45" y="155" class="code-text" fill="#94a3b8">
+      avatar: <tspan fill="#fbbf24">string</tspan>;
+    </text>
+    <text x="35" y="175" class="code-text" fill="#cbd5e1">
+      };
+    </text>
+    <text x="35" y="195" class="code-text" fill="#94a3b8">
+      <tspan class="prop-name">roles</tspan>: <tspan fill="#fbbf24">string</tspan>[];
+    </text>
+    <text x="35" y="215" class="code-text" fill="#94a3b8">
+      status: <tspan fill="#fbbf24">"active" | "away"</tspan>;
+    </text>
+    <text x="25" y="235" class="code-text" fill="#cbd5e1">
+      }
+    </text>
   </g>
 
-  <!-- RIGHT BOX: Array & Tuple Indexing -->
-  <g filter="url(#boxShadow)">
-    <rect x="415" y="95" width="355" height="325" rx="12" fill="url(#glassState)" stroke="#a855f7" stroke-width="1.5" stroke-opacity="0.3" />
-    <text x="435" y="122" class="header-text" fill="#c084fc">2. Array &amp; Tuple Element Extraction</text>
-    <text x="435" y="140" class="desc">Using Type[number] to extract element unions from lists.</text>
+  <!-- ==================== MIDDLE SECTION: Type["profile"] ==================== -->
+  <!-- Upper Arrow for Profile extraction -->
+  <g transform="translate(320, 160)">
+    <path d="M0 0 L100 0" fill="none" stroke="url(#arrowOrange)" stroke-width="3" stroke-dasharray="3 3" />
+    <polygon points="100,-6 112,0 100,6" fill="#fb923c" />
+    
+    <rect x="5" y="-32" width="90" height="20" rx="4" fill="#2c1a0c" stroke="#fb923c" stroke-width="1" />
+    <text x="50" y="-18" class="code-text" fill="#fdba74" font-weight="bold" text-anchor="middle">["profile"]</text>
+  </g>
 
-    <!-- Array/Tuple Source -->
-    <rect x="435" y="160" width="315" height="85" rx="8" fill="#090d16" stroke="#1e293b" stroke-width="1" />
-    <text x="450" y="180" class="code-text"><tspan class="code-keyword">const</tspan> ROLES = [<tspan class="code-string">"admin"</tspan>, <tspan class="code-string">"user"</tspan>, <tspan class="code-string">"guest"</tspan>] <tspan class="code-keyword">as const</tspan>;</text>
-    <text x="450" y="198" class="code-text"><tspan class="code-keyword">type</tspan> RolesList = <tspan class="code-keyword">typeof</tspan> ROLES;</text>
-    <text x="450" y="214" class="code-text"><tspan class="code-comment">// Evaluated: readonly ["admin", "user", "guest"]</tspan></text>
+  <!-- ==================== MIDDLE BOX: EXTRACTED PROFILE ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(450, 95)">
+    <rect width="320" height="120" rx="12" fill="url(#glassSuccess)" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="320" height="6" rx="3" fill="#34d399" />
+    <text x="20" y="30" class="card-title" fill="#34d399">Extracted Nested Shape</text>
+    
+    <rect x="15" y="45" width="290" height="60" rx="8" fill="#02120b" stroke="#34d399" stroke-width="1" stroke-opacity="0.1" />
+    
+    <text x="25" y="65" class="code-text" fill="#34d399">
+      type Profile = UserPayload[<tspan class="indexer">"profile"</tspan>];
+    </text>
+    <text x="25" y="85" class="code-text" fill="#94a3b8">
+      // Evaluates to: { name: string; avatar: string; }
+    </text>
+  </g>
 
-    <!-- Index Type [0] -->
-    <rect x="435" y="260" width="315" height="65" rx="8" fill="#180f2b" stroke="#c084fc" stroke-width="1" stroke-opacity="0.5" />
-    <text x="450" y="280" class="state-title" fill="#e8d5ff">Literal Index: RolesList[0]</text>
-    <text x="450" y="302" class="code-text" fill="#f472b6">"admin"</text>
-    <text x="450" y="315" class="meta" fill="#c084fc">Indexes a specific item in the tuple by its position.</text>
+  <!-- ==================== LOWER SECTION: Type["roles"][number] ==================== -->
+  <!-- Lower Arrow for array index extraction -->
+  <g transform="translate(320, 300)">
+    <path d="M0 0 L100 0" fill="none" stroke="url(#arrowTeal)" stroke-width="3" stroke-dasharray="3 3" />
+    <polygon points="100,-6 112,0 100,6" fill="#2dd4bf" />
+    
+    <rect x="5" y="-32" width="90" height="20" rx="4" fill="#062d29" stroke="#2dd4bf" stroke-width="1" />
+    <text x="50" y="-18" class="code-text" fill="#99f6e4" font-weight="bold" text-anchor="middle">["roles"][number]</text>
+  </g>
 
-    <!-- Index Type [number] -->
-    <rect x="435" y="340" width="315" height="65" rx="8" fill="#065f46" stroke="#34d399" stroke-width="1" stroke-opacity="0.5" />
-    <text x="450" y="360" class="state-title" fill="#a7f3d0">Dynamic Index: RolesList[number]</text>
-    <text x="450" y="382" class="code-text" fill="#34d399">"admin" | "user" | "guest"</text>
-    <text x="450" y="395" class="meta" fill="#34d399">Extracts a union of all elements within the array.</text>
+  <!-- ==================== LOWER BOX: EXTRACTED ARRAY ITEM ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(450, 245)">
+    <rect width="320" height="140" rx="12" fill="url(#glassSuccess)" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="320" height="6" rx="3" fill="#34d399" />
+    <text x="20" y="30" class="card-title" fill="#34d399">Array Element Extraction</text>
+    
+    <rect x="15" y="45" width="290" height="80" rx="8" fill="#02120b" stroke="#34d399" stroke-width="1" stroke-opacity="0.1" />
+
+    <text x="25" y="65" class="code-text" fill="#34d399">
+      type RoleItem = UserPayload[<tspan class="indexer">"roles"</tspan>][<tspan class="indexer">number</tspan>];
+    </text>
+    <text x="25" y="90" class="code-text" fill="#94a3b8">
+      // 1. UserPayload["roles"] => string[]
+    </text>
+    <text x="25" y="105" class="code-text" fill="#94a3b8">
+      // 2. [number] => string
+    </text>
   </g>
 </svg>

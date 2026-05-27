@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node colors -->
+    <linearGradient id="renderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="layoutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <linearGradient id="effectGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0EA5E9" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#A855F7" />
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#F59E0B" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12px; fill: #FFFFFF; }
+    .node-sub { font-family: 'Fira Code', monospace; font-size: 9px; fill: #94A3B8; }
+    .flow-label { font-family: 'Fira Code', monospace; font-size: 8.5px; fill: #E2E8F0; font-weight: 600; }
+  </style>
+
+  <!-- Container -->
+  <rect width="900" height="500" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Title -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">USELAYOUTEFFECT VS USEEFFECT</text>
+    <text class="subtitle" x="0" y="18">SYNCHRONOUS MUTATION IN THE BROWSER PAINT TIMELINE &amp; PREVENTING FLICKERING</text>
+  </g>
+
+  <!-- 1. Render and Commit (Blue) -->
+  <g transform="translate(60, 200)">
+    <rect width="180" height="85" rx="8" fill="#111827" stroke="#0EA5E9" stroke-width="2" />
+    <rect width="180" height="4" fill="url(#renderGrad)" />
+    <text class="node-title" x="12" y="22">1. Render &amp; Commit</text>
+    <text class="node-sub" x="12" y="42">React calls component,</text>
+    <text class="node-sub" x="12" y="56">mutates DOM in memory,</text>
+    <text class="node-sub" x="12" y="70">but screen is NOT updated.</text>
+  </g>
+
+  <!-- Connection: Commit -> Layout -->
+  <path d="M240,242 L292,242" fill="none" stroke="#A855F7" stroke-width="2" marker-end="url(#arrowPurple)" />
+  <text class="flow-label" x="246" y="230" fill="#A855F7">blocking</text>
+
+  <!-- 2. useLayoutEffect (Purple) -->
+  <g transform="translate(300, 200)">
+    <rect width="180" height="85" rx="8" fill="#111827" stroke="#A855F7" stroke-width="2" />
+    <rect width="180" height="4" fill="url(#layoutGrad)" />
+    <text class="node-title" x="12" y="22">2. useLayoutEffect</text>
+    <text class="node-sub" x="12" y="42">Runs SYNCHRONOUSLY.</text>
+    <text class="node-sub" x="12" y="56">Read layout/bounds.</text>
+    <text class="node-sub" x="12" y="70" fill="#C084FC">Mutate DOM -> No flicker!</text>
+  </g>
+
+  <!-- Connection: Layout -> Paint -->
+  <path d="M480,242 L532,242" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrowBlue)" />
+  <text class="flow-label" x="486" y="230" fill="#10B981">paint</text>
+
+  <!-- 3. Browser Paint (Green) -->
+  <g transform="translate(540, 200)">
+    <rect width="140" height="85" rx="8" fill="#111827" stroke="#10B981" stroke-width="2" />
+    <text class="node-title" x="12" y="22">3. Browser Paint</text>
+    <text class="node-sub" x="12" y="42">Pixels drawn on screen</text>
+    <text class="node-sub" x="12" y="56">User sees the updated</text>
+    <text class="node-sub" x="12" y="70">layout now.</text>
+  </g>
+
+  <!-- Connection: Paint -> useEffect -->
+  <path d="M680,242 L732,242" fill="none" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowOrange)" />
+  <text class="flow-label" x="686" y="230" fill="#F59E0B">deferred</text>
+
+  <!-- 4. useEffect (Orange) -->
+  <g transform="translate(740, 200)">
+    <rect width="120" height="85" rx="8" fill="#111827" stroke="#F59E0B" stroke-width="2" />
+    <rect width="120" height="4" fill="url(#effectGrad)" />
+    <text class="node-title" x="12" y="22">4. useEffect</text>
+    <text class="node-sub" x="12" y="42">Runs asynchronously</text>
+    <text class="node-sub" x="12" y="56">in a macro-task</text>
+    <text class="node-sub" x="12" y="70">after paint.</text>
+  </g>
+
+  <!-- Pitfall Warning box -->
+  <g transform="translate(60, 320)">
+    <rect width="800" height="90" rx="8" fill="#181313" stroke="#DC2626" stroke-width="1.5" />
+    <text class="node-title" x="20" y="28" fill="#EF4444">⚠️ CRITICAL PERFORMANCE WARNING: BLOCKING THE PAINT PROCESS</text>
+    <text class="node-sub" x="20" y="50" fill="#FCA5A5">useLayoutEffect is synchronous. Writing slow computation inside useLayoutEffect blocks browser paint.</text>
+    <text class="node-sub" x="20" y="65" fill="#FCA5A5">Use useLayoutEffect ONLY when layout jumps (flickering) would occur if code ran after paint (e.g., tooltips, popovers, custom scroll positions).</text>
+  </g>
+
+  <!-- Footnote -->
+  <text x="40" y="465" font-family="'Inter', system-ui, sans-serif" font-size="10.5px" fill="#475569">Rule of thumb: Always start with useEffect. Only switch to useLayoutEffect if you notice layout/visual glitching.</text>
+</svg>

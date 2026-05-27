@@ -125,7 +125,7 @@ export function UserProfileAbort({ userId }: { userId: string }) {
     {
       type: 'callout',
       content: 'Instead of trying to suppress the double invocation, implement a clean return function to cancel/teardown whatever side-effect was initiated.',
-      metadata: { type: 'danger', title: 'The useRef Double-Run Hack' }
+      metadata: { type: 'warning', title: 'The useRef Double-Run Hack' }
     },
     {
       type: 'heading',

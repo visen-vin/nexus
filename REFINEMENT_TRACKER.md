@@ -65,11 +65,21 @@ A topic is considered **REFINED** when it has:
 - [x] **react-9: useEffect Mental Model** (✅ REFINED — SVG: useeffect.svg ✓)
 - [x] **react-10: Effect Cleanups & Race Conditions** (✅ REFINED — SVG: cleanup.svg ✓)
 - [x] **react-11: useLayoutEffect vs useEffect** (✅ REFINED — SVG: layouteffect.svg ✓)
+- [x] **react-12: useRef Mechanics** (✅ REFINED — SVG: useref.svg ✓)
+- [x] **react-13: forwardRef** (✅ REFINED — SVG: forwardref.svg ✓)
+- [x] **react-14: useImperativeHandle** (✅ REFINED — SVG: useimperativehandle.svg ✓)
+- [x] **react-15: Rendering Behavior** (✅ REFINED — SVG: rendering-behavior.svg ✓)
+- [x] **react-16: React.memo** (✅ REFINED — SVG: memo.svg ✓)
+- [x] **react-17: useMemo & useCallback** (✅ REFINED — SVG: memoization-hooks.svg ✓)
+- [x] **react-18: Code Splitting & Suspense** (✅ REFINED — SVG: code-splitting.svg ✓)
+- [x] **react-19: Anatomy of Custom Hooks** (✅ REFINED — SVG: custom-hooks.svg ✓)
+- [x] **react-20: HOCs & Render Props** (✅ REFINED — SVG: patterns.svg ✓)
+- [x] **react-21: Compound Components Pattern** (✅ REFINED — SVG: compound-components.svg ✓)
 - [x] **react-22: Fiber Reconciliation** (✅ REFINED — SVG: fiber.svg ✓)
 
 ---
 
 ## Progress Summary
-- **Content done**: 41 / 41 topics ✅
+- **Content done**: 51 / 51 topics ✅
 - **Missing files**: 0 ✅
 - **Need SVGs** (0): None! All topics refined with high-fidelity custom SVGs. 🎉

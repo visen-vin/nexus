@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712" />
+      <stop offset="50%" stop-color="#0a1226" />
+      <stop offset="100%" stop-color="#010308" />
+    </linearGradient>
+
+    <!-- Glassmorphic Accents -->
+    <linearGradient id="glassSource" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0369a1" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="glassUtility" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.03" />
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="4" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; }
+    .keyword { fill: #f472b6; font-weight: bold; }
+    .util-name { fill: #f59e0b; font-weight: bold; }
+    .comment { fill: #64748b; font-style: italic; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Core Utility Types</text>
+  <text x="30" y="65" class="subtitle">Visualizing standard object transformation helpers built into TypeScript</text>
+
+  <!-- ==================== LEFT BOX: SOURCE OBJECT ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(30, 100)">
+    <rect width="220" height="280" rx="12" fill="url(#glassSource)" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="220" height="6" rx="3" fill="#38bdf8" />
+    <text x="20" y="30" class="card-title" fill="#38bdf8">Source Interface</text>
+    
+    <rect x="15" y="55" width="190" height="200" rx="8" fill="#050a14" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.1" />
+    <text x="25" y="80" class="code-text" fill="#cbd5e1">
+      <tspan class="keyword">interface</tspan> User {
+    </text>
+    <text x="35" y="105" class="code-text" fill="#94a3b8">id: <tspan fill="#fbbf24">string</tspan>;</text>
+    <text x="35" y="130" class="code-text" fill="#94a3b8">name: <tspan fill="#fbbf24">string</tspan>;</text>
+    <text x="35" y="155" class="code-text" fill="#94a3b8">email?: <tspan fill="#fbbf24">string</tspan>;</text>
+    <text x="35" y="180" class="code-text" fill="#94a3b8">isAdmin: <tspan fill="#fbbf24">boolean</tspan>;</text>
+    <text x="25" y="205" class="code-text" fill="#cbd5e1">}</text>
+  </g>
+
+  <!-- Flow Arrows connecting Left box to utility nodes on the right -->
+  <g stroke="#475569" stroke-width="2" fill="none" opacity="0.6">
+    <path d="M 250 200 L 310 200 Q 320 200 320 150 L 320 140 L 360 140" />
+    <path d="M 250 240 L 360 240" />
+    <path d="M 250 280 L 310 280 Q 320 280 320 340 L 320 350 L 360 350" />
+  </g>
+  <polygon points="360,140 352,135 352,145" fill="#475569" opacity="0.6" />
+  <polygon points="360,240 352,235 352,245" fill="#475569" opacity="0.6" />
+  <polygon points="360,350 352,345 352,355" fill="#475569" opacity="0.6" />
+
+  <!-- ==================== UTILITY CARD 1: PARTIAL ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(380, 90)">
+    <rect width="380" height="85" rx="10" fill="url(#glassUtility)" stroke="#fbbf24" stroke-width="1.2" stroke-opacity="0.3" />
+    <text x="15" y="25" class="card-title" fill="#fbbf24">Partial&lt;T&gt; &amp; Required&lt;T&gt;</text>
+    <rect x="15" y="38" width="350" height="35" rx="6" fill="#131006" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.1" />
+    <text x="25" y="58" class="code-text" fill="#e2e8f0">
+      <tspan class="util-name">Partial&lt;User&gt;</tspan> -> id?, name?, email?, isAdmin?
+    </text>
+  </g>
+
+  <!-- ==================== UTILITY CARD 2: PICK & OMIT ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(380, 195)">
+    <rect width="380" height="85" rx="10" fill="url(#glassUtility)" stroke="#fbbf24" stroke-width="1.2" stroke-opacity="0.3" />
+    <text x="15" y="25" class="card-title" fill="#fbbf24">Pick&lt;T, K&gt; &amp; Omit&lt;T, K&gt;</text>
+    <rect x="15" y="38" width="350" height="35" rx="6" fill="#131006" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.1" />
+    <text x="25" y="58" class="code-text" fill="#e2e8f0">
+      <tspan class="util-name">Omit&lt;User, "email"&gt;</tspan> -> id, name, isAdmin
+    </text>
+  </g>
+
+  <!-- ==================== UTILITY CARD 3: READONLY & RECORD ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(380, 300)">
+    <rect width="380" height="85" rx="10" fill="url(#glassUtility)" stroke="#fbbf24" stroke-width="1.2" stroke-opacity="0.3" />
+    <text x="15" y="25" class="card-title" fill="#fbbf24">Readonly&lt;T&gt; &amp; Record&lt;K, T&gt;</text>
+    <rect x="15" y="38" width="350" height="35" rx="6" fill="#131006" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.1" />
+    <text x="25" y="58" class="code-text" fill="#e2e8f0">
+      <tspan class="util-name">Readonly&lt;User&gt;</tspan> -> readonly id, readonly name...
+    </text>
+  </g>
+</svg>

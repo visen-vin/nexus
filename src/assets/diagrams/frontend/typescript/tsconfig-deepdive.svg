@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020817" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#040612" />
+    </linearGradient>
+
+    <!-- Glassmorphic Gradients -->
+    <linearGradient id="glassPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="glassAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="glassTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0f766e" stop-opacity="0.03" />
+    </linearGradient>
+
+    <!-- Drop Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="5" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; }
+    .keyword { fill: #f472b6; font-weight: bold; }
+    .config-key { fill: #38bdf8; }
+    .config-val { fill: #34d399; }
+    .comment { fill: #64748b; font-style: italic; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">tsconfig.json Deep Dive</text>
+  <text x="30" y="65" class="subtitle">Decoupling TypeScript compiler options, strictness vectors, path mappings, and compilation targets</text>
+
+  <!-- ==================== LEFT CARD: compilerOptions ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(30, 95)">
+    <rect width="320" height="290" rx="12" fill="url(#glassPrimary)" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="320" height="6" rx="3" fill="#38bdf8" />
+    <text x="20" y="30" class="card-title" fill="#38bdf8">tsconfig.json Configuration</text>
+
+    <!-- Code Block -->
+    <rect x="15" y="55" width="290" height="215" rx="8" fill="#050a14" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.1" />
+
+    <text x="25" y="80" class="code-text" fill="#cbd5e1">{</text>
+    <text x="35" y="100" class="code-text" fill="#94a3b8">
+      "<tspan class="config-key">compilerOptions</tspan>": {
+    </text>
+    <text x="45" y="120" class="code-text" fill="#94a3b8">
+      "<tspan class="config-key">target</tspan>": "<tspan class="config-val">ES2022</tspan>",
+    </text>
+    <text x="45" y="140" class="code-text" fill="#94a3b8">
+      "<tspan class="config-key">module</tspan>": "<tspan class="config-val">NodeNext</tspan>",
+    </text>
+    <text x="45" y="160" class="code-text" fill="#94a3b8">
+      "<tspan class="config-key">strict</tspan>": <tspan fill="#f43f5e">true</tspan>,
+    </text>
+    <text x="45" y="180" class="code-text" fill="#94a3b8">
+      "<tspan class="config-key">paths</tspan>": { <tspan class="config-val">"@/*": ["src/*"]</tspan> }
+    </text>
+    <text x="35" y="200" class="code-text" fill="#cbd5e1">},</text>
+    <text x="35" y="220" class="code-text" fill="#cbd5e1">
+      "<tspan class="config-key">include</tspan>": [<tspan class="config-val">"src"</tspan>]
+    </text>
+    <text x="25" y="240" class="code-text" fill="#cbd5e1">}</text>
+  </g>
+
+  <!-- Arrows from Config to options cards -->
+  <g stroke="#64748b" stroke-width="2" fill="none" opacity="0.6">
+    <path d="M 350 200 L 400 200 Q 410 200 410 150 L 410 140 L 440 140" />
+    <path d="M 350 280 L 400 280 Q 410 280 410 330 L 410 340 L 440 340" />
+  </g>
+  <polygon points="440,140 432,135 432,145" fill="#64748b" opacity="0.6" />
+  <polygon points="440,340 432,335 432,345" fill="#64748b" opacity="0.6" />
+
+  <!-- ==================== RIGHT CARD 1: STRICTNESS VECTORS ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(460, 95)">
+    <rect width="310" height="130" rx="10" fill="url(#glassAmber)" stroke="#fbbf24" stroke-width="1.2" stroke-opacity="0.3" />
+    <text x="15" y="25" class="card-title" fill="#fbbf24">1. Strictness flags ("strict": true)</text>
+    
+    <rect x="15" y="38" width="280" height="75" rx="6" fill="#131006" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.1" />
+    
+    <text x="25" y="58" class="code-text" fill="#fef08a">
+      • strictNullChecks: <tspan fill="#34d399">prevents undefined crashes</tspan>
+    </text>
+    <text x="25" y="78" class="code-text" fill="#fef08a">
+      • noImplicitAny: <tspan fill="#34d399">forces absolute type safety</tspan>
+    </text>
+    <text x="25" y="98" class="code-text" fill="#fef08a">
+      • noUncheckedIndexedAccess: <tspan fill="#34d399">forces index checks</tspan>
+    </text>
+  </g>
+
+  <!-- ==================== RIGHT CARD 2: COMPILATION & RESOLUTION ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(460, 245)">
+    <rect width="310" height="140" rx="10" fill="url(#glassTeal)" stroke="#2dd4bf" stroke-width="1.2" stroke-opacity="0.3" />
+    <text x="15" y="25" class="card-title" fill="#2dd4bf">2. Target &amp; Module Resolution</text>
+    
+    <rect x="15" y="40" width="280" height="85" rx="6" fill="#02120e" stroke="#2dd4bf" stroke-width="1" stroke-opacity="0.1" />
+
+    <text x="25" y="60" class="code-text" fill="#99f6e4">
+      • target ES2022: <tspan fill="#38bdf8">no downlevel transpile</tspan>
+    </text>
+    <text x="25" y="80" class="code-text" fill="#99f6e4">
+      • paths mapping: <tspan fill="#38bdf8">eliminates "../../" imports</tspan>
+    </text>
+    <text x="25" y="100" class="code-text" fill="#99f6e4">
+      • skipLibCheck: <tspan fill="#38bdf8">speeds up compilation</tspan>
+    </text>
+  </g>
+</svg>

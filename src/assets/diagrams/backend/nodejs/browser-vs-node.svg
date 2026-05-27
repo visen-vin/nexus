@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+
+    <!-- Glassmorphic Card Gradients -->
+    <linearGradient id="glassBrowser" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="glassNode" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="glassCore" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.03" />
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; }
+    .keyword { fill: #f472b6; font-weight: bold; }
+    .browser-kw { fill: #38bdf8; font-weight: bold; }
+    .node-kw { fill: #34d399; font-weight: bold; }
+    .comment { fill: #64748b; font-style: italic; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Browser vs. Node.js Runtime</text>
+  <text x="30" y="65" class="subtitle">Decoupling runtime environment boundaries, host objects, API bindings, and execution layers</text>
+
+  <!-- ==================== LEFT CARD: BROWSER ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(30, 95)">
+    <rect width="320" height="290" rx="12" fill="url(#glassBrowser)" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="320" height="6" rx="3" fill="#38bdf8" />
+    <text x="20" y="30" class="card-title" fill="#38bdf8">Browser Runtime Environment</text>
+    
+    <rect x="15" y="55" width="290" height="215" rx="8" fill="#050a14" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.1" />
+    
+    <text x="25" y="80" class="code-text" fill="#94a3b8">
+      • Global: <tspan class="browser-kw">window</tspan> | <tspan class="browser-kw">self</tspan>
+    </text>
+    <text x="25" y="105" class="code-text" fill="#94a3b8">
+      • Host APIs: <tspan class="browser-kw">document</tspan> (DOM)
+    </text>
+    <text x="25" y="125" class="code-text" fill="#64748b" font-style="italic">
+      (manipulates elements directly)
+    </text>
+    <text x="25" y="155" class="code-text" fill="#94a3b8">
+      • Storage: <tspan class="browser-kw">localStorage</tspan> | cookies
+    </text>
+    <text x="25" y="180" class="code-text" fill="#94a3b8">
+      • Sandboxed: <tspan fill="#fb7185">Strict filesystem blocks</tspan>
+    </text>
+    <text x="25" y="205" class="code-text" fill="#94a3b8">
+      • Event Loop: <tspan class="browser-kw">renders frame updates</tspan>
+    </text>
+    
+    <text x="25" y="245" class="code-text comment">// Interacts with browser window DOM</text>
+  </g>
+
+  <!-- ==================== CENTER UNION: SHARED CORE ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(365, 175)">
+    <rect width="70" height="130" rx="10" fill="url(#glassCore)" stroke="#fbbf24" stroke-width="1.5" stroke-opacity="0.4" />
+    <text x="35" y="30" font-family="Outfit" font-size="12px" font-weight="700" fill="#fbbf24" text-anchor="middle">SHARED</text>
+    <text x="35" y="65" class="code-text" fill="#cbd5e1" text-anchor="middle">V8</text>
+    <text x="35" y="80" font-family="Inter" font-size="10px" fill="#cbd5e1" text-anchor="middle">Engine</text>
+    <text x="35" y="105" class="code-text" fill="#34d399" text-anchor="middle">ES JS</text>
+  </g>
+
+  <!-- ==================== RIGHT CARD: NODE.JS ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(450, 95)">
+    <rect width="320" height="290" rx="12" fill="url(#glassNode)" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="320" height="6" rx="3" fill="#34d399" />
+    <text x="20" y="30" class="card-title" fill="#34d399">Node.js Runtime Environment</text>
+    
+    <rect x="15" y="55" width="290" height="215" rx="8" fill="#02120a" stroke="#34d399" stroke-width="1" stroke-opacity="0.1" />
+
+    <text x="25" y="80" class="code-text" fill="#94a3b8">
+      • Global: <tspan class="node-kw">global</tspan> | <tspan class="node-kw">globalThis</tspan>
+    </text>
+    <text x="25" y="105" class="code-text" fill="#94a3b8">
+      • System APIs: <tspan class="node-kw">process</tspan> | <tspan class="node-kw">Buffer</tspan>
+    </text>
+    <text x="25" y="130" class="code-text" fill="#94a3b8">
+      • Host Modules: <tspan class="node-kw">fs</tspan> | <tspan class="node-kw">path</tspan> | <tspan class="node-kw">os</tspan> | <tspan class="node-kw">http</tspan>
+    </text>
+    <text x="25" y="155" class="code-text" fill="#94a3b8">
+      • Sandbox: <tspan fill="#34d399">Full os/file system access</tspan>
+    </text>
+    <text x="25" y="180" class="code-text" fill="#94a3b8">
+      • Event Loop: <tspan class="node-kw">libuv driven</tspan> (multi phases)
+    </text>
+    
+    <text x="25" y="245" class="code-text comment">// Direct server machine execution</text>
+  </g>
+</svg>

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020512" />
+      <stop offset="50%" stop-color="#090f24" />
+      <stop offset="100%" stop-color="#010206" />
+    </linearGradient>
+
+    <!-- Glassmorphic Card Gradients -->
+    <linearGradient id="glassOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#c2410c" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="glassTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0f766e" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="glassEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 12px; }
+    .keyword { fill: #f472b6; font-weight: bold; }
+    .type-param { fill: #38bdf8; }
+    .union-val { fill: #34d399; font-weight: bold; }
+    .comment { fill: #64748b; font-style: italic; }
+    .join-symbol { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #64748b; text-anchor: middle; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Template Literal Types</text>
+  <text x="30" y="65" class="subtitle">Generating complex string union types through interpolation and casing helpers</text>
+
+  <!-- ==================== LEFT CARD: PREFIX UNION ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(30, 100)">
+    <rect width="180" height="280" rx="12" fill="url(#glassOrange)" stroke="#fb923c" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="180" height="6" rx="3" fill="#fb923c" />
+    <text x="20" y="30" class="card-title" fill="#fb923c">1. Prefix Union</text>
+    
+    <rect x="15" y="50" width="150" height="205" rx="8" fill="#090502" stroke="#fb923c" stroke-width="1" stroke-opacity="0.1" />
+    <text x="25" y="80" class="code-text" fill="#fdba74">
+      <tspan class="keyword">type</tspan> Prefix =
+    </text>
+    <text x="35" y="110" class="code-text" fill="#34d399">"margin"</text>
+    <text x="35" y="135" class="code-text" fill="#cbd5e1">| <tspan fill="#34d399">"padding"</tspan>;</text>
+    
+    <text x="25" y="180" class="code-text comment">// String literal</text>
+    <text x="25" y="195" class="code-text comment">// values that represent</text>
+    <text x="25" y="210" class="code-text comment">// root properties</text>
+  </g>
+
+  <!-- Joining Plus symbol -->
+  <text x="235" y="245" class="join-symbol">+</text>
+
+  <!-- ==================== MIDDLE CARD: DIRECTION UNION ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(260, 100)">
+    <rect width="180" height="280" rx="12" fill="url(#glassTeal)" stroke="#2dd4bf" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="180" height="6" rx="3" fill="#2dd4bf" />
+    <text x="20" y="30" class="card-title" fill="#2dd4bf">2. Direction Union</text>
+    
+    <rect x="15" y="50" width="150" height="205" rx="8" fill="#020c0a" stroke="#2dd4bf" stroke-width="1" stroke-opacity="0.1" />
+    <text x="25" y="80" class="code-text" fill="#99f6e4">
+      <tspan class="keyword">type</tspan> Dir =
+    </text>
+    <text x="35" y="110" class="code-text" fill="#38bdf8">"Top"</text>
+    <text x="35" y="135" class="code-text" fill="#cbd5e1">| <tspan fill="#38bdf8">"Bottom"</tspan></text>
+    <text x="35" y="160" class="code-text" fill="#cbd5e1">| <tspan fill="#38bdf8">"Left"</tspan></text>
+    <text x="35" y="185" class="code-text" fill="#cbd5e1">| <tspan fill="#38bdf8">"Right"</tspan>;</text>
+  </g>
+
+  <!-- Equal arrow -->
+  <g transform="translate(455, 230)">
+    <line x1="0" y1="10" x2="40" y2="10" stroke="#64748b" stroke-width="3" />
+    <polygon points="40,4 52,10 40,16" fill="#64748b" />
+    
+    <text x="20" y="-8" class="code-text" fill="#f472b6" font-weight="bold" text-anchor="middle">casing</text>
+  </g>
+
+  <!-- ==================== RIGHT CARD: COMBINED TEMPLATE LITERAL ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(520, 100)">
+    <rect width="250" height="280" rx="12" fill="url(#glassEmerald)" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="250" height="6" rx="3" fill="#34d399" />
+    <text x="20" y="30" class="card-title" fill="#34d399">3. Generated CSS Type</text>
+    
+    <rect x="15" y="50" width="220" height="205" rx="8" fill="#02120b" stroke="#34d399" stroke-width="1" stroke-opacity="0.1" />
+    
+    <text x="25" y="75" class="code-text" fill="#a7f3d0">
+      <tspan class="keyword">type</tspan> Style = \`\${Prefix}\${Dir}\`;
+    </text>
+    
+    <text x="25" y="105" class="code-text comment">// Yields exhaustive 8 keys:</text>
+    <text x="25" y="125" class="code-text" fill="#fbbf24">"marginTop" | "marginBottom" |</text>
+    <text x="25" y="145" class="code-text" fill="#fbbf24">"marginLeft" | "marginRight" |</text>
+    <text x="25" y="165" class="code-text" fill="#fbbf24">"paddingTop" | "paddingBottom" |</text>
+    <text x="25" y="185" class="code-text" fill="#fbbf24">"paddingLeft" | "paddingRight"</text>
+    
+    <text x="25" y="215" class="code-text comment">// Casing helper converts dynamically!</text>
+  </g>
+</svg>

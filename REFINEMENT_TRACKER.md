@@ -99,10 +99,25 @@ A topic is considered **REFINED** when it has:
 - [x] **ts-9: Function Overloads** (✅ REFINED — SVG: function-overloads.svg ✓)
 - [x] **ts-10: Generics Mental Model** (✅ REFINED — SVG: generics-mental-model.svg ✓)
 - [x] **ts-11: Generic Constraints** (✅ REFINED — SVG: generic-constraints.svg ✓)
+- [x] **ts-12: keyof & typeof** (✅ REFINED — SVG: keyof-typeof.svg ✓)
+- [x] **ts-13: Indexed Access Types** (✅ REFINED — SVG: indexed-access-types.svg ✓)
+- [x] **ts-14: Conditional Types** (✅ REFINED — SVG: conditional-types.svg ✓)
+- [x] **ts-15: Mapped Types** (✅ REFINED — SVG: mapped-types.svg ✓)
+- [x] **ts-16: Template Literal Types** (✅ REFINED — SVG: template-literal-types.svg ✓)
+- [x] **ts-17: Core Utilities** (✅ REFINED — SVG: core-utilities.svg ✓)
+- [x] **ts-18: Extraction Utilities** (✅ REFINED — SVG: extraction-utilities.svg ✓)
+- [x] **ts-19: TypeScript with React** (✅ REFINED — SVG: typescript-with-react.svg ✓)
+- [x] **ts-20: tsconfig Deep Dive** (✅ REFINED — SVG: tsconfig-deepdive.svg ✓)
+
+---
+
+## Cluster 8: Node.js Core
+- [x] **node-1: Browser vs. Node.js** (✅ REFINED — SVG: browser-vs-node.svg ✓)
 
 ---
 
 ## Progress Summary
-- **Content done**: 70 / 70 topics ✅
+- **Content done**: 80 / 80 topics ✅
 - **Missing files**: 0 ✅
 - **Need SVGs** (0): None! All topics refined with high-fidelity custom SVGs. 🎉
+

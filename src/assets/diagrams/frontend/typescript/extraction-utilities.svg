@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+
+    <!-- Glassmorphic Card Gradients -->
+    <linearGradient id="glassTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0f766e" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="glassPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#7e22ce" stop-opacity="0.03" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .code-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; }
+    .keyword { fill: #f472b6; font-weight: bold; }
+    .extract-kw { fill: #34d399; font-weight: bold; }
+    .exclude-kw { fill: #f43f5e; font-weight: bold; }
+    .param-kw { fill: #38bdf8; font-weight: bold; }
+    .ret-kw { fill: #fbbf24; font-weight: bold; }
+    .comment { fill: #64748b; font-style: italic; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Extraction &amp; Selection Utilities</text>
+  <text x="30" y="65" class="subtitle">Extracting type parameters, return keys, and stripping nullability or union branches</text>
+
+  <!-- ==================== TOP CARD: UNION EXTRACTIONS ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(30, 95)">
+    <rect width="350" height="290" rx="12" fill="url(#glassTeal)" stroke="#2dd4bf" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="350" height="6" rx="3" fill="#2dd4bf" />
+    <text x="20" y="30" class="card-title" fill="#2dd4bf">Union Manipulations (Exclude, Extract)</text>
+
+    <!-- Code Block -->
+    <rect x="15" y="55" width="320" height="215" rx="8" fill="#02120e" stroke="#2dd4bf" stroke-width="1" stroke-opacity="0.1" />
+
+    <text x="25" y="80" class="code-text" fill="#cbd5e1">
+      <tspan class="keyword">type</tspan> Fruit = <tspan fill="#fdba74">"Apple" | "Banana" | "Cherry"</tspan>;
+    </text>
+
+    <text x="25" y="115" class="code-text comment">// Exclude&lt;T, U&gt; -> Drops matching keys</text>
+    <text x="25" y="135" class="code-text" fill="#a7f3d0">
+      type Sweet = <tspan class="exclude-kw">Exclude</tspan>&lt;Fruit, <tspan fill="#f43f5e">"Cherry"</tspan>&gt;;
+    </text>
+    <text x="25" y="155" class="code-text" fill="#94a3b8">
+      // Result: "Apple" | "Banana"
+    </text>
+
+    <text x="25" y="195" class="code-text comment">// Extract&lt;T, U&gt; -> Keeps only matching keys</text>
+    <text x="25" y="215" class="code-text" fill="#a7f3d0">
+      type Citrus = <tspan class="extract-kw">Extract</tspan>&lt;Fruit, <tspan fill="#34d399">"Banana"</tspan>&gt;;
+    </text>
+    <text x="25" y="235" class="code-text" fill="#94a3b8">
+      // Result: "Banana"
+    </text>
+  </g>
+
+  <!-- ==================== BOTTOM CARD: FUNCTION EXTRACTIONS ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(420, 95)">
+    <rect width="350" height="290" rx="12" fill="url(#glassPurple)" stroke="#c084fc" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="350" height="6" rx="3" fill="#c084fc" />
+    <text x="20" y="30" class="card-title" fill="#c084fc">Function Structural Plucking</text>
+
+    <!-- Code Block -->
+    <rect x="15" y="55" width="320" height="215" rx="8" fill="#0c0514" stroke="#c084fc" stroke-width="1" stroke-opacity="0.1" />
+
+    <text x="25" y="80" class="code-text" fill="#cbd5e1">
+      <tspan class="keyword">type</tspan> FetchUser = (id: <tspan fill="#38bdf8">number</tspan>) =&gt; <tspan fill="#fbbf24">User</tspan>;
+    </text>
+
+    <text x="25" y="115" class="code-text comment">// Parameters&lt;T&gt; -> Extracts arg types as tuple</text>
+    <text x="25" y="135" class="code-text" fill="#e879f9">
+      type Args = <tspan class="param-kw">Parameters</tspan>&lt;FetchUser&gt;;
+    </text>
+    <text x="25" y="155" class="code-text" fill="#94a3b8">
+      // Result: [id: number]
+    </text>
+
+    <text x="25" y="195" class="code-text comment">// ReturnType&lt;T&gt; -> Extracts the return shape</text>
+    <text x="25" y="215" class="code-text" fill="#e879f9">
+      type Return = <tspan class="ret-kw">ReturnType</tspan>&lt;FetchUser&gt;;
+    </text>
+    <text x="25" y="235" class="code-text" fill="#94a3b8">
+      // Result: User
+    </text>
+  </g>
+</svg>

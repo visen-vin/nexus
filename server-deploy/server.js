@@ -4,7 +4,30 @@ const { randomUUID } = require('crypto');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const db = require('./db');
+const cron = require('node-cron');
+const { getDetailedReport } = require('./reporting');
+const { generateLearningInsights } = require('./dreaming');
 const { app: agent } = require('./agent');
+
+// ── CRON JOBS ────────────────────────────────────────────────────────
+// Automated Dreaming: Processes new messages for all users every 4 hours
+cron.schedule('0 */4 * * *', async () => {
+  console.log('[Cron] Starting automated dreaming session...');
+  try {
+    const users = db.prepare('SELECT id FROM users').all();
+    for (const user of users) {
+      try {
+        await generateLearningInsights(user.id);
+        console.log(`[Cron] Dream completed for user: ${user.id}`);
+      } catch (e) {
+        console.error(`[Cron] Dream failed for user: ${user.id}:`, e.message);
+      }
+    }
+    console.log('[Cron] Dreaming session finished.');
+  } catch (e) {
+    console.error('[Cron] Critical error in dreaming scheduler:', e.message);
+  }
+});
 const { HumanMessage, AIMessage, SystemMessage } = require('@langchain/core/messages');
 
 const app = express();
@@ -128,6 +151,21 @@ app.get('/api/users/:id/summary', (req, res) => {
   });
 });
 
+app.get('/api/users/:id/detailed-report', async (req, res) => {
+  const report = await getDetailedReport(req.params.id);
+  if (!report) return res.status(404).json({ error: 'User not found' });
+  res.json(report);
+});
+
+app.post('/api/users/:id/dream', async (req, res) => {
+  try {
+    const insights = await generateLearningInsights(req.params.id);
+    res.json({ success: true, insights });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // ── PROGRESS ──────────────────────────────────────────────────────────
 app.get('/api/users/:id/progress', (req, res) => {
   const rows = db.prepare('SELECT * FROM progress WHERE user_id = ?').all(req.params.id);
@@ -137,10 +175,10 @@ app.get('/api/users/:id/progress', (req, res) => {
 });
 
 app.post('/api/users/:id/progress', (req, res) => {
-  const { topicId, status, confidence } = req.body;
+  const { topicId, status, confidence, remarks } = req.body;
   if (!topicId || !status || !confidence) return res.status(400).json({ error: 'Missing fields' });
-  db.prepare("INSERT OR REPLACE INTO progress (user_id,topic_id,status,confidence,updated_at) VALUES (?,?,?,?,datetime('now'))")
-    .run(req.params.id, topicId, status, confidence);
+  db.prepare("INSERT OR REPLACE INTO progress (user_id,topic_id,status,confidence,remarks,updated_at) VALUES (?,?,?,?,?,datetime('now'))")
+    .run(req.params.id, topicId, status, confidence, remarks || null);
   res.json({ success: true });
 });
 
@@ -256,9 +294,9 @@ app.put('/api/users/:id/subject-summary/:moduleId', (req, res) => {
 
 // ── CHAT (LangGraph) ──────────────────────────────────────────────────
 app.post('/api/chat/stream', async (req, res) => {
-  const { messages, systemPrompt, userId, activeModuleId, forceCreateTopic } = req.body;
+  const { messages, systemPrompt, userId, activeModuleId, forceCreateTopic, topicId } = req.body;
   
-  console.log(`[Chat] Request from user: ${userId}, forceCreateTopic: ${forceCreateTopic}`);
+  console.log(`[Chat] Request from user: ${userId}, topic: ${topicId}, forceCreateTopic: ${forceCreateTopic}`);
 
   if (!messages || !userId) {
     console.error('[Chat] Missing messages or userId');
@@ -279,7 +317,8 @@ app.post('/api/chat/stream', async (req, res) => {
   res.setHeader('Connection', 'keep-alive');
   res.setHeader('X-Accel-Buffering', 'no'); // Prevent Nginx buffering
 
-  const config = { configurable: { thread_id: userId } };
+  const threadId = topicId ? `${userId}-${topicId}` : userId;
+  const config = { configurable: { thread_id: threadId } };
   const input = { 
     messages: lcMessages, 
     userId, 

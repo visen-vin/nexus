@@ -27,13 +27,6 @@ export function clearCode(): void {
 
 const PREFIX = 'NEXUS-';
 
-function normalizeSuffix(raw: string): string {
-  // If user pastes full code like NEXUS-VIN-2026, strip prefix
-  const upper = raw.toUpperCase().trim();
-  if (upper.startsWith(PREFIX)) return upper.slice(PREFIX.length);
-  return upper;
-}
-
 function isValidSuffix(suffix: string): boolean {
   return /^[A-Z0-9]{3,8}-[A-Z0-9]{3,8}$/.test(suffix.trim());
 }
@@ -56,7 +49,19 @@ export function WelcomeScreen({ onEnter }: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError('');
-    setSuffix(normalizeSuffix(e.target.value));
+    let val = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '').trim();
+    
+    // If user pastes NEXUS- prefix, strip it
+    if (val.startsWith(PREFIX)) val = val.slice(PREFIX.length);
+    
+    // Auto-hyphen logic:
+    // If user typed more than 4 chars and there's no hyphen, or hyphen is in wrong place
+    const raw = val.replace(/-/g, '');
+    if (raw.length > 4) {
+      val = raw.slice(0, 4) + '-' + raw.slice(4, 8);
+    }
+    
+    setSuffix(val);
   };
 
   const handleSubmit = async () => {

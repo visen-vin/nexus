@@ -1,4 +1,5 @@
 import type { NoteContent } from '../data/types';
+import type { TopicStatus, Confidence } from './progress';
 
 const BASE = '/api';
 const USER_KEY = 'nexus_user_id';
@@ -96,12 +97,21 @@ export async function deleteTopic(id: string): Promise<boolean> {
   } catch { return false; }
 }
 
-export async function syncProgress(topicId: string, status: string, confidence: string): Promise<void> {
+export async function fetchProgress(): Promise<Record<string, { status: TopicStatus; confidence: Confidence; date: string }>> {
+  const id = getUserId();
+  if (!id) return {};
+  try {
+    const res = await fetch(`${BASE}/users/${id}/progress`);
+    return res.ok ? res.json() : {};
+  } catch { return {}; }
+}
+
+export async function syncProgress(topicId: string, status: string, confidence: string, remarks?: string): Promise<void> {
   try {
     await fetch(`${BASE}/users/${getUserId()}/progress`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ topicId, status, confidence }),
+      body: JSON.stringify({ topicId, status, confidence, remarks }),
     });
   } catch { /* best-effort */ }
 }
@@ -143,6 +153,15 @@ export interface UserSummary {
   subjectSummaries: { module_id: string; summary_md: string }[];
 }
 
+export interface DetailedReport {
+  user: { id: string; xp: number; level: number; levelLabel: string; nextThreshold: number; insights?: string };
+  streak: number;
+  badges: { id: string; label: string; description: string }[];
+  modules: { id: string; total: number; done: number; percentage: number }[];
+  topicRemarks: { topicId: string; status: string; confidence: string; remark: string; updatedAt: string }[];
+  summary: { totalTopics: number; completedTopics: number; strugglingTopics: number };
+}
+
 export async function fetchUserMemory(): Promise<{ key: string; value: string }[]> {
   const id = getUserId();
   if (!id) return [];
@@ -178,6 +197,15 @@ export async function fetchUserSummary(): Promise<UserSummary | null> {
       totalTopics: data.stats?.total || 0,
       subjectSummaries: data.subjectSummaries || [],
     };
+  } catch { return null; }
+}
+
+export async function fetchDetailedReport(): Promise<DetailedReport | null> {
+  const id = getUserId();
+  if (!id) return null;
+  try {
+    const res = await fetch(`${BASE}/users/${id}/detailed-report`);
+    return res.ok ? res.json() : null;
   } catch { return null; }
 }
 

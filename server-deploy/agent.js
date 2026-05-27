@@ -6,9 +6,54 @@ const { SqliteSaver } = require('@langchain/langgraph-checkpoint-sqlite');
 const { z } = require('zod');
 const { tool } = require('@langchain/core/tools');
 const db = require('./db');
+const { getDetailedReport } = require('./reporting');
 const { NodeVM } = require('vm2');
 
 // 1. Tool Definitions
+const getDetailedReportTool = tool(
+  async (args, config) => {
+    const userId = config.configurable.thread_id;
+    try {
+      const report = await getDetailedReport(userId);
+      if (!report) return "User report not found.";
+      return JSON.stringify(report, null, 2);
+    } catch (e) {
+      return `Error fetching detailed report: ${e.message}`;
+    }
+  },
+  {
+    name: 'get_detailed_report',
+    description: 'Call this to see the student\'s full progress report, including XP, current Level, earned Badges, and a module-by-module completion breakdown. Use this to personalize your feedback, congratulate them on achievements, or adjust quiz difficulty based on their mastery level.',
+    schema: z.object({}),
+  }
+);
+
+const updateTopicProgressTool = tool(
+  async ({ topicId, status, confidence, remarks }, config) => {
+    const userId = config.configurable.thread_id;
+    try {
+      const res = await fetch(`http://localhost:3005/api/users/${userId}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topicId, status, confidence, remarks }),
+      });
+      return res.ok ? `Progress updated for ${topicId}.` : `Error updating progress.`;
+    } catch (e) {
+      return `Error: ${e.message}`;
+    }
+  },
+  {
+    name: 'update_topic_progress',
+    description: 'Use this to mark a topic as done, struggling, or todo, and to save detailed remarks/feedback about the student\'s performance on this specific topic. Remarks should include what they did well and specific concepts they missed.',
+    schema: z.object({
+      topicId: z.string(),
+      status: z.enum(['done', 'struggling', 'todo']),
+      confidence: z.enum(['high', 'shaky']),
+      remarks: z.string(),
+    }),
+  }
+);
+
 const listCurriculumTool = tool(
   async (args, config) => {
     const userId = config.configurable.thread_id;
@@ -85,8 +130,8 @@ const saveMemoryTool = tool(
     name: 'save_memory',
     description: 'Save an observation about the student to long-term memory. Use when you notice a strength, weakness, learning style insight, or any pattern worth remembering across sessions.',
     schema: z.object({
-      key: z.string().describe('Short snake_case key e.g. "weakness_async", "strength_closures"'),
-      value: z.string().describe('Concise observation in 1-2 sentences.'),
+      key: z.string(),
+      value: z.string(),
     }),
   }
 );
@@ -106,9 +151,9 @@ const logWeaknessTool = tool(
     name: 'log_weakness',
     description: 'Log a specific conceptual gap or weakness identified during teaching or assessment. Use this for tracking what needs revision later.',
     schema: z.object({
-      concept: z.string().describe('The specific concept or sub-topic (e.g. "Event Loop Macrotasks")'),
-      topicId: z.string().optional().describe('The ID of the chapter being studied'),
-      severity: z.number().optional().describe('1 for minor doubt, 2 for fundamental misunderstanding'),
+      concept: z.string(),
+      topicId: z.string().optional(),
+      severity: z.number().optional(),
     }),
   }
 );
@@ -144,7 +189,7 @@ const executeCodeTool = tool(
     name: 'execute_code',
     description: 'Executes JavaScript code in a secure sandbox and returns console output. Use this to verify code, demonstrate logic, or show live results to the student.',
     schema: z.object({
-      code: z.string().describe('The JavaScript code to execute.'),
+      code: z.string(),
     }),
   }
 );
@@ -172,12 +217,12 @@ const generateRoadmapTool = tool(
     name: 'generate_roadmap',
     description: 'Call this tool to create a structured study plan (roadmap) for the student. A roadmap is a sequence of steps to reach a specific goal. Do NOT use this for single topics; use it for multi-step curricula.',
     schema: z.object({
-      id: z.string().describe('Unique kebab-case slug for the roadmap'),
-      title: z.string().describe('Clear goal-oriented title (e.g. "React Hooks Mastery")'),
-      description: z.string().describe('Brief overview of what this plan covers'),
+      id: z.string(),
+      title: z.string(),
+      description: z.string(),
       steps: z.array(z.object({
-        title: z.string().describe('Title of the roadmap step'),
-        description: z.string().describe('What will be learned in this specific step'),
+        title: z.string(),
+        description: z.string(),
       })).min(2).max(15),
     }),
   }
@@ -198,8 +243,8 @@ const createTopicTool = tool(
     name: 'create_topic',
     description: 'ALWAYS call this function when creating any topic, lesson, or course content.',
     schema: z.object({
-      id: z.string().describe('Unique kebab-case slug'),
-      moduleId: z.string().describe('Module ID this belongs to'),
+      id: z.string(),
+      moduleId: z.string(),
       order: z.number().optional(),
       group: z.string().optional(),
       title: z.string(),
@@ -279,20 +324,27 @@ Respond with ONLY the name of the agent: 'tutor' or 'creator'.`;
 
 async function tutorNode(state) {
   const { messages } = state;
-  const tutorModel = model.bindTools([saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool]);
+  const tutorModel = model.bindTools([getDetailedReportTool, updateTopicProgressTool, saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool]);
   const response = await tutorModel.invoke(messages);
   return { messages: [response] };
 }
 
 async function creatorNode(state) {
   const { messages, forceCreateTopic } = state;
-  const creatorModel = model.bindTools([createTopicTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool]);
+  const tools = [getDetailedReportTool, updateTopicProgressTool, createTopicTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, listCurriculumTool, getStudentContextTool];
+  let creatorModel = model.bindTools(tools);
   
+  if (forceCreateTopic) {
+    creatorModel = creatorModel.bind({
+      tool_choice: { type: 'function', function: { name: 'create_topic' } }
+    });
+  }
+
   const response = await creatorModel.invoke(messages);
   return { messages: [response] };
 }
 
-const toolNode = new ToolNode([saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, createTopicTool, listCurriculumTool, getStudentContextTool]);
+const toolNode = new ToolNode([getDetailedReportTool, updateTopicProgressTool, saveMemoryTool, logWeaknessTool, executeCodeTool, generateRoadmapTool, createTopicTool, listCurriculumTool, getStudentContextTool]);
 
 // 5. Graph Construction
 const workflow = new StateGraph(AgentState)

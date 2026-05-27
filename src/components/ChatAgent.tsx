@@ -202,7 +202,7 @@ export function ChatAgent({ activeNote, activeModuleId, activeModuleLabel, onTop
   });
 
   useEffect(() => {
-    if (open) {
+    if (open && window.innerWidth < 640) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';

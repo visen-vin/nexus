@@ -187,10 +187,23 @@ function App() {
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
       setHighlightedText(text);
-      setSelectionRect({
-        top: rect.top + window.scrollY - 40,
-        left: rect.left + rect.width / 2
-      });
+      
+      const popupWidth = 140; // Approximate width of the popup
+      const padding = 16;
+      
+      let left = rect.left + rect.width / 2;
+      // Keep it within the viewport bounds
+      const minLeft = popupWidth / 2 + padding;
+      const maxLeft = window.innerWidth - (popupWidth / 2 + padding);
+      left = Math.max(minLeft, Math.min(maxLeft, left));
+
+      // Calculate top relative to viewport. If there's no space above, show it below the selection.
+      let top = rect.top - 48; // 48px above the text selection
+      if (top < padding) {
+        top = rect.bottom + 12; // Show 12px below the selection if no space above
+      }
+
+      setSelectionRect({ top, left });
     }
   }, []);
 

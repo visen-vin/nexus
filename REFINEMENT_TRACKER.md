@@ -53,7 +53,14 @@ A topic is considered **REFINED** when it has:
 
 ---
 
+## Cluster 6: React Deep Dives
+- [x] **react-1: Declarative Philosophy** (✅ REFINED — SVG: philosophy.svg ✓)
+- [x] **react-22: Fiber Reconciliation** (✅ REFINED — SVG: fiber.svg ✓)
+
+---
+
 ## Progress Summary
-- **Content done**: 29 / 29 topics ✅
+- **Content done**: 31 / 31 topics ✅
 - **Missing files**: 0 ✅
-- **Need SVGs** (0): None! All topics fully refined with high-fidelity custom SVGs. 🎉
+- **Need SVGs** (0): None! All topics refined with high-fidelity custom SVGs. 🎉
+

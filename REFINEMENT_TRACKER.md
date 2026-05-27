@@ -63,11 +63,13 @@ A topic is considered **REFINED** when it has:
 - [x] **react-7: Component Composition** (✅ REFINED — SVG: composition.svg ✓)
 - [x] **react-8: Context API Deep Dive** (✅ REFINED — SVG: context.svg ✓)
 - [x] **react-9: useEffect Mental Model** (✅ REFINED — SVG: useeffect.svg ✓)
+- [x] **react-10: Effect Cleanups & Race Conditions** (✅ REFINED — SVG: cleanup.svg ✓)
+- [x] **react-11: useLayoutEffect vs useEffect** (✅ REFINED — SVG: layouteffect.svg ✓)
 - [x] **react-22: Fiber Reconciliation** (✅ REFINED — SVG: fiber.svg ✓)
 
 ---
 
 ## Progress Summary
-- **Content done**: 39 / 39 topics ✅
+- **Content done**: 41 / 41 topics ✅
 - **Missing files**: 0 ✅
 - **Need SVGs** (0): None! All topics refined with high-fidelity custom SVGs. 🎉

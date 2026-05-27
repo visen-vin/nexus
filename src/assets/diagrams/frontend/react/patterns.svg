@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Glowing Effects -->
+    <filter id="glowBlue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowOrange" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Node Gradients -->
+    <linearGradient id="hocGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+    <linearGradient id="renderPropsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="warnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#B91C1C" />
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L6,3 z" fill="#6366F1" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L6,3 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowOrange" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L6,3 z" fill="#F59E0B" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .header-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #F8FAFC; }
+    .node-label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12px; fill: #FFFFFF; }
+    .node-sub { font-family: 'Fira Code', monospace; font-size: 10px; fill: #94A3B8; }
+    .node-code { font-family: 'Fira Code', monospace; font-size: 9px; fill: #E2E8F0; }
+    .badge { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 9px; fill: #FFFFFF; }
+    .caption-text { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; fill: #64748B; }
+  </style>
+
+  <!-- Container -->
+  <rect width="900" height="520" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.04">
+    <line x1="50" y1="0" x2="50" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="520" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6,6" />
+    <line x1="850" y1="0" x2="850" y2="520" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="900" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="440" x2="900" y2="440" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">REACT ADVANCED PATTERNS: HOC VS RENDER PROPS</text>
+    <text class="subtitle" x="0" y="18">COMPARING COMPOSITIONAL WRAPPING HIERARCHIES AGAINST EXPLICIT RUNTIME FUNCTION INJECTION</text>
+  </g>
+
+  <!-- LEFT: Higher-Order Components (HOC) -->
+  <g transform="translate(40, 110)">
+    <rect width="380" height="300" rx="12" fill="#0B132B" stroke="#1E293B" stroke-width="1.5" />
+    
+    <!-- Header -->
+    <rect width="380" height="40" rx="12" fill="#111B35" opacity="0.8" />
+    <rect width="380" height="2" fill="url(#hocGrad)" y="38" />
+    <text class="header-text" x="20" y="24" fill="#818CF8">1. Higher-Order Components (Static Wrap)</text>
+    
+    <!-- Wrapper Layer 1 (withAuth) -->
+    <g transform="translate(30, 65)">
+      <rect width="320" height="210" rx="8" fill="#111A2E" stroke="#4F46E5" stroke-width="1.5" stroke-dasharray="4,2" />
+      <rect width="70" height="18" rx="4" fill="#4F46E5" x="10" y="-9" />
+      <text class="badge" x="18" y="3">withAuth()</text>
+      
+      <!-- Wrapper Layer 2 (withLogger) -->
+      <g transform="translate(30, 45)">
+        <rect width="260" height="140" rx="6" fill="#18223B" stroke="#6366F1" stroke-width="1.5" />
+        <rect width="80" height="18" rx="4" fill="#6366F1" x="10" y="-9" />
+        <text class="badge" x="18" y="3">withLogger()</text>
+        
+        <!-- Target Component -->
+        <g transform="translate(30, 45)">
+          <rect width="200" height="70" rx="4" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5" />
+          <text class="node-label" x="15" y="25">MyComponent</text>
+          <text class="node-code" x="15" y="44">props: { user, log, id }</text>
+          <text class="node-code" x="15" y="58" fill="#F59E0B">⚠️ Conflict Risk: "id" prop</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Prop Collision Overlay/Callout -->
+    <g transform="translate(240, 240)" filter="url(#glowOrange)">
+      <rect width="125" height="45" rx="6" fill="#7F1D1D" stroke="#EF4444" stroke-width="1" />
+      <text class="node-label" x="8" y="16" fill="#FECACA" font-size="10px">Prop Collisions!</text>
+      <text class="caption-text" x="8" y="28" fill="#FCA5A5" font-size="8px">Nested layers can silently</text>
+      <text class="caption-text" x="8" y="36" fill="#FCA5A5" font-size="8px">overwrite identical prop keys.</text>
+    </g>
+  </g>
+
+  <!-- RIGHT: Render Props (Dynamic Child Layout) -->
+  <g transform="translate(480, 110)">
+    <rect width="380" height="300" rx="12" fill="#0B132B" stroke="#1E293B" stroke-width="1.5" />
+    
+    <!-- Header -->
+    <rect width="380" height="40" rx="12" fill="#0C1D33" opacity="0.8" />
+    <rect width="380" height="2" fill="url(#renderPropsGrad)" y="38" />
+    <text class="header-text" x="20" y="24" fill="#34D399">2. Render Props (Dynamic Injection)</text>
+    
+    <!-- AuthGate Component -->
+    <g transform="translate(30, 65)">
+      <rect width="320" height="85" rx="8" fill="#11252C" stroke="#059669" stroke-width="1.5" />
+      <text class="node-label" x="15" y="25" fill="#34D399">&lt;AuthGate&gt;</text>
+      <text class="node-sub" x="15" y="44">Encapsulates Auth State &amp; Logic</text>
+      
+      <!-- Render Function Arrow -->
+      <path d="M120,55 L120,105" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowGreen)" />
+      <text class="node-code" x="130" y="80" fill="#34D399">children={(auth) => ...}</text>
+    </g>
+
+    <!-- Injected Target Component -->
+    <g transform="translate(30, 185)" filter="url(#glowGreen)">
+      <rect width="320" height="85" rx="8" fill="#1E293B" stroke="#10B981" stroke-width="2" />
+      <rect width="320" height="4" fill="url(#renderPropsGrad)" />
+      
+      <text class="node-label" x="15" y="25">MyComponent</text>
+      <text class="node-code" x="15" y="45" fill="#E2E8F0">Explicitly receive auth details:</text>
+      <text class="node-code" x="15" y="60" fill="#6EE7B7">&lt;MyComponent user={auth.user} profileId={auth.id} /&gt;</text>
+      <text class="node-sub" x="15" y="74" fill="#94A3B8">✓ No namespace collision. Clean compilation.</text>
+    </g>
+  </g>
+
+  <!-- Footnote -->
+  <text x="40" y="465" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#64748B">Key Architectural Tradeoffs:</text>
+  <text x="40" y="482" font-family="'Inter', system-ui, sans-serif" font-size="10px" fill="#475569">• HOC: Statically composes during module loading; elegant for simple wrappers but leads to "wrapper hell", prop overriding risks, and type definition complexity.</text>
+  <text x="40" y="496" font-family="'Inter', system-ui, sans-serif" font-size="10px" fill="#475569">• Render Props: Dynamically delegates layout at runtime via functional children; offers explicit parameter mapping, zero collisions, and perfect type inference.</text>
+</svg>

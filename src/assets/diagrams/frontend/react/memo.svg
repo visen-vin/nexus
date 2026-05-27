@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="reactGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#61DAFB" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="cacheHitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="cacheMissGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F87171" />
+      <stop offset="100%" stop-color="#DC2626" />
+    </linearGradient>
+    <linearGradient id="shallowCompGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <!-- Glowing Effects -->
+    <filter id="glowReact" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowGray" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569" />
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0EA5E9" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#EF4444" />
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#F59E0B" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .section-label { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 13px; fill: #94A3B8; }
+    .node-label { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 12px; fill: #FFFFFF; }
+    .node-sub { font-family: 'Fira Code', monospace; font-size: 9px; fill: #94A3B8; }
+    .node-code { font-family: 'Fira Code', monospace; font-size: 9px; fill: #F1F5F9; }
+    .flow-text { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; font-weight: 600; fill: #64748B; }
+    .highlight-green { fill: #34D399; font-weight: bold; }
+    .highlight-red { fill: #F87171; font-weight: bold; }
+  </style>
+
+  <!-- Container Box -->
+  <rect width="900" height="500" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.03">
+    <line x1="100" y1="0" x2="100" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="500" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6,6" />
+    <line x1="800" y1="0" x2="800" y2="500" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="100" x2="900" y2="100" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="400" x2="900" y2="400" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Header -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">REACT.MEMO COMPONENT CACHING &amp; DIFFING</text>
+    <text class="subtitle" x="0" y="18">UNDERSTANDING PROPS SHALLOW COMPARISON FLOW AND RE-RENDERING LIFECYCLE</text>
+  </g>
+
+  <!-- LEFT: Input & Re-render Event -->
+  <g transform="translate(40, 120)">
+    <rect width="210" height="250" rx="10" fill="#0F172A" stroke="#1E293B" stroke-width="1.5" />
+    <text class="section-label" x="15" y="25">1. Render Trigger</text>
+
+    <!-- Parent Re-render Node -->
+    <g transform="translate(15, 45)">
+      <rect width="180" height="65" rx="6" fill="#1E293B" stroke="#0284C7" stroke-width="1.5" />
+      <text class="node-label" x="12" y="20">Parent Component</text>
+      <text class="node-sub" x="12" y="38">Triggers Re-render</text>
+      <text class="node-sub" x="12" y="52" fill="#38BDF8">Passing props payload</text>
+    </g>
+
+    <!-- Props payload -->
+    <g transform="translate(15, 145)">
+      <rect width="180" height="80" rx="6" fill="#111827" stroke="#334155" stroke-width="1" />
+      <rect width="180" height="4" fill="url(#reactGrad)" />
+      <text class="node-label" x="12" y="22">Props Object Comparison</text>
+      <text class="node-code" x="12" y="42">prevProps: { id, value }</text>
+      <text class="node-code" x="12" y="58">nextProps: { id, value }</text>
+    </g>
+  </g>
+
+  <!-- Connect 1 to 2 -->
+  <path d="M250,225 L300,225" fill="none" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrowBlue)" />
+  <text class="flow-text" x="254" y="215">Dispatches props</text>
+
+  <!-- CENTER: React.memo Engine -->
+  <g transform="translate(320, 120)">
+    <rect width="260" height="250" rx="10" fill="#0F172A" stroke="#334155" stroke-width="1.5" />
+    <text class="section-label" x="15" y="25">2. Shallow Comparison Engine</text>
+
+    <!-- Decision Diamond (Simulated using polygon) -->
+    <g transform="translate(40, 50)">
+      <polygon points="90,0 180,45 90,90 0,45" fill="#1E293B" stroke="#F59E0B" stroke-width="2" />
+      <text class="node-label" x="48" y="42" fill="#FBBF24">Are Props</text>
+      <text class="node-label" x="52" y="56" fill="#FBBF24">Equal?</text>
+    </g>
+
+    <!-- Custom Comparison Option -->
+    <g transform="translate(20, 175)">
+      <rect width="220" height="55" rx="6" fill="#111827" stroke="#475569" stroke-dasharray="3,3" stroke-width="1.5" />
+      <text class="node-label" x="12" y="20">arePropsEqual(prev, next)</text>
+      <text class="node-sub" x="12" y="38" fill="#FBBF24">Optional custom equality function</text>
+    </g>
+  </g>
+
+  <!-- Connect Decision (YES) to CACHE HIT -->
+  <path d="M500,215 L500,165 L630,165" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrowGreen)" />
+  <text class="flow-text highlight-green" x="520" y="155">YES (Props Equal)</text>
+
+  <!-- Connect Decision (NO) to CACHE MISS -->
+  <path d="M500,215 L500,285 L630,285" fill="none" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowRed)" />
+  <text class="flow-text highlight-red" x="520" y="298">NO (Props Changed)</text>
+
+  <!-- RIGHT: Outputs (Cache Hit vs Miss) -->
+  <g transform="translate(650, 120)">
+    <rect width="210" height="250" rx="10" fill="#0F172A" stroke="#1E293B" stroke-width="1.5" />
+    <text class="section-label" x="15" y="25">3. Reconciliation Action</text>
+
+    <!-- Cache Hit (Skip Render) -->
+    <g transform="translate(15, 45)" filter="url(#glowGreen)">
+      <rect width="180" height="70" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="2" />
+      <rect width="180" height="4" fill="url(#cacheHitGrad)" />
+      <text class="node-label" x="12" y="22" fill="#10B981">CACHE HIT</text>
+      <text class="node-sub" x="12" y="42" fill="#FFFFFF">Skip rendering entirely</text>
+      <text class="node-sub" x="12" y="56" fill="#34D399">Returns cached React Element</text>
+    </g>
+
+    <!-- Cache Miss (Full Re-render) -->
+    <g transform="translate(15, 150)">
+      <rect width="180" height="80" rx="6" fill="#1E293B" stroke="#EF4444" stroke-width="1.5" />
+      <rect width="180" height="4" fill="url(#cacheMissGrad)" />
+      <text class="node-label" x="12" y="22" fill="#F87171">CACHE MISS</text>
+      <text class="node-sub" x="12" y="42" fill="#E2E8F0">Run full component render</text>
+      <text class="node-sub" x="12" y="56" fill="#94A3B8">Generates new VDOM node</text>
+      <text class="node-sub" x="12" y="70" fill="#F87171">Reconciliation subtree diff</text>
+    </g>
+  </g>
+
+  <!-- Footnote / Insight -->
+  <rect x="40" y="390" width="820" height="75" rx="8" fill="#111827" stroke="#1E293B" stroke-width="1" />
+  <text class="node-sub" x="60" y="412" fill="#94A3B8">How Shallow Comparison works behind React.memo:</text>
+  <text class="node-code" x="60" y="430" fill="#E2E8F0">Object.keys(prevProps).length === Object.keys(nextProps).length &amp;&amp; Object.keys(prevProps).every(key =&gt; prevProps[key] === nextProps[key])</text>
+  <text class="node-sub" x="60" y="448" fill="#F59E0B">Warning: Passing inline objects or callbacks creates fresh references every render, bypassing this optimization completely!</text>
+</svg>

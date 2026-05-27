@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Vibrant Gradients -->
+    <linearGradient id="memoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="callbackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <linearGradient id="diffGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="cacheGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#38BDF8" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#A855F7" />
+    </marker>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#F59E0B" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#10B981" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .section-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 12px; fill: #E2E8F0; }
+    .node-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 11.5px; fill: #FFFFFF; }
+    .node-sub { font-family: 'Fira Code', monospace; font-size: 9px; fill: #94A3B8; }
+    .flow-label { font-family: 'Fira Code', monospace; font-size: 8.5px; fill: #E2E8F0; font-weight: 600; }
+    .box-bg { fill: #111827; stroke-width: 1.5; }
+    .dashed-box { stroke-dasharray: 4 4; fill: none; }
+  </style>
+
+  <!-- Container -->
+  <rect width="900" height="550" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Title & Header -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">REACT MEMOIZATION HOOKS</text>
+    <text class="subtitle" x="0" y="18">USEMEMO VS USECALLBACK: FIBER STORES, DEPENDENCIES DIFFING, AND REFERENCE STABILITY</text>
+  </g>
+
+  <!-- LEFT COLUMN: Hook Signatures & Purpose -->
+  <text class="section-title" x="40" y="105">1. HOOK INTENT &amp; APIS</text>
+
+  <!-- useMemo Box -->
+  <g transform="translate(40, 120)">
+    <rect class="box-bg" width="220" height="110" rx="8" stroke="#38BDF8" />
+    <rect width="220" height="4" rx="2" fill="url(#memoGrad)" />
+    <text class="node-title" x="12" y="22">useMemo&lt;T&gt;</text>
+    <text class="node-sub" x="12" y="42">Purpose: Computational Memoization</text>
+    <text class="node-sub" x="12" y="58" fill="#7DD3FC">const val = useMemo(() => calc(), deps)</text>
+    <text class="node-sub" x="12" y="74">Caches: Computed result of function</text>
+    <text class="node-sub" x="12" y="90">Use case: Heavy data transformations</text>
+  </g>
+
+  <!-- useCallback Box -->
+  <g transform="translate(40, 260)">
+    <rect class="box-bg" width="220" height="110" rx="8" stroke="#A855F7" />
+    <rect width="220" height="4" rx="2" fill="url(#callbackGrad)" />
+    <text class="node-title" x="12" y="22">useCallback&lt;T&gt;</text>
+    <text class="node-sub" x="12" y="42">Purpose: Referential Stability</text>
+    <text class="node-sub" x="12" y="58" fill="#C084FC">const cb = useCallback(() => handler(), deps)</text>
+    <text class="node-sub" x="12" y="74">Caches: Function reference itself</text>
+    <text class="node-sub" x="12" y="90">Use case: Prevent child re-renders</text>
+  </g>
+
+  <!-- MIDDLE COLUMN: Fiber Cache Storage -->
+  <text class="section-title" x="310" y="105">2. FIBER CACHE STORE (MEMOIZEDSTATE)</text>
+
+  <g transform="translate(310, 120)">
+    <rect class="box-bg" width="260" height="250" rx="8" stroke="#10B981" />
+    <rect width="260" height="4" rx="2" fill="url(#cacheGrad)" />
+    
+    <text class="node-title" x="15" y="25" fill="#10B981">FiberNode.memoizedState</text>
+    <text class="node-sub" x="15" y="45">Linked list of Hook structures.</text>
+    
+    <!-- Hook entry for useMemo -->
+    <g transform="translate(15, 65)">
+      <rect width="230" height="70" rx="6" fill="#1F2937" stroke="#334155" stroke-dasharray="2 2" />
+      <text class="node-title" x="10" y="20" fill="#38BDF8">useMemo Hook Store</text>
+      <text class="node-sub" x="10" y="38" fill="#E2E8F0">memoizedState: [computedValue, deps]</text>
+      <text class="node-sub" x="10" y="52" fill="#94A3B8">Stores the evaluation result of factory.</text>
+    </g>
+
+    <!-- Hook entry for useCallback -->
+    <g transform="translate(15, 155)">
+      <rect width="230" height="70" rx="6" fill="#1F2937" stroke="#334155" stroke-dasharray="2 2" />
+      <text class="node-title" x="10" y="20" fill="#A855F7">useCallback Hook Store</text>
+      <text class="node-sub" x="10" y="38" fill="#E2E8F0">memoizedState: [callbackFn, deps]</text>
+      <text class="node-sub" x="10" y="52" fill="#94A3B8">Stores the callback function reference.</text>
+    </g>
+  </g>
+
+  <!-- Connect Left to Middle -->
+  <path d="M260,175 L300,175" fill="none" stroke="#38BDF8" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+  <path d="M260,315 L300,315" fill="none" stroke="#A855F7" stroke-width="1.5" marker-end="url(#arrowPurple)" />
+
+  <!-- RIGHT COLUMN: Dependency Diffing Engine -->
+  <text class="section-title" x="610" y="105">3. DEPENDENCIES SHALLOW DIFFING</text>
+
+  <g transform="translate(610, 120)">
+    <rect class="box-bg" width="250" height="250" rx="8" stroke="#F59E0B" />
+    <rect width="250" height="4" rx="2" fill="url(#diffGrad)" />
+    
+    <text class="node-title" x="15" y="25" fill="#F59E0B">Dependency Comparator</text>
+    
+    <!-- Comparison Box -->
+    <g transform="translate(15, 45)">
+      <rect width="220" height="60" rx="6" fill="#1F2937" stroke="#4B5563" />
+      <text class="node-sub" x="10" y="18" fill="#F8FAFC">Object.is(prevDep, currentDep)</text>
+      <text class="node-sub" x="10" y="35" fill="#94A3B8">Loop through dependency arrays.</text>
+      <text class="node-sub" x="10" y="48" fill="#EF4444">Warning: Shallow only! (No deep refs)</text>
+    </g>
+
+    <!-- Condition: MATCH / HIT -->
+    <g transform="translate(15, 120)">
+      <rect width="220" height="50" rx="6" fill="#065F46" stroke="#10B981" />
+      <text class="node-title" x="10" y="20">All Deps Match (Cache Hit)</text>
+      <text class="node-sub" x="10" y="38" fill="#A7F3D0">Return previous cached value/callback.</text>
+    </g>
+
+    <!-- Condition: MISMATCH / MISS -->
+    <g transform="translate(15, 185)">
+      <rect width="220" height="50" rx="6" fill="#7F1D1D" stroke="#EF4444" />
+      <text class="node-title" x="10" y="20">Deps Changed (Cache Miss)</text>
+      <text class="node-sub" x="10" y="38" fill="#FECACA">Re-evaluate / Store new ref &amp; deps.</text>
+    </g>
+  </g>
+
+  <!-- Connect Middle to Right -->
+  <path d="M570,245 L600,245" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#arrowAmber)" />
+
+  <!-- BOTTOM SECTION: Computational vs Referential Integrity Tradeoffs -->
+  <g transform="translate(40, 395)">
+    <rect width="820" height="110" rx="8" fill="#181313" stroke="#DC2626" stroke-width="1.5" />
+    <text class="node-title" x="20" y="25" fill="#EF4444">⚠️ THE PERFORMANCE TRADEOFF &amp; OVERHEAD WARNING</text>
+    <text class="node-sub" x="20" y="45" fill="#FCA5A5">1. MEMORY OVERHEAD: Caching consumes memory in the Fiber node. Don't use them unconditionally.</text>
+    <text class="node-sub" x="20" y="60" fill="#FCA5A5">2. COMPUTATIONAL DEDUCTION: `useCallback` does NOT prevent function allocation inside renders; it only discards it if deps match.</text>
+    <text class="node-sub" x="20" y="75" fill="#FCA5A5">3. REFERENTIAL INTEGRITY: Use `useCallback` specifically when passing callbacks to optimized children (wrapped in `React.memo`) or custom hook dependency arrays.</text>
+    <text class="node-sub" x="20" y="90" fill="#94A3B8">Note: In React 17/18, inline dependencies checking is cheap, but caching overhead often exceeds simple function allocation.</text>
+  </g>
+</svg>

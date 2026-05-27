@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Gradients for Components -->
+    <linearGradient id="parentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="wrapperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <linearGradient id="domGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E" />
+      <stop offset="100%" stop-color="#BE123C" />
+    </linearGradient>
+
+    <!-- Tunnel Glow Effect -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0EA5E9" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#A855F7" />
+    </marker>
+    <marker id="arrowRose" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#F43F5E" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12px; fill: #FFFFFF; }
+    .node-sub { font-family: 'Fira Code', monospace; font-size: 9.5px; fill: #94A3B8; }
+    .code-label { font-family: 'Fira Code', monospace; font-size: 9px; fill: #E2E8F0; font-weight: 600; }
+    .flow-label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 10px; fill: #94A3B8; font-weight: 600; }
+    .boundary-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 10px; fill: #475569; font-weight: 700; letter-spacing: 1px; }
+  </style>
+
+  <!-- Container -->
+  <rect width="900" height="500" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Title -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">REACT FORWARDREF ARCHITECTURE</text>
+    <text class="subtitle" x="0" y="18">PASSING DOM REFS THROUGH COMPONENT BOUNDARIES VIA THE REFERENCE FORWARDING TUNNEL</text>
+  </g>
+
+  <!-- Component Boundaries / Canvas -->
+
+  <!-- 1. PARENT COMPONENT ZONE -->
+  <g transform="translate(40, 110)">
+    <rect width="240" height="260" rx="12" fill="#0B132B" stroke="#334155" stroke-dasharray="4 4" stroke-width="1.5" />
+    <text class="boundary-title" x="12" y="20">PARENT COMPONENT (HOLDER)</text>
+    
+    <!-- Code card inside Parent -->
+    <g transform="translate(15, 40)">
+      <rect width="210" height="190" rx="8" fill="#0F172A" stroke="#0EA5E9" stroke-width="1.5" />
+      <rect width="210" height="4" fill="url(#parentGrad)" />
+      <text class="node-title" x="12" y="24">ParentComponent</text>
+      
+      <!-- Code Snippets -->
+      <text class="code-label" x="12" y="55" fill="#38BDF8">const inputRef = useRef()</text>
+      
+      <text class="code-label" x="12" y="90" fill="#94A3B8">return (</text>
+      <text class="code-label" x="24" y="110" fill="#F472B6">&lt;CustomInput</text>
+      <text class="code-label" x="36" y="130" fill="#FBBF24">ref={inputRef}</text>
+      <text class="code-label" x="24" y="150" fill="#F472B6">/&gt;</text>
+      <text class="code-label" x="12" y="170" fill="#94A3B8">)</text>
+    </g>
+  </g>
+
+  <!-- Ref Forwarding Tunnel Path (Vibrant glowing dashed line) -->
+  <path id="refTunnel" d="M185,160 C260,160 300,240 375,240" fill="none" stroke="#F43F5E" stroke-width="3" stroke-dasharray="6 4" filter="url(#glow)" />
+  <path d="M370,240 L380,240" fill="none" stroke="#F43F5E" stroke-width="3" marker-end="url(#arrowRose)" />
+  <text class="flow-label" x="220" y="200" fill="#F43F5E">Forwarding Tunnel</text>
+
+  <!-- 2. FORWARDREF WRAPPER ZONE -->
+  <g transform="translate(320, 110)">
+    <rect width="280" height="260" rx="12" fill="#0F102B" stroke="#334155" stroke-dasharray="4 4" stroke-width="1.5" />
+    <text class="boundary-title" x="12" y="20">INTERMEDIATE WRAPPER COMPONENT</text>
+
+    <!-- Code card inside Wrapper -->
+    <g transform="translate(15, 40)">
+      <rect width="250" height="190" rx="8" fill="#0F172A" stroke="#A855F7" stroke-width="1.5" />
+      <rect width="250" height="4" fill="url(#wrapperGrad)" />
+      <text class="node-title" x="12" y="24">CustomInput (forwardRef)</text>
+
+      <text class="code-label" x="12" y="55" fill="#C084FC">React.forwardRef((props, ref) => {</text>
+      <text class="code-label" x="24" y="85" fill="#94A3B8">return (</text>
+      <text class="code-label" x="36" y="110" fill="#60A5FA">&lt;div className="wrapper"&gt;</text>
+      <text class="code-label" x="48" y="130" fill="#F43F5E">&lt;input ref={ref} ... /&gt;</text>
+      <text class="code-label" x="36" y="150" fill="#60A5FA">&lt;/div&gt;</text>
+      <text class="code-label" x="24" y="170" fill="#94A3B8">)</text>
+      <text class="code-label" x="12" y="180" fill="#C084FC">})</text>
+    </g>
+  </g>
+
+  <!-- Arrow passing ref from Wrapper to actual DOM element -->
+  <path d="M515,240 L650,240" fill="none" stroke="#F43F5E" stroke-width="2.5" stroke-dasharray="4 4" marker-end="url(#arrowRose)" />
+  <text class="flow-label" x="535" y="228" fill="#F43F5E">Attaches to DOM</text>
+
+  <!-- 3. TARGET DOM NODE ZONE -->
+  <g transform="translate(640, 110)">
+    <rect width="220" height="260" rx="12" fill="#1C0D1B" stroke="#334155" stroke-dasharray="4 4" stroke-width="1.5" />
+    <text class="boundary-title" x="12" y="20">DEEP CHILD / DOM NODE</text>
+
+    <!-- DOM Element card -->
+    <g transform="translate(15, 40)">
+      <rect width="190" height="190" rx="8" fill="#0F172A" stroke="#F43F5E" stroke-width="1.5" />
+      <rect width="190" height="4" fill="url(#domGrad)" />
+      <text class="node-title" x="12" y="24">HTMLInputElement</text>
+      <text class="node-sub" x="12" y="45" fill="#FDA4AF">[Actual browser element]</text>
+
+      <g transform="translate(12, 70)">
+        <rect width="166" height="100" rx="4" fill="#1E293B" stroke="#334155" />
+        <text class="node-sub" x="10" y="22" fill="#E2E8F0">Methods Exposed:</text>
+        <text class="node-sub" x="20" y="42" fill="#34D399">• .focus()</text>
+        <text class="node-sub" x="20" y="58" fill="#34D399">• .select()</text>
+        <text class="node-sub" x="20" y="74" fill="#34D399">• .getBoundingClientRect()</text>
+        <text class="node-sub" x="20" y="90" fill="#34D399">• .scrollIntoView()</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Architecture explanation callouts -->
+  <g transform="translate(40, 395)">
+    <rect width="820" height="75" rx="8" fill="#0A0F1D" stroke="#1E293B" stroke-width="1" />
+    <text class="node-title" x="15" y="22" fill="#38BDF8">🔑 KEY ARCHITECTURAL INSIGHT</text>
+    <text class="node-sub" x="15" y="42" fill="#94A3B8">React props are read-only and passed down standard channels. However, the 'ref' attribute is treated as a reserved keyword</text>
+    <text class="node-sub" x="15" y="56" fill="#94A3B8">(like 'key') and is NOT part of 'props'. forwardRef bypasses this limitation, constructing a dedicated reference tunnel.</text>
+  </g>
+</svg>

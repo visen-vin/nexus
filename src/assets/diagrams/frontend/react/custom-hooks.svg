@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 540" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Block Gradients -->
+    <linearGradient id="reactGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="hookGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED" />
+      <stop offset="100%" stop-color="#6D28D9" />
+    </linearGradient>
+    <linearGradient id="composeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E" />
+      <stop offset="100%" stop-color="#BE123C" />
+    </linearGradient>
+    <linearGradient id="stateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <!-- Glowing Effects -->
+    <filter id="glowReact" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowHook" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowCompose" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrowReact" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0EA5E9" />
+    </marker>
+    <marker id="arrowHook" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#8B5CF6" />
+    </marker>
+    <marker id="arrowCompose" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#F43F5E" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#10B981" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 16px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .section-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #F8FAFC; }
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 11px; fill: #FFFFFF; }
+    .node-desc { font-family: 'Fira Code', monospace; font-size: 9px; fill: #94A3B8; }
+    .label-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 9px; fill: #94A3B8; font-weight: 600; }
+    .overlay-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 9px; fill: #0EA5E9; font-weight: bold; }
+  </style>
+
+  <!-- Container Background -->
+  <rect width="950" height="540" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.04">
+    <line x1="50" y1="0" x2="50" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="475" y1="0" x2="475" y2="540" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="8,8" />
+    <line x1="900" y1="0" x2="900" y2="540" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="90" x2="950" y2="90" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="450" x2="950" y2="450" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Header Title -->
+  <g transform="translate(40, 40)">
+    <text class="title" x="0" y="0">REACT CUSTOM HOOKS ARCHITECTURE</text>
+    <text class="subtitle" x="0" y="18">ENCAPSULATING COMPLEX LOGIC, MAINTAINING ISOLATED STATE STACKS, AND ASSEMBLING COMPOSITION PIPELINES</text>
+  </g>
+
+  <!-- LEFT PANEL: Isolated State Instances & Logic Encapsulation -->
+  <g transform="translate(40, 105)">
+    <rect width="410" height="325" rx="12" fill="#111827" stroke="#374151" stroke-width="1.5" />
+    <text class="section-title" x="20" y="25" fill="#0EA5E9">1. Isolated State &amp; Logic Encapsulation</text>
+
+    <!-- Component A -->
+    <g transform="translate(20, 50)">
+      <rect width="110" height="60" rx="6" fill="#1E293B" stroke="#0EA5E9" stroke-width="1.5" filter="url(#glowReact)" />
+      <rect width="110" height="4" fill="url(#reactGrad)" rx="2" />
+      <text class="node-title" x="10" y="22">Component A</text>
+      <text class="node-desc" x="10" y="38">&lt;ProfileCard /&gt;</text>
+      <text class="node-desc" x="10" y="48">Fiber Link: ID #1</text>
+    </g>
+
+    <!-- Component B -->
+    <g transform="translate(20, 205)">
+      <rect width="110" height="60" rx="6" fill="#1E293B" stroke="#0EA5E9" stroke-width="1.5" filter="url(#glowReact)" />
+      <rect width="110" height="4" fill="url(#reactGrad)" rx="2" />
+      <text class="node-title" x="10" y="22">Component B</text>
+      <text class="node-desc" x="10" y="38">&lt;NavBar /&gt;</text>
+      <text class="node-desc" x="10" y="48">Fiber Link: ID #2</text>
+    </g>
+
+    <!-- Custom Hook Logic Boundary (Encapsulated) -->
+    <g transform="translate(180, 45)">
+      <rect width="210" height="235" rx="8" fill="#1E1E2F" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="3,3" />
+      <text class="node-title" x="15" y="22" fill="#A855F7">useAuth() Encapsulated Logic</text>
+
+      <!-- Inside hook: state 1 -->
+      <g transform="translate(15, 45)">
+        <rect width="180" height="50" rx="4" fill="#0F172A" stroke="#10B981" stroke-width="1" />
+        <rect width="180" height="3" fill="url(#stateGrad)" />
+        <text class="node-title" x="8" y="18" fill="#34D399">useState(user)</text>
+        <text class="node-desc" x="8" y="34">Read/Write Auth Data</text>
+      </g>
+
+      <!-- Inside hook: state 2 -->
+      <g transform="translate(15, 105)">
+        <rect width="180" height="50" rx="4" fill="#0F172A" stroke="#10B981" stroke-width="1" />
+        <rect width="180" height="3" fill="url(#stateGrad)" />
+        <text class="node-title" x="8" y="18" fill="#34D399">useEffect(session)</text>
+        <text class="node-desc" x="8" y="34">Subscribe to Auth DB</text>
+      </g>
+
+      <!-- Hook output returns state object -->
+      <g transform="translate(15, 170)">
+        <rect width="180" height="45" rx="4" fill="#2E1065" stroke="#A855F7" stroke-width="1" />
+        <text class="node-title" x="8" y="18" fill="#E9D5FF">Returns status object</text>
+        <text class="node-desc" x="8" y="32" fill="#C084FC">{ user, loading, error }</text>
+      </g>
+    </g>
+
+    <!-- Connection Paths detailing Isolated instances -->
+    <path d="M130,80 L168,80" fill="none" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowReact)" />
+    <text class="label-text" x="134" y="73" fill="#0EA5E9">Calls hook</text>
+
+    <!-- Component B call -->
+    <!-- Curved line to represent isolated call into another fiber instance -->
+    <path d="M130,235 L160,235 C170,235 175,200 185,200 L200,200" fill="none" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowReact)" />
+    <text class="label-text" x="126" y="222" fill="#0EA5E9">Calls hook</text>
+
+    <!-- Footnote about isolation -->
+    <text class="label-text" x="20" y="305" fill="#94A3B8">Note: Custom hooks encapsulate logic, but state is fully isolated.</text>
+    <text class="label-text" x="20" y="315" fill="#34D399">Each execution gets a unique hook entry on the component's Fiber.</text>
+  </g>
+
+  <!-- RIGHT PANEL: Hook Composition Pipelines -->
+  <g transform="translate(480, 105)">
+    <rect width="430" height="325" rx="12" fill="#111827" stroke="#374151" stroke-width="1.5" />
+    <text class="section-title" x="20" y="25" fill="#F43F5E">2. Hook Composition Pipeline</text>
+
+    <!-- Source Hook A -->
+    <g transform="translate(20, 50)">
+      <rect width="110" height="55" rx="6" fill="#1E293B" stroke="#7C3AED" stroke-width="1.5" />
+      <rect width="110" height="4" fill="url(#hookGrad)" rx="2" />
+      <text class="node-title" x="10" y="20">useAuth()</text>
+      <text class="node-desc" x="10" y="34">Provides identity</text>
+      <text class="node-desc" x="10" y="44">&amp; session token</text>
+    </g>
+
+    <!-- Source Hook B -->
+    <g transform="translate(20, 125)">
+      <rect width="110" height="55" rx="6" fill="#1E293B" stroke="#7C3AED" stroke-width="1.5" />
+      <rect width="110" height="4" fill="url(#hookGrad)" rx="2" />
+      <text class="node-title" x="10" y="20">useFetch()</text>
+      <text class="node-desc" x="10" y="34">Handles HTTP requests</text>
+      <text class="node-desc" x="10" y="44">&amp; abort controllers</text>
+    </g>
+
+    <!-- Source Hook C -->
+    <g transform="translate(20, 200)">
+      <rect width="110" height="55" rx="6" fill="#1E293B" stroke="#7C3AED" stroke-width="1.5" />
+      <rect width="110" height="4" fill="url(#hookGrad)" rx="2" />
+      <text class="node-title" x="10" y="20">useLocalStorage()</text>
+      <text class="node-desc" x="10" y="34">Persists local cache</text>
+      <text class="node-desc" x="10" y="44">&amp; updates state</text>
+    </g>
+
+    <!-- Composition Hook (useAuthenticatedData) -->
+    <g transform="translate(180, 95)" filter="url(#glowCompose)">
+      <rect width="230" height="135" rx="8" fill="#1E293B" stroke="#F43F5E" stroke-width="2" />
+      <rect width="230" height="6" fill="url(#composeGrad)" rx="3" />
+      <text class="node-title" x="15" y="22" fill="#FDA4AF">useAuthenticatedData(url)</text>
+      <text class="node-desc" x="15" y="40">// Pipeline assembly</text>
+      <text class="node-desc" x="15" y="55">const { token } = useAuth();</text>
+      <text class="node-desc" x="15" y="70">const cache = useLocalStorage(url);</text>
+      <text class="node-desc" x="15" y="85">const data = useFetch(url, token);</text>
+      <text class="node-desc" x="15" y="105" fill="#34D399">return { data, cache, loaded: !!data };</text>
+    </g>
+
+    <!-- Composition arrows -->
+    <path d="M130,78 L180,105" fill="none" stroke="#8B5CF6" stroke-width="1.5" marker-end="url(#arrowHook)" />
+    <path d="M130,152 L172,152" fill="none" stroke="#8B5CF6" stroke-width="1.5" marker-end="url(#arrowHook)" />
+    <path d="M130,228 L180,205" fill="none" stroke="#8B5CF6" stroke-width="1.5" marker-end="url(#arrowHook)" />
+
+    <!-- UI Consumer Node -->
+    <g transform="translate(180, 260)">
+      <rect width="230" height="45" rx="6" fill="#0F172A" stroke="#10B981" stroke-width="1" />
+      <text class="node-title" x="12" y="18" fill="#34D399">Component rendering UI</text>
+      <text class="node-desc" x="12" y="32">const { data, loaded } = useAuthenticatedData("/api");</text>
+    </g>
+
+    <!-- Final consumption arrow -->
+    <path d="M295,230 L295,252" fill="none" stroke="#F43F5E" stroke-width="2" marker-end="url(#arrowCompose)" />
+  </g>
+
+  <!-- FOOTER NOTATION -->
+  <g transform="translate(40, 470)">
+    <rect width="870" height="45" rx="6" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+    <text class="label-text" x="15" y="18" fill="#E2E8F0">React 19 Custom Hooks Pattern Standard:</text>
+    <text class="label-text" x="15" y="32" fill="#94A3B8">1. Prefer returning Status/Configuration Objects instead of large Tuples for API backward compatibility and better developer ergonomics.</text>
+    <text class="label-text" x="590" y="32" fill="#38BDF8">2. Keep hooks pure and focus on a single conceptual slice of state/effects.</text>
+  </g>
+
+</svg>

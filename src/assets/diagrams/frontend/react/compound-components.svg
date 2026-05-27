@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 550" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0E1726" />
+      <stop offset="100%" stop-color="#05080F" />
+    </linearGradient>
+
+    <!-- Gradients for Structural Nodes -->
+    <linearGradient id="parentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="contextGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+    <linearGradient id="childGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="rigidGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <!-- Glowing Effects -->
+    <filter id="glowContext" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowAccent" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#10B981" />
+    </marker>
+    <marker id="arrowIndigo" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#818CF8" />
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#F59E0B" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 18px; fill: #F8FAFC; letter-spacing: 2px; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #64748B; letter-spacing: 1px; }
+    .section-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 14px; fill: #E2E8F0; }
+    .node-label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12px; fill: #FFFFFF; }
+    .node-sub { font-family: 'Fira Code', monospace; font-size: 10px; fill: #94A3B8; }
+    .code-text { font-family: 'Fira Code', monospace; font-size: 9px; fill: #CBD5E1; }
+    .info-label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; fill: #94A3B8; }
+    .glow-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 11px; fill: #38BDF8; letter-spacing: 1px; }
+  </style>
+
+  <!-- Main Background -->
+  <rect width="950" height="550" rx="16" fill="url(#bgGradient)" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Grid decoration lines -->
+  <g opacity="0.04">
+    <line x1="50" y1="0" x2="50" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="475" y1="0" x2="475" y2="550" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="8,8" />
+    <line x1="900" y1="0" x2="900" y2="550" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="90" x2="950" y2="90" stroke="#FFFFFF" stroke-width="1" />
+    <line x1="0" y1="470" x2="950" y2="470" stroke="#FFFFFF" stroke-width="1" />
+  </g>
+
+  <!-- Title & Subtitle -->
+  <g transform="translate(40, 40)">
+    <text class="title" x="0" y="0">COMPOUND COMPONENT ARCHITECTURE</text>
+    <text class="subtitle" x="0" y="20">DYNAMIC STATE SHARING &amp; DECOUPLED HIERARCHIES VIA IMPLICIT CONTEXT</text>
+  </g>
+
+  <!-- LEFT PANEL: Rigid Clone Pattern (Legacy/Naive approach) -->
+  <g transform="translate(40, 110)">
+    <rect width="400" height="340" rx="12" fill="#0F172A" stroke="#334155" stroke-width="1.5" />
+    <text class="section-title" x="20" y="30" fill="#F59E0B">Approach A: React.Children / cloneElement (Rigid)</text>
+    
+    <!-- Code view of mapping -->
+    <rect x="20" y="50" width="360" height="70" rx="6" fill="#020617" stroke="#1E293B" stroke-width="1" />
+    <text class="code-text" x="30" y="70">React.Children.map(children, child =&gt; {</text>
+    <text class="code-text" x="30" y="85">  return React.cloneElement(child, { active, onChange });</text>
+    <text class="code-text" x="30" y="100">})</text>
+    
+    <!-- Structural Diagram -->
+    <g transform="translate(130, 140)">
+      <rect width="140" height="35" rx="6" fill="#1E293B" stroke="#F59E0B" stroke-width="1.5" />
+      <text class="node-label" x="12" y="22">&lt;TabsContainer&gt;</text>
+    </g>
+
+    <!-- Connectors representing direct children restriction -->
+    <path d="M200,175 L110,210" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#arrowOrange)" />
+    <path d="M200,175 L290,210" fill="none" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#arrowOrange)" />
+
+    <!-- Valid Child 1 -->
+    <g transform="translate(40, 215)">
+      <rect width="120" height="35" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5" />
+      <text class="node-label" x="10" y="22">&lt;Tabs.Tab id="1"&gt;</text>
+    </g>
+
+    <!-- Valid Child 2 -->
+    <g transform="translate(240, 215)">
+      <rect width="120" height="35" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5" />
+      <text class="node-label" x="10" y="22">&lt;Tabs.Tab id="2"&gt;</text>
+    </g>
+
+    <!-- Invalid Layout: Wrapped Child -->
+    <path d="M200,175 L200,260" fill="none" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,3" />
+    
+    <g transform="translate(125, 265)">
+      <rect width="150" height="35" rx="6" fill="#0F172A" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4,4" />
+      <text class="node-label" x="12" y="22" fill="#EF4444">div (Layout Wrapper)</text>
+    </g>
+
+    <path d="M200,300 L200,312" fill="none" stroke="#EF4444" stroke-width="1.5" />
+    <g transform="translate(140, 315)">
+      <rect width="120" height="35" rx="6" fill="#1E293B" stroke="#64748B" stroke-width="1" />
+      <text class="node-label" x="10" y="22" fill="#94A3B8">&lt;Tabs.Tab id="3"&gt;</text>
+      <text class="node-sub" x="10" y="32" fill="#EF4444" font-size="8px">FAIL: props not cloned</text>
+    </g>
+
+    <text class="info-label" x="20" y="290" fill="#EF4444" font-weight="600">❌ Breaks state flow if nested!</text>
+  </g>
+
+  <!-- RIGHT PANEL: Implicit Context Pattern (Modern & Flexible) -->
+  <g transform="translate(510, 110)">
+    <rect width="400" height="340" rx="12" fill="#0F172A" stroke="#334155" stroke-width="1.5" />
+    <text class="section-title" x="20" y="30" fill="#10B981">Approach B: Context Provider (Flexible Compound)</text>
+
+    <!-- Code view of provider -->
+    <rect x="20" y="50" width="360" height="70" rx="6" fill="#020617" stroke="#1E293B" stroke-width="1" />
+    <text class="code-text" x="30" y="70">&lt;TabsContext.Provider value={{ activeId, onChange }}&gt;</text>
+    <text class="code-text" x="30" y="85">  {children} {/* Rendered as is without mutations */}</text>
+    <text class="code-text" x="30" y="100">&lt;/TabsContext.Provider&gt;</text>
+
+    <!-- Context Boundary Box -->
+    <rect x="30" y="130" width="340" height="195" rx="10" fill="#1E1E2F" opacity="0.4" stroke="#818CF8" stroke-width="1" stroke-dasharray="4,4" />
+    <text class="glow-text" x="40" y="148">CONTEXT BOUNDARY (IMPLICIT STATE SHARING)</text>
+
+    <!-- Parent Component -->
+    <g transform="translate(130, 160)" filter="url(#glowContext)">
+      <rect width="140" height="35" rx="6" fill="url(#parentGrad)" stroke="#38BDF8" stroke-width="1.5" />
+      <text class="node-label" x="25" y="22">&lt;Tabs&gt; Container</text>
+    </g>
+
+    <!-- Layout Wrapper div (Fully Allowed!) -->
+    <g transform="translate(50, 215)">
+      <rect width="140" height="35" rx="6" fill="#020617" stroke="#475569" stroke-width="1" />
+      <text class="node-label" x="12" y="22" fill="#94A3B8">div.custom-flexbox</text>
+    </g>
+
+    <!-- Deeply nested Tab 1 -->
+    <g transform="translate(60, 270)" filter="url(#glowAccent)">
+      <rect width="120" height="35" rx="6" fill="url(#childGrad)" stroke="#10B981" stroke-width="1.5" />
+      <text class="node-label" x="12" y="22">&lt;Tabs.Tab id="1"&gt;</text>
+    </g>
+
+    <!-- Nested Panel 1 -->
+    <g transform="translate(220, 270)" filter="url(#glowAccent)">
+      <rect width="130" height="35" rx="6" fill="url(#contextGrad)" stroke="#818CF8" stroke-width="1.5" />
+      <text class="node-label" x="10" y="22">&lt;Tabs.Panel id="1"&gt;</text>
+    </g>
+
+    <!-- Implicit State Injection Paths -->
+    <path d="M200,195 C200,225 120,240 120,265" fill="none" stroke="#10B981" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arrowGreen)" />
+    <path d="M200,195 C200,225 285,240 285,265" fill="none" stroke="#818CF8" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arrowIndigo)" />
+    <path d="M120,250 L120,265" fill="none" stroke="#475569" stroke-width="1" />
+
+    <text class="info-label" x="20" y="345" fill="#10B981" font-weight="600">✔ Dynamic, fully composable layout &amp; deep nesting!</text>
+  </g>
+
+  <!-- Footnote / Architectural Insight -->
+  <g transform="translate(40, 485)">
+    <rect width="870" height="40" rx="8" fill="#0B1329" stroke="#1E293B" stroke-width="1" />
+    <text x="15" y="24" font-family="'Inter', system-ui, sans-serif" font-size="11px" fill="#94A3B8">
+      <tspan font-weight="700" fill="#38BDF8">Architectural Takeaway:</tspan> Traditional compound components using cloneElement are structurally rigid. Using React Context grants total layout freedom,
+      enabling nested wrappers, flex layouts, and custom rendering logic while implicitly sharing controller state and trigger functions.
+    </text>
+  </g>
+</svg>

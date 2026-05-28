@@ -1,0 +1,117 @@
+<svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="900" height="500" fill="#0f172a"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" fill="#f8fafc" font-size="20" font-weight="700">Connecting Node.js to PostgreSQL</text>
+
+  <!-- EXPRESS ROUTE BOX -->
+  <rect x="30" y="65" width="195" height="130" rx="12" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+  <rect x="30" y="65" width="195" height="36" rx="12" fill="#6366f1"/>
+  <rect x="30" y="88" width="195" height="13" fill="#6366f1"/>
+  <text x="127" y="89" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Express Route</text>
+  <text x="127" y="116" text-anchor="middle" fill="#c7d2fe" font-size="11">app.get('/users', async</text>
+  <text x="127" y="133" text-anchor="middle" fill="#c7d2fe" font-size="11">(req, res) =&gt; {</text>
+  <text x="127" y="150" text-anchor="middle" fill="#a5f3fc" font-size="11">  const result =</text>
+  <text x="127" y="167" text-anchor="middle" fill="#a5f3fc" font-size="11">  await pool.query(...)</text>
+  <text x="127" y="183" text-anchor="middle" fill="#c7d2fe" font-size="11">})</text>
+
+  <!-- PG POOL BOX -->
+  <rect x="340" y="50" width="220" height="180" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+  <rect x="340" y="50" width="220" height="36" rx="12" fill="#10b981"/>
+  <rect x="340" y="73" width="220" height="13" fill="#10b981"/>
+  <text x="450" y="74" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">pg Connection Pool</text>
+  <text x="450" y="102" text-anchor="middle" fill="#6ee7b7" font-size="11">Max 10 connections</text>
+
+  <!-- Pool slots -->
+  <rect x="360" y="112" width="30" height="22" rx="4" fill="#10b981" opacity="0.8"/>
+  <text x="375" y="127" text-anchor="middle" fill="#fff" font-size="10">C1</text>
+  <rect x="396" y="112" width="30" height="22" rx="4" fill="#10b981" opacity="0.8"/>
+  <text x="411" y="127" text-anchor="middle" fill="#fff" font-size="10">C2</text>
+  <rect x="432" y="112" width="30" height="22" rx="4" fill="#10b981" opacity="0.6"/>
+  <text x="447" y="127" text-anchor="middle" fill="#fff" font-size="10">C3</text>
+  <rect x="468" y="112" width="30" height="22" rx="4" fill="#334155" opacity="0.9"/>
+  <text x="483" y="127" text-anchor="middle" fill="#64748b" font-size="10">C4</text>
+  <rect x="504" y="112" width="30" height="22" rx="4" fill="#334155" opacity="0.9"/>
+  <text x="519" y="127" text-anchor="middle" fill="#64748b" font-size="10">C5</text>
+
+  <text x="450" y="158" text-anchor="middle" fill="#6ee7b7" font-size="10">🟢 Active  ⚫ Idle</text>
+
+  <rect x="355" y="170" width="210" height="48" rx="6" fill="#0f172a"/>
+  <text x="460" y="189" text-anchor="middle" fill="#94a3b8" font-size="10">new Pool({</text>
+  <text x="460" y="203" text-anchor="middle" fill="#a5f3fc" font-size="10">  connectionString: process.env.DB_URL</text>
+  <text x="460" y="217" text-anchor="middle" fill="#94a3b8" font-size="10">})</text>
+
+  <!-- POSTGRESQL BOX -->
+  <rect x="680" y="65" width="195" height="130" rx="12" fill="#1e293b" stroke="#0ea5e9" stroke-width="2"/>
+  <rect x="680" y="65" width="195" height="36" rx="12" fill="#0ea5e9"/>
+  <rect x="680" y="88" width="195" height="13" fill="#0ea5e9"/>
+  <text x="777" y="89" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">PostgreSQL DB</text>
+  <text x="777" y="118" text-anchor="middle" fill="#7dd3fc" font-size="13">🐘</text>
+  <text x="777" y="140" text-anchor="middle" fill="#7dd3fc" font-size="11">Stores your data</text>
+  <text x="777" y="157" text-anchor="middle" fill="#7dd3fc" font-size="11">tables, rows, columns</text>
+  <text x="777" y="174" text-anchor="middle" fill="#94a3b8" font-size="10">localhost:5432</text>
+
+  <!-- Arrows Route -> Pool -->
+  <defs>
+    <marker id="arr1" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#10b981"/>
+    </marker>
+    <marker id="arr2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6366f1"/>
+    </marker>
+    <marker id="arr3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0ea5e9"/>
+    </marker>
+    <marker id="arr4" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#fbbf24"/>
+    </marker>
+  </defs>
+
+  <!-- Route -> Pool (query) -->
+  <line x1="225" y1="115" x2="338" y2="115" stroke="#10b981" stroke-width="2.5" marker-end="url(#arr1)"/>
+  <rect x="243" y="100" width="80" height="18" rx="4" fill="#0f172a"/>
+  <text x="283" y="113" text-anchor="middle" fill="#6ee7b7" font-size="10">pool.query()</text>
+
+  <!-- Pool -> PG (query) -->
+  <line x1="560" y1="115" x2="678" y2="115" stroke="#0ea5e9" stroke-width="2.5" marker-end="url(#arr3)"/>
+  <rect x="575" y="100" width="88" height="18" rx="4" fill="#0f172a"/>
+  <text x="619" y="113" text-anchor="middle" fill="#7dd3fc" font-size="10">SQL query</text>
+
+  <!-- PG -> Pool (result) -->
+  <line x1="678" y1="148" x2="562" y2="148" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arr4)"/>
+  <rect x="585" y="133" width="76" height="18" rx="4" fill="#0f172a"/>
+  <text x="623" y="146" text-anchor="middle" fill="#fbbf24" font-size="10">rows result</text>
+
+  <!-- Pool -> Route (result) -->
+  <line x1="338" y1="148" x2="227" y2="148" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arr2)"/>
+  <rect x="248" y="133" width="72" height="18" rx="4" fill="#0f172a"/>
+  <text x="284" y="146" text-anchor="middle" fill="#fbbf24" font-size="10">result.rows</text>
+
+  <!-- Connection String explanation -->
+  <rect x="30" y="225" width="840" height="70" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="450" y="248" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="700">Connection String Format</text>
+  <text x="450" y="270" text-anchor="middle" fill="#a5f3fc" font-size="12" font-weight="600">postgresql://username:password@host:5432/database_name</text>
+  <text x="160" y="288" text-anchor="middle" fill="#6366f1" font-size="10">👤 username</text>
+  <text x="290" y="288" text-anchor="middle" fill="#f87171" font-size="10">🔒 password</text>
+  <text x="430" y="288" text-anchor="middle" fill="#10b981" font-size="10">🌐 host (localhost or cloud)</text>
+  <text x="590" y="288" text-anchor="middle" fill="#fbbf24" font-size="10">🔌 port</text>
+  <text x="720" y="288" text-anchor="middle" fill="#818cf8" font-size="10">🗄️ db name</text>
+
+  <!-- Why Pool? -->
+  <rect x="30" y="315" width="840" height="150" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+  <text x="450" y="340" text-anchor="middle" fill="#6ee7b7" font-size="14" font-weight="700">Why Use a Connection Pool? (Parking Lot Analogy)</text>
+
+  <!-- Without pool -->
+  <rect x="50" y="355" width="370" height="90" rx="8" fill="#1e293b" stroke="#f87171" stroke-width="1.5"/>
+  <text x="235" y="375" text-anchor="middle" fill="#f87171" font-size="12" font-weight="600">❌ Without Pool</text>
+  <text x="235" y="395" text-anchor="middle" fill="#e2e8f0" font-size="11">New DB connection per request</text>
+  <text x="235" y="413" text-anchor="middle" fill="#e2e8f0" font-size="11">~50ms overhead per connection</text>
+  <text x="235" y="431" text-anchor="middle" fill="#94a3b8" font-size="10">Like buying a new car every trip 🚗</text>
+
+  <!-- With pool -->
+  <rect x="480" y="355" width="370" height="90" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="665" y="375" text-anchor="middle" fill="#10b981" font-size="12" font-weight="600">✅ With Pool</text>
+  <text x="665" y="395" text-anchor="middle" fill="#e2e8f0" font-size="11">Reuse existing connections</text>
+  <text x="665" y="413" text-anchor="middle" fill="#e2e8f0" font-size="11">Near-zero overhead for reuse</text>
+  <text x="665" y="431" text-anchor="middle" fill="#94a3b8" font-size="10">Like a parking lot of ready cars 🅿️</text>
+</svg>

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="loopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600; }
+    .phase-txt { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; fill: #34d399; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 11px; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 9px; fill: #64748b; }
+    .tick-lbl { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: bold; fill: #f43f5e; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Node.js Event Loop Phases</text>
+  <text x="30" y="65" class="subtitle">The circular 6-phase runtime loop showing when timers, I/O, checks, and close events execute</text>
+
+  <!-- CENTRAL EVENT LOOP LAYOUT -->
+  <!-- Phase 1: Timers -->
+  <g transform="translate(310, 100)" filter="url(#boxShadow)">
+    <rect width="180" height="50" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1.5" />
+    <text x="90" y="22" class="phase-txt" text-anchor="middle">1. TIMERS</text>
+    <text x="90" y="38" class="desc" text-anchor="middle">setTimeout() | setInterval()</text>
+  </g>
+
+  <!-- Phase 2: Pending Callbacks -->
+  <g transform="translate(540, 160)" filter="url(#boxShadow)">
+    <rect width="180" height="50" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1.5" />
+    <text x="90" y="22" class="phase-txt" text-anchor="middle">2. PENDING CALLBACKS</text>
+    <text x="90" y="38" class="desc" text-anchor="middle">System / Error callbacks (TCP, etc.)</text>
+  </g>
+
+  <!-- Phase 3: Idle, Prepare -->
+  <g transform="translate(540, 260)" filter="url(#boxShadow)">
+    <rect width="180" height="50" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1.5" opacity="0.6" />
+    <text x="90" y="22" class="phase-txt" fill="#94a3b8" text-anchor="middle">3. IDLE / PREPARE</text>
+    <text x="90" y="38" class="desc" text-anchor="middle">Used internally by libuv</text>
+  </g>
+
+  <!-- Phase 4: Poll -->
+  <g transform="translate(310, 320)" filter="url(#boxShadow)">
+    <rect width="180" height="50" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="2" />
+    <text x="90" y="22" class="phase-txt" fill="#60a5fa" text-anchor="middle">4. POLL (Critical)</text>
+    <text x="90" y="38" class="desc" fill="#93c5fd" text-anchor="middle">Retrieve new I/O events &amp; block</text>
+  </g>
+
+  <!-- Phase 5: Check -->
+  <g transform="translate(80, 260)" filter="url(#boxShadow)">
+    <rect width="180" height="50" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1.5" />
+    <text x="90" y="22" class="phase-txt" text-anchor="middle">5. CHECK</text>
+    <text x="90" y="38" class="desc" text-anchor="middle">setImmediate() callbacks</text>
+  </g>
+
+  <!-- Phase 6: Close Callbacks -->
+  <g transform="translate(80, 160)" filter="url(#boxShadow)">
+    <rect width="180" height="50" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1.5" />
+    <text x="90" y="22" class="phase-txt" text-anchor="middle">6. CLOSE CALLBACKS</text>
+    <text x="90" y="38" class="desc" text-anchor="middle">socket.on("close", ...) events</text>
+  </g>
+
+  <!-- CONNECTING LOOP PATH (CIRCULAR CIRCLE / ARROWS) -->
+  <path d="M 490 125 Q 630 125, 630 160" stroke="#10b981" stroke-width="2" stroke-dasharray="4" fill="none" />
+  <path d="M 630 210 V 260" stroke="#10b981" stroke-width="2" stroke-dasharray="4" fill="none" />
+  <path d="M 630 310 Q 630 345, 490 345" stroke="#10b981" stroke-width="2" stroke-dasharray="4" fill="none" />
+  <path d="M 310 345 Q 170 345, 170 310" stroke="#10b981" stroke-width="2" stroke-dasharray="4" fill="none" />
+  <path d="M 170 260 V 210" stroke="#10b981" stroke-width="2" stroke-dasharray="4" fill="none" />
+  <path d="M 170 160 Q 170 125, 310 125" stroke="#10b981" stroke-width="2" stroke-dasharray="4" fill="none" />
+
+  <!-- microtask boundary boxes (nextTick & Promises check between every single phase!) -->
+  <rect x="250" y="115" width="20" height="20" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+  <text x="260" y="128" class="tick-lbl" text-anchor="middle">µ</text>
+
+  <rect x="525" y="130" width="20" height="20" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+  <text x="535" y="143" class="tick-lbl" text-anchor="middle">µ</text>
+
+  <rect x="620" y="225" width="20" height="20" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+  <text x="630" y="238" class="tick-lbl" text-anchor="middle">µ</text>
+
+  <rect x="530" y="325" width="20" height="20" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+  <text x="540" y="338" class="tick-lbl" text-anchor="middle">µ</text>
+
+  <rect x="250" y="335" width="20" height="20" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+  <text x="260" y="348" class="tick-lbl" text-anchor="middle">µ</text>
+
+  <rect x="160" y="225" width="20" height="20" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+  <text x="170" y="238" class="tick-lbl" text-anchor="middle">µ</text>
+
+  <!-- LEGEND -->
+  <rect x="30" y="375" width="230" height="50" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+  <circle cx="45" cy="400" r="6" fill="#f43f5e" />
+  <text x="58" y="403" class="desc" fill="#f8fafc" font-size="11">µ = Microtask Queue Checks</text>
+  <text x="58" y="415" class="desc" fill="#94a3b8">(nextTick &amp; Promise callbacks execute here)</text>
+</svg>

@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="serverGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#15803d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7e22ce;stop-opacity:1" />
+    </linearGradient>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#60a5fa" />
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4ade80" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c084fc" />
+    </marker>
+    <marker id="arrowPurpleBack" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="#c084fc" />
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="500" fill="url(#bgGrad)" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-family="monospace" font-size="20" font-weight="bold" fill="#f1f5f9">The Client-Server Model</text>
+  <text x="450" y="58" text-anchor="middle" font-family="monospace" font-size="12" fill="#64748b">How the web works: request ↔ response</text>
+
+  <!-- CLIENT BOX -->
+  <rect x="40" y="110" width="180" height="200" rx="12" fill="#1e3a5f" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="40" y="110" width="180" height="36" rx="12" fill="url(#clientGrad)"/>
+  <rect x="40" y="134" width="180" height="12" fill="url(#clientGrad)"/>
+  <text x="130" y="133" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="white">CLIENT</text>
+
+  <!-- Browser icon inside client -->
+  <rect x="70" y="158" width="120" height="80" rx="6" fill="#0f172a" stroke="#60a5fa" stroke-width="1.5"/>
+  <rect x="70" y="158" width="120" height="20" rx="6" fill="#1e40af"/>
+  <rect x="70" y="170" width="120" height="8" fill="#1e40af"/>
+  <circle cx="84" cy="168" r="4" fill="#ef4444"/>
+  <circle cx="96" cy="168" r="4" fill="#f59e0b"/>
+  <circle cx="108" cy="168" r="4" fill="#22c55e"/>
+  <rect x="78" y="184" width="104" height="6" rx="2" fill="#334155"/>
+  <rect x="78" y="196" width="80" height="5" rx="2" fill="#334155"/>
+  <rect x="78" y="207" width="90" height="5" rx="2" fill="#334155"/>
+  <rect x="78" y="218" width="60" height="5" rx="2" fill="#334155"/>
+
+  <text x="130" y="258" text-anchor="middle" font-family="monospace" font-size="11" fill="#93c5fd">Browser / React App</text>
+  <text x="130" y="274" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">Makes HTTP requests</text>
+  <text x="130" y="290" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">Displays responses</text>
+
+  <!-- Label: Customer -->
+  <rect x="55" y="318" width="150" height="22" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="130" y="333" text-anchor="middle" font-family="monospace" font-size="11" fill="#60a5fa">👤 The Customer</text>
+
+  <!-- SERVER BOX -->
+  <rect x="360" y="80" width="180" height="260" rx="12" fill="#14532d" stroke="#22c55e" stroke-width="2"/>
+  <rect x="360" y="80" width="180" height="36" rx="12" fill="url(#serverGrad)"/>
+  <rect x="360" y="104" width="180" height="12" fill="url(#serverGrad)"/>
+  <text x="450" y="103" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="white">SERVER</text>
+
+  <!-- Server stack icon -->
+  <rect x="390" y="128" width="120" height="18" rx="4" fill="#166534" stroke="#4ade80" stroke-width="1"/>
+  <rect x="390" y="150" width="120" height="18" rx="4" fill="#166534" stroke="#4ade80" stroke-width="1"/>
+  <rect x="390" y="172" width="120" height="18" rx="4" fill="#166534" stroke="#4ade80" stroke-width="1"/>
+  <circle cx="405" cy="137" r="5" fill="#4ade80"/>
+  <circle cx="405" cy="159" r="5" fill="#4ade80"/>
+  <circle cx="405" cy="181" r="5" fill="#4ade80"/>
+  <text x="432" y="141" font-family="monospace" font-size="10" fill="#bbf7d0">Route: GET /</text>
+  <text x="432" y="163" font-family="monospace" font-size="10" fill="#bbf7d0">Route: POST /api</text>
+  <text x="432" y="185" font-family="monospace" font-size="10" fill="#bbf7d0">Route: GET /users</text>
+
+  <text x="450" y="215" text-anchor="middle" font-family="monospace" font-size="11" fill="#86efac">Node.js + Express</text>
+  <text x="450" y="231" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">Processes requests</text>
+  <text x="450" y="247" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">Contains business logic</text>
+  <text x="450" y="263" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">Talks to database</text>
+  <text x="450" y="279" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">Returns JSON responses</text>
+
+  <!-- Label: Waiter -->
+  <rect x="375" y="348" width="150" height="22" rx="6" fill="#14532d" stroke="#22c55e" stroke-width="1"/>
+  <text x="450" y="363" text-anchor="middle" font-family="monospace" font-size="11" fill="#4ade80">🧑‍🍳 The Waiter</text>
+
+  <!-- DATABASE BOX -->
+  <rect x="680" y="110" width="180" height="200" rx="12" fill="#3b0764" stroke="#a855f7" stroke-width="2"/>
+  <rect x="680" y="110" width="180" height="36" rx="12" fill="url(#dbGrad)"/>
+  <rect x="680" y="134" width="180" height="12" fill="url(#dbGrad)"/>
+  <text x="770" y="133" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="white">DATABASE</text>
+
+  <!-- DB cylinder visual -->
+  <ellipse cx="770" cy="168" rx="50" ry="12" fill="#581c87" stroke="#c084fc" stroke-width="1.5"/>
+  <rect x="720" y="168" width="100" height="50" fill="#4a044e" stroke="#c084fc" stroke-width="1.5"/>
+  <ellipse cx="770" cy="218" rx="50" ry="12" fill="#581c87" stroke="#c084fc" stroke-width="1.5"/>
+  <ellipse cx="770" cy="168" rx="50" ry="12" fill="#6b21a8" stroke="#c084fc" stroke-width="1.5"/>
+  <text x="770" y="197" text-anchor="middle" font-family="monospace" font-size="10" fill="#e9d5ff">users | posts</text>
+  <text x="770" y="211" text-anchor="middle" font-family="monospace" font-size="10" fill="#e9d5ff">orders | products</text>
+
+  <text x="770" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#d8b4fe">PostgreSQL / MongoDB</text>
+  <text x="770" y="264" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">Stores data permanently</text>
+  <text x="770" y="280" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">Survives server restarts</text>
+
+  <!-- Label: Kitchen -->
+  <rect x="695" y="318" width="150" height="22" rx="6" fill="#3b0764" stroke="#a855f7" stroke-width="1"/>
+  <text x="770" y="333" text-anchor="middle" font-family="monospace" font-size="11" fill="#c084fc">🍽️ The Kitchen</text>
+
+  <!-- ARROW: Client to Server (HTTP Request) -->
+  <line x1="222" y1="185" x2="358" y2="185" stroke="#60a5fa" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowBlue)"/>
+  <rect x="240" y="160" width="98" height="20" rx="4" fill="#1e3a5f"/>
+  <text x="290" y="173" text-anchor="middle" font-family="monospace" font-size="10" fill="#93c5fd">HTTP Request</text>
+
+  <!-- ARROW: Server to Client (HTTP Response) -->
+  <line x1="358" y1="215" x2="222" y2="215" stroke="#4ade80" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+  <rect x="240" y="219" width="100" height="20" rx="4" fill="#14532d"/>
+  <text x="290" y="232" text-anchor="middle" font-family="monospace" font-size="10" fill="#86efac">HTTP Response</text>
+
+  <!-- ARROW: Server to DB (Query) -->
+  <line x1="542" y1="185" x2="678" y2="185" stroke="#c084fc" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowPurple)"/>
+  <rect x="558" y="160" width="104" height="20" rx="4" fill="#3b0764"/>
+  <text x="610" y="173" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">SQL Query</text>
+
+  <!-- ARROW: DB to Server (Result) -->
+  <line x1="678" y1="215" x2="542" y2="215" stroke="#c084fc" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowPurpleBack)"/>
+  <rect x="560" y="219" width="96" height="20" rx="4" fill="#3b0764"/>
+  <text x="608" y="232" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">Data Result</text>
+
+  <!-- HTTP Method badges at bottom -->
+  <text x="450" y="400" text-anchor="middle" font-family="monospace" font-size="12" fill="#94a3b8">HTTP Methods</text>
+  <rect x="90" y="415" width="64" height="24" rx="4" fill="#1d4ed8"/>
+  <text x="122" y="431" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="white">GET</text>
+  <rect x="164" y="415" width="64" height="24" rx="4" fill="#15803d"/>
+  <text x="196" y="431" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="white">POST</text>
+  <rect x="238" y="415" width="64" height="24" rx="4" fill="#b45309"/>
+  <text x="270" y="431" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="white">PUT</text>
+  <rect x="312" y="415" width="72" height="24" rx="4" fill="#991b1b"/>
+  <text x="348" y="431" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="white">DELETE</text>
+
+  <!-- Status codes -->
+  <text x="550" y="418" font-family="monospace" font-size="11" fill="#4ade80">200 OK</text>
+  <text x="620" y="418" font-family="monospace" font-size="11" fill="#60a5fa">201 Created</text>
+  <text x="710" y="418" font-family="monospace" font-size="11" fill="#f87171">404 Not Found</text>
+  <text x="550" y="438" font-family="monospace" font-size="11" fill="#f59e0b">400 Bad Request</text>
+  <text x="660" y="438" font-family="monospace" font-size="11" fill="#ef4444">500 Server Error</text>
+
+  <!-- API Label -->
+  <rect x="350" y="390" width="200" height="0" rx="4" fill="none"/>
+  <text x="450" y="460" text-anchor="middle" font-family="monospace" font-size="11" fill="#64748b">API = the contract between Client and Server</text>
+
+  <!-- Bottom border line -->
+  <line x1="40" y1="405" x2="860" y2="405" stroke="#1e293b" stroke-width="1"/>
+</svg>

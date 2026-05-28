@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="v8Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+
+    <!-- Glow & Shadow Filters -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 11px; fill: #64748b; }
+    .arrow-txt { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <!-- Grid Pattern Overlay -->
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">V8 Engine Architecture: Chrome vs. Node.js</text>
+  <text x="30" y="65" class="subtitle">Contrast how the same compiler engine compiles JavaScript but binds completely different system capabilities</text>
+
+  <!-- V8 ENGINE CENTER CARD -->
+  <g filter="url(#boxShadow)" transform="translate(300, 150)">
+    <rect width="200" height="180" rx="12" fill="url(#v8Grad)" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.4" />
+    <rect width="200" height="6" rx="3" fill="#f59e0b" />
+    <text x="100" y="30" class="header" fill="#f59e0b" text-anchor="middle">V8 Engine (C++)</text>
+    <text x="100" y="50" class="desc" text-anchor="middle">Google's open-source JS engine</text>
+    
+    <!-- Parser / Compiler stages -->
+    <rect x="20" y="70" width="160" height="30" rx="4" fill="#1e1b4b" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.2" />
+    <text x="100" y="89" class="lbl" font-size="11" fill="#fef08a" text-anchor="middle">Parser &amp; AST Generator</text>
+    
+    <rect x="20" y="110" width="160" height="30" rx="4" fill="#1e1b4b" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.2" />
+    <text x="100" y="129" class="lbl" font-size="11" fill="#fef08a" text-anchor="middle">Ignition (Bytecode Interpreter)</text>
+    
+    <rect x="20" y="150" width="160" height="20" rx="4" fill="#311005" stroke="#f97316" stroke-width="1" stroke-opacity="0.2" />
+    <text x="100" y="164" class="lbl" font-size="10" fill="#ffedd5" text-anchor="middle">Turbofan (JIT Compiler)</text>
+  </g>
+
+  <!-- CHROME CARD (LEFT) -->
+  <g filter="url(#boxShadow)" transform="translate(30, 110)">
+    <rect width="230" height="260" rx="12" fill="url(#chromeGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="230" height="6" rx="3" fill="#3b82f6" />
+    <text x="115" y="30" class="header" fill="#3b82f6" text-anchor="middle">Google Chrome Browser</text>
+    <text x="115" y="48" class="desc" text-anchor="middle">Client-Side Sandbox</text>
+
+    <!-- Web APIs -->
+    <g transform="translate(15, 70)">
+      <rect width="200" height="170" rx="8" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.1" />
+      <text x="100" y="25" class="header" fill="#60a5fa" font-size="13" text-anchor="middle">Web APIs (C++ Browser)</text>
+      
+      <rect x="15" y="45" width="170" height="25" rx="4" fill="#172554" />
+      <text x="25" y="62" class="lbl" font-size="11">DOM / Document API</text>
+      
+      <rect x="15" y="75" width="170" height="25" rx="4" fill="#172554" />
+      <text x="25" y="92" class="lbl" font-size="11">Fetch / XMLHttpRequest</text>
+      
+      <rect x="15" y="105" width="170" height="25" rx="4" fill="#172554" />
+      <text x="25" y="122" class="lbl" font-size="11">HTML5 Audio/Video</text>
+      
+      <rect x="15" y="135" width="170" height="25" rx="4" fill="#172554" />
+      <text x="25" y="152" class="lbl" font-size="11">Web Storage (cookies/LS)</text>
+    </g>
+  </g>
+
+  <!-- NODE.JS CARD (RIGHT) -->
+  <g filter="url(#boxShadow)" transform="translate(540, 110)">
+    <rect width="230" height="260" rx="12" fill="url(#nodeGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="230" height="6" rx="3" fill="#10b981" />
+    <text x="115" y="30" class="header" fill="#10b981" text-anchor="middle">Node.js Runtime</text>
+    <text x="115" y="48" class="desc" text-anchor="middle">Server-Side Platform</text>
+
+    <!-- Node C++ Bindings & libuv -->
+    <g transform="translate(15, 70)">
+      <rect width="200" height="170" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1" stroke-opacity="0.1" />
+      <text x="100" y="25" class="header" fill="#34d399" font-size="13" text-anchor="middle">C++ Bindings &amp; libuv</text>
+      
+      <rect x="15" y="45" width="170" height="25" rx="4" fill="#022c22" stroke="#059669" stroke-width="1" />
+      <text x="25" y="62" class="lbl" font-size="11">File System (fs)</text>
+      
+      <rect x="15" y="75" width="170" height="25" rx="4" fill="#022c22" stroke="#059669" stroke-width="1" />
+      <text x="25" y="92" class="lbl" font-size="11">Network I/O (net, http)</text>
+      
+      <rect x="15" y="105" width="170" height="25" rx="4" fill="#022c22" stroke="#059669" stroke-width="1" />
+      <text x="25" y="122" class="lbl" font-size="11">Child Process &amp; Workers</text>
+      
+      <rect x="15" y="135" width="170" height="25" rx="4" fill="#022c22" stroke="#059669" stroke-width="1" />
+      <text x="25" y="152" class="lbl" font-size="11">OS Kernel Bindings</text>
+    </g>
+  </g>
+
+  <!-- CONNECTIONS -->
+  <!-- Left to V8 -->
+  <path d="M260 240 H300" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  <circle cx="260" cy="240" r="4" fill="#3b82f6" />
+  <text x="280" y="230" fill="#3b82f6" class="arrow-txt" text-anchor="middle">binds</text>
+
+  <!-- Right to V8 -->
+  <path d="M540 240 H500" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  <circle cx="540" cy="240" r="4" fill="#10b981" />
+  <text x="520" y="230" fill="#10b981" class="arrow-txt" text-anchor="middle">binds</text>
+</svg>

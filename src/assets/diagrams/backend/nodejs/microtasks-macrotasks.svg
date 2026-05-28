@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="stackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="tickGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#be185d" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="microGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="macroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600; }
+    .code { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; fill: #cbd5e1; }
+    .arrow-lbl { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; fill: #ef4444; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Microtasks vs. Macrotasks Queue Precedence</text>
+  <text x="30" y="65" class="subtitle">The absolute priority ladder detailing execution order from Call Stack to Event Loop phases</text>
+
+  <!-- PRIORITY CARD 1: SYNCHRONOUS CALL STACK -->
+  <g filter="url(#boxShadow)" transform="translate(30, 110)">
+    <rect width="150" height="240" rx="10" fill="url(#stackGrad)" stroke="#3b82f6" stroke-width="1.5" />
+    <rect width="150" height="6" rx="3" fill="#3b82f6" />
+    <text x="75" y="30" class="header" fill="#3b82f6" text-anchor="middle">Priority 1</text>
+    <text x="75" y="48" class="lbl" font-weight="bold" text-anchor="middle">V8 Call Stack</text>
+    
+    <rect x="15" y="70" width="120" height="150" rx="6" fill="#0c122c" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.2" />
+    <text x="75" y="100" class="code" fill="#60a5fa" text-anchor="middle">console.log()</text>
+    <text x="75" y="140" class="code" fill="#60a5fa" text-anchor="middle">syncOperations()</text>
+    <text x="75" y="180" class="code" fill="#60a5fa" text-anchor="middle">Global Context</text>
+    <text x="75" y="210" class="desc" text-anchor="middle">(Runs immediately)</text>
+  </g>
+
+  <!-- PRIORITY CARD 2: NEXT TICK QUEUE -->
+  <g filter="url(#boxShadow)" transform="translate(220, 110)">
+    <rect width="150" height="240" rx="10" fill="url(#tickGrad)" stroke="#ec4899" stroke-width="1.5" />
+    <rect width="150" height="6" rx="3" fill="#ec4899" />
+    <text x="75" y="30" class="header" fill="#ec4899" text-anchor="middle">Priority 2</text>
+    <text x="75" y="48" class="lbl" font-weight="bold" text-anchor="middle">nextTick Queue</text>
+    
+    <rect x="15" y="70" width="120" height="150" rx="6" fill="#2d0615" stroke="#ec4899" stroke-width="1" stroke-opacity="0.2" />
+    <text x="75" y="110" class="code" fill="#f472b6" text-anchor="middle">process.nextTick()</text>
+    <text x="75" y="150" class="desc" fill="#fbcfe8" text-anchor="middle">Exhausts completely</text>
+    <text x="75" y="170" class="desc" fill="#fbcfe8" text-anchor="middle">before moving on</text>
+  </g>
+
+  <!-- PRIORITY CARD 3: MICROTASK QUEUE -->
+  <g filter="url(#boxShadow)" transform="translate(410, 110)">
+    <rect width="150" height="240" rx="10" fill="url(#microGrad)" stroke="#fbbf24" stroke-width="1.5" />
+    <rect width="150" height="6" rx="3" fill="#fbbf24" />
+    <text x="75" y="30" class="header" fill="#fbbf24" text-anchor="middle">Priority 3</text>
+    <text x="75" y="48" class="lbl" font-weight="bold" text-anchor="middle">Promise Queue</text>
+    
+    <rect x="15" y="70" width="120" height="150" rx="6" fill="#2d1d05" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.2" />
+    <text x="75" y="100" class="code" fill="#fbbf24" text-anchor="middle">Promise.then()</text>
+    <text x="75" y="130" class="code" fill="#fbbf24" text-anchor="middle">async / await</text>
+    <text x="75" y="160" class="code" fill="#fbbf24" text-anchor="middle">queueMicrotask()</text>
+    <text x="75" y="200" class="desc" fill="#fef3c7" text-anchor="middle">Exhausted after stack</text>
+    <text x="75" y="212" class="desc" fill="#fef3c7" text-anchor="middle">&amp; nextTick drain</text>
+  </g>
+
+  <!-- PRIORITY CARD 4: MACROTASK QUEUES -->
+  <g filter="url(#boxShadow)" transform="translate(600, 110)">
+    <rect width="170" height="240" rx="10" fill="url(#macroGrad)" stroke="#10b981" stroke-width="1.5" />
+    <rect width="170" height="6" rx="3" fill="#10b981" />
+    <text x="85" y="30" class="header" fill="#10b981" text-anchor="middle">Priority 4</text>
+    <text x="85" y="48" class="lbl" font-weight="bold" text-anchor="middle">Macrotasks</text>
+    
+    <rect x="15" y="70" width="140" height="150" rx="6" fill="#022c22" stroke="#10b981" stroke-width="1" stroke-opacity="0.2" />
+    <text x="85" y="100" class="code" fill="#34d399" text-anchor="middle">setTimeout()</text>
+    <text x="85" y="130" class="code" fill="#34d399" text-anchor="middle">setImmediate()</text>
+    <text x="85" y="160" class="code" fill="#34d399" text-anchor="middle">I/O Callback</text>
+    <text x="85" y="200" class="desc" fill="#cbd5e1" text-anchor="middle">Event Loop ticks</text>
+  </g>
+
+  <!-- FLOW PATH CONNECTIONS -->
+  <path d="M 180 230 H 220" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  <path d="M 370 230 H 410" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  <path d="M 560 230 H 600" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+
+  <text x="200" y="215" class="arrow-lbl" text-anchor="middle">then</text>
+  <text x="390" y="215" class="arrow-lbl" text-anchor="middle">then</text>
+  <text x="580" y="215" class="arrow-lbl" text-anchor="middle">then</text>
+</svg>

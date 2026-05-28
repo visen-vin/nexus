@@ -1,0 +1,128 @@
+<svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="900" height="500" fill="#0f172a"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" fill="#f8fafc" font-size="20" font-weight="700">Keys &amp; Relationships in SQL</text>
+
+  <!-- USERS TABLE -->
+  <rect x="50" y="65" width="240" height="185" rx="10" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+  <rect x="50" y="65" width="240" height="38" rx="10" fill="#6366f1"/>
+  <rect x="50" y="90" width="240" height="13" fill="#6366f1"/>
+  <text x="170" y="91" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">users</text>
+
+  <!-- Header row -->
+  <rect x="60" y="113" width="220" height="26" fill="#334155" rx="4"/>
+  <text x="85" y="131" fill="#fbbf24" font-size="12" font-weight="700">id</text>
+  <text x="135" y="131" fill="#94a3b8" font-size="12">name</text>
+  <text x="195" y="131" fill="#94a3b8" font-size="12">email</text>
+
+  <!-- Rows -->
+  <rect x="60" y="143" width="220" height="24" fill="#1e293b" rx="3"/>
+  <text x="85" y="159" fill="#fbbf24" font-size="12" font-weight="600">1</text>
+  <text x="135" y="159" fill="#e2e8f0" font-size="12">Alice</text>
+  <text x="195" y="159" fill="#e2e8f0" font-size="11">alice@x</text>
+
+  <rect x="60" y="170" width="220" height="24" fill="#263045" rx="3"/>
+  <text x="85" y="186" fill="#fbbf24" font-size="12" font-weight="600">2</text>
+  <text x="135" y="186" fill="#e2e8f0" font-size="12">Bob</text>
+  <text x="195" y="186" fill="#e2e8f0" font-size="11">bob@x</text>
+
+  <rect x="60" y="197" width="220" height="24" fill="#1e293b" rx="3"/>
+  <text x="85" y="213" fill="#fbbf24" font-size="12" font-weight="600">3</text>
+  <text x="135" y="213" fill="#e2e8f0" font-size="12">Carol</text>
+  <text x="195" y="213" fill="#e2e8f0" font-size="11">carol@x</text>
+
+  <!-- PK badge -->
+  <rect x="60" y="228" width="100" height="18" rx="9" fill="#fbbf24" opacity="0.2"/>
+  <text x="112" y="241" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">🔑 PRIMARY KEY: id</text>
+
+  <!-- POSTS TABLE -->
+  <rect x="610" y="65" width="255" height="210" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+  <rect x="610" y="65" width="255" height="38" rx="10" fill="#10b981"/>
+  <rect x="610" y="90" width="255" height="13" fill="#10b981"/>
+  <text x="737" y="91" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">posts</text>
+
+  <!-- Header row -->
+  <rect x="620" y="113" width="235" height="26" fill="#334155" rx="4"/>
+  <text x="642" y="131" fill="#fbbf24" font-size="12" font-weight="700">id</text>
+  <text x="672" y="131" fill="#f87171" font-size="12" font-weight="700">user_id</text>
+  <text x="740" y="131" fill="#94a3b8" font-size="12">title</text>
+
+  <!-- Rows -->
+  <rect x="620" y="143" width="235" height="24" fill="#1e293b" rx="3"/>
+  <text x="642" y="159" fill="#fbbf24" font-size="12" font-weight="600">1</text>
+  <text x="672" y="159" fill="#f87171" font-size="12" font-weight="600">1</text>
+  <text x="740" y="159" fill="#e2e8f0" font-size="12">Hello World</text>
+
+  <rect x="620" y="170" width="235" height="24" fill="#263045" rx="3"/>
+  <text x="642" y="186" fill="#fbbf24" font-size="12" font-weight="600">2</text>
+  <text x="672" y="186" fill="#f87171" font-size="12" font-weight="600">1</text>
+  <text x="740" y="186" fill="#e2e8f0" font-size="12">My Journey</text>
+
+  <rect x="620" y="197" width="235" height="24" fill="#1e293b" rx="3"/>
+  <text x="642" y="213" fill="#fbbf24" font-size="12" font-weight="600">3</text>
+  <text x="672" y="213" fill="#f87171" font-size="12" font-weight="600">2</text>
+  <text x="740" y="213" fill="#e2e8f0" font-size="12">Bob Speaks</text>
+
+  <!-- FK badge -->
+  <rect x="620" y="228" width="170" height="18" rx="9" fill="#f87171" opacity="0.2"/>
+  <text x="705" y="241" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">🔗 FOREIGN KEY: user_id</text>
+
+  <!-- FK arrow from posts.user_id to users.id -->
+  <defs>
+    <marker id="arrow-fk" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f87171"/>
+    </marker>
+  </defs>
+  <path d="M610,186 C500,186 380,159 290,159" stroke="#f87171" stroke-width="2.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrow-fk)"/>
+  <rect x="380" y="160" width="140" height="20" rx="6" fill="#1e293b" stroke="#f87171" stroke-width="1"/>
+  <text x="450" y="174" text-anchor="middle" fill="#f87171" font-size="11" font-weight="600">posts.user_id → users.id</text>
+
+  <!-- JOIN RESULT TABLE -->
+  <rect x="110" y="310" width="680" height="160" rx="10" fill="#1e293b" stroke="#818cf8" stroke-width="2"/>
+  <rect x="110" y="310" width="680" height="36" rx="10" fill="#818cf8"/>
+  <rect x="110" y="332" width="680" height="14" fill="#818cf8"/>
+  <text x="450" y="333" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">JOIN Result — SELECT users.name, posts.title FROM posts JOIN users ON posts.user_id = users.id</text>
+
+  <!-- Header -->
+  <rect x="120" y="354" width="660" height="26" fill="#334155" rx="4"/>
+  <text x="220" y="371" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="700">users.id</text>
+  <text x="360" y="371" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="700">users.name</text>
+  <text x="530" y="371" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="700">posts.user_id</text>
+  <text x="690" y="371" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="700">posts.title</text>
+
+  <rect x="120" y="383" width="660" height="24" fill="#1e293b" rx="3"/>
+  <text x="220" y="399" text-anchor="middle" fill="#fbbf24" font-size="12">1</text>
+  <text x="360" y="399" text-anchor="middle" fill="#e2e8f0" font-size="12">Alice</text>
+  <text x="530" y="399" text-anchor="middle" fill="#f87171" font-size="12">1</text>
+  <text x="690" y="399" text-anchor="middle" fill="#e2e8f0" font-size="12">Hello World</text>
+
+  <rect x="120" y="410" width="660" height="24" fill="#263045" rx="3"/>
+  <text x="220" y="426" text-anchor="middle" fill="#fbbf24" font-size="12">1</text>
+  <text x="360" y="426" text-anchor="middle" fill="#e2e8f0" font-size="12">Alice</text>
+  <text x="530" y="426" text-anchor="middle" fill="#f87171" font-size="12">1</text>
+  <text x="690" y="426" text-anchor="middle" fill="#e2e8f0" font-size="12">My Journey</text>
+
+  <rect x="120" y="437" width="660" height="24" fill="#1e293b" rx="3"/>
+  <text x="220" y="453" text-anchor="middle" fill="#fbbf24" font-size="12">2</text>
+  <text x="360" y="453" text-anchor="middle" fill="#e2e8f0" font-size="12">Bob</text>
+  <text x="530" y="453" text-anchor="middle" fill="#f87171" font-size="12">2</text>
+  <text x="690" y="453" text-anchor="middle" fill="#e2e8f0" font-size="12">Bob Speaks</text>
+
+  <!-- Arrow from tables to JOIN result -->
+  <defs>
+    <marker id="arrow-join" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#818cf8"/>
+    </marker>
+  </defs>
+  <line x1="170" y1="255" x2="270" y2="308" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-join)"/>
+  <line x1="737" y1="278" x2="640" y2="308" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-join)"/>
+  <text x="450" y="300" text-anchor="middle" fill="#818cf8" font-size="12" font-weight="600">JOIN combines rows where user_id matches id</text>
+
+  <!-- Legend -->
+  <rect x="310" y="63" width="278" height="28" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <rect x="320" y="72" width="12" height="12" rx="2" fill="#fbbf24" opacity="0.6"/>
+  <text x="338" y="83" fill="#fbbf24" font-size="11">PRIMARY KEY (unique row ID)</text>
+  <rect x="462" y="72" width="12" height="12" rx="2" fill="#f87171" opacity="0.6"/>
+  <text x="480" y="83" fill="#f87171" font-size="11">FOREIGN KEY (link)</text>
+</svg>

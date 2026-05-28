@@ -113,11 +113,39 @@ A topic is considered **REFINED** when it has:
 
 ## Cluster 8: Node.js Core
 - [x] **node-1: Browser vs. Node.js** (✅ REFINED — SVG: browser-vs-node.svg ✓)
+- [x] **node-2: V8 Architecture in Node vs Chrome** (✅ REFINED — SVG: v8-architecture.svg ✓)
+- [x] **node-3: Module Systems** (✅ REFINED — SVG: module-systems.svg ✓)
+- [x] **node-4: libuv & Async I/O** (✅ REFINED — SVG: libuv-async-io.svg ✓)
+- [x] **node-5: Event Loop Phases** (✅ REFINED — SVG: event-loop-phases.svg ✓)
+- [x] **node-6: Microtasks vs Macrotasks** (✅ REFINED — SVG: microtasks-macrotasks.svg ✓)
+- [x] **node-7: Buffers & Raw Memory** (✅ REFINED — SVG: buffers.svg ✓)
+- [x] **node-8: The EventEmitter** (✅ REFINED — SVG: event-emitter.svg ✓)
+- [x] **node-9: File System API** (✅ REFINED — SVG: file-system.svg ✓)
+- [x] **node-10: The Stream Mental Model** (✅ REFINED — SVG: streams-mental-model.svg ✓)
+- [x] **node-11: Readable & Writable Streams** (✅ REFINED — SVG: readable-writable-streams.svg ✓)
+- [x] **node-12: Duplex & Transform Streams** (✅ REFINED — SVG: duplex-transform.svg ✓)
+- [x] **node-13: Worker Threads** (✅ REFINED — SVG: worker-threads.svg ✓)
+- [x] **node-14: Child Processes** (✅ REFINED — SVG: child-processes.svg ✓)
+- [x] **node-15: Cluster Module** (✅ REFINED — SVG: cluster-module.svg ✓)
+- [x] **node-16: Native HTTP Module** (✅ REFINED — SVG: http-module.svg ✓)
+- [x] **node-17: The Middleware Pattern** (✅ REFINED — SVG: middleware-pattern.svg ✓)
+- [x] **node-18: WebSockets in Node** (✅ REFINED — SVG: websockets.svg ✓)
+- [x] **node-19: V8 Garbage Collection** (✅ REFINED — SVG: garbage-collection.svg ✓)
+- [x] **node-20: Memory Leaks** (✅ REFINED — SVG: memory-leaks.svg ✓)
+- [x] **node-21: Profiling & CPU** (✅ REFINED — SVG: profiling-cpu.svg ✓)
+
+---
+
+## Cluster 9: Redux, PostgreSQL & System Design
+- [x] **redux-1: Redux Toolkit (RTK) Fundamentals** (✅ REFINED — SVG: rtk-architecture.svg ✓)
+- [x] **postgres-1: PostgreSQL Architecture & Core Concepts** (✅ REFINED — SVG: postgres-architecture.svg ✓)
+- [x] **hld-1: HLD Foundations & Scaling** (✅ REFINED — SVG: hld-architecture.svg ✓)
+- [x] **db-sharding-1: Database Sharding & Horizontal Scaling** (✅ REFINED — SVG: db-sharding.svg ✓)
 
 ---
 
 ## Progress Summary
-- **Content done**: 80 / 80 topics ✅
+- **Content done**: 104 / 104 topics ✅
 - **Missing files**: 0 ✅
 - **Need SVGs** (0): None! All topics refined with high-fidelity custom SVGs. 🎉
 

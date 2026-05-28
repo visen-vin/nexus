@@ -1,0 +1,83 @@
+<svg viewBox="0 0 800 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f9ab00" />
+      <stop offset="100%" stop-color="#ff7e00" />
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4d00" />
+      <stop offset="100%" stop-color="#d96570" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#24bdff" />
+      <stop offset="100%" stop-color="#4285f4" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#0d0d0f" rx="16" />
+  <rect width="100%" height="100%" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2" rx="16" />
+
+  <!-- Grid lines -->
+  <g stroke="rgba(255,255,255,0.015)" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="400" />
+    <line x1="200" y1="0" x2="200" y2="400" />
+    <line x1="300" y1="0" x2="300" y2="400" />
+    <line x1="400" y1="0" x2="400" y2="400" />
+    <line x1="500" y1="0" x2="500" y2="400" />
+    <line x1="600" y1="0" x2="600" y2="400" />
+    <line x1="700" y1="0" x2="700" y2="400" />
+    <line x1="0" y1="100" x2="800" y2="100" />
+    <line x1="0" y1="200" x2="800" y2="200" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+  </g>
+
+  <!-- Node/Express Server Client -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="140" width="180" height="120" rx="12" fill="url(#blueGrad)" opacity="0.9" />
+    <rect x="50" y="140" width="180" height="120" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="140" y="190" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Express Backend</text>
+    <text x="140" y="215" fill="rgba(255,255,255,0.8)" font-family="system-ui, -apple-system, sans-serif" font-size="12" text-anchor="middle">Client App / node-pg</text>
+  </g>
+
+  <!-- Connection Pool -->
+  <g filter="url(#shadow)">
+    <rect x="310" y="110" width="180" height="180" rx="12" fill="url(#orangeGrad)" opacity="0.9" />
+    <rect x="310" y="110" width="180" height="180" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="400" y="150" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" text-anchor="middle">Connection Pool</text>
+    <rect x="330" y="170" width="140" height="25" rx="4" fill="rgba(0,0,0,0.25)" />
+    <text x="400" y="187" fill="#fff" font-family="monospace" font-size="11" text-anchor="middle">Active Connection #1</text>
+    <rect x="330" y="205" width="140" height="25" rx="4" fill="rgba(0,0,0,0.25)" />
+    <text x="400" y="222" fill="#fff" font-family="monospace" font-size="11" text-anchor="middle">Active Connection #2</text>
+    <rect x="330" y="240" width="140" height="25" rx="4" fill="rgba(0,0,0,0.15)" stroke="rgba(255,255,255,0.2)" stroke-dasharray="2,2" />
+    <text x="400" y="257" fill="rgba(255,255,255,0.5)" font-family="monospace" font-size="11" text-anchor="middle">Idle Connection #3</text>
+  </g>
+
+  <!-- PostgreSQL Database Server -->
+  <g filter="url(#shadow)">
+    <rect x="570" y="140" width="180" height="120" rx="12" fill="url(#redGrad)" opacity="0.9" />
+    <rect x="570" y="140" width="180" height="120" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="660" y="190" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">PostgreSQL Engine</text>
+    <text x="660" y="215" fill="rgba(255,255,255,0.8)" font-family="system-ui, -apple-system, sans-serif" font-size="12" text-anchor="middle">Storage &amp; Query Planner</text>
+  </g>
+
+  <!-- Paths -->
+  <g stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none">
+    <path d="M 230 180 L 310 180" />
+    <polygon points="310,180 300,175 300,185" fill="rgba(255,255,255,0.6)" stroke="none" />
+
+    <path d="M 230 220 L 310 220" />
+    <polygon points="310,220 300,215 300,225" fill="rgba(255,255,255,0.6)" stroke="none" />
+
+    <path d="M 490 200 L 570 200" />
+    <polygon points="570,200 560,195 560,205" fill="rgba(255,255,255,0.6)" stroke="none" />
+  </g>
+
+  <!-- Explanatory Labels -->
+  <text x="270" y="165" fill="#24bdff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">POOL ACQUIRE</text>
+  <text x="530" y="185" fill="#f9ab00" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">TCP CONNECT</text>
+
+</svg>

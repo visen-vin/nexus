@@ -1,0 +1,99 @@
+<svg viewBox="0 0 800 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9b72cb" />
+      <stop offset="100%" stop-color="#d96570" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#24bdff" />
+      <stop offset="100%" stop-color="#4285f4" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34a853" />
+      <stop offset="100%" stop-color="#00d084" />
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f9ab00" />
+      <stop offset="100%" stop-color="#ff7e00" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#0d0d0f" rx="16" />
+  <rect width="100%" height="100%" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2" rx="16" />
+
+  <!-- Grid lines -->
+  <g stroke="rgba(255,255,255,0.015)" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="400" />
+    <line x1="200" y1="0" x2="200" y2="400" />
+    <line x1="300" y1="0" x2="300" y2="400" />
+    <line x1="400" y1="0" x2="400" y2="400" />
+    <line x1="500" y1="0" x2="500" y2="400" />
+    <line x1="600" y1="0" x2="600" y2="400" />
+    <line x1="700" y1="0" x2="700" y2="400" />
+    <line x1="0" y1="100" x2="800" y2="100" />
+    <line x1="0" y1="200" x2="800" y2="200" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+  </g>
+
+  <!-- Write Application (API) -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="140" width="180" height="120" rx="12" fill="url(#blueGrad)" opacity="0.9" />
+    <rect x="50" y="140" width="180" height="120" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="140" y="190" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Application API</text>
+    <text x="140" y="215" fill="rgba(255,255,255,0.8)" font-family="system-ui, -apple-system, sans-serif" font-size="12" text-anchor="middle">Hashing User ID (101)</text>
+  </g>
+
+  <!-- Sharding Key / Router -->
+  <g filter="url(#shadow)">
+    <rect x="310" y="140" width="160" height="120" rx="12" fill="url(#purpleGrad)" opacity="0.9" />
+    <rect x="310" y="140" width="160" height="120" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="390" y="190" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" text-anchor="middle">Shard Router</text>
+    <text x="390" y="215" fill="rgba(255,255,255,0.8)" font-family="monospace" font-size="11" text-anchor="middle">ID % 2 == Shard</text>
+  </g>
+
+  <!-- Database Shard A (Even IDs) -->
+  <g filter="url(#shadow)">
+    <rect x="570" y="50" width="180" height="120" rx="12" fill="url(#greenGrad)" opacity="0.9" />
+    <rect x="570" y="50" width="180" height="120" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="660" y="95" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" text-anchor="middle">DB Shard A (Even)</text>
+    <rect x="590" y="115" width="140" height="20" rx="4" fill="rgba(0,0,0,0.25)" />
+    <text x="660" y="128" fill="#fff" font-family="monospace" font-size="9" text-anchor="middle">Stores User ID: 100, 102</text>
+  </g>
+
+  <!-- Database Shard B (Odd IDs) -->
+  <g filter="url(#shadow)">
+    <rect x="570" y="230" width="180" height="120" rx="12" fill="url(#orangeGrad)" opacity="0.9" />
+    <rect x="570" y="230" width="180" height="120" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="660" y="275" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" text-anchor="middle">DB Shard B (Odd)</text>
+    <rect x="590" y="295" width="140" height="20" rx="4" fill="rgba(0,0,0,0.25)" />
+    <text x="660" y="308" fill="#fff" font-family="monospace" font-size="9" text-anchor="middle">Stores User ID: 101, 103</text>
+  </g>
+
+  <!-- Connective Paths -->
+  <g stroke="rgba(255,255,255,0.3)" stroke-width="2.5" fill="none">
+    <path d="M 230 200 L 310 200" />
+    <polygon points="310,200 300,195 300,205" fill="rgba(255,255,255,0.6)" stroke="none" />
+
+    <!-- Router to Shards -->
+    <path d="M 470 200 L 515 200 L 515 110 L 570 110" />
+    <polygon points="570,110 560,105 560,115" fill="rgba(255,255,255,0.6)" stroke="none" />
+
+    <path d="M 470 200 L 515 200 L 515 290 L 570 290" />
+    <polygon points="570,290 560,285 560,295" fill="rgba(255,255,255,0.6)" stroke="none" />
+  </g>
+
+  <!-- Explanation badges -->
+  <rect x="235" y="175" width="70" height="20" rx="4" fill="#1e1e24" stroke="rgba(255,255,255,0.1)" />
+  <text x="270" y="189" fill="#24bdff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">QUERY ID 101</text>
+
+  <rect x="475" y="65" width="80" height="20" rx="4" fill="#1e1e24" stroke="rgba(255,255,255,0.1)" />
+  <text x="515" y="79" fill="#00d084" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">MOD 2 == 0</text>
+
+  <rect x="475" y="315" width="80" height="20" rx="4" fill="#1e1e24" stroke="rgba(255,255,255,0.1)" />
+  <text x="515" y="329" fill="#ff7e00" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">MOD 2 == 1</text>
+
+</svg>

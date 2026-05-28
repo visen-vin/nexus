@@ -1,0 +1,87 @@
+<svg viewBox="0 0 800 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4285f4" />
+      <stop offset="100%" stop-color="#24bdff" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9b72cb" />
+      <stop offset="100%" stop-color="#d96570" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34a853" />
+      <stop offset="100%" stop-color="#00d084" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#0d0d0f" rx="16" />
+  <rect width="100%" height="100%" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2" rx="16" />
+
+  <!-- Grid lines for premium background aesthetic -->
+  <g stroke="rgba(255,255,255,0.015)" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="400" />
+    <line x1="200" y1="0" x2="200" y2="400" />
+    <line x1="300" y1="0" x2="300" y2="400" />
+    <line x1="400" y1="0" x2="400" y2="400" />
+    <line x1="500" y1="0" x2="500" y2="400" />
+    <line x1="600" y1="0" x2="600" y2="400" />
+    <line x1="700" y1="0" x2="700" y2="400" />
+    <line x1="0" y1="100" x2="800" y2="100" />
+    <line x1="0" y1="200" x2="800" y2="200" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+  </g>
+
+  <!-- Component Box (UI) -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="140" width="180" height="120" rx="12" fill="url(#blueGrad)" opacity="0.9" />
+    <rect x="50" y="140" width="180" height="120" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="140" y="190" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">React View</text>
+    <text x="140" y="215" fill="rgba(255,255,255,0.8)" font-family="system-ui, -apple-system, sans-serif" font-size="12" text-anchor="middle">useSelector() &amp; UI</text>
+  </g>
+
+  <!-- Dispatch / Action -->
+  <g filter="url(#shadow)">
+    <rect x="310" y="50" width="180" height="90" rx="12" fill="url(#purpleGrad)" opacity="0.9" />
+    <rect x="310" y="50" width="180" height="90" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="400" y="95" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" text-anchor="middle">Action / Dispatch</text>
+    <text x="400" y="118" fill="rgba(255,255,255,0.8)" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">useDispatch(increment())</text>
+  </g>
+
+  <!-- Redux Store / Slice -->
+  <g filter="url(#shadow)">
+    <rect x="570" y="140" width="180" height="120" rx="12" fill="url(#greenGrad)" opacity="0.9" />
+    <rect x="570" y="140" width="180" height="120" rx="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+    <text x="660" y="190" fill="#fff" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Redux Store</text>
+    <text x="660" y="215" fill="rgba(255,255,255,0.8)" font-family="system-ui, -apple-system, sans-serif" font-size="12" text-anchor="middle">Slice Reducers &amp; State</text>
+  </g>
+
+  <!-- Connective Arrows and Labels -->
+  <g stroke="rgba(255,255,255,0.3)" stroke-width="2.5" fill="none">
+    <!-- UI to Dispatch -->
+    <path d="M 140 140 L 140 95 L 310 95" stroke-dasharray="4,4" />
+    <polygon points="310,95 300,90 300,100" fill="rgba(255,255,255,0.6)" stroke="none" />
+    
+    <!-- Dispatch to Store -->
+    <path d="M 490 95 L 660 95 L 660 140" />
+    <polygon points="660,140 655,130 665,130" fill="rgba(255,255,255,0.6)" stroke="none" />
+
+    <!-- Store to UI -->
+    <path d="M 570 200 L 230 200" />
+    <polygon points="230,200 240,195 240,205" fill="rgba(255,255,255,0.6)" stroke="none" />
+  </g>
+
+  <!-- Labels on paths -->
+  <rect x="180" y="75" width="80" height="20" rx="4" fill="#1e1e24" stroke="rgba(255,255,255,0.1)" />
+  <text x="220" y="89" fill="#24bdff" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">1. DISPATCH</text>
+
+  <rect x="495" y="75" width="80" height="20" rx="4" fill="#1e1e24" stroke="rgba(255,255,255,0.1)" />
+  <text x="535" y="89" fill="#d96570" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">2. REDUCE</text>
+
+  <rect x="350" y="190" width="100" height="20" rx="4" fill="#1e1e24" stroke="rgba(255,255,255,0.1)" />
+  <text x="400" y="204" fill="#00d084" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">3. SELECT STATE</text>
+
+</svg>

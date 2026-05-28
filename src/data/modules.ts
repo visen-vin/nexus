@@ -8,6 +8,7 @@ export const MODULES: Module[] = [
   { id: 'redux', domainId: 'frontend', label: 'Redux / RTK', version: 'v2.1' },
   
   // Backend
+  { id: 'intro', domainId: 'backend', label: 'Backend Crash Course', version: 'v1.0' },
   { id: 'node', domainId: 'backend', label: 'Node.js Core', version: 'v20.x' },
   { id: 'postgres', domainId: 'backend', label: 'PostgreSQL', version: 'v15' },
   

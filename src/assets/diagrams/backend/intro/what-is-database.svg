@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="memGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b45309;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7e22ce;stop-opacity:1" />
+    </linearGradient>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ef4444" />
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c084fc" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="500" fill="url(#bgGrad)" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-family="monospace" font-size="20" font-weight="bold" fill="#f1f5f9">What is a Database?</text>
+  <text x="450" y="58" text-anchor="middle" font-family="monospace" font-size="12" fill="#64748b">In-memory (temporary) vs Database (persistent)</text>
+
+  <!-- LEFT SIDE: In-Memory -->
+  <rect x="30" y="75" width="380" height="320" rx="12" fill="#1c1402" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="30" y="75" width="380" height="36" rx="12" fill="url(#memGrad)"/>
+  <rect x="30" y="99" width="380" height="12" fill="url(#memGrad)"/>
+  <text x="220" y="99" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="white">In-Memory Array (Risky!)</text>
+
+  <!-- RAM chip icon -->
+  <rect x="80" y="122" width="280" height="90" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="220" y="145" text-anchor="middle" font-family="monospace" font-size="11" fill="#fde68a">// server.js</text>
+  <text x="80" y="165" font-family="monospace" font-size="11" fill="#fb923c">  let users = [</text>
+  <text x="80" y="180" font-family="monospace" font-size="11" fill="#94a3b8">    { id:1, name:"Alice" },</text>
+  <text x="80" y="195" font-family="monospace" font-size="11" fill="#94a3b8">    { id:2, name:"Bob" }</text>
+  <text x="80" y="210" font-family="monospace" font-size="11" fill="#fb923c">  ];</text>
+
+  <!-- Stored in RAM label -->
+  <rect x="80" y="224" width="280" height="28" rx="4" fill="#422006" stroke="#f59e0b" stroke-width="1"/>
+  <text x="220" y="242" text-anchor="middle" font-family="monospace" font-size="11" fill="#fbbf24">⚡ Stored in RAM (computer memory)</text>
+
+  <!-- Problem list -->
+  <text x="50" y="275" font-family="monospace" font-size="11" fill="#f87171">✗  Server restarts → ALL data is GONE</text>
+  <text x="50" y="295" font-family="monospace" font-size="11" fill="#f87171">✗  Multiple servers can't share data</text>
+  <text x="50" y="315" font-family="monospace" font-size="11" fill="#f87171">✗  No search, filtering, or sorting</text>
+  <text x="50" y="335" font-family="monospace" font-size="11" fill="#f87171">✗  Can't handle millions of records</text>
+  <text x="50" y="355" font-family="monospace" font-size="11" fill="#f87171">✗  Lost forever if server crashes</text>
+  <text x="50" y="375" font-family="monospace" font-size="11" fill="#f87171">✗  No relationships between data</text>
+
+  <!-- Label -->
+  <rect x="80" y="385" width="280" height="0" rx="4" fill="none"/>
+
+  <!-- CRASH animation text -->
+  <text x="220" y="390" text-anchor="middle" font-family="monospace" font-size="22" font-weight="bold" fill="#ef4444">💥 RESTART = DATA LOST</text>
+
+  <!-- RIGHT SIDE: Database -->
+  <rect x="490" y="75" width="380" height="320" rx="12" fill="#1a0533" stroke="#a855f7" stroke-width="2"/>
+  <rect x="490" y="75" width="380" height="36" rx="12" fill="url(#dbGrad)"/>
+  <rect x="490" y="99" width="380" height="12" fill="url(#dbGrad)"/>
+  <text x="680" y="99" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="white">PostgreSQL Database (Safe!)</text>
+
+  <!-- Table visual -->
+  <rect x="510" y="122" width="340" height="140" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1.5"/>
+  <!-- Table header -->
+  <rect x="510" y="122" width="340" height="24" rx="6" fill="#581c87"/>
+  <rect x="510" y="138" width="340" height="8" fill="#581c87"/>
+  <text x="556" y="138" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#e9d5ff">id</text>
+  <text x="630" y="138" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#e9d5ff">name</text>
+  <text x="730" y="138" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#e9d5ff">email</text>
+  <text x="820" y="138" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#e9d5ff">created_at</text>
+  <!-- Row 1 -->
+  <line x1="510" y1="148" x2="850" y2="148" stroke="#3b0764" stroke-width="1"/>
+  <text x="556" y="162" text-anchor="middle" font-family="monospace" font-size="10" fill="#94a3b8">1</text>
+  <text x="630" y="162" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">Alice</text>
+  <text x="730" y="162" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">a@x.com</text>
+  <text x="820" y="162" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">2024-01-01</text>
+  <!-- Row 2 -->
+  <line x1="510" y1="168" x2="850" y2="168" stroke="#3b0764" stroke-width="1"/>
+  <text x="556" y="182" text-anchor="middle" font-family="monospace" font-size="10" fill="#94a3b8">2</text>
+  <text x="630" y="182" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">Bob</text>
+  <text x="730" y="182" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">b@x.com</text>
+  <text x="820" y="182" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">2024-01-02</text>
+  <!-- Row 3 -->
+  <line x1="510" y1="188" x2="850" y2="188" stroke="#3b0764" stroke-width="1"/>
+  <text x="556" y="202" text-anchor="middle" font-family="monospace" font-size="10" fill="#94a3b8">3</text>
+  <text x="630" y="202" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">Carol</text>
+  <text x="730" y="202" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">c@x.com</text>
+  <text x="820" y="202" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">2024-01-03</text>
+  <!-- Row 4 -->
+  <line x1="510" y1="208" x2="850" y2="208" stroke="#3b0764" stroke-width="1"/>
+  <text x="556" y="222" text-anchor="middle" font-family="monospace" font-size="10" fill="#94a3b8">4</text>
+  <text x="630" y="222" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">Dave</text>
+  <text x="730" y="222" text-anchor="middle" font-family="monospace" font-size="10" fill="#d8b4fe">d@x.com</text>
+  <text x="820" y="222" text-anchor="middle" font-family="monospace" font-size="10" fill="#64748b">2024-01-04</text>
+
+  <text x="680" y="255" text-anchor="middle" font-family="monospace" font-size="10" fill="#a855f7">users table (like an Excel sheet)</text>
+
+  <!-- Column lines -->
+  <line x1="580" y1="122" x2="580" y2="232" stroke="#3b0764" stroke-width="1"/>
+  <line x1="672" y1="122" x2="672" y2="232" stroke="#3b0764" stroke-width="1"/>
+  <line x1="784" y1="122" x2="784" y2="232" stroke="#3b0764" stroke-width="1"/>
+
+  <!-- Benefits -->
+  <text x="510" y="280" font-family="monospace" font-size="11" fill="#4ade80">✓  Survives restarts — saved to DISK</text>
+  <text x="510" y="298" font-family="monospace" font-size="11" fill="#4ade80">✓  Multiple servers share same data</text>
+  <text x="510" y="316" font-family="monospace" font-size="11" fill="#4ade80">✓  Powerful queries with SQL</text>
+  <text x="510" y="334" font-family="monospace" font-size="11" fill="#4ade80">✓  Handles billions of records</text>
+  <text x="510" y="352" font-family="monospace" font-size="11" fill="#4ade80">✓  Relationships (JOIN tables)</text>
+  <text x="510" y="370" font-family="monospace" font-size="11" fill="#4ade80">✓  Backups, transactions, security</text>
+
+  <text x="680" y="390" text-anchor="middle" font-family="monospace" font-size="22" font-weight="bold" fill="#a855f7">✅ RESTART = DATA SAFE</text>
+
+  <!-- VS divider -->
+  <circle cx="450" cy="235" r="24" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <text x="450" y="241" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#f1f5f9">VS</text>
+
+  <!-- Bottom analogy -->
+  <rect x="30" y="410" width="840" height="60" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="450" y="434" text-anchor="middle" font-family="monospace" font-size="12" font-weight="bold" fill="#f1f5f9">Think of it like this:</text>
+  <text x="450" y="455" text-anchor="middle" font-family="monospace" font-size="12" fill="#94a3b8">In-memory array = writing notes on a whiteboard (erased when you leave)</text>
+  <text x="450" y="472" text-anchor="middle" font-family="monospace" font-size="12" fill="#a855f7">Database = saving to an Excel file on disk (persists forever)</text>
+</svg>

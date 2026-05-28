@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="500" fill="url(#bgGrad)" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-family="monospace" font-size="20" font-weight="bold" fill="#f1f5f9">Basic SQL Queries</text>
+  <text x="450" y="58" text-anchor="middle" font-family="monospace" font-size="12" fill="#64748b">SELECT · INSERT · UPDATE · DELETE with a users table</text>
+
+  <!-- TABLE VISUAL (top center) -->
+  <rect x="290" y="72" width="320" height="120" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+  <!-- Header -->
+  <rect x="290" y="72" width="320" height="22" rx="6" fill="#334155"/>
+  <rect x="290" y="86" width="320" height="8" fill="#334155"/>
+  <text x="450" y="87" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="#f1f5f9">users table</text>
+  <text x="330" y="107" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#94a3b8">id</text>
+  <text x="390" y="107" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#94a3b8">name</text>
+  <text x="475" y="107" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#94a3b8">email</text>
+  <text x="565" y="107" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#94a3b8">age</text>
+  <!-- Rows -->
+  <line x1="290" y1="112" x2="610" y2="112" stroke="#334155" stroke-width="1"/>
+  <text x="330" y="126" text-anchor="middle" font-family="monospace" font-size="10" fill="#60a5fa">1</text>
+  <text x="390" y="126" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">Alice</text>
+  <text x="475" y="126" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">alice@x.com</text>
+  <text x="565" y="126" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">28</text>
+  <line x1="290" y1="130" x2="610" y2="130" stroke="#334155" stroke-width="1"/>
+  <text x="330" y="144" text-anchor="middle" font-family="monospace" font-size="10" fill="#60a5fa">2</text>
+  <text x="390" y="144" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">Bob</text>
+  <text x="475" y="144" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">bob@x.com</text>
+  <text x="565" y="144" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">34</text>
+  <line x1="290" y1="148" x2="610" y2="148" stroke="#334155" stroke-width="1"/>
+  <text x="330" y="162" text-anchor="middle" font-family="monospace" font-size="10" fill="#60a5fa">3</text>
+  <text x="390" y="162" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">Carol</text>
+  <text x="475" y="162" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">carol@x.com</text>
+  <text x="565" y="162" text-anchor="middle" font-family="monospace" font-size="10" fill="#e2e8f0">22</text>
+  <!-- Column lines -->
+  <line x1="354" y1="72" x2="354" y2="192" stroke="#334155" stroke-width="1"/>
+  <line x1="428" y1="72" x2="428" y2="192" stroke="#334155" stroke-width="1"/>
+  <line x1="540" y1="72" x2="540" y2="192" stroke="#334155" stroke-width="1"/>
+
+  <!-- SELECT block -->
+  <rect x="30" y="210" width="195" height="120" rx="8" fill="#0d2137" stroke="#3b82f6" stroke-width="1.5"/>
+  <rect x="30" y="210" width="195" height="26" rx="8" fill="#1e3a5f"/>
+  <rect x="30" y="228" width="195" height="8" fill="#1e3a5f"/>
+  <text x="128" y="228" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="#60a5fa">SELECT</text>
+  <text x="40" y="252" font-family="monospace" font-size="10" fill="#60a5fa">SELECT</text>
+  <text x="96" y="252" font-family="monospace" font-size="10" fill="#f1f5f9">* FROM users;</text>
+  <text x="40" y="268" font-family="monospace" font-size="10" fill="#64748b">-- get all rows</text>
+  <line x1="40" y1="276" x2="215" y2="276" stroke="#1e3a5f" stroke-width="1"/>
+  <text x="40" y="292" font-family="monospace" font-size="10" fill="#60a5fa">SELECT</text>
+  <text x="96" y="292" font-family="monospace" font-size="10" fill="#f1f5f9">name FROM users</text>
+  <text x="40" y="307" font-family="monospace" font-size="10" fill="#f1f5f9">WHERE age &gt; 25;</text>
+  <text x="40" y="322" font-family="monospace" font-size="10" fill="#64748b">-- filtered rows</text>
+
+  <!-- INSERT block -->
+  <rect x="240" y="210" width="195" height="120" rx="8" fill="#052e16" stroke="#22c55e" stroke-width="1.5"/>
+  <rect x="240" y="210" width="195" height="26" rx="8" fill="#14532d"/>
+  <rect x="240" y="228" width="195" height="8" fill="#14532d"/>
+  <text x="338" y="228" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="#4ade80">INSERT</text>
+  <text x="250" y="252" font-family="monospace" font-size="10" fill="#4ade80">INSERT INTO</text>
+  <text x="250" y="265" font-family="monospace" font-size="10" fill="#f1f5f9">users (name, email, age)</text>
+  <text x="250" y="278" font-family="monospace" font-size="10" fill="#4ade80">VALUES</text>
+  <text x="250" y="291" font-family="monospace" font-size="10" fill="#f1f5f9">('Dave', 'dav@x.com', 30);</text>
+  <line x1="250" y1="300" x2="425" y2="300" stroke="#14532d" stroke-width="1"/>
+  <text x="338" y="316" text-anchor="middle" font-family="monospace" font-size="9" fill="#86efac">→ adds new row to table</text>
+  <text x="338" y="328" text-anchor="middle" font-family="monospace" font-size="9" fill="#64748b">id is auto-generated</text>
+
+  <!-- UPDATE block -->
+  <rect x="450" y="210" width="195" height="120" rx="8" fill="#1c1402" stroke="#eab308" stroke-width="1.5"/>
+  <rect x="450" y="210" width="195" height="26" rx="8" fill="#422006"/>
+  <rect x="450" y="228" width="195" height="8" fill="#422006"/>
+  <text x="548" y="228" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="#fbbf24">UPDATE</text>
+  <text x="460" y="252" font-family="monospace" font-size="10" fill="#fbbf24">UPDATE</text>
+  <text x="516" y="252" font-family="monospace" font-size="10" fill="#f1f5f9">users</text>
+  <text x="460" y="265" font-family="monospace" font-size="10" fill="#fbbf24">SET</text>
+  <text x="490" y="265" font-family="monospace" font-size="10" fill="#f1f5f9">age = 29</text>
+  <text x="460" y="278" font-family="monospace" font-size="10" fill="#fbbf24">WHERE</text>
+  <text x="508" y="278" font-family="monospace" font-size="10" fill="#f1f5f9">id = 1;</text>
+  <line x1="460" y1="290" x2="635" y2="290" stroke="#422006" stroke-width="1"/>
+  <text x="548" y="306" text-anchor="middle" font-family="monospace" font-size="9" fill="#fde68a">→ updates existing row</text>
+  <text x="548" y="320" text-anchor="middle" font-family="monospace" font-size="9" fill="#ef4444">WHERE is CRITICAL!</text>
+
+  <!-- DELETE block -->
+  <rect x="660" y="210" width="210" height="120" rx="8" fill="#1f0404" stroke="#ef4444" stroke-width="1.5"/>
+  <rect x="660" y="210" width="210" height="26" rx="8" fill="#450a0a"/>
+  <rect x="660" y="228" width="210" height="8" fill="#450a0a"/>
+  <text x="765" y="228" text-anchor="middle" font-family="monospace" font-size="11" font-weight="bold" fill="#f87171">DELETE</text>
+  <text x="670" y="252" font-family="monospace" font-size="10" fill="#f87171">DELETE FROM</text>
+  <text x="670" y="265" font-family="monospace" font-size="10" fill="#f1f5f9">users</text>
+  <text x="670" y="278" font-family="monospace" font-size="10" fill="#f87171">WHERE</text>
+  <text x="718" y="278" font-family="monospace" font-size="10" fill="#f1f5f9">id = 3;</text>
+  <line x1="670" y1="290" x2="860" y2="290" stroke="#450a0a" stroke-width="1"/>
+  <text x="765" y="306" text-anchor="middle" font-family="monospace" font-size="9" fill="#fca5a5">→ removes a row</text>
+  <text x="765" y="320" text-anchor="middle" font-family="monospace" font-size="9" fill="#ef4444">NEVER forget WHERE!</text>
+
+  <!-- Warning Box -->
+  <rect x="30" y="345" width="840" height="55" rx="8" fill="#1f0404" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="50" y="368" font-family="monospace" font-size="13" fill="#ef4444">⚠️  DANGER ZONE:</text>
+  <text x="200" y="368" font-family="monospace" font-size="12" fill="#fca5a5">UPDATE users SET age = 99;</text>
+  <text x="460" y="368" font-family="monospace" font-size="12" fill="#f87171">← updates ALL rows (no WHERE!)</text>
+  <text x="50" y="390" font-family="monospace" font-size="12" fill="#fca5a5">DELETE FROM users;</text>
+  <text x="250" y="390" font-family="monospace" font-size="12" fill="#f87171">← deletes EVERY row in the table!</text>
+  <text x="600" y="390" font-family="monospace" font-size="11" fill="#94a3b8">Always add WHERE!</text>
+
+  <!-- WHERE clause illustration -->
+  <rect x="30" y="415" width="840" height="60" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="50" y="436" font-family="monospace" font-size="11" font-weight="bold" fill="#f1f5f9">WHERE clause breakdown:</text>
+  <text x="50" y="456" font-family="monospace" font-size="11" fill="#fbbf24">WHERE</text>
+  <text x="108" y="456" font-family="monospace" font-size="11" fill="#f1f5f9">id = 1</text>
+  <text x="200" y="456" font-family="monospace" font-size="11" fill="#64748b">|</text>
+  <text x="215" y="456" font-family="monospace" font-size="11" fill="#fbbf24">WHERE</text>
+  <text x="273" y="456" font-family="monospace" font-size="11" fill="#f1f5f9">age &gt; 25</text>
+  <text x="365" y="456" font-family="monospace" font-size="11" fill="#64748b">|</text>
+  <text x="380" y="456" font-family="monospace" font-size="11" fill="#fbbf24">WHERE</text>
+  <text x="438" y="456" font-family="monospace" font-size="11" fill="#f1f5f9">name = 'Alice'</text>
+  <text x="570" y="456" font-family="monospace" font-size="11" fill="#64748b">|</text>
+  <text x="585" y="456" font-family="monospace" font-size="11" fill="#fbbf24">WHERE</text>
+  <text x="643" y="456" font-family="monospace" font-size="11" fill="#f1f5f9">age BETWEEN 20 AND 30</text>
+  <text x="50" y="472" font-family="monospace" font-size="10" fill="#64748b">filter by exact ID</text>
+  <text x="215" y="472" font-family="monospace" font-size="10" fill="#64748b">filter by condition</text>
+  <text x="380" y="472" font-family="monospace" font-size="10" fill="#64748b">filter by string</text>
+  <text x="585" y="472" font-family="monospace" font-size="10" fill="#64748b">filter by range</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="serverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+    .arrow-lbl { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; fill: #fbbf24; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">WebSocket Upgrade &amp; Full-Duplex</text>
+  <text x="30" y="65" class="subtitle">Transitioning ephemeral HTTP client-server cycles to persistent, bidirectional full-duplex TCP channels</text>
+
+  <!-- CLIENT CARD -->
+  <g filter="url(#boxShadow)" transform="translate(40, 120)">
+    <rect width="210" height="240" rx="12" fill="url(#clientGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="210" height="6" rx="3" fill="#3b82f6" />
+    <text x="105" y="30" class="header" fill="#3b82f6" text-anchor="middle">Web Browser Client</text>
+    <text x="105" y="48" class="desc" text-anchor="middle">ws = new WebSocket()</text>
+    
+    <rect x="20" y="70" width="170" height="140" rx="8" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.1" />
+    <text x="105" y="105" class="lbl" fill="#60a5fa" text-anchor="middle">WS Socket API</text>
+    <text x="105" y="130" class="desc" fill="#93c5fd" text-anchor="middle">Sends/Receives</text>
+    <text x="105" y="145" class="desc" fill="#93c5fd" text-anchor="middle">binary/text frames</text>
+  </g>
+
+  <!-- SERVER CARD -->
+  <g filter="url(#boxShadow)" transform="translate(550, 120)">
+    <rect width="210" height="240" rx="12" fill="url(#serverGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="210" height="6" rx="3" fill="#10b981" />
+    <text x="105" y="30" class="header" fill="#10b981" text-anchor="middle">Node.js Server (ws)</text>
+    <text x="105" y="48" class="desc" text-anchor="middle">Full-Duplex TCP handler</text>
+    
+    <rect x="20" y="70" width="170" height="140" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1" stroke-opacity="0.1" />
+    <text x="105" y="105" class="lbl" fill="#34d399" text-anchor="middle">Connection Hub</text>
+    <text x="105" y="130" class="desc" fill="#a7f3d0" text-anchor="middle">Maintains active</text>
+    <text x="105" y="145" class="desc" fill="#a7f3d0" text-anchor="middle">TCP socket pool</text>
+  </g>
+
+  <!-- FLOW INTERACTION STEPS (MIDDLE) -->
+  <!-- Handshake request -->
+  <path d="M 260 160 H 540" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  <text x="400" y="150" class="arrow-lbl" text-anchor="middle">1. HTTP Upgrade Handshake (101 Switching)</text>
+
+  <!-- WS persistent channels -->
+  <path d="M 540 220 H 260" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)" fill="none" stroke-dasharray="4" />
+  <text x="400" y="210" class="lbl" fill="#38bdf8" text-anchor="middle">← 2. Client incoming data frame (Duplex)</text>
+  
+  <path d="M 260 280 H 540" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" fill="none" stroke-dasharray="4" />
+  <text x="400" y="270" class="lbl" fill="#34d399" text-anchor="middle">3. Server outgoing push frame (Duplex) →</text>
+</svg>

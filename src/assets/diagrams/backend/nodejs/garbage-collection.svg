@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="youngGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="oldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+    .arrow-lbl { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; fill: #fbbf24; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">V8 Generational Garbage Collection</text>
+  <text x="30" y="65" class="subtitle">The allocation spaces of V8 heap memory showing object promotion lifecycles and garbage collectors</text>
+
+  <!-- YOUNG GENERATION (NEW SPACE) -->
+  <g filter="url(#boxShadow)" transform="translate(40, 110)">
+    <rect width="320" height="280" rx="12" fill="url(#youngGrad)" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="320" height="6" rx="3" fill="#f59e0b" />
+    <text x="20" y="30" class="header" fill="#f59e0b">Young Generation (New Space)</text>
+    <text x="20" y="48" class="desc">Scavenger Algorithm | Fast Copying GC</text>
+
+    <!-- To / From spaces -->
+    <g transform="translate(20, 75)">
+      <rect width="130" height="150" rx="6" fill="#1b1202" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.2" />
+      <text x="65" y="25" class="lbl" fill="#fbcfe8" font-weight="bold" text-anchor="middle">FROM Space</text>
+      <text x="65" y="55" class="desc" text-anchor="middle">Active allocations</text>
+      <text x="65" y="70" class="desc" text-anchor="middle">new objects are</text>
+      <text x="65" y="85" class="desc" text-anchor="middle">placed here</text>
+    </g>
+
+    <g transform="translate(170, 75)">
+      <rect width="130" height="150" rx="6" fill="#1b1202" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.2" />
+      <text x="65" y="25" class="lbl" fill="#fbcfe8" font-weight="bold" text-anchor="middle">TO Space</text>
+      <text x="65" y="55" class="desc" text-anchor="middle">GC copy target</text>
+      <text x="65" y="70" class="desc" text-anchor="middle">surviving objects</text>
+      <text x="65" y="85" class="desc" text-anchor="middle">are moved here</text>
+    </g>
+  </g>
+
+  <!-- OLD GENERATION (OLD SPACE) -->
+  <g filter="url(#boxShadow)" transform="translate(440, 110)">
+    <rect width="320" height="280" rx="12" fill="url(#oldGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="320" height="6" rx="3" fill="#3b82f6" />
+    <text x="20" y="30" class="header" fill="#3b82f6">Old Generation (Old Space)</text>
+    <text x="20" y="48" class="desc">Mark-Sweep-Compact Algorithm | Major GC</text>
+
+    <!-- Areas -->
+    <g transform="translate(20, 75)">
+      <rect width="280" height="170" rx="8" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.2" />
+      
+      <rect x="15" y="20" width="250" height="40" rx="4" fill="#172554" />
+      <text x="25" y="43" class="lbl">Old Pointer Space (References)</text>
+      
+      <rect x="15" y="75" width="250" height="40" rx="4" fill="#172554" />
+      <text x="25" y="98" class="lbl">Old Data Space (Strings, Raw Data)</text>
+
+      <text x="140" y="145" class="desc" fill="#93c5fd" text-anchor="middle">// Objects promoted here after surviving</text>
+      <text x="140" y="157" class="desc" fill="#93c5fd" text-anchor="middle">multiple Scavenger collection sweeps</text>
+    </g>
+  </g>
+
+  <!-- PROMOTION ROUTING ARROW -->
+  <path d="M 370 240 Q 405 240, 405 200 Q 405 160, 435 160" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arrow)" fill="none" />
+  <text x="405" y="130" class="arrow-lbl" text-anchor="middle">Promotion</text>
+</svg>

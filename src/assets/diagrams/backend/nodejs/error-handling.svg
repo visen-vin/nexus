@@ -1,0 +1,110 @@
+<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc2626"/>
+      <stop offset="100%" style="stop-color:#991b1b"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669"/>
+      <stop offset="100%" style="stop-color:#047857"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed"/>
+      <stop offset="100%" style="stop-color:#5b21b6"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="900" height="520" fill="url(#bgGrad)" rx="16"/>
+  
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700" letter-spacing="0.5">Centralized Error Handling in Node.js</text>
+  <text x="450" y="58" text-anchor="middle" fill="#94a3b8" font-size="12">From route to global error handler</text>
+  
+  <!-- Error Sources (top row) -->
+  <!-- Sync Error -->
+  <rect x="40" y="90" width="150" height="70" rx="10" fill="url(#redGrad)" opacity="0.9"/>
+  <text x="115" y="120" text-anchor="middle" fill="white" font-size="13" font-weight="600">Sync Error</text>
+  <text x="115" y="140" text-anchor="middle" fill="#fecaca" font-size="11">throw new Error()</text>
+  
+  <!-- Async Error -->
+  <rect x="220" y="90" width="150" height="70" rx="10" fill="url(#redGrad)" opacity="0.9"/>
+  <text x="295" y="120" text-anchor="middle" fill="white" font-size="13" font-weight="600">Async Error</text>
+  <text x="295" y="140" text-anchor="middle" fill="#fecaca" font-size="11">async/await + try/catch</text>
+  
+  <!-- Promise Error -->
+  <rect x="400" y="90" width="150" height="70" rx="10" fill="url(#redGrad)" opacity="0.9"/>
+  <text x="475" y="120" text-anchor="middle" fill="white" font-size="13" font-weight="600">Unhandled Rejection</text>
+  <text x="475" y="140" text-anchor="middle" fill="#fecaca" font-size="11">process.on('rejection')</text>
+  
+  <!-- Uncaught Exception -->
+  <rect x="580" y="90" width="170" height="70" rx="10" fill="url(#redGrad)" opacity="0.9"/>
+  <text x="665" y="115" text-anchor="middle" fill="white" font-size="13" font-weight="600">Uncaught Exception</text>
+  <text x="665" y="135" text-anchor="middle" fill="#fecaca" font-size="11">process.on(</text>
+  <text x="665" y="150" text-anchor="middle" fill="#fecaca" font-size="11">'uncaughtException')</text>
+  
+  <!-- Arrow lines down to middleware box -->
+  <line x1="115" y1="160" x2="115" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="295" y1="160" x2="295" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="475" y1="160" x2="475" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="665" y1="160" x2="665" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3"/>
+  
+  <!-- Horizontal line -->
+  <line x1="115" y1="195" x2="665" y2="195" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="390" y1="195" x2="390" y2="230" stroke="#64748b" stroke-width="2" stroke-dasharray="4,3"/>
+  <polygon points="385,226 395,226 390,234" fill="#64748b"/>
+  
+  <!-- Express Error Middleware Box -->
+  <rect x="220" y="234" width="340" height="80" rx="12" fill="url(#purpleGrad)"/>
+  <rect x="220" y="234" width="340" height="80" rx="12" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="390" y="262" text-anchor="middle" fill="white" font-size="14" font-weight="700">Express Error Middleware</text>
+  <text x="390" y="280" text-anchor="middle" fill="#ddd6fe" font-size="11">app.use((err, req, res, next) =&gt; { ... })</text>
+  <text x="390" y="297" text-anchor="middle" fill="#ddd6fe" font-size="11">4 arguments = error handler signature</text>
+  
+  <!-- Arrow down -->
+  <line x1="390" y1="314" x2="390" y2="348" stroke="#64748b" stroke-width="2"/>
+  <polygon points="385,344 395,344 390,352" fill="#64748b"/>
+  
+  <!-- Error Handler Logic -->
+  <rect x="150" y="352" width="480" height="90" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="390" y="375" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="600">Centralized Error Handler Logic</text>
+  
+  <!-- Operational vs Programmer error -->
+  <rect x="165" y="385" width="205" height="45" rx="8" fill="url(#blueGrad)" opacity="0.8"/>
+  <text x="267" y="404" text-anchor="middle" fill="white" font-size="11" font-weight="600">Operational Error</text>
+  <text x="267" y="421" text-anchor="middle" fill="#bfdbfe" font-size="10">isOperational → 400/404/422</text>
+  
+  <rect x="390" y="385" width="225" height="45" rx="8" fill="#b91c1c" opacity="0.8"/>
+  <text x="502" y="404" text-anchor="middle" fill="white" font-size="11" font-weight="600">Programmer Error</text>
+  <text x="502" y="421" text-anchor="middle" fill="#fecaca" font-size="10">!isOperational → 500 + process.exit(1)</text>
+  
+  <!-- Outputs -->
+  <rect x="60" y="470" width="240" height="38" rx="8" fill="url(#greenGrad)" opacity="0.85"/>
+  <text x="180" y="494" text-anchor="middle" fill="white" font-size="12" font-weight="600">🌐 JSON Error Response to Client</text>
+  
+  <rect x="320" y="470" width="200" height="38" rx="8" fill="#374151" stroke="#6b7280" stroke-width="1"/>
+  <text x="420" y="494" text-anchor="middle" fill="#d1d5db" font-size="12" font-weight="600">📝 Log to Winston/Pino</text>
+  
+  <rect x="540" y="470" width="200" height="38" rx="8" fill="#374151" stroke="#6b7280" stroke-width="1"/>
+  <text x="640" y="494" text-anchor="middle" fill="#d1d5db" font-size="12" font-weight="600">🔔 Alert via Sentry/PagerDuty</text>
+  
+  <!-- Arrows to outputs -->
+  <line x1="267" y1="430" x2="180" y2="470" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="390" y1="442" x2="420" y2="470" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="502" y1="430" x2="640" y2="470" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  
+  <!-- Filter icon -->
+  <filter id="glow2"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</svg>

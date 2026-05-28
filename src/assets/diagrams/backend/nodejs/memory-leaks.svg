@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="gcRootGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="leakGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#7f1d1d" stop-opacity="0.05" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+    .arrow-lbl { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; fill: #ef4444; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Retained Reference Leak Path</text>
+  <text x="30" y="65" class="subtitle">Understand how an active GC Root holds a closure or global reference to obsolete data, blocking garbage collection</text>
+
+  <!-- ACTIVE GC ROOT CARD (LEFT) -->
+  <g filter="url(#boxShadow)" transform="translate(40, 130)">
+    <rect width="210" height="200" rx="12" fill="url(#gcRootGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="210" height="6" rx="3" fill="#3b82f6" />
+    <text x="105" y="30" class="header" fill="#3b82f6" text-anchor="middle">Active GC Root</text>
+    <text x="105" y="48" class="desc" text-anchor="middle">Always Reachable</text>
+
+    <!-- Inside structures -->
+    <rect x="15" y="70" width="180" height="110" rx="6" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.1" />
+    <text x="105" y="100" class="lbl" fill="#60a5fa" font-weight="bold" text-anchor="middle">Global Context</text>
+    <text x="105" y="125" class="desc" fill="#93c5fd" text-anchor="middle">process.env | globalThis</text>
+    <text x="105" y="145" class="desc" fill="#93c5fd" text-anchor="middle">or static Event Listeners</text>
+  </g>
+
+  <!-- RETAINED CLOSURE / CACHE MIDDLEWARE (MIDDLE) -->
+  <g filter="url(#boxShadow)" transform="translate(300, 130)">
+    <rect width="200" height="200" rx="10" fill="url(#gcRootGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <text x="100" y="30" class="header" fill="#60a5fa" text-anchor="middle">Retainer Reference</text>
+    <text x="100" y="48" class="desc" text-anchor="middle">Unintentional closure/map</text>
+    
+    <rect x="15" y="70" width="170" height="110" rx="6" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.1" />
+    <text x="100" y="100" class="lbl" font-family="monospace" fill="#60a5fa" text-anchor="middle">userCache = {}</text>
+    <text x="100" y="125" class="desc" fill="#93c5fd" text-anchor="middle">Keeps expanding on</text>
+    <text x="100" y="140" class="desc" fill="#93c5fd" text-anchor="middle">every HTTP request</text>
+  </g>
+
+  <!-- DEAD OBJECT / MEMORY LEAK (RIGHT) -->
+  <g filter="url(#boxShadow)" transform="translate(550, 130)">
+    <rect width="210" height="200" rx="12" fill="url(#leakGrad)" stroke="#ef4444" stroke-width="1.5" stroke-opacity="0.4" />
+    <rect width="210" height="6" rx="3" fill="#ef4444" />
+    <text x="105" y="30" class="header" fill="#ef4444" text-anchor="middle">Memory Leak Target</text>
+    <text x="105" y="48" class="desc" text-anchor="middle">Trapped &amp; Un-collectable</text>
+    
+    <rect x="15" y="70" width="180" height="110" rx="8" fill="#2d060b" stroke="#ef4444" stroke-width="1" stroke-opacity="0.1" />
+    <text x="105" y="105" class="lbl" fill="#fca5a5" font-family="monospace" text-anchor="middle">requestContext</text>
+    <text x="105" y="130" class="desc" fill="#fbcfe8" text-anchor="middle">Wasted RAM Heap</text>
+    <text x="105" y="145" class="desc" fill="#fbcfe8" text-anchor="middle">leads to heap crash</text>
+  </g>
+
+  <!-- CONNECTION PATHS -->
+  <path d="M 250 230 H 300" stroke="#3b82f6" stroke-width="2.5" marker-end="url(#arrow)" fill="none" />
+  
+  <path d="M 500 230 H 550" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrow)" fill="none" />
+  <text x="525" y="215" class="arrow-lbl" text-anchor="middle">retains</text>
+</svg>

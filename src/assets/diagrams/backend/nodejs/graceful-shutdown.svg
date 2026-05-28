@@ -1,0 +1,109 @@
+<svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#0c1a2e"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d9488"/>
+      <stop offset="100%" style="stop-color:#0f766e"/>
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc2626"/>
+      <stop offset="100%" style="stop-color:#991b1b"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669"/>
+      <stop offset="100%" style="stop-color:#047857"/>
+    </linearGradient>
+    <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d97706"/>
+      <stop offset="100%" style="stop-color:#b45309"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="url(#bgGrad)" rx="16"/>
+  
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700">Node.js Graceful Shutdown Sequence</text>
+  <text x="450" y="58" text-anchor="middle" fill="#94a3b8" font-size="12">SIGTERM → Drain → Close → Exit</text>
+
+  <!-- Timeline bar -->
+  <line x1="60" y1="100" x2="840" y2="100" stroke="#334155" stroke-width="2"/>
+  
+  <!-- Step 1: Signal Received -->
+  <circle cx="100" cy="100" r="12" fill="url(#yellowGrad)"/>
+  <text x="100" y="105" text-anchor="middle" fill="white" font-size="10" font-weight="700">1</text>
+  <rect x="40" y="120" width="160" height="80" rx="10" fill="#1e293b" stroke="#d97706" stroke-width="1.5"/>
+  <text x="120" y="145" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">SIGTERM / SIGINT</text>
+  <text x="120" y="163" text-anchor="middle" fill="#94a3b8" font-size="10">process.on('SIGTERM',</text>
+  <text x="120" y="178" text-anchor="middle" fill="#94a3b8" font-size="10">() =&gt; shutdown())</text>
+  <text x="120" y="193" text-anchor="middle" fill="#64748b" font-size="9">Kubernetes / PM2 sends this</text>
+  
+  <!-- Arrow -->
+  <line x1="200" y1="100" x2="260" y2="100" stroke="#475569" stroke-width="2"/>
+  <polygon points="256,95 266,100 256,105" fill="#475569"/>
+  
+  <!-- Step 2: Stop Accepting -->
+  <circle cx="300" cy="100" r="12" fill="url(#redGrad)"/>
+  <text x="300" y="105" text-anchor="middle" fill="white" font-size="10" font-weight="700">2</text>
+  <rect x="240" y="120" width="160" height="80" rx="10" fill="#1e293b" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="320" y="145" text-anchor="middle" fill="#f87171" font-size="12" font-weight="700">Stop Accepting</text>
+  <text x="320" y="163" text-anchor="middle" fill="#94a3b8" font-size="10">server.close()</text>
+  <text x="320" y="178" text-anchor="middle" fill="#94a3b8" font-size="10">No new connections</text>
+  <text x="320" y="193" text-anchor="middle" fill="#64748b" font-size="9">TCP socket stays open</text>
+  
+  <!-- Arrow -->
+  <line x1="400" y1="100" x2="460" y2="100" stroke="#475569" stroke-width="2"/>
+  <polygon points="456,95 466,100 456,105" fill="#475569"/>
+  
+  <!-- Step 3: Drain In-Flight -->
+  <circle cx="500" cy="100" r="12" fill="url(#tealGrad)"/>
+  <text x="500" y="105" text-anchor="middle" fill="white" font-size="10" font-weight="700">3</text>
+  <rect x="440" y="120" width="160" height="80" rx="10" fill="#1e293b" stroke="#0d9488" stroke-width="1.5"/>
+  <text x="520" y="145" text-anchor="middle" fill="#5eead4" font-size="12" font-weight="700">Drain In-Flight</text>
+  <text x="520" y="163" text-anchor="middle" fill="#94a3b8" font-size="10">Finish active requests</text>
+  <text x="520" y="178" text-anchor="middle" fill="#94a3b8" font-size="10">Flush DB write queues</text>
+  <text x="520" y="193" text-anchor="middle" fill="#64748b" font-size="9">Timeout = 10–30 seconds</text>
+  
+  <!-- Arrow -->
+  <line x1="600" y1="100" x2="660" y2="100" stroke="#475569" stroke-width="2"/>
+  <polygon points="656,95 666,100 656,105" fill="#475569"/>
+  
+  <!-- Step 4: Close Resources -->
+  <circle cx="700" cy="100" r="12" fill="#7c3aed"/>
+  <text x="700" y="105" text-anchor="middle" fill="white" font-size="10" font-weight="700">4</text>
+  <rect x="640" y="120" width="160" height="80" rx="10" fill="#1e293b" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="720" y="145" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="700">Close Resources</text>
+  <text x="720" y="163" text-anchor="middle" fill="#94a3b8" font-size="10">DB pool.end()</text>
+  <text x="720" y="178" text-anchor="middle" fill="#94a3b8" font-size="10">Redis client.quit()</text>
+  <text x="720" y="193" text-anchor="middle" fill="#64748b" font-size="9">Release all connections</text>
+
+  <!-- Step 5: Exit -->
+  <circle cx="840" cy="100" r="12" fill="url(#greenGrad)"/>
+  <text x="840" y="105" text-anchor="middle" fill="white" font-size="10" font-weight="700">5</text>
+
+  <!-- Code Example -->
+  <rect x="60" y="220" width="780" height="200" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+  <text x="80" y="248" fill="#94a3b8" font-size="11" font-weight="600">Graceful Shutdown Pattern</text>
+  
+  <text x="80" y="272" fill="#7c3aed" font-size="11">const</text>
+  <text x="120" y="272" fill="#e2e8f0" font-size="11"> shutdown = async () =&gt; {'{'}</text>
+  
+  <text x="100" y="292" fill="#475569" font-size="11">// 1. Signal health check to return 503 (removes from load balancer)</text>
+  <text x="100" y="310" fill="#e2e8f0" font-size="11">isShuttingDown = true;</text>
+  
+  <text x="100" y="330" fill="#475569" font-size="11">// 2. Stop accepting new HTTP connections</text>
+  <text x="100" y="348" fill="#e2e8f0" font-size="11">await server.close();</text>
+  
+  <text x="100" y="368" fill="#475569" font-size="11">// 3. Close DB pool and cache clients</text>
+  <text x="100" y="386" fill="#e2e8f0" font-size="11">await Promise.all([db.pool.end(), redis.quit()]);</text>
+  
+  <text x="80" y="406" fill="#e2e8f0" font-size="11">{'}'}</text>
+  
+  <!-- Force kill note -->
+  <rect x="60" y="435" width="780" height="60" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="450" y="460" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">⚠ Force Kill Safety Net</text>
+  <text x="450" y="480" text-anchor="middle" fill="#94a3b8" font-size="11">setTimeout(() =&gt; process.exit(1), 30_000) — If drain takes too long, force exit to avoid hanging pods</text>
+</svg>

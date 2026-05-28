@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="readGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="writeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+    .state-badge { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: bold; fill: #ffffff; }
+    .code { font-family: 'Fira Code', 'Courier New', monospace; font-size: 10px; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Readable &amp; Writable Stream States</text>
+  <text x="30" y="65" class="subtitle">Decoupling internal state transitions, event bindings, and read/write buffer mechanics</text>
+
+  <!-- LEFT CARD: READABLE STATE MACHINE -->
+  <g filter="url(#boxShadow)" transform="translate(30, 110)">
+    <rect width="340" height="290" rx="12" fill="url(#readGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="340" height="6" rx="3" fill="#3b82f6" />
+    <text x="20" y="30" class="header" fill="#3b82f6">Readable Stream Mechanics</text>
+    
+    <rect x="15" y="55" width="310" height="215" rx="8" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.1" />
+    
+    <!-- Modes -->
+    <text x="25" y="80" class="lbl" font-weight="bold">Operating Modes:</text>
+    
+    <g transform="translate(25, 95)">
+      <rect width="120" height="30" rx="4" fill="#1e3a8a" />
+      <text x="60" y="19" class="state-badge" text-anchor="middle">Flowing Mode</text>
+      <text x="60" y="42" class="desc" fill="#93c5fd" text-anchor="middle">emits "data" events</text>
+    </g>
+
+    <g transform="translate(165, 95)">
+      <rect width="120" height="30" rx="4" fill="#1e293b" />
+      <text x="60" y="19" class="state-badge" fill="#94a3b8" text-anchor="middle">Paused Mode</text>
+      <text x="60" y="42" class="desc" text-anchor="middle">must call read()</text>
+    </g>
+
+    <!-- Key events -->
+    <text x="25" y="170" class="lbl" font-weight="bold">Core Emitted Events:</text>
+    <text x="25" y="192" class="code" fill="#60a5fa">.on("data", chunk => {}) <tspan fill="#64748b">// receives data</tspan></text>
+    <text x="25" y="212" class="code" fill="#60a5fa">.on("end", () => {}) <tspan fill="#64748b">// stream completed</tspan></text>
+    <text x="25" y="232" class="code" fill="#60a5fa">.on("error", err => {}) <tspan fill="#64748b">// lifecycle failure</tspan></text>
+  </g>
+
+  <!-- RIGHT CARD: WRITABLE STATE MACHINE -->
+  <g filter="url(#boxShadow)" transform="translate(430, 110)">
+    <rect width="340" height="290" rx="12" fill="url(#writeGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="340" height="6" rx="3" fill="#10b981" />
+    <text x="20" y="30" class="header" fill="#10b981">Writable Stream Mechanics</text>
+    
+    <rect x="15" y="55" width="310" height="215" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1" stroke-opacity="0.1" />
+
+    <!-- Methods -->
+    <text x="25" y="80" class="lbl" font-weight="bold">Core Write Methods:</text>
+    <text x="25" y="102" class="code" fill="#34d399">.write(chunk) <tspan fill="#059669">// send data, returns boolean</tspan></text>
+    <text x="25" y="122" class="code" fill="#34d399">.end(chunk) <tspan fill="#059669">// closes stream and flushes</tspan></text>
+
+    <!-- Key events -->
+    <text x="25" y="165" class="lbl" font-weight="bold">Core Emitted Events:</text>
+    <text x="25" y="187" class="code" fill="#34d399">.on("drain", () => {}) <tspan fill="#059669">// write buffer emptied</tspan></text>
+    <text x="25" y="207" class="code" fill="#34d399">.on("finish", () => {}) <tspan fill="#059669">// closed and fully flushed</tspan></text>
+    <text x="25" y="227" class="code" fill="#34d399">.on("error", err => {}) <tspan fill="#059669">// lifecycle failure</tspan></text>
+  </g>
+
+  <!-- MID LINK -->
+  <path d="M 370 250 H 430" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  <circle cx="370" cy="250" r="4" fill="#f59e0b" />
+</svg>

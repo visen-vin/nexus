@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="emitterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#7e22ce" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="listenerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+    .arrow-lbl { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; fill: #a855f7; }
+    .code { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #c084fc; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">EventEmitter Pattern &amp; Internals</text>
+  <text x="30" y="65" class="subtitle">Understand event binding, internal listener arrays, synchronous dispatch, and memory safety limits</text>
+
+  <!-- LEFT CARD: THE EMITTER INSTANCE -->
+  <g filter="url(#boxShadow)" transform="translate(40, 110)">
+    <rect width="320" height="280" rx="12" fill="url(#emitterGrad)" stroke="#a855f7" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="320" height="6" rx="3" fill="#a855f7" />
+    <text x="20" y="30" class="header" fill="#a855f7">EventEmitter Instance</text>
+    <text x="20" y="48" class="desc">Publisher Core</text>
+
+    <!-- Inside structures -->
+    <g transform="translate(15, 70)">
+      <rect width="290" height="185" rx="8" fill="#120c1a" stroke="#a855f7" stroke-width="1" stroke-opacity="0.1" />
+      <text x="145" y="25" class="header" fill="#c084fc" font-size="13" text-anchor="middle">Internal Listeners Map</text>
+      
+      <!-- Key Value table -->
+      <rect x="15" y="45" width="260" height="120" rx="4" fill="#09050d" />
+      
+      <text x="30" y="70" class="code">"data" :</text>
+      <text x="130" y="70" class="lbl" fill="#a855f7">[ Callback1, Callback2 ]</text>
+      
+      <text x="30" y="105" class="code">"error" :</text>
+      <text x="130" y="105" class="lbl" fill="#a855f7">[ ErrorHandler1 ]</text>
+      
+      <line x1="15" y1="125" x2="275" y2="125" stroke="#a855f7" stroke-width="1" stroke-opacity="0.2" />
+      <text x="30" y="145" class="desc" fill="#fbcfe8">Max Listeners Limit: 10 (Default)</text>
+      <text x="30" y="157" class="desc" fill="#fbcfe8">Throws warning if count exceeded</text>
+    </g>
+  </g>
+
+  <!-- RIGHT CARD: SYNCHRONOUS DISPATCH & LISTENERS -->
+  <g filter="url(#boxShadow)" transform="translate(440, 110)">
+    <rect width="320" height="280" rx="12" fill="url(#listenerGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="320" height="6" rx="3" fill="#10b981" />
+    <text x="20" y="30" class="header" fill="#10b981">Synchronous Dispatch Pipeline</text>
+    <text x="20" y="48" class="desc">Sequential Execution Loop</text>
+
+    <!-- Queue of callbacks -->
+    <g transform="translate(15, 70)">
+      <rect width="290" height="185" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1" stroke-opacity="0.1" />
+      
+      <!-- Arrow 1 to cb 1 -->
+      <rect x="20" y="30" width="250" height="35" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+      <text x="35" y="52" class="code" fill="#a7f3d0">Callback1() <tspan fill="#34d399">// Sync 1st</tspan></text>
+
+      <!-- Arrow 2 to cb 2 -->
+      <rect x="20" y="80" width="250" height="35" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+      <text x="35" y="102" class="code" fill="#a7f3d0">Callback2() <tspan fill="#34d399">// Sync 2nd</tspan></text>
+      
+      <rect x="20" y="130" width="250" height="40" rx="4" fill="#1c050a" stroke="#ef4444" stroke-width="1" />
+      <text x="30" y="146" class="desc" fill="#fca5a5" font-weight="bold">Gotcha: If Callback1 throws a fatal error,</text>
+      <text x="30" y="160" class="desc" fill="#fca5a5">Callback2 will NEVER execute!</text>
+    </g>
+  </g>
+
+  <!-- ROUTING EMIT -->
+  <path d="M 330 220 Q 380 220, 380 180 Q 380 150, 455 150" stroke="#a855f7" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  <circle cx="330" cy="220" r="4" fill="#a855f7" />
+  <text x="390" y="135" class="arrow-lbl" text-anchor="middle">emit()</text>
+</svg>

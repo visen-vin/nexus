@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="duplexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="transformGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+    .arrow-lbl { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; fill: #fbbf24; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Duplex vs. Transform Streams</text>
+  <text x="30" y="65" class="subtitle">Comparing independent read/write channel streams (Duplex) with single-pipeline modifier streams (Transform)</text>
+
+  <!-- DUPLEX STREAMS (LEFT) -->
+  <g filter="url(#boxShadow)" transform="translate(40, 110)">
+    <rect width="330" height="280" rx="12" fill="url(#duplexGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="330" height="6" rx="3" fill="#3b82f6" />
+    <text x="20" y="30" class="header" fill="#3b82f6">Duplex Stream</text>
+    <text x="20" y="48" class="desc">Two Independent Channels (Read &amp; Write)</text>
+
+    <!-- Write Channel -->
+    <g transform="translate(20, 75)">
+      <rect width="290" height="70" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.2" />
+      <text x="15" y="25" class="lbl" font-weight="bold" fill="#60a5fa">Writable Interface</text>
+      <text x="15" y="45" class="desc" fill="#93c5fd">write(chunk) → input buffer → destination socket</text>
+      <path d="M 230 35 H 270" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+    </g>
+
+    <!-- Read Channel -->
+    <g transform="translate(20, 175)">
+      <rect width="290" height="70" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.2" />
+      <text x="15" y="25" class="lbl" font-weight="bold" fill="#60a5fa">Readable Interface</text>
+      <text x="15" y="45" class="desc" fill="#93c5fd">read() ← output buffer ← incoming socket source</text>
+      <path d="M 270 35 H 230" stroke="#38bdf8" stroke-width="2" fill="none" />
+    </g>
+    <text x="165" y="260" class="desc" text-anchor="middle" font-weight="bold">// Channels do not interact inside the stream (e.g. TCP Socket)</text>
+  </g>
+
+  <!-- TRANSFORM STREAMS (RIGHT) -->
+  <g filter="url(#boxShadow)" transform="translate(430, 110)">
+    <rect width="330" height="280" rx="12" fill="url(#transformGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="330" height="6" rx="3" fill="#10b981" />
+    <text x="20" y="30" class="header" fill="#10b981">Transform Stream (e.g. gzip, cipher)</text>
+    <text x="20" y="48" class="desc">Integrated Pipeline (Data is modified on transit)</text>
+
+    <!-- Pipeline representation -->
+    <g transform="translate(20, 75)">
+      <rect width="290" height="170" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1" stroke-opacity="0.2" />
+      
+      <!-- Input -->
+      <rect x="15" y="20" width="80" height="30" rx="4" fill="#047857" />
+      <text x="55" y="39" class="lbl" font-weight="bold" text-anchor="middle">Write Input</text>
+
+      <!-- Middle transform -->
+      <rect x="110" y="70" width="70" height="40" rx="4" fill="#fbbf24" stroke="#d97706" stroke-width="1.5" />
+      <text x="145" y="94" class="lbl" font-weight="bold" fill="#000" text-anchor="middle">_transform</text>
+      
+      <!-- Output -->
+      <rect x="195" y="120" width="80" height="30" rx="4" fill="#047857" />
+      <text x="235" y="139" class="lbl" font-weight="bold" text-anchor="middle">Read Output</text>
+
+      <!-- Pipeline arrows connecting -->
+      <path d="M 75 50 C 75 90, 100 90, 105 90" stroke="#fbbf24" stroke-width="2" fill="none" />
+      <path d="M 180 90 C 185 90, 215 90, 215 120" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+    </g>
+    <text x="165" y="260" class="desc" text-anchor="middle" font-weight="bold">// Output is direct function of input (e.g. encrypting)</text>
+  </g>
+</svg>

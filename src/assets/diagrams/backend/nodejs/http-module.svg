@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="tcpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="httpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+    .arrow-lbl { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; fill: #fbbf24; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Native HTTP Module Mechanics</text>
+  <text x="30" y="65" class="subtitle">Understand how raw TCP stream buffers are parsed and mapped into high-level Request &amp; Response objects</text>
+
+  <!-- RAW TCP SOCKET INPUT (LEFT) -->
+  <g filter="url(#boxShadow)" transform="translate(40, 140)">
+    <rect width="210" height="200" rx="12" fill="url(#tcpGrad)" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="210" height="6" rx="3" fill="#f59e0b" />
+    <text x="105" y="30" class="header" fill="#f59e0b" text-anchor="middle">1. Raw TCP Socket</text>
+    <text x="105" y="48" class="desc" text-anchor="middle">Network Adapter Stream</text>
+
+    <!-- Byte buffer -->
+    <rect x="20" y="75" width="170" height="100" rx="6" fill="#1b1202" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.1" />
+    <text x="105" y="105" class="lbl" fill="#fef08a" font-family="monospace" text-anchor="middle">GET /index.html HTTP/1.1</text>
+    <text x="105" y="125" class="lbl" fill="#fef08a" font-family="monospace" text-anchor="middle">Host: localhost:3000</text>
+    <text x="105" y="150" class="desc" text-anchor="middle">// Raw Binary Bytes</text>
+  </g>
+
+  <!-- PARSING & WRAPPING LAYER (MIDDLE & RIGHT) -->
+  <g filter="url(#boxShadow)" transform="translate(370, 100)">
+    <rect width="390" height="280" rx="12" fill="url(#httpGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="390" height="6" rx="3" fill="#3b82f6" />
+    <text x="195" y="30" class="header" fill="#3b82f6" text-anchor="middle">2. Native HTTP Wrappers</text>
+    <text x="195" y="48" class="desc" text-anchor="middle">llhttp Parser &amp; Streams Binding</text>
+
+    <!-- IncomingMessage (Readable) -->
+    <g transform="translate(20, 70)">
+      <rect width="350" height="85" rx="8" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.1" />
+      <text x="15" y="25" class="lbl" font-weight="bold" fill="#60a5fa">IncomingMessage (http.IncomingMessage)</text>
+      <text x="15" y="45" class="desc" fill="#93c5fd">• Inherits from: **Readable Stream**</text>
+      <text x="15" y="60" class="desc" fill="#93c5fd">• Properties: headers, method, url, query</text>
+    </g>
+
+    <!-- ServerResponse (Writable) -->
+    <g transform="translate(20, 175)">
+      <rect width="350" height="85" rx="8" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.1" />
+      <text x="15" y="25" class="lbl" font-weight="bold" fill="#60a5fa">ServerResponse (http.ServerResponse)</text>
+      <text x="15" y="45" class="desc" fill="#93c5fd">• Inherits from: **Writable Stream**</text>
+      <text x="15" y="60" class="desc" fill="#93c5fd">• Methods: writeHead(), write(), end()</text>
+    </g>
+  </g>
+
+  <!-- CONNECTIONS -->
+  <path d="M 260 240 H 350" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arrow)" fill="none" />
+  <text x="305" y="225" class="arrow-lbl" text-anchor="middle">parsed</text>
+</svg>

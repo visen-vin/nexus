@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="workerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+    .arrow-lbl { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; fill: #38bdf8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">Cluster Scaling &amp; Load Balancing</text>
+  <text x="30" y="65" class="subtitle">Multi-core process orchestration sharing the same TCP port via Round-Robin socket allocation</text>
+
+  <!-- CLIENT REQS INLET (LEFT) -->
+  <g transform="translate(30, 180)">
+    <rect width="150" height="90" rx="8" fill="#0b0f19" stroke="#334155" />
+    <text x="75" y="30" class="header" fill="#f8fafc" text-anchor="middle">TCP Client</text>
+    <text x="75" y="50" class="desc" text-anchor="middle">Requests Flow</text>
+    <text x="75" y="70" class="lbl" fill="#38bdf8" font-weight="bold" text-anchor="middle">Port 3000</text>
+  </g>
+
+  <!-- PRIMARY LOAD BALANCER PROCESS (MIDDLE) -->
+  <g filter="url(#boxShadow)" transform="translate(230, 120)">
+    <rect width="240" height="210" rx="12" fill="url(#primaryGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="240" height="6" rx="3" fill="#3b82f6" />
+    <text x="120" y="30" class="header" fill="#3b82f6" text-anchor="middle">Primary Process</text>
+    <text x="120" y="48" class="desc" text-anchor="middle">Orchestrator &amp; Port Holder</text>
+    
+    <rect x="20" y="70" width="200" height="110" rx="6" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.1" />
+    <text x="120" y="100" class="lbl" fill="#60a5fa" font-weight="bold" text-anchor="middle">Round-Robin</text>
+    <text x="120" y="120" class="desc" fill="#93c5fd" text-anchor="middle">Distributes incoming</text>
+    <text x="120" y="135" class="desc" fill="#93c5fd" text-anchor="middle">TCP socket descriptors</text>
+    <text x="120" y="150" class="desc" fill="#93c5fd" text-anchor="middle">to child workers</text>
+  </g>
+
+  <!-- WORKERS COLUMN (RIGHT) -->
+  <!-- Worker 1 -->
+  <g filter="url(#boxShadow)" transform="translate(540, 60)">
+    <rect width="220" height="90" rx="10" fill="url(#workerGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="220" height="6" rx="3" fill="#10b981" />
+    <text x="20" y="30" class="header" fill="#10b981">Worker Process 1</text>
+    <text x="20" y="50" class="desc">V8 instance - CPU Core 1</text>
+    <text x="20" y="68" class="lbl" font-size="11" fill="#a7f3d0">Shared Port 3000 Listener</text>
+  </g>
+
+  <!-- Worker 2 -->
+  <g filter="url(#boxShadow)" transform="translate(540, 180)">
+    <rect width="220" height="90" rx="10" fill="url(#workerGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="220" height="6" rx="3" fill="#10b981" />
+    <text x="20" y="30" class="header" fill="#10b981">Worker Process 2</text>
+    <text x="20" y="50" class="desc">V8 instance - CPU Core 2</text>
+    <text x="20" y="68" class="lbl" font-size="11" fill="#a7f3d0">Shared Port 3000 Listener</text>
+  </g>
+
+  <!-- Worker 3 -->
+  <g filter="url(#boxShadow)" transform="translate(540, 300)">
+    <rect width="220" height="90" rx="10" fill="url(#workerGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="220" height="6" rx="3" fill="#10b981" />
+    <text x="20" y="30" class="header" fill="#10b981">Worker Process 3</text>
+    <text x="20" y="50" class="desc">V8 instance - CPU Core 3</text>
+    <text x="20" y="68" class="lbl" font-size="11" fill="#a7f3d0">Shared Port 3000 Listener</text>
+  </g>
+
+  <!-- CONNECTION ARROWS -->
+  <!-- Client to Primary -->
+  <path d="M 180 225 H 220" stroke="#3b82f6" stroke-width="2.5" marker-end="url(#arrow)" fill="none" />
+
+  <!-- Primary to Worker 1 -->
+  <path d="M 470 200 C 500 200, 500 110, 530 110" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  
+  <!-- Primary to Worker 2 -->
+  <path d="M 470 225 H 530" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  
+  <!-- Primary to Worker 3 -->
+  <path d="M 470 250 C 500 250, 500 340, 530 340" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+</svg>

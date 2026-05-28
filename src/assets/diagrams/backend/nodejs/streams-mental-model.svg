@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="50%" stop-color="#090d1a" />
+      <stop offset="100%" stop-color="#020308" />
+    </linearGradient>
+    <linearGradient id="sourceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="destGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.03" />
+    </linearGradient>
+    <linearGradient id="waterGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.6" />
+      <stop offset="70%" stop-color="#60a5fa" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#fb7185" stop-opacity="0.1" />
+    </linearGradient>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <drop-shadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; fill: #94a3b8; }
+    .header { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; }
+    .lbl { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #cbd5e1; }
+    .desc { font-family: 'Inter', sans-serif; font-size: 10px; fill: #64748b; }
+    .arrow-lbl { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; fill: #fb7185; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" />
+
+  <g opacity="0.02">
+    <path d="M0 50 H800 M0 100 H800 M0 150 H800 M0 200 H800 M0 250 H800 M0 300 H800 M0 350 H800 M0 400 H800" stroke="#ffffff" stroke-width="1" />
+    <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" class="title">The Stream &amp; Backpressure Model</text>
+  <text x="30" y="65" class="subtitle">Mental model showing chunks flowing through an active piping pipeline with backpressure control feedback</text>
+
+  <!-- SOURCE: READABLE STREAM -->
+  <g filter="url(#boxShadow)" transform="translate(40, 120)">
+    <rect width="210" height="250" rx="12" fill="url(#sourceGrad)" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="210" height="6" rx="3" fill="#3b82f6" />
+    <text x="105" y="30" class="header" fill="#3b82f6" text-anchor="middle">Readable Source</text>
+    <text x="105" y="48" class="desc" text-anchor="middle">(e.g. fs.createReadStream)</text>
+    
+    <rect x="20" y="70" width="170" height="150" rx="8" fill="#09132e" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.1" />
+    
+    <!-- flowing data chunks -->
+    <rect x="35" y="90" width="50" height="40" rx="4" fill="#1e2538" stroke="#60a5fa" stroke-width="1" />
+    <text x="60" y="115" class="lbl" font-size="10" text-anchor="middle">Chunk 3</text>
+
+    <rect x="105" y="90" width="50" height="40" rx="4" fill="#1e2538" stroke="#60a5fa" stroke-width="1" />
+    <text x="130" y="115" class="lbl" font-size="10" text-anchor="middle">Chunk 2</text>
+
+    <rect x="70" y="150" width="70" height="45" rx="4" fill="#1d4ed8" stroke="#3b82f6" stroke-width="1" />
+    <text x="105" y="177" class="lbl" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Flowing...</text>
+  </g>
+
+  <!-- PIPING PIPE LAYER (MIDDLE) -->
+  <g transform="translate(260, 200)">
+    <rect width="280" height="60" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <line x1="10" y1="30" x2="270" y2="30" stroke="#38bdf8" stroke-width="3" stroke-dasharray="8" />
+    <text x="140" y="20" class="lbl" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">.pipe(destination)</text>
+    <text x="140" y="45" class="desc" fill="#94a3b8" text-anchor="middle">Sequential chunk stream path</text>
+  </g>
+
+  <!-- DESTINATION: WRITABLE STREAM WITH BUFFER & BACKPRESSURE -->
+  <g filter="url(#boxShadow)" transform="translate(550, 120)">
+    <rect width="210" height="250" rx="12" fill="url(#destGrad)" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3" />
+    <rect width="210" height="6" rx="3" fill="#10b981" />
+    <text x="105" y="30" class="header" fill="#10b981" text-anchor="middle">Writable Destination</text>
+    <text x="105" y="48" class="desc" text-anchor="middle">(e.g. res / TCP socket)</text>
+    
+    <rect x="20" y="70" width="170" height="150" rx="8" fill="#022c22" stroke="#10b981" stroke-width="1" stroke-opacity="0.1" />
+
+    <!-- Water Tank for HighWaterMark Buffer -->
+    <rect x="40" y="90" width="130" height="110" rx="4" fill="#064e3b" stroke="#059669" stroke-width="1.5" />
+    <rect x="40" y="130" width="130" height="70" rx="2" fill="url(#waterGrad)" />
+    
+    <line x1="40" y1="120" x2="170" y2="120" stroke="#ef4444" stroke-width="2" stroke-dasharray="4" />
+    <text x="105" y="115" class="desc" fill="#fca5a5" font-weight="bold" text-anchor="middle">highWaterMark (16KB)</text>
+    
+    <text x="105" y="165" class="lbl" fill="#a7f3d0" text-anchor="middle">Internal Buffer</text>
+    <text x="105" y="180" class="desc" fill="#a7f3d0" text-anchor="middle">Accumulating chunks...</text>
+  </g>
+
+  <!-- BACKPRESSURE FEEDBACK LOOP (BOTTOM LINE RIGHT TO LEFT) -->
+  <path d="M 650 380 Q 405 440, 150 380" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#arrow)" fill="none" />
+  <circle cx="650" cy="380" r="4" fill="#f43f5e" />
+  <text x="400" y="405" class="arrow-lbl" text-anchor="middle">Backpressure: stop reading signal (false)</text>
+</svg>
